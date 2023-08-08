@@ -18,14 +18,14 @@ public class EmailMapper {
             EmailDataTransferObject dto = new EmailDataTransferObject();
 
             dto.setId(emailModel.getId().toString());
-            dto.setName(emailModel.getName());
-            dto.setTelephone(emailModel.getTelephone());
-            dto.setSender(emailModel.getSender());
-            dto.setRecepient(emailModel.getRecepient());
-            dto.setCarbonCopy(emailModel.getCarbonCopy());
-            dto.setSubject(emailModel.getSubject());
-            dto.setSended(emailModel.getSended().toString());
-            dto.setBody(emailModel.getBody());
+            dto.setNombre(emailModel.getNombre());
+            dto.setTelefono(emailModel.getTelefono());
+            dto.setEmisor(emailModel.getEmisor());
+            dto.setReceptor(emailModel.getReceptor());
+            dto.setCc(emailModel.getCc());
+            dto.setAsunto(emailModel.getAsunto());
+            dto.setEnviado(emailModel.getEnviado().toString());
+            dto.setTexto(emailModel.getTexto());
             dto.setError(emailModel.getError());
 
             return dto;
@@ -42,15 +42,15 @@ public class EmailMapper {
 
             if (!Helper.isEmptyString(emailCreation.getId()))
                 emailModel.setId(Helper.getLong(emailCreation.getId()));
-            emailModel.setName(emailCreation.getName());
-            emailModel.setTelephone(emailCreation.getTelephone());
-            emailModel.setSender(emailCreation.getSender());
-            emailModel.setRecepient(emailCreation.getRecepient());
-            emailModel.setCarbonCopy(emailCreation.getCarbonCopy());
-            emailModel.setSubject(emailCreation.getSubject());
-            if (!Helper.isEmptyString(emailCreation.getSended()))
-                emailModel.setSended(Boolean.parseBoolean(emailCreation.getSended()));
-            emailModel.setBody(emailCreation.getBody());
+            emailModel.setNombre(emailCreation.getNombre());
+            emailModel.setTelefono(emailCreation.getTelefono());
+            emailModel.setEmisor(emailCreation.getEmisor());
+            emailModel.setReceptor(emailCreation.getReceptor());
+            emailModel.setCc(emailCreation.getCc());
+            emailModel.setAsunto(emailCreation.getAsunto());
+            if (!Helper.isEmptyString(emailCreation.getEnviado()))
+                emailModel.setEnviado(Boolean.parseBoolean(emailCreation.getEnviado()));
+            emailModel.setTexto(emailCreation.getTexto());
             emailModel.setError(emailCreation.getError());
 
             return emailModel;

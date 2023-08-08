@@ -22,19 +22,19 @@ public class EmailServiceImplementation implements EmailServiceInterface {
     JavaMailSender javaMailSender;
 
     @Override
-    public EntityMessenger<EmailModel> sendSimpleMail(EmailModel emailModel) {
+    public EntityMessenger<EmailModel> enviarEmailSimple(EmailModel emailModel) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            String text = "\nDe: " + emailModel.getName() + "\nTelefono: " + emailModel.getTelephone() +
-                    "\nEmail: " + emailModel.getSender() + "\nConsulta: " + emailModel.getBody();
-            message.setFrom(emailModel.getSender());
-            message.setSubject(emailModel.getSubject());
+            String text = "\nDe: " + emailModel.getNombre() + "\nTelefono: " + emailModel.getTelefono() +
+                    "\nEmail: " + emailModel.getEmisor() + "\nConsulta: " + emailModel.getTexto();
+            message.setFrom(emailModel.getEmisor());
+            message.setSubject(emailModel.getAsunto());
             message.setText(text);
-            message.setTo(emailModel.getRecepient());
-            message.setCc(emailModel.getCarbonCopy());
+            message.setTo(emailModel.getReceptor());
+            message.setCc(emailModel.getCc());
             javaMailSender.send(message);
             log.info("Email enviado correctamente: {}.", message);
-            return this.insert(emailModel);
+            return this.insertar(emailModel);
         } catch (Exception e) {
             String message = "Ocurrio un error al enviar el email. Excepcion: " + e + ".";
             log.error(message);
@@ -43,86 +43,86 @@ public class EmailServiceImplementation implements EmailServiceInterface {
     }
 
     @Override
-    public EntityMessenger<EmailModel> findById(Long id) {
-        log.info("Searching for entity Email with id: {}.", id);
+    public EntityMessenger<EmailModel> buscarPorId(Long id) {
+        log.info("Buscando la entidad Email con id: {}.", id);
         Optional<EmailModel> object = emailRepository.findById(id);
         if (object.isEmpty()) {
-            String message = "No entity Email with id: " + id + " was found.";
+            String message = "No existe la entidad Email con id: " + id + ".";
             log.warn(message);
             return new EntityMessenger<EmailModel>(null, null, message, 202);
         } else {
-            String message = "One entity Email was found.";
+            String message = "Una entidad Email encontrada.";
             log.info(message);
             return new EntityMessenger<EmailModel>(object.get(), null, message, 200);
         }
     }
 
     @Override
-    public EntityMessenger<EmailModel> findAll() {
-        log.info("Searching for all entities Email.");
+    public EntityMessenger<EmailModel> buscarTodos() {
+        log.info("Buscando todas las entidades Email.");
         List<EmailModel> list = emailRepository.findAll();
         if (list.isEmpty()) {
-            String message = "No entities Email were found.";
+            String message = "No existen entidades Email.";
             log.warn(message);
             return new EntityMessenger<EmailModel>(null, null, message, 202);
         } else {
-            String message = list.size() + " entities Email were found.";
+            String message = list.size() + " entidades Email fueron encontradas.";
             log.info(message);
             return new EntityMessenger<EmailModel>(null, list, message, 200);
         }
     }
 
     @Override
-    public Long countAll() {
+    public Long contarTodos() {
         Long count = emailRepository.count();
-        log.info("Table Email possess {} entities.", count);
+        log.info("Existen {} entidades Email.", count);
         return count;
     }
 
     @Override
-    public EntityMessenger<EmailModel> insert(EmailModel newEmail) {
+    public EntityMessenger<EmailModel> insertar(EmailModel newEmail) {
         try {
-            log.info("Inserting entity Email: {}.",  newEmail);
+            log.info("Insertando entidad Email: {}.",  newEmail);
             EmailModel emailModel = emailRepository.save(newEmail);
-            String message = "The entity Email with id: " + emailModel.getId() + " was inserted correctly.";
+            String message = "La entidad Email con id: " + emailModel.getId() + " fue insertada correctamente.";
             log.info(message);
             return new EntityMessenger<EmailModel>(emailModel, null, message, 201);
         } catch (Exception e) {
-            String message = "An error occurred while trying to persisit the entity. Exception: " + e + ".";
+            String message = "Ocurrio un error al intentar persistir la entidad. Excepcion: " + e + ".";
             log.error(message);
             return new EntityMessenger<EmailModel>(null, null, message, 204);
         }
     }
 
     @Override
-    public EntityMessenger<EmailModel> update(EmailModel updateEmail) {
+    public EntityMessenger<EmailModel> actualizar(EmailModel actualizarEmail) {
         try {
-            log.info("Updating entity Email: {}.",  updateEmail);
-            if (updateEmail.getId() != null) {
-                EntityMessenger<EmailModel> existant = this.findById(updateEmail.getId());
+            log.info("Actualizando entidad Email: {}.",  actualizarEmail);
+            if (actualizarEmail.getId() != null) {
+                EntityMessenger<EmailModel> existant = this.buscarPorId(actualizarEmail.getId());
                 if (existant.getStatusCode() == 202)
                     return existant;
             }
-            EmailModel emailModel = emailRepository.save(updateEmail);
-            String message = "The entity Email with id: " + emailModel.getId() + " was updated correctly.";
+            EmailModel emailModel = emailRepository.save(actualizarEmail);
+            String message = "La entidad Email con id: " + emailModel.getId() + "fue actualizada correctamente.";
             log.info(message);
             return new EntityMessenger<EmailModel>(emailModel, null, message, 201);
         } catch (Exception e) {
-            String message = "An error occurred while trying to persisit the entity. Exception: " + e + ".";
+            String message = "Ocurrio un error al intentar persistir la entidad. Excepcion: " + e + ".";
             log.error(message);
             return new EntityMessenger<EmailModel>(null, null, message, 204);
         }
     }
 
     @Override
-    public EntityMessenger<EmailModel> destroy(Long id) {
-        log.info("Destroying entity Email with: {}.", id);
-        EntityMessenger<EmailModel> entityMessenger = this.findById(id);
+    public EntityMessenger<EmailModel> destruir(Long id) {
+        log.info("Destruyendo la entidad Email con id: {}.", id);
+        EntityMessenger<EmailModel> entityMessenger = this.buscarPorId(id);
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
         emailRepository.delete(entityMessenger.getObject());
-        String message = "The entity was destroyed.";
+        String message = "La entidad fue destruida.";
         entityMessenger.setMessage(message);
         entityMessenger.setObject(null);
         log.info(message);

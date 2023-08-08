@@ -81,7 +81,7 @@ goto error
 
 :init
 
-@REM Find the project base dir, i.e. the directory that contains the folder ".mvn".
+@REM Find the project base dir, i.e.  El directorio that contains the folder ".mvn".
 @REM Fallback to current working directory if not found.
 
 set MAVEN_PROJECTBASEDIR=%MAVEN_BASEDIR%
@@ -164,7 +164,7 @@ IF NOT %WRAPPER_SHA_256_SUM%=="" (
        "If('%WRAPPER_SHA_256_SUM%' -ne $hash){"^
        "  Write-Output 'Error: Failed to validate Maven wrapper SHA-256, your Maven wrapper might be compromised.';"^
        "  Write-Output 'Investigate or delete %WRAPPER_JAR% to attempt a clean download.';"^
-       "  Write-Output 'If you updated your Maven version, you need to update the specified wrapperSha256Sum property.';"^
+       "  Write-Output 'If you actualizard your Maven version, you need to actualizar the specified wrapperSha256Sum property.';"^
        "  exit 1;"^
        "}"^
        "}"

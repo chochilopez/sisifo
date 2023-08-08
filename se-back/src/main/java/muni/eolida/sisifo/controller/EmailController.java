@@ -29,9 +29,9 @@ public class EmailController {
     private final EmailMapper emailMapper;
 
     @PostMapping(value = "/simple")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROL_USUARIO')")
     public ResponseEntity<EmailDataTransferObject> simple(@Valid @RequestBody EmailCreation emailCreation) {
-        EntityMessenger<EmailModel> emailModelEntityMessenger = emailServiceImplementation.sendSimpleMail(emailMapper.toEntity(emailCreation));
+        EntityMessenger<EmailModel> emailModelEntityMessenger = emailServiceImplementation.enviarEmailSimple(emailMapper.toEntity(emailCreation));
         if (emailModelEntityMessenger.getStatusCode() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(emailModelEntityMessenger.getMessage())).build();
         else if (emailModelEntityMessenger.getStatusCode() == 200)
@@ -41,7 +41,7 @@ public class EmailController {
     }
 
     @GetMapping(value = "/find-by-id/{id}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
     public ResponseEntity<EmailDataTransferObject> findById(@PathVariable(name = "id") @jakarta.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<EmailModel> emailModelEntityMessenger = emailServiceImplementation.findById(id);
         if (emailModelEntityMessenger.getStatusCode() == 202)
@@ -53,7 +53,7 @@ public class EmailController {
     }
 
     @GetMapping(value = "/find-all")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
     public ResponseEntity<List<EmailDataTransferObject>> findAll() {
         EntityMessenger<EmailModel> emailModelEntityMessenger = emailServiceImplementation.findAll();
         if (emailModelEntityMessenger.getStatusCode() == 202)
@@ -70,9 +70,9 @@ public class EmailController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<EmailDataTransferObject> insert(@Valid @RequestBody EmailCreation emailCreation) {
-        EntityMessenger<EmailModel> emailModelEntityMessenger = emailServiceImplementation.insert(emailMapper.toEntity(emailCreation));
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<EmailDataTransferObject> insertar(@Valid @RequestBody EmailCreation emailCreation) {
+        EntityMessenger<EmailModel> emailModelEntityMessenger = emailServiceImplementation.insertar(emailMapper.toEntity(emailCreation));
         if (emailModelEntityMessenger.getStatusCode() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(emailModelEntityMessenger.getMessage())).build();
         else if (emailModelEntityMessenger.getStatusCode() == 201)
@@ -82,9 +82,9 @@ public class EmailController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<EmailDataTransferObject> update(@Valid @RequestBody EmailCreation emailCreation) {
-        EntityMessenger<EmailModel> emailModelEntityMessenger = emailServiceImplementation.update(emailMapper.toEntity(emailCreation));
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<EmailDataTransferObject> actualizar(@Valid @RequestBody EmailCreation emailCreation) {
+        EntityMessenger<EmailModel> emailModelEntityMessenger = emailServiceImplementation.actualizar(emailMapper.toEntity(emailCreation));
         if (emailModelEntityMessenger.getStatusCode() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(emailModelEntityMessenger.getMessage())).build();
         else if (emailModelEntityMessenger.getStatusCode() == 201)
@@ -94,7 +94,7 @@ public class EmailController {
     }
 
     @DeleteMapping(value = "/destroy/{id}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
     public ResponseEntity<String> destroy(@PathVariable(name = "id") @jakarta.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<EmailModel> emailModelEntityMessenger = emailServiceImplementation.destroy(id);
         if (emailModelEntityMessenger.getStatusCode() == 202)

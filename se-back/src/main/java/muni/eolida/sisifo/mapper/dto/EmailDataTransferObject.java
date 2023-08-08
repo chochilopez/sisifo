@@ -9,13 +9,13 @@ import java.io.Serializable;
 @Setter
 public class EmailDataTransferObject implements Serializable {
     private String id;
-    private String name;
-    private String telephone;
-    private String sender;
-    private String recepient;
-    private String carbonCopy;
-    private String subject;
-    private String sended;
-    private String body;
+    private String nombre;
+    private String telefono;
+    private String emisor;
+    private String receptor;
+    private String cc;
+    private String asunto;
+    private String enviado;
+    private String texto;
     private String error;
 }
