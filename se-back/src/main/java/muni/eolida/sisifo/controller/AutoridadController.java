@@ -84,7 +84,7 @@ public class AutoridadController {
     );
 
     Set<RolModel> rolModels = new HashSet<>();
-    Optional<RolModel> role = rolRepository.findByRole(RolEnum.ROL_USUARIO);
+    Optional<RolModel> role = rolRepository.findByRol(RolEnum.ROL_USUARIO);
     rolModels.add(role.get());
     usuarioRepository.save(user);
 
