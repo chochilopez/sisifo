@@ -10,8 +10,7 @@ import jakarta.persistence.*;
 @Setter
 @Table(name = "email")
 @EqualsAndHashCode
-public class EmailModel extends AuditoriaModel {
-
+public class EmailModel extends AbstractAuditoriaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -14,8 +14,7 @@ import jakarta.persistence.*;
 @Setter
 @Table(name = "archivo")
 @EqualsAndHashCode
-public class ArchivoModel extends AuditoriaModel {
-
+public class ArchivoModel extends AbstractAuditoriaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

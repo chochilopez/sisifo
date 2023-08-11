@@ -7,11 +7,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class ArchivoDTO implements Serializable {
+public class CalleDTO extends AbstractAuditoriaDTO implements Serializable {
     private String id;
-    private String path;
-    private String nombre;
-    private String tipo;
-    private String descripcion;
-    private String tamanio;
+    private String calle;
 }

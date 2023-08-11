@@ -12,8 +12,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "calle")
 @EqualsAndHashCode
-public class CalleModel extends AuditoriaModel {
-
+public class CalleModel extends AbstractAuditoriaModel {
       @Id
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       private Long id;

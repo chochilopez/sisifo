@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass
 @Setter
-public class AuditoriaModel {
-
+public abstract class AbstractAuditoriaModel {
       private LocalDateTime alta;
       private LocalDateTime baja;
       private LocalDateTime modificacion;

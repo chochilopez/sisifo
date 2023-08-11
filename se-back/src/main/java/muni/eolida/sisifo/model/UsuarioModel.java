@@ -12,7 +12,7 @@ import java.util.Set;
 @Setter
 @Table(name = "usuario")
 @EqualsAndHashCode
-public class UsuarioModel extends AuditoriaModel {
+public class UsuarioModel extends AbstractAuditoriaModel {
       @Id
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       private Long id;

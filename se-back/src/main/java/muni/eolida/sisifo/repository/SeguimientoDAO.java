@@ -5,5 +5,5 @@ import muni.eolida.sisifo.model.SeguimientoModel;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SeguimientoDTO extends GenericRepository<SeguimientoModel> {
+public interface SeguimientoDAO extends GenericRepository<SeguimientoModel> {
 }

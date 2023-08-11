@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class RolDataTransferObject implements Serializable {
+public class RolDTO extends AbstractAuditoriaDTO implements Serializable {
     private String id;
     private String rol;
 }

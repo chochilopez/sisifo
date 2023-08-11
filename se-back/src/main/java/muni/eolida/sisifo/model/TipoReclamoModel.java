@@ -14,8 +14,7 @@ import org.hibernate.annotations.Cascade;
 @Setter
 @Table(name = "tipo_reclamo")
 @EqualsAndHashCode
-public class TipoReclamoModel extends AuditoriaModel {
-
+public class TipoReclamoModel extends AbstractAuditoriaModel {
       @Id
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       private Long id;

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class VisitaCreation {
+public class VisitaCreation extends AbstractAuditoriaCreation {
     private String id;
     private String ip; // "190.183.122.8",
     private String hostname; // 190.183.122.8

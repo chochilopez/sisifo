@@ -5,15 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EmailCreation extends AbstractAuditoriaCreation {
-    private String id;
-    private String nombre;
-    private String telefono;
-    private String emisor;
-    private String receptor;
-    private String cc;
-    private String asunto;
-    private String enviado;
-    private String texto;
-    private String error;
+public class CalleCreation extends AbstractAuditoriaCreation {
+    private Long id;
+    private String calle;
 }

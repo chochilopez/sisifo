@@ -5,5 +5,5 @@ import muni.eolida.sisifo.model.TipoReclamoModel;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TipoReclamoDTO extends GenericRepository<TipoReclamoModel> {
+public interface TipoReclamoDAO extends GenericRepository<TipoReclamoModel> {
 }

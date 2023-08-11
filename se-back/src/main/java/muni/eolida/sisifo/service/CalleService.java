@@ -1,9 +1,7 @@
 package muni.eolida.sisifo.service;
 
-import muni.eolida.sisifo.helper.EntityMessenger;
 import muni.eolida.sisifo.helper.GenericService;
-import muni.eolida.sisifo.model.EmailModel;
+import muni.eolida.sisifo.model.CalleModel;
 
-public interface EmailService extends GenericService<EmailModel> {
-    EntityMessenger<EmailModel> enviarEmailSimple(EmailModel emailModel);
+public interface CalleService extends GenericService<CalleModel> {
 }

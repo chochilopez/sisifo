@@ -14,14 +14,16 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class CalleMapper {
+public class SeguimientoMapper {
     private final UserServiceImplementation userServiceImplementation;
     private final UsuarioMapper usuarioMapper;
 
     public EmailModel toEntity(EmailCreation emailCreation) {
         try {
-            private Long id;
-            private String calle;
+            private String id;
+            private String descripcion;
+            private String estado;
+            private String estadoReclamo;
 
             log.info("Email creation to entity.");
             EmailModel emailModel = new EmailModel();
@@ -71,7 +73,9 @@ public class CalleMapper {
     public EmailDataTransferObject toDto(EmailModel emailModel) {
         try {
             private String id;
-            private String calle;
+            private String descripcion;
+            private String estado;
+            private String estadoReclamo;
 
             log.info("Email entity to dto.");
             EmailDataTransferObject dto = new EmailDataTransferObject();

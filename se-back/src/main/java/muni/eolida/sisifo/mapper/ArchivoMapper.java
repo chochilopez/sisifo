@@ -1,4 +1,4 @@
-package com.gloit.epione.mapper;
+package muni.eolida.sisifo.mapper;
 
 import com.gloit.epione.helper.EntityMessenger;
 import com.gloit.epione.helper.Helper;
@@ -15,44 +15,19 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class LocalFileMapper {
+public class ArchivoMapper {
     private final UserServiceImplementation userServiceImplementation;
-    private final UserMapper userMapper;
-
-    public LocalFileDataTransferObject toDto(LocalFileModel localFileModel) {
-        try {
-            log.info("LocalFile entity to dto.");
-            LocalFileDataTransferObject dto = new LocalFileDataTransferObject();
-
-            dto.setId(localFileModel.getId().toString());
-            dto.setPath(localFileModel.getPath());
-            dto.setFilename(localFileModel.getFilename());
-            dto.setFiletype(localFileModel.getFiletype().toString());
-            dto.setDescription(localFileModel.getDescription());
-            dto.setFilesize(localFileModel.getFilesize());
-
-            if (localFileModel.getCreator() != null)
-                dto.setCreator(userMapper.toDto(localFileModel.getCreator()));
-            if (localFileModel.getCreated() != null)
-                dto.setCreated(Helper.localDateTimeToString(localFileModel.getCreated(), ""));
-            if (localFileModel.getModifier() != null)
-                dto.setModifier(userMapper.toDto(localFileModel.getModifier()));
-            if (localFileModel.getModified() != null)
-                dto.setModified(Helper.localDateTimeToString(localFileModel.getModified(), ""));
-            if (localFileModel.getRemover() != null)
-                dto.setRemover(userMapper.toDto(localFileModel.getRemover()));
-            if (localFileModel.getRemoved() != null)
-                dto.setRemoved(Helper.localDateTimeToString(localFileModel.getRemoved(), ""));
-
-            return dto;
-        } catch (Exception e) {
-            log.info("LocalFile entity to dto error. Exception: " + e);
-            return null;
-        }
-    }
+    private final UsuarioMapper usuarioMapper;
 
     public LocalFileModel toEntity(LocalFileCreation localFileCreation) {
         try {
+            private String id;
+            private String path;
+            private String nombre;
+            private String tipo;
+            private String descripcion;
+            private String tamanio;
+
             log.info("LocalFile creation to entity.");
             LocalFileModel localFileModel = new LocalFileModel();
 
@@ -90,6 +65,45 @@ public class LocalFileMapper {
             return localFileModel;
         } catch (Exception e) {
             log.info("LocalFile creation to entity error. Exception: " + e);
+            return null;
+        }
+    }
+
+    public LocalFileDataTransferObject toDto(LocalFileModel localFileModel) {
+        try {
+            private String id;
+            private String path;
+            private String nombre;
+            private String tipo;
+            private String descripcion;
+            private String tamanio;
+
+            log.info("LocalFile entity to dto.");
+            LocalFileDataTransferObject dto = new LocalFileDataTransferObject();
+
+            dto.setId(localFileModel.getId().toString());
+            dto.setPath(localFileModel.getPath());
+            dto.setFilename(localFileModel.getFilename());
+            dto.setFiletype(localFileModel.getFiletype().toString());
+            dto.setDescription(localFileModel.getDescription());
+            dto.setFilesize(localFileModel.getFilesize());
+
+            if (localFileModel.getCreator() != null)
+                dto.setCreator(usuarioMapper.toDto(localFileModel.getCreator()));
+            if (localFileModel.getCreated() != null)
+                dto.setCreated(Helper.localDateTimeToString(localFileModel.getCreated(), ""));
+            if (localFileModel.getModifier() != null)
+                dto.setModifier(usuarioMapper.toDto(localFileModel.getModifier()));
+            if (localFileModel.getModified() != null)
+                dto.setModified(Helper.localDateTimeToString(localFileModel.getModified(), ""));
+            if (localFileModel.getRemover() != null)
+                dto.setRemover(usuarioMapper.toDto(localFileModel.getRemover()));
+            if (localFileModel.getRemoved() != null)
+                dto.setRemoved(Helper.localDateTimeToString(localFileModel.getRemoved(), ""));
+
+            return dto;
+        } catch (Exception e) {
+            log.info("LocalFile entity to dto error. Exception: " + e);
             return null;
         }
     }

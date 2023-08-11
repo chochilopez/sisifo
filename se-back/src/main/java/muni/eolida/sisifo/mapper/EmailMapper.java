@@ -1,4 +1,4 @@
-package com.gloit.epione.mapper;
+package muni.eolida.sisifo.mapper;
 
 import com.gloit.epione.helper.EntityMessenger;
 import com.gloit.epione.helper.Helper;
@@ -16,46 +16,21 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class EmailMapper {
     private final UserServiceImplementation userServiceImplementation;
-    private final UserMapper userMapper;
-
-    public EmailDataTransferObject toDto(EmailModel emailModel) {
-        try {
-            log.info("Email entity to dto.");
-            EmailDataTransferObject dto = new EmailDataTransferObject();
-
-            dto.setId(emailModel.getId().toString());
-            dto.setName(emailModel.getName());
-            dto.setTelephone(emailModel.getTelephone());
-            dto.setSender(emailModel.getSender());
-            dto.setRecepient(emailModel.getRecepient());
-            dto.setCarbonCopy(emailModel.getCarbonCopy());
-            dto.setSubject(emailModel.getSubject());
-            dto.setSended(emailModel.getSended().toString());
-            dto.setBody(emailModel.getBody());
-            dto.setError(emailModel.getError());
-
-            if (emailModel.getCreator() != null)
-                dto.setCreator(userMapper.toDto(emailModel.getCreator()));
-            if (emailModel.getCreated() != null)
-                dto.setCreated(Helper.localDateTimeToString(emailModel.getCreated(), ""));
-            if (emailModel.getModifier() != null)
-                dto.setModifier(userMapper.toDto(emailModel.getModifier()));
-            if (emailModel.getModified() != null)
-                dto.setModified(Helper.localDateTimeToString(emailModel.getModified(), ""));
-            if (emailModel.getRemover() != null)
-                dto.setRemover(userMapper.toDto(emailModel.getRemover()));
-            if (emailModel.getRemoved() != null)
-                dto.setRemoved(Helper.localDateTimeToString(emailModel.getRemoved(), ""));
-
-            return dto;
-        } catch (Exception e) {
-            log.info("Email entity to dto error. Exception: " + e);
-            return null;
-        }
-    }
+    private final UsuarioMapper usuarioMapper;
 
     public EmailModel toEntity(EmailCreation emailCreation) {
         try {
+            private String id;
+            private String asunto;
+            private String cc;
+            private String emisor;
+            private String enviado;
+            private String error;
+            private String nombre;
+            private String receptor;
+            private String telefono;
+            private String texto;
+
             log.info("Email creation to entity.");
             EmailModel emailModel = new EmailModel();
 
@@ -97,6 +72,53 @@ public class EmailMapper {
             return emailModel;
         } catch (Exception e) {
             log.info("Email creation to entity error. Exception: " + e);
+            return null;
+        }
+    }
+
+    public EmailDataTransferObject toDto(EmailModel emailModel) {
+        try {
+            private String id;
+            private String asunto;
+            private String cc;
+            private String emisor;
+            private String enviado;
+            private String error;
+            private String nombre;
+            private String receptor;
+            private String telefono;
+            private String texto;
+
+            log.info("Email entity to dto.");
+            EmailDataTransferObject dto = new EmailDataTransferObject();
+
+            dto.setId(emailModel.getId().toString());
+            dto.setName(emailModel.getName());
+            dto.setTelephone(emailModel.getTelephone());
+            dto.setSender(emailModel.getSender());
+            dto.setRecepient(emailModel.getRecepient());
+            dto.setCarbonCopy(emailModel.getCarbonCopy());
+            dto.setSubject(emailModel.getSubject());
+            dto.setSended(emailModel.getSended().toString());
+            dto.setBody(emailModel.getBody());
+            dto.setError(emailModel.getError());
+
+            if (emailModel.getCreator() != null)
+                dto.setCreator(usuarioMapper.toDto(emailModel.getCreator()));
+            if (emailModel.getCreated() != null)
+                dto.setCreated(Helper.localDateTimeToString(emailModel.getCreated(), ""));
+            if (emailModel.getModifier() != null)
+                dto.setModifier(usuarioMapper.toDto(emailModel.getModifier()));
+            if (emailModel.getModified() != null)
+                dto.setModified(Helper.localDateTimeToString(emailModel.getModified(), ""));
+            if (emailModel.getRemover() != null)
+                dto.setRemover(usuarioMapper.toDto(emailModel.getRemover()));
+            if (emailModel.getRemoved() != null)
+                dto.setRemoved(Helper.localDateTimeToString(emailModel.getRemoved(), ""));
+
+            return dto;
+        } catch (Exception e) {
+            log.info("Email entity to dto error. Exception: " + e);
             return null;
         }
     }

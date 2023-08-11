@@ -5,7 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CalleCreation extends AbstractAuditoriaCreation {
+public class SeguimientoCreation extends AbstractAuditoriaCreation {
     private String id;
-    private String nombre;
+    private String descripcion;
+    private String estado;
+    private String estadoReclamo;
 }

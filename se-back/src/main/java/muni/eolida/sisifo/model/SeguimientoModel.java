@@ -13,8 +13,7 @@ import muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum;
 @Setter
 @Table(name = "seguimiento")
 @EqualsAndHashCode
-public class SeguimientoModel extends AuditoriaModel {
-
+public class SeguimientoModel extends AbstractAuditoriaModel {
       @Id
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       private Long id;

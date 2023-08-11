@@ -9,19 +9,35 @@ import com.gloit.epione.model.UserModel;
 import com.gloit.epione.service.implementation.UserServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import muni.eolida.sisifo.mapper.dto.ArchivoDTO;
+import muni.eolida.sisifo.mapper.dto.CalleDTO;
+import muni.eolida.sisifo.mapper.dto.TipoReclamoDTO;
+import muni.eolida.sisifo.mapper.dto.UsuarioDTO;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class CalleMapper {
+public class ReclamoMapper {
     private final UserServiceImplementation userServiceImplementation;
     private final UsuarioMapper usuarioMapper;
 
     public EmailModel toEntity(EmailCreation emailCreation) {
         try {
-            private Long id;
-            private String calle;
+            private String id;
+            private String altura;
+            private String barrio;
+            private String calleModel;
+            private String calleInterseccion;
+            private String coordinadaX;
+            private String coordinadaY;
+            private String descripcion;
+            private String entreCalle1;
+            private String entreCalle2;
+            private String imagen;
+            private String numero;
+            private String persona;
+            private String tipoReclamo;
 
             log.info("Email creation to entity.");
             EmailModel emailModel = new EmailModel();
@@ -71,7 +87,19 @@ public class CalleMapper {
     public EmailDataTransferObject toDto(EmailModel emailModel) {
         try {
             private String id;
-            private String calle;
+            private String altura;
+            private String barrio;
+            private CalleDTO calleModel;
+            private CalleDTO calleInterseccion;
+            private String coordinadaX;
+            private String coordinadaY;
+            private String descripcion;
+            private CalleDTO entreCalle1;
+            private CalleDTO entreCalle2;
+            private ArchivoDTO imagen;
+            private String numero;
+            private UsuarioDTO persona;
+            private TipoReclamoDTO tipoReclamo;
 
             log.info("Email entity to dto.");
             EmailDataTransferObject dto = new EmailDataTransferObject();

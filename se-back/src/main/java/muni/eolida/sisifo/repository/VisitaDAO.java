@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface VisitaDTO extends GenericRepository<VisitaModel> {
+public interface VisitaDAO extends GenericRepository<VisitaModel> {
     @Query(value = "SELECT * FROM visita desc limit :limit", nativeQuery = true)
     List<VisitaModel> findTopN(@Param("limit") int limit);
     @Query(value = "SELECT * FROM visita and baja is null desc limit :limit", nativeQuery = true)

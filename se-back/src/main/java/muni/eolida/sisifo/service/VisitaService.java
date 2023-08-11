@@ -5,7 +5,9 @@ import muni.eolida.sisifo.helper.GenericService;
 import muni.eolida.sisifo.model.VisitaModel;
 
 
-public interface VisitaServiceInterface extends GenericService<VisitaModel> {
+public interface VisitaService extends GenericService<VisitaModel> {
     EntityMessenger<VisitaModel> buscarTodosPorIp(String ip);
+    EntityMessenger<VisitaModel> buscarTodosPorIpConBorrados(String ip);
     EntityMessenger<VisitaModel> findTopN(int numero);
+    EntityMessenger<VisitaModel> findTopNConBorrados(int numero);
 }

@@ -1,4 +1,4 @@
-package com.gloit.epione.mapper;
+package muni.eolida.sisifo.mapper;
 
 import com.gloit.epione.helper.EntityMessenger;
 import com.gloit.epione.helper.Helper;
@@ -15,31 +15,8 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class AuthorityMapper {
+public class RolMapper {
     private final UserServiceImplementation userServiceImplementation;
-
-    public AuthorityDataTransferObject toDto(AuthorityModel authorityModel) {
-        try {
-            log.info("AuthorityModel entity to dto.");
-            AuthorityDataTransferObject dto = new AuthorityDataTransferObject();
-
-            dto.setId(authorityModel.getId().toString());
-            dto.setAuthority(authorityModel.getAuthority().toString());
-
-            if (authorityModel.getCreated() != null)
-                dto.setCreated(Helper.localDateTimeToString(authorityModel.getCreated(), ""));
-            if (authorityModel.getModified() != null)
-                dto.setModified(Helper.localDateTimeToString(authorityModel.getModified(), ""));
-            if (authorityModel.getRemoved() != null)
-                dto.setRemoved(Helper.localDateTimeToString(authorityModel.getRemoved(), ""));
-
-            return dto;
-        } catch (Exception e) {
-            log.info("AuthorityModel entity to dto error. Exception: " + e);
-            return null;
-        }
-
-    }
 
     public AuthorityModel toEntity(AuthorityCreation authorityCreation) {
         try {
@@ -78,5 +55,31 @@ public class AuthorityMapper {
             log.info("AuthorityModel creation to entity error. Exception: " + e);
             return null;
         }
+    }
+
+    public AuthorityDataTransferObject toDto(AuthorityModel authorityModel) {
+        try {
+            private String id;
+            private String rol;
+
+            log.info("AuthorityModel entity to dto.");
+            AuthorityDataTransferObject dto = new AuthorityDataTransferObject();
+
+            dto.setId(authorityModel.getId().toString());
+            dto.setAuthority(authorityModel.getAuthority().toString());
+
+            if (authorityModel.getCreated() != null)
+                dto.setCreated(Helper.localDateTimeToString(authorityModel.getCreated(), ""));
+            if (authorityModel.getModified() != null)
+                dto.setModified(Helper.localDateTimeToString(authorityModel.getModified(), ""));
+            if (authorityModel.getRemoved() != null)
+                dto.setRemoved(Helper.localDateTimeToString(authorityModel.getRemoved(), ""));
+
+            return dto;
+        } catch (Exception e) {
+            log.info("AuthorityModel entity to dto error. Exception: " + e);
+            return null;
+        }
+
     }
 }

@@ -10,8 +10,7 @@ import muni.eolida.sisifo.model.enums.RolEnum;
 @Setter
 @Table(name = "rol")
 @EqualsAndHashCode
-public class RolModel extends AuditoriaModel {
-
+public class RolModel extends AbstractAuditoriaModel {
       @Id
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       private Long id;

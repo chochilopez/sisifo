@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ArchivoDTO extends GenericRepository<ArchivoModel> {
+public interface ArchivoDAO extends GenericRepository<ArchivoModel> {
     List<ArchivoModel> findAllByTipo(TipoArchivoEnum tipo);
     List<ArchivoModel> findAllByTipoAndBajaIsNull(TipoArchivoEnum tipo);
     Long countAllByTipo(TipoArchivoEnum tipo);

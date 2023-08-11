@@ -5,5 +5,5 @@ import muni.eolida.sisifo.model.EmailModel;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmailDTO extends GenericRepository<EmailModel> {
+public interface EmailDAO extends GenericRepository<EmailModel> {
 }

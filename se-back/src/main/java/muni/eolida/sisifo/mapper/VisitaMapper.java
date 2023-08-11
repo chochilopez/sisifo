@@ -1,79 +1,55 @@
-package com.gloit.epione.mapper;
+package muni.eolida.sisifo.mapper;
 
 import com.gloit.epione.helper.EntityMessenger;
 import com.gloit.epione.helper.Helper;
 import com.gloit.epione.mapper.creation.VisitCreation;
 import com.gloit.epione.mapper.dto.VisitDataTransferObject;
-import com.gloit.epione.model.VisitModel;
-import com.gloit.epione.model.LocalFileModel;
 import com.gloit.epione.model.UserModel;
+import com.gloit.epione.model.VisitModel;
 import com.gloit.epione.service.implementation.LocalFileServiceImplementation;
 import com.gloit.epione.service.implementation.UserServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import muni.eolida.sisifo.mapper.dto.UsuarioDTO;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class VisitMapper {
+public class VisitaMapper {
     private final UserServiceImplementation userServiceImplementation;
     private final LocalFileServiceImplementation localFileServiceImplementation;
-    private final UserMapper userMapper;
-
-    public VisitDataTransferObject toDto(VisitModel visitModel) {
-        try {
-            log.info("Visit entity to dto.");
-            VisitDataTransferObject dto = new VisitDataTransferObject();
-
-            dto.setId(visitModel.getId().toString());
-            dto.setIp(visitModel.getIp());
-            dto.setHostname(visitModel.getHostname());
-            dto.setContinent_code(visitModel.getContinent_code());
-            dto.setContinent_name(visitModel.getContinent_name());
-            dto.setCountry_code2(visitModel.getCountry_code2());
-            dto.setCountry_code3(visitModel.getCountry_code3());
-            dto.setCountry_name(visitModel.getCountry_name());
-            dto.setCountry_capital(visitModel.getCountry_capital());
-            dto.setState_prov(visitModel.getState_prov());
-            dto.setDistrict(visitModel.getDistrict());
-            dto.setCity(visitModel.getCity());
-            dto.setZipcode(visitModel.getZipcode());
-            dto.setLatitude(visitModel.getLatitude());
-            dto.setLongitude(visitModel.getLongitude());
-            dto.setIs_eu(visitModel.getIs_eu());
-            dto.setCalling_code(visitModel.getCalling_code());
-            dto.setCountry_tld(visitModel.getCountry_tld());
-            dto.setLanguages(visitModel.getLanguages());
-            dto.setCountry_flag(visitModel.getCountry_flag());
-            dto.setIsp(visitModel.getIsp());
-            dto.setConnection_type(visitModel.getConnection_type());
-            dto.setOrganization(visitModel.getOrganization());
-            dto.setAsn(visitModel.getAsn());
-            dto.setGeoname_id(visitModel.getGeoname_id());
-
-            if (visitModel.getCreator() != null)
-                dto.setCreator(userMapper.toDto(visitModel.getCreator()));
-            if (visitModel.getCreated() != null)
-                dto.setCreated(Helper.localDateTimeToString(visitModel.getCreated(), ""));
-            if (visitModel.getModifier() != null)
-                dto.setModifier(userMapper.toDto(visitModel.getModifier()));
-            if (visitModel.getModified() != null)
-                dto.setModified(Helper.localDateTimeToString(visitModel.getModified(), ""));
-            if (visitModel.getRemover() != null)
-                dto.setRemover(userMapper.toDto(visitModel.getRemover()));
-            if (visitModel.getRemoved() != null)
-                dto.setRemoved(Helper.localDateTimeToString(visitModel.getRemoved(), ""));
-
-            return dto;
-        } catch (Exception e) {
-            log.info("Visit entity to dto error. Exception: " + e);
-            return null;
-        }
-    }
+    private final UsuarioMapper usuarioMapper;
 
     public VisitModel toEntity(VisitCreation visitCreation) {
         try {
+            private String id;
+            private String ip; // "190.183.122.8",
+            private String hostname; // 190.183.122.8
+            private String continent_code; // "SA",
+            private String continent_name; // "South America",
+            private String country_code2; // "AR",
+            private String country_code3; // "ARG",
+            private String country_name; // "Argentina",
+            private String country_capital; // "Buenos Aires",
+            private String state_prov; // "Buenos Aires Autonomous City",
+            private String district; // "Villa Ortúzar",
+            private String city; // "Buenos Aires City",
+            private String zipcode; // "1427",
+            private String latitude; // -34.58605,
+            private String longitude; // -58.47091,
+            private String is_eu; // "false",
+            private String calling_code; // "+54",
+            private String country_tld; // ".ar",
+            private String languages; // "es-AR,en,it,de,fr,gn",
+            private String country_flag; // "https://ipgeolocation.io/static/flags/ar_64.png",
+            private String isp; // "CABLE VISIÃN CRESPO SRL",
+            private String connection_type; // "",
+            private String organization; // "Gigared S.A.",
+            private String asn; // "AS20207",
+            private String geoname_id; // 3432082,
+            private String visitante;
+
             log.info("Visit creation to entity.");
             VisitModel visitModel = new VisitModel();
 
@@ -129,6 +105,84 @@ public class VisitMapper {
             return visitModel;
         } catch (Exception e) {
             log.info("Visit creation to entity error. Exception: " + e);
+            return null;
+        }
+    }
+
+    public VisitDataTransferObject toDto(VisitModel visitModel) {
+        try {
+            private String id;
+            private String ip; // "190.183.122.8",
+            private String hostname; // 190.183.122.8
+            private String continent_code; // "SA",
+            private String continent_name; // "South America",
+            private String country_code2; // "AR",
+            private String country_code3; // "ARG",
+            private String country_name; // "Argentina",
+            private String country_capital; // "Buenos Aires",
+            private String state_prov; // "Buenos Aires Autonomous City",
+            private String district; // "Villa Ortúzar",
+            private String city; // "Buenos Aires City",
+            private String zipcode; // "1427",
+            private String latitude; // -34.58605,
+            private String longitude; // -58.47091,
+            private String is_eu; // "false",
+            private String calling_code; // "+54",
+            private String country_tld; // ".ar",
+            private String languages; // "es-AR,en,it,de,fr,gn",
+            private String country_flag; // "https://ipgeolocation.io/static/flags/ar_64.png",
+            private String isp; // "CABLE VISIÃN CRESPO SRL",
+            private String connection_type; // "",
+            private String organization; // "Gigared S.A.",
+            private String asn; // "AS20207",
+            private String geoname_id; // 3432082,
+            private UsuarioDTO visitante;
+
+            log.info("Visit entity to dto.");
+            VisitDataTransferObject dto = new VisitDataTransferObject();
+
+            dto.setId(visitModel.getId().toString());
+            dto.setIp(visitModel.getIp());
+            dto.setHostname(visitModel.getHostname());
+            dto.setContinent_code(visitModel.getContinent_code());
+            dto.setContinent_name(visitModel.getContinent_name());
+            dto.setCountry_code2(visitModel.getCountry_code2());
+            dto.setCountry_code3(visitModel.getCountry_code3());
+            dto.setCountry_name(visitModel.getCountry_name());
+            dto.setCountry_capital(visitModel.getCountry_capital());
+            dto.setState_prov(visitModel.getState_prov());
+            dto.setDistrict(visitModel.getDistrict());
+            dto.setCity(visitModel.getCity());
+            dto.setZipcode(visitModel.getZipcode());
+            dto.setLatitude(visitModel.getLatitude());
+            dto.setLongitude(visitModel.getLongitude());
+            dto.setIs_eu(visitModel.getIs_eu());
+            dto.setCalling_code(visitModel.getCalling_code());
+            dto.setCountry_tld(visitModel.getCountry_tld());
+            dto.setLanguages(visitModel.getLanguages());
+            dto.setCountry_flag(visitModel.getCountry_flag());
+            dto.setIsp(visitModel.getIsp());
+            dto.setConnection_type(visitModel.getConnection_type());
+            dto.setOrganization(visitModel.getOrganization());
+            dto.setAsn(visitModel.getAsn());
+            dto.setGeoname_id(visitModel.getGeoname_id());
+
+            if (visitModel.getCreator() != null)
+                dto.setCreator(usuarioMapper.toDto(visitModel.getCreator()));
+            if (visitModel.getCreated() != null)
+                dto.setCreated(Helper.localDateTimeToString(visitModel.getCreated(), ""));
+            if (visitModel.getModifier() != null)
+                dto.setModifier(usuarioMapper.toDto(visitModel.getModifier()));
+            if (visitModel.getModified() != null)
+                dto.setModified(Helper.localDateTimeToString(visitModel.getModified(), ""));
+            if (visitModel.getRemover() != null)
+                dto.setRemover(usuarioMapper.toDto(visitModel.getRemover()));
+            if (visitModel.getRemoved() != null)
+                dto.setRemoved(Helper.localDateTimeToString(visitModel.getRemoved(), ""));
+
+            return dto;
+        } catch (Exception e) {
+            log.info("Visit entity to dto error. Exception: " + e);
             return null;
         }
     }

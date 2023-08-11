@@ -7,11 +7,19 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class CalleDTO implements Serializable {
+public class ReclamoDTO extends AbstractAuditoriaDTO implements Serializable {
     private String id;
-    private String path;
-    private String nombre;
-    private String tipo;
+    private String altura;
+    private String barrio;
+    private CalleDTO calleModel;
+    private CalleDTO calleInterseccion;
+    private String coordinadaX;
+    private String coordinadaY;
     private String descripcion;
-    private String tamanio;
+    private CalleDTO entreCalle1;
+    private CalleDTO entreCalle2;
+    private ArchivoDTO imagen;
+    private String numero;
+    private UsuarioDTO persona;
+    private TipoReclamoDTO tipoReclamo;
 }

@@ -13,8 +13,7 @@ import org.hibernate.annotations.Cascade;
 @Setter
 @Table(name = "reclamo")
 @EqualsAndHashCode
-public class ReclamoModel extends AuditoriaModel {
-
+public class ReclamoModel extends AbstractAuditoriaModel {
       @Id
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       private Long id;

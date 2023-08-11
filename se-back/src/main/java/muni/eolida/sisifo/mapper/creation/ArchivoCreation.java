@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ArchivoCreation {
+public class ArchivoCreation extends AbstractAuditoriaCreation {
     private String id;
     private String path;
     private String nombre;

@@ -9,21 +9,26 @@ import com.gloit.epione.model.UserModel;
 import com.gloit.epione.service.implementation.UserServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import muni.eolida.sisifo.mapper.dto.ReclamoDTO;
+import muni.eolida.sisifo.mapper.dto.UsuarioDTO;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class SeguimientoMapper {
+public class TipoReclamoMapper {
     private final UserServiceImplementation userServiceImplementation;
     private final UsuarioMapper usuarioMapper;
 
     public EmailModel toEntity(EmailCreation emailCreation) {
         try {
             private String id;
-            private String descripcion;
-            private String estado;
-            private String estadoReclamo;
+            private String areaResuelve;
+            private String cantidadDiasResolucion;
+            private String nombre;
+            private String tipoDocumento;
+            private String usuario;
+            private String reclamo;
 
             log.info("Email creation to entity.");
             EmailModel emailModel = new EmailModel();
@@ -73,9 +78,12 @@ public class SeguimientoMapper {
     public EmailDataTransferObject toDto(EmailModel emailModel) {
         try {
             private String id;
-            private String descripcion;
-            private String estado;
-            private String estadoReclamo;
+            private String areaResuelve;
+            private String cantidadDiasResolucion;
+            private String nombre;
+            private String tipoDocumento;
+            private UsuarioDTO usuario;
+            private ReclamoDTO reclamo;
 
             log.info("Email entity to dto.");
             EmailDataTransferObject dto = new EmailDataTransferObject();

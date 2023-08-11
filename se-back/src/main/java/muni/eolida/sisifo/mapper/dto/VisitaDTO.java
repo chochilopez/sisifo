@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class VisitaDataTransferObject implements Serializable {
+public class VisitaDTO extends AbstractAuditoriaDTO implements Serializable {
     private String id;
     private String ip; // "190.183.122.8",
     private String hostname; // 190.183.122.8
@@ -33,5 +33,5 @@ public class VisitaDataTransferObject implements Serializable {
     private String organization; // "Gigared S.A.",
     private String asn; // "AS20207",
     private String geoname_id; // 3432082,
-    private UsuarioDataTransferObject visitante;
+    private UsuarioDTO visitante;
 }

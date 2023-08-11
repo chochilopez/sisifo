@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface RolDTO extends GenericRepository<RolModel> {
+public interface RolDAO extends GenericRepository<RolModel> {
   Optional<RolModel> findByRol(RolEnum rol);
 }
