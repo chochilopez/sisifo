@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 @Setter
 @Table(name = "email")
 @EqualsAndHashCode
-public class EmailModel {
+public class EmailModel extends AuditoriaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

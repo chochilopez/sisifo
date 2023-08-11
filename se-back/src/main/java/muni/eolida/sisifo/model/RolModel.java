@@ -10,13 +10,12 @@ import muni.eolida.sisifo.model.enums.RolEnum;
 @Setter
 @Table(name = "rol")
 @EqualsAndHashCode
-public class RolModel {
+public class RolModel extends AuditoriaModel {
 
       @Id
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       private Long id;
       @Enumerated(EnumType.STRING)
-      @Column(name = "rol")
       private RolEnum rol;
 
       public RolModel(RolEnum rol) {

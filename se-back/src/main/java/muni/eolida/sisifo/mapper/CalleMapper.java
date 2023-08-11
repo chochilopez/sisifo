@@ -1,4 +1,4 @@
-package com.gloit.epione.mapper;
+package muni.eolida.sisifo.mapper;
 
 import com.gloit.epione.helper.EntityMessenger;
 import com.gloit.epione.helper.Helper;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class EmailMapper {
     private final UserServiceImplementation userServiceImplementation;
-    private final UserMapper userMapper;
+    private final UsuarioMapper usuarioMapper;
 
     public EmailDataTransferObject toDto(EmailModel emailModel) {
         try {
@@ -35,15 +35,15 @@ public class EmailMapper {
             dto.setError(emailModel.getError());
 
             if (emailModel.getCreator() != null)
-                dto.setCreator(userMapper.toDto(emailModel.getCreator()));
+                dto.setCreator(usuarioMapper.toDto(emailModel.getCreator()));
             if (emailModel.getCreated() != null)
                 dto.setCreated(Helper.localDateTimeToString(emailModel.getCreated(), ""));
             if (emailModel.getModifier() != null)
-                dto.setModifier(userMapper.toDto(emailModel.getModifier()));
+                dto.setModifier(usuarioMapper.toDto(emailModel.getModifier()));
             if (emailModel.getModified() != null)
                 dto.setModified(Helper.localDateTimeToString(emailModel.getModified(), ""));
             if (emailModel.getRemover() != null)
-                dto.setRemover(userMapper.toDto(emailModel.getRemover()));
+                dto.setRemover(usuarioMapper.toDto(emailModel.getRemover()));
             if (emailModel.getRemoved() != null)
                 dto.setRemoved(Helper.localDateTimeToString(emailModel.getRemoved(), ""));
 

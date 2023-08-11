@@ -1,13 +1,13 @@
 package muni.eolida.sisifo.repository;
 
+import muni.eolida.sisifo.helper.GenericRepository;
 import muni.eolida.sisifo.model.RolModel;
 import muni.eolida.sisifo.model.enums.RolEnum;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface RolRepository extends JpaRepository<RolModel, Long> {
+public interface RolDTO extends GenericRepository<RolModel> {
   Optional<RolModel> findByRol(RolEnum rol);
 }

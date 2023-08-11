@@ -1,106 +1,134 @@
-package muni.eolida.sisifo.mapper;
+package com.gloit.epione.mapper;
 
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
-import muni.eolida.sisifo.mapper.creation.VisitaCreation;
-import muni.eolida.sisifo.mapper.dto.VisitaDataTransferObject;
-import muni.eolida.sisifo.model.UsuarioModel;
-import muni.eolida.sisifo.model.VisitaModel;
-import muni.eolida.sisifo.service.implementation.ArchivoServiceImplementation;
+import com.gloit.epione.helper.EntityMessenger;
+import com.gloit.epione.helper.Helper;
+import com.gloit.epione.mapper.creation.VisitCreation;
+import com.gloit.epione.mapper.dto.VisitDataTransferObject;
+import com.gloit.epione.model.VisitModel;
+import com.gloit.epione.model.LocalFileModel;
+import com.gloit.epione.model.UserModel;
+import com.gloit.epione.service.implementation.LocalFileServiceImplementation;
+import com.gloit.epione.service.implementation.UserServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.service.implementation.UsuarioServiceImpletation;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class VisitaMapper {
-    private final ArchivoServiceImplementation ArchivoServiceImplementation;
-    private final UsuarioMapper usuarioMapper;
-    private final UsuarioServiceImpletation usuarioServiceImpletation;
+public class VisitMapper {
+    private final UserServiceImplementation userServiceImplementation;
+    private final LocalFileServiceImplementation localFileServiceImplementation;
+    private final UserMapper userMapper;
 
-    public VisitaDataTransferObject toDto(VisitaModel visitaModel) {
+    public VisitDataTransferObject toDto(VisitModel visitModel) {
         try {
-            log.info("Visita entity to dto.");
-            VisitaDataTransferObject dto = new VisitaDataTransferObject();
+            log.info("Visit entity to dto.");
+            VisitDataTransferObject dto = new VisitDataTransferObject();
 
-            dto.setId(visitaModel.getId().toString());
-            dto.setIp(visitaModel.getIp());
-            dto.setHostname(visitaModel.getHostname());
-            dto.setContinent_code(visitaModel.getContinent_code());
-            dto.setContinent_name(visitaModel.getContinent_name());
-            dto.setCountry_code2(visitaModel.getCountry_code2());
-            dto.setCountry_code3(visitaModel.getCountry_code3());
-            dto.setCountry_name(visitaModel.getCountry_name());
-            dto.setCountry_capital(visitaModel.getCountry_capital());
-            dto.setState_prov(visitaModel.getState_prov());
-            dto.setDistrict(visitaModel.getDistrict());
-            dto.setCity(visitaModel.getCity());
-            dto.setZipcode(visitaModel.getZipcode());
-            dto.setLatitude(visitaModel.getLatitude());
-            dto.setLongitude(visitaModel.getLongitude());
-            dto.setIs_eu(visitaModel.getIs_eu());
-            dto.setCalling_code(visitaModel.getCalling_code());
-            dto.setCountry_tld(visitaModel.getCountry_tld());
-            dto.setLanguages(visitaModel.getLanguages());
-            dto.setCountry_flag(visitaModel.getCountry_flag());
-            dto.setIsp(visitaModel.getIsp());
-            dto.setConnection_type(visitaModel.getConnection_type());
-            dto.setOrganization(visitaModel.getOrganization());
-            dto.setAsn(visitaModel.getAsn());
-            dto.setGeoname_id(visitaModel.getGeoname_id());
-            if (visitaModel.getVisitante() != null)
-                dto.setVisitante(usuarioMapper.toDto(visitaModel.getVisitante()));
+            dto.setId(visitModel.getId().toString());
+            dto.setIp(visitModel.getIp());
+            dto.setHostname(visitModel.getHostname());
+            dto.setContinent_code(visitModel.getContinent_code());
+            dto.setContinent_name(visitModel.getContinent_name());
+            dto.setCountry_code2(visitModel.getCountry_code2());
+            dto.setCountry_code3(visitModel.getCountry_code3());
+            dto.setCountry_name(visitModel.getCountry_name());
+            dto.setCountry_capital(visitModel.getCountry_capital());
+            dto.setState_prov(visitModel.getState_prov());
+            dto.setDistrict(visitModel.getDistrict());
+            dto.setCity(visitModel.getCity());
+            dto.setZipcode(visitModel.getZipcode());
+            dto.setLatitude(visitModel.getLatitude());
+            dto.setLongitude(visitModel.getLongitude());
+            dto.setIs_eu(visitModel.getIs_eu());
+            dto.setCalling_code(visitModel.getCalling_code());
+            dto.setCountry_tld(visitModel.getCountry_tld());
+            dto.setLanguages(visitModel.getLanguages());
+            dto.setCountry_flag(visitModel.getCountry_flag());
+            dto.setIsp(visitModel.getIsp());
+            dto.setConnection_type(visitModel.getConnection_type());
+            dto.setOrganization(visitModel.getOrganization());
+            dto.setAsn(visitModel.getAsn());
+            dto.setGeoname_id(visitModel.getGeoname_id());
+
+            if (visitModel.getCreator() != null)
+                dto.setCreator(userMapper.toDto(visitModel.getCreator()));
+            if (visitModel.getCreated() != null)
+                dto.setCreated(Helper.localDateTimeToString(visitModel.getCreated(), ""));
+            if (visitModel.getModifier() != null)
+                dto.setModifier(userMapper.toDto(visitModel.getModifier()));
+            if (visitModel.getModified() != null)
+                dto.setModified(Helper.localDateTimeToString(visitModel.getModified(), ""));
+            if (visitModel.getRemover() != null)
+                dto.setRemover(userMapper.toDto(visitModel.getRemover()));
+            if (visitModel.getRemoved() != null)
+                dto.setRemoved(Helper.localDateTimeToString(visitModel.getRemoved(), ""));
 
             return dto;
         } catch (Exception e) {
-            log.info("Visita entity to dto error. Exception: " + e);
+            log.info("Visit entity to dto error. Exception: " + e);
             return null;
         }
     }
 
-    public VisitaModel toEntity(VisitaCreation visitaCreation) {
+    public VisitModel toEntity(VisitCreation visitCreation) {
         try {
-            log.info("Visita creation to entity.");
-            VisitaModel visitaModel = new VisitaModel();
+            log.info("Visit creation to entity.");
+            VisitModel visitModel = new VisitModel();
 
-            if (!Helper.isEmptyString(visitaCreation.getId()))
-                visitaModel.setId(Helper.getLong(visitaCreation.getId()));
-            visitaModel.setIp(visitaCreation.getIp());
-            visitaModel.setHostname(visitaCreation.getHostname());
-            visitaModel.setContinent_code(visitaCreation.getContinent_code());
-            visitaModel.setContinent_name(visitaCreation.getContinent_name());
-            visitaModel.setCountry_code2(visitaCreation.getCountry_code2());
-            visitaModel.setCountry_code3(visitaCreation.getCountry_code3());
-            visitaModel.setCountry_name(visitaCreation.getCountry_name());
-            visitaModel.setCountry_capital(visitaCreation.getCountry_capital());
-            visitaModel.setState_prov(visitaCreation.getState_prov());
-            visitaModel.setDistrict(visitaCreation.getDistrict());
-            visitaModel.setCity(visitaCreation.getCity());
-            visitaModel.setZipcode(visitaCreation.getZipcode());
-            visitaModel.setLatitude(visitaCreation.getLatitude());
-            visitaModel.setLongitude(visitaCreation.getLongitude());
-            visitaModel.setIs_eu(visitaCreation.getIs_eu());
-            visitaModel.setCalling_code(visitaCreation.getCalling_code());
-            visitaModel.setCountry_tld(visitaCreation.getCountry_tld());
-            visitaModel.setLanguages(visitaCreation.getLanguages());
-            visitaModel.setCountry_flag(visitaCreation.getCountry_flag());
-            visitaModel.setIsp(visitaCreation.getIsp());
-            visitaModel.setConnection_type(visitaCreation.getConnection_type());
-            visitaModel.setOrganization(visitaCreation.getOrganization());
-            visitaModel.setAsn(visitaCreation.getAsn());
-            visitaModel.setGeoname_id(visitaCreation.getGeoname_id());
+            if (!Helper.isEmptyString(visitCreation.getId()))
+                visitModel.setId(Helper.getLong(visitCreation.getId()));
+            visitModel.setIp(visitCreation.getIp());
+            visitModel.setHostname(visitCreation.getHostname());
+            visitModel.setContinent_code(visitCreation.getContinent_code());
+            visitModel.setContinent_name(visitCreation.getContinent_name());
+            visitModel.setCountry_code2(visitCreation.getCountry_code2());
+            visitModel.setCountry_code3(visitCreation.getCountry_code3());
+            visitModel.setCountry_name(visitCreation.getCountry_name());
+            visitModel.setCountry_capital(visitCreation.getCountry_capital());
+            visitModel.setState_prov(visitCreation.getState_prov());
+            visitModel.setDistrict(visitCreation.getDistrict());
+            visitModel.setCity(visitCreation.getCity());
+            visitModel.setZipcode(visitCreation.getZipcode());
+            visitModel.setLatitude(visitCreation.getLatitude());
+            visitModel.setLongitude(visitCreation.getLongitude());
+            visitModel.setIs_eu(visitCreation.getIs_eu());
+            visitModel.setCalling_code(visitCreation.getCalling_code());
+            visitModel.setCountry_tld(visitCreation.getCountry_tld());
+            visitModel.setLanguages(visitCreation.getLanguages());
+            visitModel.setCountry_flag(visitCreation.getCountry_flag());
+            visitModel.setIsp(visitCreation.getIsp());
+            visitModel.setConnection_type(visitCreation.getConnection_type());
+            visitModel.setOrganization(visitCreation.getOrganization());
+            visitModel.setAsn(visitCreation.getAsn());
+            visitModel.setGeoname_id(visitCreation.getGeoname_id());
 
-            if (!Helper.isEmptyString(visitaCreation.getVisitante())) {
-                EntityMessenger<UsuarioModel> user = usuarioServiceImpletation.buscarPorNombreDeUsuario(visitaCreation.getVisitante());
+            if (!Helper.isEmptyString(visitCreation.getCreator())) {
+                EntityMessenger<UserModel> user = userServiceImplementation.findByUsernameAndRemovedIsNull(visitCreation.getCreator());
                 if (user.getStatusCode() == 200)
-                    visitaModel.setVisitante(user.getObject());
+                    visitModel.setCreator(user.getObject());
             }
+            if (!Helper.isEmptyString(visitCreation.getCreated()))
+                visitModel.setCreated(Helper.stringToLocalDateTime(visitCreation.getCreated(), ""));
+            if (!Helper.isEmptyString(visitCreation.getModifier())) {
+                EntityMessenger<UserModel> user = userServiceImplementation.findByUsernameAndRemovedIsNull(visitCreation.getModifier());
+                if (user.getStatusCode() == 200)
+                    visitModel.setModifier(user.getObject());
+            }
+            if (!Helper.isEmptyString(visitCreation.getModified()))
+                visitModel.setModified(Helper.stringToLocalDateTime(visitCreation.getModified(), ""));
+            if (!Helper.isEmptyString(visitCreation.getRemover())) {
+                EntityMessenger<UserModel> user = userServiceImplementation.findByUsernameAndRemovedIsNull(visitCreation.getRemover());
+                if (user.getStatusCode() == 200)
+                    visitModel.setRemover(user.getObject());
+            }
+            if (!Helper.isEmptyString(visitCreation.getRemoved()))
+                visitModel.setRemoved(Helper.stringToLocalDateTime(visitCreation.getRemoved(), ""));
 
-            return visitaModel;
+            return visitModel;
         } catch (Exception e) {
-            log.info("Visita creation to entity error. Exception: " + e);
+            log.info("Visit creation to entity error. Exception: " + e);
             return null;
         }
     }

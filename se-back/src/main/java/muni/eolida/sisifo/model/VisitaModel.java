@@ -13,7 +13,7 @@ import jakarta.persistence.*;
 @Setter
 @Table(name = "visita")
 @EqualsAndHashCode
-public class VisitaModel {
+public class VisitaModel extends AuditoriaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
