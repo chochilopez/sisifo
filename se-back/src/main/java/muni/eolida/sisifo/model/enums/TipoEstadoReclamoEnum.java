@@ -1,9 +1,0 @@
-package muni.eolida.sisifo.model.enums;
-
-public enum TipoEstadoReclamoEnum {
-    TIPO_ESTADO_RECLAMO_INICIADO,
-    TIPO_ESTADO_RECLAMO_EN_CURSO,
-    TIPO_ESTADO_RECLAMO_RESUELTO,
-    TIPO_ESTADO_RECLAMO_PASE_SECTOR,
-    TIPO_ESTADO_RECLAMO_RECHAZADO,
-}
