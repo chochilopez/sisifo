@@ -1,14 +1,14 @@
-package com.gloit.epione.controller;
+package muni.eolida.sisifo.controller;
 
-import com.gloit.epione.helper.EntityMessenger;
-import com.gloit.epione.helper.Helper;
-import com.gloit.epione.mapper.VisitMapper;
-import com.gloit.epione.mapper.creation.VisitCreation;
-import com.gloit.epione.mapper.dto.VisitDataTransferObject;
-import com.gloit.epione.model.VisitModel;
-import com.gloit.epione.service.implementation.VisitServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.mapper.VisitaMapper;
+import muni.eolida.sisifo.mapper.creation.VisitaCreation;
+import muni.eolida.sisifo.mapper.dto.VisitaDTO;
+import muni.eolida.sisifo.model.VisitaModel;
+import muni.eolida.sisifo.service.implementation.VisitaServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,212 +19,212 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/visit")
+@RequestMapping(value = "/api/visita")
 @RequiredArgsConstructor
 @RestController
 @Slf4j
-public class VisitController {
+public class VisitaController {
 
-    private final VisitServiceImplementation visitServiceImplementation;
-    private final VisitMapper visitMapper;
+    private final VisitaServiceImpl visitaService;
+    private final VisitaMapper visitaMapper;
 
-    @GetMapping(value = "/find-all-by-ip/{ip}")
-    @PreAuthorize("hasAuthority('AUTHORITY_EDITOR')")
-    public ResponseEntity<List<VisitDataTransferObject>> findAllByIpAndRemovedIsNull(@PathVariable(name = "ip") @javax.validation.constraints.Size(min = 1, max = 18) String ip) {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.findAllByIpAndRemovedIsNull(ip);
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 200){
-            ArrayList<VisitDataTransferObject> visitDataTransferObjects = new ArrayList<>();
-            for (VisitModel visitModel:visitModelEntityMessenger.getList()) {
-                visitDataTransferObjects.add(visitMapper.toDto(visitModel));
+    @GetMapping(value = "/buscar-por-ip/{ip}")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<List<VisitaDTO>> findAllByIpAndRemovedIsNull(@PathVariable(name = "ip") @javax.validation.constraints.Size(min = 1, max = 18) String ip) {
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.buscarTodosPorIp(ip);
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 200){
+            ArrayList<VisitaDTO> VisitaDTOs = new ArrayList<>();
+            for (VisitaModel VisitaModel:VisitaModelEntityMessenger.getList()) {
+                VisitaDTOs.add(visitaMapper.toDto(VisitaModel));
             }
-            return new ResponseEntity<>(visitDataTransferObjects, Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(VisitaDTOs, Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.OK);
         }
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 
-    @GetMapping(value = "/find-all-by-ip-with-deleted/{ip}")
-    @PreAuthorize("hasAuthority('AUTHORITY_ADMIN')")
-    public ResponseEntity<List<VisitDataTransferObject>> findAllByIp(@PathVariable(name = "ip") @javax.validation.constraints.Size(min = 1, max = 18) String ip) {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.findAllByIp(ip);
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 200){
-            ArrayList<VisitDataTransferObject> visitDataTransferObjects = new ArrayList<>();
-            for (VisitModel visitModel:visitModelEntityMessenger.getList()) {
-                visitDataTransferObjects.add(visitMapper.toDto(visitModel));
+    @GetMapping(value = "/buscar-por-ip-con-borrados/{ip}")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<List<VisitaDTO>> findAllByIp(@PathVariable(name = "ip") @javax.validation.constraints.Size(min = 1, max = 18) String ip) {
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.buscarTodosPorIpConBorrados(ip);
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 200){
+            ArrayList<VisitaDTO> VisitaDTOs = new ArrayList<>();
+            for (VisitaModel VisitaModel:VisitaModelEntityMessenger.getList()) {
+                VisitaDTOs.add(visitaMapper.toDto(VisitaModel));
             }
-            return new ResponseEntity<>(visitDataTransferObjects, Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(VisitaDTOs, Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.OK);
         }
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 
-    @GetMapping(value = "/find-top-n/{number}")
-    @PreAuthorize("hasAuthority('AUTHORITY_EDITOR')")
-    public ResponseEntity<List<VisitDataTransferObject>> findTopNAndRemovedIsNull(@PathVariable(name = "number") @javax.validation.constraints.Size(min = 1, max = 4) Integer number) {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.findTopNAndRemovedIsNull(number);
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 200){
-            ArrayList<VisitDataTransferObject> visitDataTransferObjects = new ArrayList<>();
-            for (VisitModel visitModel:visitModelEntityMessenger.getList()) {
-                visitDataTransferObjects.add(visitMapper.toDto(visitModel));
+    @GetMapping(value = "/buscar-los-primeros-n/{cantidad}")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<List<VisitaDTO>> findTopNAndRemovedIsNull(@PathVariable(name = "cantidad") @javax.validation.constraints.Size(min = 1, max = 10) Integer cantidad) {
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.buscarLosPrimerosN(cantidad);
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 200){
+            ArrayList<VisitaDTO> VisitaDTOs = new ArrayList<>();
+            for (VisitaModel VisitaModel:VisitaModelEntityMessenger.getList()) {
+                VisitaDTOs.add(visitaMapper.toDto(VisitaModel));
             }
-            return new ResponseEntity<>(visitDataTransferObjects, Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(VisitaDTOs, Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.OK);
         }
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 
-    @GetMapping(value = "/find-top-n-with-deleted/{number}")
-    @PreAuthorize("hasAuthority('AUTHORITY_ADMIN')")
-    public ResponseEntity<List<VisitDataTransferObject>> findTopN(@PathVariable(name = "number") @javax.validation.constraints.Size(min = 1, max = 4) Integer number) {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.findTopN(number);
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 200){
-            ArrayList<VisitDataTransferObject> visitDataTransferObjects = new ArrayList<>();
-            for (VisitModel visitModel:visitModelEntityMessenger.getList()) {
-                visitDataTransferObjects.add(visitMapper.toDto(visitModel));
+    @GetMapping(value = "/buscar-los-primeros-n-con-borrados/{cantidad}")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<List<VisitaDTO>> findTopN(@PathVariable(name = "cantidad") @javax.validation.constraints.Size(min = 1, max = 10) Integer cantidad) {
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.buscarLosPrimerosNConBorrados(cantidad);
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 200){
+            ArrayList<VisitaDTO> VisitaDTOs = new ArrayList<>();
+            for (VisitaModel VisitaModel:VisitaModelEntityMessenger.getList()) {
+                VisitaDTOs.add(visitaMapper.toDto(VisitaModel));
             }
-            return new ResponseEntity<>(visitDataTransferObjects, Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(VisitaDTOs, Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.OK);
         }
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 
-    @GetMapping(value = "/find-by-id/{id}")
-    @PreAuthorize("hasAuthority('AUTHORITY_EDITOR')")
-    public ResponseEntity<VisitDataTransferObject> findByIdAndRemovedIsNull(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.findByIdAndRemovedIsNull(id);
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 200)
-            return new ResponseEntity<>(visitMapper.toDto(visitModelEntityMessenger.getObject()), Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.OK);
+    @GetMapping(value = "/buscar-por-id/{id}")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<VisitaDTO> findByIdAndRemovedIsNull(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.buscarPorId(id);
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 200)
+            return new ResponseEntity<>(visitaMapper.toDto(VisitaModelEntityMessenger.getObject()), Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 
-    @GetMapping(value = "/find-by-id-with-deleted/{id}")
-    @PreAuthorize("hasAuthority('AUTHORITY_ADMIN')")
-    public ResponseEntity<VisitDataTransferObject> findById(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.findById(id);
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 200)
-            return new ResponseEntity<>(visitMapper.toDto(visitModelEntityMessenger.getObject()), Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.OK);
+    @GetMapping(value = "/buscar-por-id-con-borrados/{id}")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<VisitaDTO> findById(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.buscarPorIdConBorrados(id);
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 200)
+            return new ResponseEntity<>(visitaMapper.toDto(VisitaModelEntityMessenger.getObject()), Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 
-    @GetMapping(value = "/find-all")
-    @PreAuthorize("hasAuthority('AUTHORITY_EDITOR')")
-    public ResponseEntity<List<VisitDataTransferObject>> findAllByRemovedIsNull() {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.findAllByRemovedIsNull();
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 200){
-            ArrayList<VisitDataTransferObject> visitDataTransferObjects = new ArrayList<>();
-            for (VisitModel visitModel:visitModelEntityMessenger.getList()) {
-                visitDataTransferObjects.add(visitMapper.toDto(visitModel));
+    @GetMapping(value = "/buscar-todos")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<List<VisitaDTO>> findAllByRemovedIsNull() {
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.buscarTodos();
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 200){
+            ArrayList<VisitaDTO> VisitaDTOs = new ArrayList<>();
+            for (VisitaModel VisitaModel:VisitaModelEntityMessenger.getList()) {
+                VisitaDTOs.add(visitaMapper.toDto(VisitaModel));
             }
-            return new ResponseEntity<>(visitDataTransferObjects, Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(VisitaDTOs, Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.OK);
         }
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 
-    @GetMapping(value = "/find-all-with-deleted")
-    @PreAuthorize("hasAuthority('AUTHORITY_ADMIN')")
-    public ResponseEntity<List<VisitDataTransferObject>> findAll() {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.findAll();
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 200){
-            ArrayList<VisitDataTransferObject> visitDataTransferObjects = new ArrayList<>();
-            for (VisitModel visitModel:visitModelEntityMessenger.getList()) {
-                visitDataTransferObjects.add(visitMapper.toDto(visitModel));
+    @GetMapping(value = "/buscar-todos-con-borrados")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<List<VisitaDTO>> findAll() {
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.buscarTodosConBorrados();
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 200){
+            ArrayList<VisitaDTO> VisitaDTOs = new ArrayList<>();
+            for (VisitaModel VisitaModel:VisitaModelEntityMessenger.getList()) {
+                VisitaDTOs.add(visitaMapper.toDto(VisitaModel));
             }
-            return new ResponseEntity<>(visitDataTransferObjects, Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(VisitaDTOs, Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.OK);
         }
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 
-    @GetMapping(value = "/count-all-with-deleted")
-    @PreAuthorize("hasAuthority('AUTHORITY_ADMIN')")
+    @GetMapping(value = "/contar-todos")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
     public ResponseEntity<Long> countAll() {
-        Long quantity= visitServiceImplementation.countAll();
+        Long quantity= visitaService.contarTodos();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/count-all")
-    @PreAuthorize("hasAuthority('AUTHORITY_EDITOR')")
+    @GetMapping(value = "/contar-todos-con-borrados")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
     public ResponseEntity<Long> countAllByRemovedIsNull() {
-        Long quantity= visitServiceImplementation.countAllByRemovedIsNull();
+        Long quantity= visitaService.contarTodosConBorrados();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('AUTHORITY_GUEST')")
-    public ResponseEntity<VisitDataTransferObject> insert(@Valid @RequestBody VisitCreation visitCreation) {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.insert(visitMapper.toEntity(visitCreation));
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 201)
-            return new ResponseEntity<>(visitMapper.toDto(visitModelEntityMessenger.getObject()), Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.CREATED);
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<VisitaDTO> insert(@Valid @RequestBody VisitaCreation visitaCreation) {
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.insertar(visitaCreation);
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 201)
+            return new ResponseEntity<>(visitaMapper.toDto(VisitaModelEntityMessenger.getObject()), Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.CREATED);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('AUTHORITY_EDITOR')")
-    public ResponseEntity<VisitDataTransferObject> update(@Valid @RequestBody VisitCreation visitCreation) {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.update(visitMapper.toEntity(visitCreation));
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 201)
-            return new ResponseEntity<>(visitMapper.toDto(visitModelEntityMessenger.getObject()), Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.CREATED);
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<VisitaDTO> update(@Valid @RequestBody VisitaModel visitaModel) {
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.actualizar(visitaModel);
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 201)
+            return new ResponseEntity<>(visitaMapper.toDto(VisitaModelEntityMessenger.getObject()), Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.CREATED);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('AUTHORITY_EDITOR')")
-    public ResponseEntity<VisitDataTransferObject> delete(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.delete(id);
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 201)
-            return new ResponseEntity<>(visitMapper.toDto(visitModelEntityMessenger.getObject()), Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.OK);
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<VisitaDTO> delete(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.borrar(id);
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 201)
+            return new ResponseEntity<>(visitaMapper.toDto(VisitaModelEntityMessenger.getObject()), Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 
-    @PostMapping(value = "/recycle/{id}")
-    @PreAuthorize("hasAuthority('AUTHORITY_ADMIN')")
-    public ResponseEntity<VisitDataTransferObject> recycle(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.recycle(id);
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 200)
-            return new ResponseEntity<>(visitMapper.toDto(visitModelEntityMessenger.getObject()), Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.OK);
+    @PostMapping(value = "/reciclar/{id}")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<VisitaDTO> recycle(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.reciclar(id);
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 200)
+            return new ResponseEntity<>(visitaMapper.toDto(VisitaModelEntityMessenger.getObject()), Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 
-    @DeleteMapping(value = "/destroy/{id}")
-    @PreAuthorize("hasAuthority('AUTHORITY_ADMIN')")
+    @DeleteMapping(value = "/destruir/{id}")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
     public ResponseEntity<String> destroy(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntityMessenger<VisitModel> visitModelEntityMessenger = visitServiceImplementation.findById(id);
-        if (visitModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
-        else if (visitModelEntityMessenger.getStatusCode() == 200)
-            return new ResponseEntity<>(visitModelEntityMessenger.getMessage(), Helper.httpHeaders(visitModelEntityMessenger.getMessage()), HttpStatus.OK);
+        EntityMessenger<VisitaModel> VisitaModelEntityMessenger = visitaService.destruir(id);
+        if (VisitaModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
+        else if (VisitaModelEntityMessenger.getStatusCode() == 200)
+            return new ResponseEntity<>(VisitaModelEntityMessenger.getMessage(), Helper.httpHeaders(VisitaModelEntityMessenger.getMessage()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(visitModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(VisitaModelEntityMessenger.getMessage())).build();
     }
 }

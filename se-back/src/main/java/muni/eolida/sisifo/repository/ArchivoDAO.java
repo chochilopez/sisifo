@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ArchivoDAO extends GenericRepository<ArchivoModel> {
     List<ArchivoModel> findAllByTipo(TipoArchivoEnum tipo);
-    List<ArchivoModel> findAllByTipoAndBajaIsNull(TipoArchivoEnum tipo);
+    List<ArchivoModel> findAllByTipoAndBorradoIsNull(TipoArchivoEnum tipo);
     Long countAllByTipo(TipoArchivoEnum tipo);
-    Long countAllByTipoAndBajaIsNull(TipoArchivoEnum tipo);
+    Long countAllByTipoAndBorradoIsNull(TipoArchivoEnum tipo);
 }

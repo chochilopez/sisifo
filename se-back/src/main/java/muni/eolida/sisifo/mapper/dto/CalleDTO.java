@@ -8,5 +8,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class CalleDTO implements Serializable {
+    private String id;
     private String calle;
 }

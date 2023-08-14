@@ -16,7 +16,6 @@ public class SeguimientoMapper {
 
     public SeguimientoModel toEntity(SeguimientoCreation seguimientoCreation) {
         try {
-            log.info("Seguimiento creation to entity.");
             SeguimientoModel seguimientoModel = new SeguimientoModel();
 
             seguimientoModel.setDescripcion(seguimientoCreation.getDescripcion());
@@ -33,7 +32,6 @@ public class SeguimientoMapper {
 
     public SeguimientoDTO toDto(SeguimientoModel seguimientoModel) {
         try {
-            log.info("Seguimiento entity to dto.");
             SeguimientoDTO dto = new SeguimientoDTO();
 
             dto.setDescripcion(seguimientoModel.getDescripcion());

@@ -21,11 +21,12 @@ public class ReclamoServiceImpl implements ReclamoService {
 
     private final ReclamoDAO reclamoDAO;
     private final ReclamoMapper reclamoMapper;
+    private final UsuarioServiceImpl usuarioService;
 
     @Override
     public EntityMessenger<ReclamoModel> buscarPorId(Long id) {
         log.info("Searching for entity ReclamoModel with id: {}.", id);
-        Optional<ReclamoModel> object = reclamoDAO.findByIdAndBajaIsNull(id);
+        Optional<ReclamoModel> object = reclamoDAO.findByIdAndBorradoIsNull(id);
         if (object.isEmpty()) {
             String message = "No entity ReclamoModel with id: " + id + " was found.";
             log.warn(message);
@@ -55,7 +56,7 @@ public class ReclamoServiceImpl implements ReclamoService {
     @Override
     public EntityMessenger<ReclamoModel> buscarTodos() {
         log.info("Searching for all entities ReclamoModel.");
-        List<ReclamoModel> list = reclamoDAO.findAllByBajaIsNull();
+        List<ReclamoModel> list = reclamoDAO.findAllByBorradoIsNull();
         if (list.isEmpty()) {
             String message = "No entities ReclamoModel were found.";
             log.warn(message);
@@ -84,7 +85,7 @@ public class ReclamoServiceImpl implements ReclamoService {
 
     @Override
     public Long contarTodos() {
-        Long count = reclamoDAO.countAllByBajaIsNull();
+        Long count = reclamoDAO.countAllByBorradoIsNull();
         log.info("Table ReclamoModel possess {} entities.", count);
         return count;
     }
@@ -101,7 +102,8 @@ public class ReclamoServiceImpl implements ReclamoService {
         try {
             log.info("Inserting entity ReclamoModel: {}.",  model);
             ReclamoModel reclamoModel = reclamoDAO.save(reclamoMapper.toEntity(model));
-            reclamoModel.setAlta(Helper.getNow(""));
+            reclamoModel.setCreado(Helper.getNow(""));
+            reclamoModel.setCreador(usuarioService.obtenerUsuario().getObject());
             reclamoDAO.save(reclamoModel);
             String message = "The entity ReclamoModel with id: " + reclamoModel.getId() + " was inserted correctly.";
             log.info(message);
@@ -123,6 +125,7 @@ public class ReclamoServiceImpl implements ReclamoService {
                     return existant;
             }
             model.setModificacion(Helper.getNow(""));
+            model.setModificador(usuarioService.obtenerUsuario().getObject());
             ReclamoModel reclamoModel = reclamoDAO.save(model);
             String message = "The entity ReclamoModel with id: " + reclamoModel.getId() + " was updated correctly.";
             log.info(message);
@@ -141,13 +144,14 @@ public class ReclamoServiceImpl implements ReclamoService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        if (entityMessenger.getObject().getBaja() == null) {
+        if (entityMessenger.getObject().getBorrado() == null) {
             String message = "The entity ReclamoModel with id: " + id + " was not deleted.";
             log.warn(message);
             entityMessenger.setMessage(message);
             return entityMessenger;
         }
-        entityMessenger.getObject().setBaja(null);
+        entityMessenger.getObject().setBorrado(null);
+        entityMessenger.getObject().setBorrador(null);
         entityMessenger.setObject(reclamoDAO.save(entityMessenger.getObject()));
         String message = "The entity ReclamoModel with id: " + id + " was recycled correctly.";
         entityMessenger.setMessage(message);
@@ -162,7 +166,8 @@ public class ReclamoServiceImpl implements ReclamoService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        entityMessenger.getObject().setBaja(Helper.getNow(""));
+        entityMessenger.getObject().setBorrado(Helper.getNow(""));
+        entityMessenger.getObject().setBorrador(usuarioService.obtenerUsuario().getObject());
         entityMessenger.setObject(reclamoDAO.save(entityMessenger.getObject()));
         String message = "The entity ReclamoModel with id: " + id + " was deleted correctly.";
         entityMessenger.setMessage(message);
@@ -177,7 +182,7 @@ public class ReclamoServiceImpl implements ReclamoService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        if (entityMessenger.getObject().getBaja() == null) {
+        if (entityMessenger.getObject().getBorrado() == null) {
             String message = "The entity ReclamoModel with id: " + id + " was not deleted correctly, thus, cannot be destroyed.";
             log.info(message);
             entityMessenger.setStatusCode(202);

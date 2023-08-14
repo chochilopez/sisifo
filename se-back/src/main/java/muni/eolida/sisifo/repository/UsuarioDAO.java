@@ -9,8 +9,8 @@ import java.util.Optional;
 @Repository
 public interface UsuarioDAO extends GenericRepository<UsuarioModel> {
   Optional<UsuarioModel> findByUsernameContainingIgnoreCase(String username);
-  Optional<UsuarioModel> findByUsernameContainingIgnoreCaseAndBajaIsNullAndHabilitadaIsTrue(String username);
+  Optional<UsuarioModel> findByUsernameContainingIgnoreCaseAndBorradoIsNullAndHabilitadaIsTrue(String username);
   Boolean existsByUsernameContainingIgnoreCase(String username);
 
-  Optional<UsuarioModel> findByTokenAndBajaIsNullAndHabilitadaIsFalse(String username);
+  Optional<UsuarioModel> findByTokenAndBorradoIsNullAndHabilitadaIsFalse(String username);
 }

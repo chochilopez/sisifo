@@ -28,7 +28,6 @@ public class ReclamoMapper {
 
     public ReclamoModel toEntity(ReclamoCreation reclamoCreation) {
         try {
-            log.info("Reclamo creation to entity.");
             ReclamoModel reclamoModel = new ReclamoModel();
 
             reclamoModel.setAltura(reclamoCreation.getAltura());
@@ -82,7 +81,6 @@ public class ReclamoMapper {
 
     public ReclamoDTO toDto(ReclamoModel reclamoModel) {
         try {
-            log.info("Reclamo entity to dto.");
             ReclamoDTO dto = new ReclamoDTO();
 
             dto.setAltura(reclamoModel.getAltura());

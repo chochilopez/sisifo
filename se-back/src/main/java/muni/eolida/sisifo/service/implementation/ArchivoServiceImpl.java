@@ -28,6 +28,7 @@ public class ArchivoServiceImpl implements ArchivoService {
     private final ArchivoDAO archivoDAO;
     private String resourcePath;
     private final ArchivoMapper archivoMapper;
+    private final UsuarioServiceImpl usuarioService;
 
     @Value("${sisifo.app.resourcePath}")
     public void setResourcePath(String resourcePath) {
@@ -38,7 +39,7 @@ public class ArchivoServiceImpl implements ArchivoService {
     public EntityMessenger<ArchivoModel> buscarTodosPorTipoArchivo(String tipo) {
         try {
             log.info("Searching for entities Archivo with file type: {}.", tipo);
-            List<ArchivoModel> archivoModelList = archivoDAO.findAllByTipoAndBajaIsNull(TipoArchivoEnum.valueOf(tipo));
+            List<ArchivoModel> archivoModelList = archivoDAO.findAllByTipoAndBorradoIsNull(TipoArchivoEnum.valueOf(tipo));
             if (archivoModelList.isEmpty()) {
                 String message = "No entities Archivo with file type: " + tipo + " were found.";
                 log.warn(message);
@@ -145,7 +146,7 @@ public class ArchivoServiceImpl implements ArchivoService {
     @Override
     public EntityMessenger<ArchivoModel> buscarPorId(Long id) {
         log.info("Searching for entity Archivo with id: {}.", id);
-        Optional<ArchivoModel> object = archivoDAO.findByIdAndBajaIsNull(id);
+        Optional<ArchivoModel> object = archivoDAO.findByIdAndBorradoIsNull(id);
         if (object.isEmpty()) {
             String message = "No entity Archivo with id: " + id + " was found.";
             log.warn(message);
@@ -175,7 +176,7 @@ public class ArchivoServiceImpl implements ArchivoService {
     @Override
     public EntityMessenger<ArchivoModel> buscarTodos() {
         log.info("Searching for all entities Archivo.");
-        List<ArchivoModel> list = archivoDAO.findAllByBajaIsNull();
+        List<ArchivoModel> list = archivoDAO.findAllByBorradoIsNull();
         if (list.isEmpty()) {
             String message = "No entities Archivo were found.";
             log.warn(message);
@@ -204,7 +205,7 @@ public class ArchivoServiceImpl implements ArchivoService {
 
     @Override
     public Long contarTodos() {
-        Long count = archivoDAO.countAllByBajaIsNull();
+        Long count = archivoDAO.countAllByBorradoIsNull();
         log.info("Table Archivo possess {} entities.", count);
         return count;
     }
@@ -218,7 +219,7 @@ public class ArchivoServiceImpl implements ArchivoService {
 
     @Override
     public Long contarTodosPorTipoArchivo(String tipo) {
-        Long count = archivoDAO.countAllByTipoAndBajaIsNull(TipoArchivoEnum.valueOf(tipo));
+        Long count = archivoDAO.countAllByTipoAndBorradoIsNull(TipoArchivoEnum.valueOf(tipo));
         log.info("Table Archivo possess {} entities of file type: " + tipo + ".", count);
         return count;
     }
@@ -235,7 +236,8 @@ public class ArchivoServiceImpl implements ArchivoService {
         try {
             log.info("Inserting entity Archivo: {}.",  model);
             ArchivoModel archivoModel = archivoDAO.save(archivoMapper.toEntity(model));
-            archivoModel.setAlta(Helper.getNow(""));
+            archivoModel.setCreado(Helper.getNow(""));
+            archivoModel.setCreador(usuarioService.obtenerUsuario().getObject());
             archivoDAO.save(archivoModel);
             String message = "The entity Archivo with id: " + archivoModel.getId() + " was inserted correctly.";
             log.info(message);
@@ -257,6 +259,7 @@ public class ArchivoServiceImpl implements ArchivoService {
                     return existant;
             }
             model.setModificacion(Helper.getNow(""));
+            model.setModificador(usuarioService.obtenerUsuario().getObject());
             ArchivoModel archivoModel = archivoDAO.save(model);
             String message = "The entity Archivo with id: " + archivoModel.getId() + " was updated correctly.";
             log.info(message);
@@ -275,13 +278,14 @@ public class ArchivoServiceImpl implements ArchivoService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        if (entityMessenger.getObject().getBaja() == null) {
+        if (entityMessenger.getObject().getBorrado() == null) {
             String message = "The entity Archivo with id: " + id + " was not deleted.";
             log.warn(message);
             entityMessenger.setMessage(message);
             return entityMessenger;
         }
-        entityMessenger.getObject().setBaja(null);
+        entityMessenger.getObject().setBorrado(null);
+        entityMessenger.getObject().setBorrador(null);
         entityMessenger.setObject(archivoDAO.save(entityMessenger.getObject()));
         String message = "The entity Archivo with id: " + id + " was recycled correctly.";
         entityMessenger.setMessage(message);
@@ -296,7 +300,8 @@ public class ArchivoServiceImpl implements ArchivoService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        entityMessenger.getObject().setBaja(Helper.getNow(""));
+        entityMessenger.getObject().setBorrado(Helper.getNow(""));
+        entityMessenger.getObject().setBorrador(usuarioService.obtenerUsuario().getObject());
         entityMessenger.setObject(archivoDAO.save(entityMessenger.getObject()));
         String message = "The entity Archivo with id: " + id + " was deleted correctly.";
         entityMessenger.setMessage(message);
@@ -312,7 +317,7 @@ public class ArchivoServiceImpl implements ArchivoService {
             if (entityMessenger.getStatusCode() == 202) {
                 return entityMessenger;
             }
-            if (entityMessenger.getObject().getBaja() == null) {
+            if (entityMessenger.getObject().getBorrado() == null) {
                 String message = "The entity Archivo with id: " + id + " was not deleted correctly, thus, cannot be destroyed.";
                 log.info(message);
                 entityMessenger.setStatusCode(202);

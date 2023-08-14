@@ -21,71 +21,72 @@ public class VisitaServiceImpl implements VisitaService {
 
     private final VisitaDAO visitaDAO;
     private final VisitaMapper visitaMapper;
+    private final UsuarioServiceImpl usuarioService;
 
     @Override
     public EntityMessenger<VisitaModel> buscarTodosPorIp(String ip) {
         log.info("Searching for entities Visit with ip: {}.", ip);
-        List<VisitaModel> VisitaModels = visitaDAO.findAllByIpContainingAndBajaIsNull(ip);
-        if (VisitaModels.isEmpty()) {
+        List<VisitaModel> list = visitaDAO.findAllByIpContainingAndBorradoIsNull(ip);
+        if (list.isEmpty()) {
             String message = "No entities Visit was found with ip adrress " + ip + ".";
             log.warn(message);
             return new EntityMessenger<VisitaModel>(null, null, message, 202);
         } else {
-            String message = VisitaModels.size() + " entities Visit was found with ip adrress " + ip + ".";
+            String message = list.size() + " entities Visit was found with ip adrress " + ip + ".";
             log.info(message);
-            return new EntityMessenger<VisitaModel>(null, VisitaModels, message, 200);
+            return new EntityMessenger<VisitaModel>(null, list, message, 200);
         }
     }
 
     @Override
     public EntityMessenger<VisitaModel> buscarTodosPorIpConBorrados(String ip) {
         log.info("Searching for entities Visit with ip: {}, included deleted ones.", ip);
-        List<VisitaModel> VisitaModels = visitaDAO.findAllByIpContaining(ip);
-        if (VisitaModels.isEmpty()) {
+        List<VisitaModel> list = visitaDAO.findAllByIpContaining(ip);
+        if (list.isEmpty()) {
             String message = "No entities Visit was found with ip adrress " + ip + ", included deleted ones.";
             log.warn(message);
             return new EntityMessenger<VisitaModel>(null, null, message, 202);
         } else {
-            String message = VisitaModels.size() + " entities Visit was found with ip adrress " + ip + ", included deleted ones.";
+            String message = list.size() + " entities Visit was found with ip adrress " + ip + ", included deleted ones.";
             log.info(message);
-            return new EntityMessenger<VisitaModel>(null, VisitaModels, message, 200);
+            return new EntityMessenger<VisitaModel>(null, list, message, 200);
         }
     }
 
     @Override
     public EntityMessenger<VisitaModel> buscarLosPrimerosN(int number) {
         log.info("Searching for top " + number + " entities in Visit.");
-        List<VisitaModel> VisitaModels = visitaDAO.findTopNAndBajaIsNull(number);
-        if (VisitaModels.isEmpty()) {
+        List<VisitaModel> list = visitaDAO.findTopNAndBorradoIsNull(number);
+        if (list.isEmpty()) {
             String message = "No entities Visit was found.";
             log.warn(message);
             return new EntityMessenger<VisitaModel>(null, null, message, 202);
         } else {
-            String message = VisitaModels.size() + " entities Visit was found.";
+            String message = list.size() + " entities Visit was found.";
             log.info(message);
-            return new EntityMessenger<VisitaModel>(null, VisitaModels, message, 200);
+            return new EntityMessenger<VisitaModel>(null, list, message, 200);
         }
     }
 
     @Override
     public EntityMessenger<VisitaModel> buscarLosPrimerosNConBorrados(int number) {
         log.info("Searching for top " + number + " entities in Visit, included deleted ones.");
-        List<VisitaModel> VisitaModels = visitaDAO.findTopN(number);
-        if (VisitaModels.isEmpty()) {
+        List<VisitaModel> list = visitaDAO.findTopN(number);
+        if (list.isEmpty()) {
             String message = "No entities Visit was found, included deleted ones.";
             log.warn(message);
             return new EntityMessenger<VisitaModel>(null, null, message, 202);
         } else {
-            String message = VisitaModels.size() + " entities Visit was found, included deleted ones.";
+            String message = list.size() + " entities Visit was found, included deleted ones.";
             log.info(message);
-            return new EntityMessenger<VisitaModel>(null, VisitaModels, message, 200);
+            return new EntityMessenger<VisitaModel>(null, list, message, 200);
         }
     }
 
     @Override
     public EntityMessenger<VisitaModel> buscarPorId(Long id) {
         log.info("Searching for entity Visit with id: {}.", id);
-        Optional<VisitaModel> object = visitaDAO.findByIdAndBajaIsNull(id);
+        Optional<VisitaModel> object = visitaDAO.findByIdAndBorradoIsNull(id);
         if (object.isEmpty()) {
             String message = "No entity Visit with id: " + id + " was found.";
             log.warn(message);
@@ -115,7 +116,7 @@ public class VisitaServiceImpl implements VisitaService {
     @Override
     public EntityMessenger<VisitaModel> buscarTodos() {
         log.info("Searching for all entities Visit.");
-        List<VisitaModel> list = visitaDAO.findAllByBajaIsNull();
+        List<VisitaModel> list = visitaDAO.findAllByBorradoIsNull();
         if (list.isEmpty()) {
             String message = "No entities Visit were found.";
             log.warn(message);
@@ -144,7 +145,7 @@ public class VisitaServiceImpl implements VisitaService {
 
     @Override
     public Long contarTodos() {
-        Long count = visitaDAO.countAllByBajaIsNull();
+        Long count = visitaDAO.countAllByBorradoIsNull();
         log.info("Table Visit possess {} entities.", count);
         return count;
     }
@@ -160,12 +161,13 @@ public class VisitaServiceImpl implements VisitaService {
     public EntityMessenger<VisitaModel> insertar(VisitaCreation model) {
         try {
             log.info("Inserting entity Visit: {}.",  model);
-            VisitaModel VisitaModel = visitaDAO.save(visitaMapper.toEntity(model));
-            VisitaModel.setAlta(Helper.getNow(""));
-            visitaDAO.save(VisitaModel);
-            String message = "The entity Visit with id: " + VisitaModel.getId() + " was inserted correctly.";
+            VisitaModel visitaModel = visitaDAO.save(visitaMapper.toEntity(model));
+            visitaModel.setCreado(Helper.getNow(""));
+            visitaModel.setCreador(usuarioService.obtenerUsuario().getObject());
+            visitaDAO.save(visitaModel);
+            String message = "The entity Visit with id: " + visitaModel.getId() + " was inserted correctly.";
             log.info(message);
-            return new EntityMessenger<VisitaModel>(VisitaModel, null, message, 201);
+            return new EntityMessenger<VisitaModel>(visitaModel, null, message, 201);
         } catch (Exception e) {
             String message = "An error occurred while trying to persisit the entity. Exception: " + e + ".";
             log.error(message);
@@ -183,10 +185,11 @@ public class VisitaServiceImpl implements VisitaService {
                     return existant;
             }
             model.setModificacion(Helper.getNow(""));
-            VisitaModel VisitaModel = visitaDAO.save(model);
-            String message = "The entity Visit with id: " + VisitaModel.getId() + " was updated correctly.";
+            model.setModificador(usuarioService.obtenerUsuario().getObject());
+            VisitaModel visitaModel = visitaDAO.save(model);
+            String message = "The entity Visit with id: " + visitaModel.getId() + " was updated correctly.";
             log.info(message);
-            return new EntityMessenger<VisitaModel>(VisitaModel, null, message, 201);
+            return new EntityMessenger<VisitaModel>(visitaModel, null, message, 201);
         } catch (Exception e) {
             String message = "An error occurred while trying to persisit the entity. Exception: " + e + ".";
             log.error(message);
@@ -201,13 +204,14 @@ public class VisitaServiceImpl implements VisitaService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        if (entityMessenger.getObject().getBaja() == null) {
+        if (entityMessenger.getObject().getBorrado() == null) {
             String message = "The entity Visit with id: " + id + " was not deleted.";
             log.warn(message);
             entityMessenger.setMessage(message);
             return entityMessenger;
         }
-        entityMessenger.getObject().setBaja(null);
+        entityMessenger.getObject().setBorrado(null);
+        entityMessenger.getObject().setBorrador(null);
         entityMessenger.setObject(visitaDAO.save(entityMessenger.getObject()));
         String message = "The entity Visit with id: " + id + " was recycled correctly.";
         entityMessenger.setMessage(message);
@@ -222,7 +226,8 @@ public class VisitaServiceImpl implements VisitaService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        entityMessenger.getObject().setBaja(Helper.getNow(""));
+        entityMessenger.getObject().setBorrado(Helper.getNow(""));
+        entityMessenger.getObject().setBorrador(usuarioService.obtenerUsuario().getObject());
         entityMessenger.setObject(visitaDAO.save(entityMessenger.getObject()));
         String message = "The entity Visit with id: " + id + " was deleted correctly.";
         entityMessenger.setMessage(message);
@@ -237,7 +242,7 @@ public class VisitaServiceImpl implements VisitaService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        if (entityMessenger.getObject().getBaja() == null) {
+        if (entityMessenger.getObject().getBorrado() == null) {
             String message = "The entity Visit with id: " + id + " was not deleted correctly, thus, cannot be destroyed.";
             log.info(message);
             entityMessenger.setStatusCode(202);

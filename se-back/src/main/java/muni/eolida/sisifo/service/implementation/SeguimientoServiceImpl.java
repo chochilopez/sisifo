@@ -21,11 +21,12 @@ public class SeguimientoServiceImpl implements SeguimientoService {
 
     private final SeguimientoDAO seguimientoDAO;
     private final SeguimientoMapper seguimientoMapper;
+    private final UsuarioServiceImpl usuarioService;
 
     @Override
     public EntityMessenger<SeguimientoModel> buscarPorId(Long id) {
         log.info("Searching for entity SeguimientoModel with id: {}.", id);
-        Optional<SeguimientoModel> object = seguimientoDAO.findByIdAndBajaIsNull(id);
+        Optional<SeguimientoModel> object = seguimientoDAO.findByIdAndBorradoIsNull(id);
         if (object.isEmpty()) {
             String message = "No entity SeguimientoModel with id: " + id + " was found.";
             log.warn(message);
@@ -55,7 +56,7 @@ public class SeguimientoServiceImpl implements SeguimientoService {
     @Override
     public EntityMessenger<SeguimientoModel> buscarTodos() {
         log.info("Searching for all entities SeguimientoModel.");
-        List<SeguimientoModel> list = seguimientoDAO.findAllByBajaIsNull();
+        List<SeguimientoModel> list = seguimientoDAO.findAllByBorradoIsNull();
         if (list.isEmpty()) {
             String message = "No entities SeguimientoModel were found.";
             log.warn(message);
@@ -84,7 +85,7 @@ public class SeguimientoServiceImpl implements SeguimientoService {
 
     @Override
     public Long contarTodos() {
-        Long count = seguimientoDAO.countAllByBajaIsNull();
+        Long count = seguimientoDAO.countAllByBorradoIsNull();
         log.info("Table SeguimientoModel possess {} entities.", count);
         return count;
     }
@@ -101,7 +102,8 @@ public class SeguimientoServiceImpl implements SeguimientoService {
         try {
             log.info("Inserting entity SeguimientoModel: {}.",  model);
             SeguimientoModel seguimientoModel = seguimientoDAO.save(seguimientoMapper.toEntity(model));
-            seguimientoModel.setAlta(Helper.getNow(""));
+            seguimientoModel.setCreado(Helper.getNow(""));
+            seguimientoModel.setCreador(usuarioService.obtenerUsuario().getObject());
             seguimientoDAO.save(seguimientoModel);
             String message = "The entity SeguimientoModel with id: " + seguimientoModel.getId() + " was inserted correctly.";
             log.info(message);
@@ -123,6 +125,7 @@ public class SeguimientoServiceImpl implements SeguimientoService {
                     return existant;
             }
             model.setModificacion(Helper.getNow(""));
+            model.setModificador(usuarioService.obtenerUsuario().getObject());
             SeguimientoModel seguimientoModel = seguimientoDAO.save(model);
             String message = "The entity SeguimientoModel with id: " + seguimientoModel.getId() + " was updated correctly.";
             log.info(message);
@@ -141,13 +144,14 @@ public class SeguimientoServiceImpl implements SeguimientoService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        if (entityMessenger.getObject().getBaja() == null) {
+        if (entityMessenger.getObject().getBorrado() == null) {
             String message = "The entity SeguimientoModel with id: " + id + " was not deleted.";
             log.warn(message);
             entityMessenger.setMessage(message);
             return entityMessenger;
         }
-        entityMessenger.getObject().setBaja(null);
+        entityMessenger.getObject().setBorrado(null);
+        entityMessenger.getObject().setBorrador(null);
         entityMessenger.setObject(seguimientoDAO.save(entityMessenger.getObject()));
         String message = "The entity SeguimientoModel with id: " + id + " was recycled correctly.";
         entityMessenger.setMessage(message);
@@ -162,7 +166,8 @@ public class SeguimientoServiceImpl implements SeguimientoService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        entityMessenger.getObject().setBaja(Helper.getNow(""));
+        entityMessenger.getObject().setBorrado(Helper.getNow(""));
+        entityMessenger.getObject().setBorrador(usuarioService.obtenerUsuario().getObject());
         entityMessenger.setObject(seguimientoDAO.save(entityMessenger.getObject()));
         String message = "The entity SeguimientoModel with id: " + id + " was deleted correctly.";
         entityMessenger.setMessage(message);
@@ -177,7 +182,7 @@ public class SeguimientoServiceImpl implements SeguimientoService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        if (entityMessenger.getObject().getBaja() == null) {
+        if (entityMessenger.getObject().getBorrado() == null) {
             String message = "The entity SeguimientoModel with id: " + id + " was not deleted correctly, thus, cannot be destroyed.";
             log.info(message);
             entityMessenger.setStatusCode(202);

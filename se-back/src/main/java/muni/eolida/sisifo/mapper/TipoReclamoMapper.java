@@ -21,7 +21,6 @@ public class TipoReclamoMapper {
 
     public TipoReclamoModel toEntity(TipoReclamoCreation tipoReclamoCreation) {
         try {
-            log.info("TipoReclamo creation to entity.");
             TipoReclamoModel tipoReclamoModel = new TipoReclamoModel();
 
             tipoReclamoModel.setAreaResuelve(tipoReclamoCreation.getAreaResuelve());
@@ -44,7 +43,6 @@ public class TipoReclamoMapper {
 
     public TipoReclamoDTO toDto(TipoReclamoModel tipoReclamoModel) {
         try {
-            log.info("TipoReclamo entity to dto.");
             TipoReclamoDTO dto = new TipoReclamoDTO();
 
             dto.setAreaResuelve(tipoReclamoModel.getAreaResuelve());

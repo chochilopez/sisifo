@@ -14,7 +14,6 @@ public class CalleMapper {
 
     public CalleModel toEntity(CalleCreation calleCreation) {
         try {
-            log.info("Calle creation to entity.");
             CalleModel calleModel = new CalleModel();
 
             calleModel.setCalle(calleCreation.getCalle());
@@ -28,9 +27,9 @@ public class CalleMapper {
 
     public CalleDTO toDto(CalleModel calleModel) {
         try {
-            log.info("Calle entity to dto.");
             CalleDTO dto = new CalleDTO();
 
+            dto.setId(calleModel.getId().toString());
             dto.setCalle(calleModel.getCalle());
 
             return dto;

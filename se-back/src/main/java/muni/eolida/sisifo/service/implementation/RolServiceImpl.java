@@ -43,7 +43,7 @@ public class RolServiceImpl implements RolService {
     @Override
     public EntityMessenger<RolModel> buscarTodosPorRolConBorrados(RolEnum rol) {
         log.info("Searching for entity RolModel with rol: {}.", rol);
-        Optional<RolModel> object = rolDAO.findByRolAndBajaIsNull(rol);
+        Optional<RolModel> object = rolDAO.findByRolAndBorradoIsNull(rol);
         if (object.isEmpty()) {
             String message = "No entity RolModel with rol: " + rol + " was found.";
             log.warn(message);
@@ -58,7 +58,7 @@ public class RolServiceImpl implements RolService {
     @Override
     public EntityMessenger<RolModel> buscarPorId(Long id) {
         log.info("Searching for entity RolModel with id: {}.", id);
-        Optional<RolModel> object = rolDAO.findByIdAndBajaIsNull(id);
+        Optional<RolModel> object = rolDAO.findByIdAndBorradoIsNull(id);
         if (object.isEmpty()) {
             String message = "No entity RolModel with id: " + id + " was found.";
             log.warn(message);
@@ -88,7 +88,7 @@ public class RolServiceImpl implements RolService {
     @Override
     public EntityMessenger<RolModel> buscarTodos() {
         log.info("Searching for all entities RolModel.");
-        List<RolModel> list = rolDAO.findAllByBajaIsNull();
+        List<RolModel> list = rolDAO.findAllByBorradoIsNull();
         if (list.isEmpty()) {
             String message = "No entities RolModel were found.";
             log.warn(message);
@@ -117,7 +117,7 @@ public class RolServiceImpl implements RolService {
 
     @Override
     public Long contarTodos() {
-        Long count = rolDAO.countAllByBajaIsNull();
+        Long count = rolDAO.countAllByBorradoIsNull();
         log.info("Table RolModel possess {} entities.", count);
         return count;
     }
@@ -134,7 +134,7 @@ public class RolServiceImpl implements RolService {
         try {
             log.info("Inserting entity RolModel: {}.",  model);
             RolModel rolModel = rolDAO.save(rolMapper.toEntity(model));
-            rolModel.setAlta(Helper.getNow(""));
+            rolModel.setCreado(Helper.getNow(""));
             rolDAO.save(rolModel);
             String message = "The entity RolModel with id: " + rolModel.getId() + " was inserted correctly.";
             log.info(message);
@@ -174,13 +174,14 @@ public class RolServiceImpl implements RolService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        if (entityMessenger.getObject().getBaja() == null) {
+        if (entityMessenger.getObject().getBorrado() == null) {
             String message = "The entity RolModel with id: " + id + " was not deleted.";
             log.warn(message);
             entityMessenger.setMessage(message);
             return entityMessenger;
         }
-        entityMessenger.getObject().setBaja(null);
+        entityMessenger.getObject().setBorrado(null);
+        entityMessenger.getObject().setBorrador(null);
         entityMessenger.setObject(rolDAO.save(entityMessenger.getObject()));
         String message = "The entity RolModel with id: " + id + " was recycled correctly.";
         entityMessenger.setMessage(message);
@@ -195,7 +196,7 @@ public class RolServiceImpl implements RolService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        entityMessenger.getObject().setBaja(Helper.getNow(""));
+        entityMessenger.getObject().setBorrado(Helper.getNow(""));
         entityMessenger.setObject(rolDAO.save(entityMessenger.getObject()));
         String message = "The entity RolModel with id: " + id + " was deleted correctly.";
         entityMessenger.setMessage(message);
@@ -210,7 +211,7 @@ public class RolServiceImpl implements RolService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        if (entityMessenger.getObject().getBaja() == null) {
+        if (entityMessenger.getObject().getBorrado() == null) {
             String message = "The entity RolModel with id: " + id + " was not deleted correctly, thus, cannot be destroyed.";
             log.info(message);
             entityMessenger.setStatusCode(202);

@@ -31,7 +31,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public EntityMessenger<UsuarioModel> buscarPorNombreDeUsuario(String username) {
         log.info("Searching for entity User with username: {}.", username);
-        Optional<UsuarioModel> object = usuarioDAO.findByUsernameContainingIgnoreCaseAndBajaIsNullAndHabilitadaIsTrue(username);
+        Optional<UsuarioModel> object = usuarioDAO.findByUsernameContainingIgnoreCaseAndBorradoIsNullAndHabilitadaIsTrue(username);
         if (object.isEmpty()) {
             String message = "No entity User with username: " + username + " was found.";
             log.warn(message);
@@ -90,7 +90,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public EntityMessenger<UsuarioModel> buscarPorId(Long id) {
         log.info("Searching for entity User with id: {}.", id);
-        Optional<UsuarioModel> object = usuarioDAO.findByIdAndBajaIsNull(id);
+        Optional<UsuarioModel> object = usuarioDAO.findByIdAndBorradoIsNull(id);
         if (object.isEmpty()) {
             String message = "No entity User with id: " + id + " was found.";
             log.warn(message);
@@ -120,7 +120,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public EntityMessenger<UsuarioModel> buscarTodos() {
         log.info("Searching for all entities User.");
-        List<UsuarioModel> list = usuarioDAO.findAllByBajaIsNull();
+        List<UsuarioModel> list = usuarioDAO.findAllByBorradoIsNull();
         if (list.isEmpty()) {
             String message = "No entities User were found.";
             log.warn(message);
@@ -149,7 +149,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Long contarTodos() {
-        Long count = usuarioDAO.countAllByBajaIsNull();
+        Long count = usuarioDAO.countAllByBorradoIsNull();
         log.info("Table User possess {} entities.", count);
         return count;
     }
@@ -168,7 +168,8 @@ public class UsuarioServiceImpl implements UsuarioService {
             if (usuarioDAO.existsByUsernameContainingIgnoreCase(model.getUsername()))
                 return new EntityMessenger<UsuarioModel>(null, null, "Ya existe un usuario con ese email.", 202);
             UsuarioModel usuarioModel = usuarioDAO.save(usuarioMapper.toEntity(model));
-            usuarioModel.setAlta(Helper.getNow(""));
+            usuarioModel.setCreado(Helper.getNow(""));
+            usuarioModel.setCreador(this.obtenerUsuario().getObject());
             usuarioDAO.save(usuarioModel);
             String message = "The entity User with id: " + usuarioModel.getId() + " was inserted correctly.";
             log.info(message);
@@ -190,6 +191,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                     return existant;
             }
             model.setModificacion(Helper.getNow(""));
+            model.setModificador(this.obtenerUsuario().getObject());
             UsuarioModel usuarioModel = usuarioDAO.save(model);
             String message = "The entity User with id: " + usuarioModel.getId() + " was updated correctly.";
             log.info(message);
@@ -208,13 +210,14 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        if (entityMessenger.getObject().getBaja() == null) {
+        if (entityMessenger.getObject().getBorrado() == null) {
             String message = "The entity User with id: " + id + " was not deleted.";
             log.warn(message);
             entityMessenger.setMessage(message);
             return entityMessenger;
         }
-        entityMessenger.getObject().setBaja(null);
+        entityMessenger.getObject().setBorrado(null);
+        entityMessenger.getObject().setBorrador(null);
         entityMessenger.setObject(usuarioDAO.save(entityMessenger.getObject()));
         String message = "The entity User with id: " + id + " was recycled correctly.";
         entityMessenger.setMessage(message);
@@ -229,7 +232,8 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        entityMessenger.getObject().setBaja(Helper.getNow(""));
+        entityMessenger.getObject().setBorrado(Helper.getNow(""));
+        entityMessenger.getObject().setBorrador(this.obtenerUsuario().getObject());
         entityMessenger.setObject(usuarioDAO.save(entityMessenger.getObject()));
         String message = "The entity User with id: " + id + " was deleted correctly.";
         entityMessenger.setMessage(message);
@@ -244,7 +248,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        if (entityMessenger.getObject().getBaja() == null) {
+        if (entityMessenger.getObject().getBorrado() == null) {
             String message = "The entity User with id: " + id + " was not deleted correctly, thus, cannot be destroyed.";
             log.info(message);
             entityMessenger.setStatusCode(202);

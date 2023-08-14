@@ -17,7 +17,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   @Override
   @Transactional
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    UsuarioModel user = usuarioDTO.findByUsernameContainingIgnoreCaseAndBajaIsNullAndHabilitadaIsTrue(username)
+    UsuarioModel user = usuarioDTO.findByUsernameContainingIgnoreCaseAndBorradoIsNullAndHabilitadaIsTrue(username)
         .orElseThrow(() -> new UsernameNotFoundException("No existe el usuario: " + username));
 
     return UserDetailsImpl.build(user);

@@ -20,7 +20,6 @@ public class VisitaMapper {
 
     public VisitaModel toEntity(VisitaCreation visitaCreation) {
         try {
-            log.info("Visita creation to entity.");
             VisitaModel visitaModel = new VisitaModel();
 
             visitaModel.setIp(visitaCreation.getIp());
@@ -62,7 +61,6 @@ public class VisitaMapper {
 
     public VisitaDTO toDto(VisitaModel visitaModel) {
         try {
-            log.info("Visita entity to dto.");
             VisitaDTO dto = new VisitaDTO();
 
             dto.setIp(visitaModel.getIp());

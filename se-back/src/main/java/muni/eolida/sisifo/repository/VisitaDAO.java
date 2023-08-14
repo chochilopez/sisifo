@@ -13,7 +13,7 @@ public interface VisitaDAO extends GenericRepository<VisitaModel> {
     @Query(value = "SELECT * FROM visita desc limit :limit", nativeQuery = true)
     List<VisitaModel> findTopN(@Param("limit") int limit);
     @Query(value = "SELECT * FROM visita and baja is null desc limit :limit", nativeQuery = true)
-    List<VisitaModel> findTopNAndBajaIsNull(@Param("limit") int limit);
+    List<VisitaModel> findTopNAndBorradoIsNull(@Param("limit") int limit);
     List<VisitaModel> findAllByIpContaining(String ip);
-    List<VisitaModel> findAllByIpContainingAndBajaIsNull(String ip);
+    List<VisitaModel> findAllByIpContainingAndBorradoIsNull(String ip);
 }

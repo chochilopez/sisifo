@@ -121,12 +121,14 @@ public class AutenticacionServiceImpl implements AutenticacionService {
                     usuarioCreation.getUsername(),
                     body
             ));
+            usuario = usuarioService.darRol(usuario.getObject(), RolEnum.ROL_USUARIO);
             if (emailModelEntityMessenger.getStatusCode() == 201) {
                 String message = "The user " + usuarioCreation.getUsername() + " was created. Confirmation email sended.";
                 log.info(message);
-                return new EntityMessenger<UsuarioModel>(usuarioDAO.save(usuario.getObject()), null, message, 201);
+                return new EntityMessenger<UsuarioModel>(usuario.getObject(), null, message, 201);
             }
         }
         return usuario;
     }
+
 }
