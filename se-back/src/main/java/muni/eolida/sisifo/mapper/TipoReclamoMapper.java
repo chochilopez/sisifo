@@ -16,23 +16,13 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 public class TipoReclamoMapper {
-    private final UsuarioServiceImpl usuarioServiceImpl;
-    private final UsuarioMapper usuarioMapper;
-
     public TipoReclamoModel toEntity(TipoReclamoCreation tipoReclamoCreation) {
         try {
             TipoReclamoModel tipoReclamoModel = new TipoReclamoModel();
 
-            tipoReclamoModel.setAreaResuelve(tipoReclamoCreation.getAreaResuelve());
+            tipoReclamoModel.setAreaResuelve(Integer.valueOf(tipoReclamoCreation.getAreaResuelve()));
             tipoReclamoModel.setCantidadDiasResolucion(Integer.valueOf(tipoReclamoCreation.getCantidadDiasResolucion()));
             tipoReclamoModel.setNombre(tipoReclamoCreation.getNombre());
-            if (!Helper.isEmptyString(tipoReclamoCreation.getTipoDocumento()))
-                tipoReclamoModel.setTipoDocumento(TipoDocumentoEnum.valueOf(tipoReclamoCreation.getTipoDocumento()));
-            if (!Helper.isEmptyString(tipoReclamoCreation.getUsuario_id())) {
-                EntityMessenger<UsuarioModel> usuario = usuarioServiceImpl.buscarPorId(Long.getLong(tipoReclamoCreation.getUsuario_id()));
-                if (usuario.getStatusCode() == 200)
-                    tipoReclamoModel.setUsuario(usuario.getObject());
-            }
 
             return tipoReclamoModel;
         } catch (Exception e) {
@@ -45,12 +35,8 @@ public class TipoReclamoMapper {
         try {
             TipoReclamoDTO dto = new TipoReclamoDTO();
 
-            dto.setAreaResuelve(tipoReclamoModel.getAreaResuelve());
-            dto.setCantidadDiasResolucion(Integer.toString(tipoReclamoModel.getCantidadDiasResolucion()));
+            dto.setId(tipoReclamoModel.getId().toString());
             dto.setNombre(tipoReclamoModel.getNombre());
-            dto.setTipoDocumento(tipoReclamoModel.getTipoDocumento().toString());
-            if (tipoReclamoModel.getUsuario() != null)
-                dto.setUsuario(usuarioMapper.toDto(tipoReclamoModel.getUsuario()));
 
             return dto;
         } catch (Exception e) {

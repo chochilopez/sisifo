@@ -1,1000 +1,344 @@
-insert into calle (calle) values ('Panggungrejo');
-insert into calle (calle) values ('Maño');
-insert into calle (calle) values ('Saint-Quentin-en-Yvelines');
-insert into calle (calle) values ('Schenectady');
-insert into calle (calle) values ('Salam');
-insert into calle (calle) values ('Tungguwaneng');
-insert into calle (calle) values ('Hengshui');
-insert into calle (calle) values ('Munsan');
-insert into calle (calle) values ('Zevgolateió');
-insert into calle (calle) values ('Abaca');
-insert into calle (calle) values ('Zea');
-insert into calle (calle) values ('Dazhou');
-insert into calle (calle) values ('Lelystad');
-insert into calle (calle) values ('Bozkow');
-insert into calle (calle) values ('Letpandan');
-insert into calle (calle) values ('Ampanihy');
-insert into calle (calle) values ('Mount Darwin');
-insert into calle (calle) values ('Novyy Svit');
-insert into calle (calle) values ('Man');
-insert into calle (calle) values ('Xinmin');
-insert into calle (calle) values ('Capandanan');
-insert into calle (calle) values ('Basar');
-insert into calle (calle) values ('Orós');
-insert into calle (calle) values ('Soanierana Ivongo');
-insert into calle (calle) values ('Sharm el-Sheikh');
-insert into calle (calle) values ('Taihe');
-insert into calle (calle) values ('Staryy Cherek');
-insert into calle (calle) values ('Milići');
-insert into calle (calle) values ('Canggang');
-insert into calle (calle) values ('Kimhae');
-insert into calle (calle) values ('Mahīn');
-insert into calle (calle) values ('Cowansville');
-insert into calle (calle) values ('Lapai');
-insert into calle (calle) values ('Leudelange');
-insert into calle (calle) values ('Zaporizhzhya');
-insert into calle (calle) values ('Sandy Bay');
-insert into calle (calle) values ('Radā‘');
-insert into calle (calle) values ('Malahide');
-insert into calle (calle) values ('Non Sila');
-insert into calle (calle) values ('Mardzad');
-insert into calle (calle) values ('Huanggu');
-insert into calle (calle) values ('Flórina');
-insert into calle (calle) values ('Klembivka');
-insert into calle (calle) values ('Santa Ana');
-insert into calle (calle) values ('Cardona');
-insert into calle (calle) values ('Eséka');
-insert into calle (calle) values ('Huangdao');
-insert into calle (calle) values ('Kvitok');
-insert into calle (calle) values ('Aleksandrovskiy Zavod');
-insert into calle (calle) values ('West Hartford');
-insert into calle (calle) values ('Youxi');
-insert into calle (calle) values ('Kastornoye');
-insert into calle (calle) values ('Yanglin');
-insert into calle (calle) values ('Żebbuġ');
-insert into calle (calle) values ('Huxu');
-insert into calle (calle) values ('Ngou');
-insert into calle (calle) values ('Khombole');
-insert into calle (calle) values ('Fanzhen');
-insert into calle (calle) values ('Sotnikovskoye');
-insert into calle (calle) values ('Beslan');
-insert into calle (calle) values ('Angoulême');
-insert into calle (calle) values ('Cotorra');
-insert into calle (calle) values ('Gościeradów');
-insert into calle (calle) values ('Aix-les-Bains');
-insert into calle (calle) values ('Batulawang');
-insert into calle (calle) values ('Tangpu');
-insert into calle (calle) values ('Ballinteer');
-insert into calle (calle) values ('Shtip');
-insert into calle (calle) values ('Pępowo');
-insert into calle (calle) values ('Parumaan');
-insert into calle (calle) values ('Paris La Défense');
-insert into calle (calle) values ('Ereira');
-insert into calle (calle) values ('Luna');
-insert into calle (calle) values ('Waihi');
-insert into calle (calle) values ('Gachancipá');
-insert into calle (calle) values ('Vila Velha');
-insert into calle (calle) values ('Lille');
-insert into calle (calle) values ('Erími');
-insert into calle (calle) values ('Yangzi Jianglu');
-insert into calle (calle) values ('Garibaldi');
-insert into calle (calle) values ('Vypolzovo');
-insert into calle (calle) values ('Jāmpur');
-insert into calle (calle) values ('Zongzhai');
-insert into calle (calle) values ('Borovo');
-insert into calle (calle) values ('Shouchun');
-insert into calle (calle) values ('Dunhou');
-insert into calle (calle) values ('Ústí nad Orlicí');
-insert into calle (calle) values ('Yamaguchi-shi');
-insert into calle (calle) values ('Guachucal');
-insert into calle (calle) values ('Wuyun');
-insert into calle (calle) values ('Pinglin');
-insert into calle (calle) values ('Sarov');
-insert into calle (calle) values ('Mugala');
-insert into calle (calle) values ('Ustrzyki Dolne');
-insert into calle (calle) values ('Chervonopartyzans’k');
-insert into calle (calle) values ('Bagiktinggang');
-insert into calle (calle) values ('Atipuluhan');
-insert into calle (calle) values ('La Salud');
-insert into calle (calle) values ('Brazzaville');
-insert into calle (calle) values ('Vejprnice');
-insert into calle (calle) values ('Senduro');
-insert into calle (calle) values ('Padre Burgos');
-insert into calle (calle) values ('Ýdra');
-insert into calle (calle) values ('Thouars');
-insert into calle (calle) values ('Pacarkeling');
-insert into calle (calle) values ('Ibarreta');
-insert into calle (calle) values ('Göteborg');
-insert into calle (calle) values ('Middleton');
-insert into calle (calle) values ('Włocławek');
-insert into calle (calle) values ('Mbaïki');
-insert into calle (calle) values ('Kamiiso');
-insert into calle (calle) values ('Nuuk');
-insert into calle (calle) values ('Cential');
-insert into calle (calle) values ('Gävle');
-insert into calle (calle) values ('Chambly');
-insert into calle (calle) values ('Nkurenkuru');
-insert into calle (calle) values ('Gonābād');
-insert into calle (calle) values ('Kabac');
-insert into calle (calle) values ('Chengxi');
-insert into calle (calle) values ('København');
-insert into calle (calle) values ('Rengasdengklok');
-insert into calle (calle) values ('San Javier');
-insert into calle (calle) values ('Graz');
-insert into calle (calle) values ('Sotteville-lès-Rouen');
-insert into calle (calle) values ('Kotawaikabubak');
-insert into calle (calle) values ('Xiguantun Muguzu Manzuxiang');
-insert into calle (calle) values ('Nikolayevsk');
-insert into calle (calle) values ('Al Qaţīf');
-insert into calle (calle) values ('Cimuncang');
-insert into calle (calle) values ('Xiyang');
-insert into calle (calle) values ('Jisegumen');
-insert into calle (calle) values ('Bangkal');
-insert into calle (calle) values ('Pereira');
-insert into calle (calle) values ('Lemahputih');
-insert into calle (calle) values ('Ibagué');
-insert into calle (calle) values ('Zhuxi');
-insert into calle (calle) values ('Altavista');
-insert into calle (calle) values ('Nova Venécia');
-insert into calle (calle) values ('Viline');
-insert into calle (calle) values ('Pilang');
-insert into calle (calle) values ('Yingzhou');
-insert into calle (calle) values ('Washington');
-insert into calle (calle) values ('Būrewāla');
-insert into calle (calle) values ('Aba');
-insert into calle (calle) values ('Fengcheng');
-insert into calle (calle) values ('Jieyang');
-insert into calle (calle) values ('Ouricuri');
-insert into calle (calle) values ('Xidoupu');
-insert into calle (calle) values ('Mosjøen');
-insert into calle (calle) values ('Nichinan');
-insert into calle (calle) values ('Xinzhai');
-insert into calle (calle) values ('Kafr Takhārīm');
-insert into calle (calle) values ('Mizdah');
-insert into calle (calle) values ('Örnsköldsvik');
-insert into calle (calle) values ('Ḩabīl ar Raydah');
-insert into calle (calle) values ('Ujung');
-insert into calle (calle) values ('Lazaro Cardenas');
-insert into calle (calle) values ('Zaraza');
-insert into calle (calle) values ('Bayan');
-insert into calle (calle) values ('Atsugi');
-insert into calle (calle) values ('Regueiro');
-insert into calle (calle) values ('Krayen');
-insert into calle (calle) values ('Prantaan');
-insert into calle (calle) values ('Huafeng');
-insert into calle (calle) values ('Lanling');
-insert into calle (calle) values ('Stefanavíkion');
-insert into calle (calle) values ('Matmata');
-insert into calle (calle) values ('Shuangpengxi');
-insert into calle (calle) values ('Villefranche-sur-Mer');
-insert into calle (calle) values ('Jarocin');
-insert into calle (calle) values ('Haruman');
-insert into calle (calle) values ('Castêlo');
-insert into calle (calle) values ('Montpellier');
-insert into calle (calle) values ('Skoki');
-insert into calle (calle) values ('Ouaoula');
-insert into calle (calle) values ('Sila');
-insert into calle (calle) values ('Karangtawar');
-insert into calle (calle) values ('Guará');
-insert into calle (calle) values ('Dalongdong');
-insert into calle (calle) values ('Maganha');
-insert into calle (calle) values ('Los Fresnos');
-insert into calle (calle) values ('Okahandja');
-insert into calle (calle) values ('Aserrío de Gariché');
-insert into calle (calle) values ('Zuoxi');
-insert into calle (calle) values ('Chicago');
-insert into calle (calle) values ('Sanlanbahai');
-insert into calle (calle) values ('Hengqiao');
-insert into calle (calle) values ('Xindu');
-insert into calle (calle) values ('Tanjungsari Barat');
-insert into calle (calle) values ('Atães');
-insert into calle (calle) values ('Mikhnëvo');
-insert into calle (calle) values ('La Punta');
-insert into calle (calle) values ('Solosolo');
-insert into calle (calle) values ('Arrën');
-insert into calle (calle) values ('Hongos');
-insert into calle (calle) values ('Tomas');
-insert into calle (calle) values ('Shanjiang');
-insert into calle (calle) values ('Zakhim');
-insert into calle (calle) values ('Semikarakorsk');
-insert into calle (calle) values ('Barajevo');
-insert into calle (calle) values ('Iraray');
-insert into calle (calle) values ('Norrahammar');
-insert into calle (calle) values ('Kalibo (poblacion)');
-insert into calle (calle) values ('Belén');
-insert into calle (calle) values ('Sokółka');
-insert into calle (calle) values ('Sindanghayu');
-insert into calle (calle) values ('Yunfu');
-insert into calle (calle) values ('Sidoaji');
-insert into calle (calle) values ('Chigang');
-insert into calle (calle) values ('Tonggu');
-insert into calle (calle) values ('Dianqian');
-insert into calle (calle) values ('Konkwesso');
-insert into calle (calle) values ('Balabag');
-insert into calle (calle) values ('Santa Luċija');
-insert into calle (calle) values ('Nyzhni Petrivtsi');
-insert into calle (calle) values ('Shatoja');
-insert into calle (calle) values ('Łaziska Górne');
-insert into calle (calle) values ('Ágios Geórgios');
-insert into calle (calle) values ('Jatisari');
-insert into calle (calle) values ('Birštonas');
-insert into calle (calle) values ('Kez');
-insert into calle (calle) values ('Mojimán');
-insert into calle (calle) values ('Huashi');
-insert into calle (calle) values ('Mojolampir');
-insert into calle (calle) values ('Polo');
-insert into calle (calle) values ('Siguinon');
-insert into calle (calle) values ('Ziftá');
-insert into calle (calle) values ('Fenoarivo Be');
-insert into calle (calle) values ('Miami');
-insert into calle (calle) values ('Växjö');
-insert into calle (calle) values ('Zabrze');
-insert into calle (calle) values ('Miętne');
-insert into calle (calle) values ('Daming');
-insert into calle (calle) values ('Písečná');
-insert into calle (calle) values ('Liupai');
-insert into calle (calle) values ('Coripata');
-insert into calle (calle) values ('Shoushan');
-insert into calle (calle) values ('Rawson');
-insert into calle (calle) values ('Trondheim');
-insert into calle (calle) values ('Nangaroro');
-insert into calle (calle) values ('Gaptsakh');
-insert into calle (calle) values ('Skalbmierz');
-insert into calle (calle) values ('Skien');
-insert into calle (calle) values ('Główczyce');
-insert into calle (calle) values ('Nova Kakhovka');
-insert into calle (calle) values ('Kalýves Polygýrou');
-insert into calle (calle) values ('Bebandem');
-insert into calle (calle) values ('Losari');
-insert into calle (calle) values ('Xingfu');
-insert into calle (calle) values ('Ureshino');
-insert into calle (calle) values ('Cadagmayan Norte');
-insert into calle (calle) values ('Bundibugyo');
-insert into calle (calle) values ('Granja do Tedo');
-insert into calle (calle) values ('Charenton-le-Pont');
-insert into calle (calle) values ('Harbin');
-insert into calle (calle) values ('Beigao');
-insert into calle (calle) values ('Mweka');
-insert into calle (calle) values ('Hekou');
-insert into calle (calle) values ('Jambeyan');
-insert into calle (calle) values ('Tofa');
-insert into calle (calle) values ('Grabovci');
-insert into calle (calle) values ('Rennes');
-insert into calle (calle) values ('Gornji Petrovci');
-insert into calle (calle) values ('Essen');
-insert into calle (calle) values ('Jinhua');
-insert into calle (calle) values ('Dongjin');
-insert into calle (calle) values ('Manggu');
-insert into calle (calle) values ('Mahdishahr');
-insert into calle (calle) values ('Zaandam');
-insert into calle (calle) values ('Trzebnica');
-insert into calle (calle) values ('Lianozovo');
-insert into calle (calle) values ('Iberia');
-insert into calle (calle) values ('Castelo');
-insert into calle (calle) values ('La Courneuve');
-insert into calle (calle) values ('Zihu');
-insert into calle (calle) values ('Naftalan');
-insert into calle (calle) values ('Kerek');
-insert into calle (calle) values ('Venda');
-insert into calle (calle) values ('Santa Rita do Sapucaí');
-insert into calle (calle) values ('Huangdimiao');
-insert into calle (calle) values ('Calape');
-insert into calle (calle) values ('Hengshi');
-insert into calle (calle) values ('Lieyu');
-insert into calle (calle) values ('Alue Glumpang');
-insert into calle (calle) values ('Huangtang');
-insert into calle (calle) values ('Qingshui');
-insert into calle (calle) values ('Tsibulev');
-insert into calle (calle) values ('Évlalo');
-insert into calle (calle) values ('Vuhlehirs’k');
-insert into calle (calle) values ('Aniva');
-insert into calle (calle) values ('Kotor');
-insert into calle (calle) values ('Goiás');
-insert into calle (calle) values ('Sceaux');
-insert into calle (calle) values ('Zuocun');
-insert into calle (calle) values ('Odoyev');
-insert into calle (calle) values ('Samur');
-insert into calle (calle) values ('Kupiskis');
-insert into calle (calle) values ('Kuangyuan');
-insert into calle (calle) values ('Aachen');
-insert into calle (calle) values ('Alibunan');
-insert into calle (calle) values ('Itambé');
-insert into calle (calle) values ('Diavatá');
-insert into calle (calle) values ('Gouveia');
-insert into calle (calle) values ('Piracuruca');
-insert into calle (calle) values ('Yushan');
-insert into calle (calle) values ('Imishli');
-insert into calle (calle) values ('Banjar Sandinggianyar');
-insert into calle (calle) values ('Kajanan');
-insert into calle (calle) values ('Al Khirāb');
-insert into calle (calle) values ('Tipaz');
-insert into calle (calle) values ('Guia');
-insert into calle (calle) values ('Santander');
-insert into calle (calle) values ('Uthal');
-insert into calle (calle) values ('Álli Meriá');
-insert into calle (calle) values ('Celorico de Basto');
-insert into calle (calle) values ('Torslanda');
-insert into calle (calle) values ('Primorskiy');
-insert into calle (calle) values ('Sidaurip');
-insert into calle (calle) values ('Priekulė');
-insert into calle (calle) values ('Býšť');
-insert into calle (calle) values ('Ujsoły');
-insert into calle (calle) values ('Hongtang');
-insert into calle (calle) values ('Prochnookopskaya');
-insert into calle (calle) values ('Luchingu');
-insert into calle (calle) values ('Isfana');
-insert into calle (calle) values ('Elx/Elche');
-insert into calle (calle) values ('Santa Eulalia');
-insert into calle (calle) values ('Jingyang');
-insert into calle (calle) values ('Sulangan');
-insert into calle (calle) values ('Wangzuizi');
-insert into calle (calle) values ('Kembang');
-insert into calle (calle) values ('Doudleby nad Orlicí');
-insert into calle (calle) values ('Kirkland Lake');
-insert into calle (calle) values ('Ningyang');
-insert into calle (calle) values ('Panikian');
-insert into calle (calle) values ('Jinggan');
-insert into calle (calle) values ('Budva');
-insert into calle (calle) values ('Sukasirna');
-insert into calle (calle) values ('Cofimvaba');
-insert into calle (calle) values ('Bromma');
-insert into calle (calle) values ('Virginia Beach');
-insert into calle (calle) values ('Jinshan');
-insert into calle (calle) values ('Dahongmen');
-insert into calle (calle) values ('Gandusari');
-insert into calle (calle) values ('Dourados');
-insert into calle (calle) values ('Lima');
-insert into calle (calle) values ('Toyonaka');
-insert into calle (calle) values ('Lyntupy');
-insert into calle (calle) values ('Rivera');
-insert into calle (calle) values ('Zhezqazghan');
-insert into calle (calle) values ('Cikembang');
-insert into calle (calle) values ('Leran Kulon');
-insert into calle (calle) values ('Sumberjo');
-insert into calle (calle) values ('Kolonowskie');
-insert into calle (calle) values ('Murcki');
-insert into calle (calle) values ('Chābahār');
-insert into calle (calle) values ('Fengcun');
-insert into calle (calle) values ('Goianésia');
-insert into calle (calle) values ('Ţūlkarm');
-insert into calle (calle) values ('Klayusiwalan');
-insert into calle (calle) values ('Muzaffargarh');
-insert into calle (calle) values ('Sinŭiju');
-insert into calle (calle) values ('Karangmulyo');
-insert into calle (calle) values ('Chŏngju');
-insert into calle (calle) values ('Wotho');
-insert into calle (calle) values ('Spas-Klepiki');
-insert into calle (calle) values ('Bogorejo');
-insert into calle (calle) values ('Chengjiang');
-insert into calle (calle) values ('Panguipulli');
-insert into calle (calle) values ('Danauparis');
-insert into calle (calle) values ('Mulyadadi');
-insert into calle (calle) values ('Shuangxiqiao');
-insert into calle (calle) values ('Dolní Lhota');
-insert into calle (calle) values ('Songdong');
-insert into calle (calle) values ('Xidajie');
-insert into calle (calle) values ('At-Bashi');
-insert into calle (calle) values ('Ichupampa');
-insert into calle (calle) values ('Fatufeto');
-insert into calle (calle) values ('Sananrejo');
-insert into calle (calle) values ('Lemahputih');
-insert into calle (calle) values ('Kokologo');
-insert into calle (calle) values ('Dingzigu');
-insert into calle (calle) values ('Condong');
-insert into calle (calle) values ('Kampong Thom');
-insert into calle (calle) values ('Sikeshu');
-insert into calle (calle) values ('Ongi');
-insert into calle (calle) values ('Heung-hai');
-insert into calle (calle) values ('Villach');
-insert into calle (calle) values ('Grand-Bassam');
-insert into calle (calle) values ('Karlshamn');
-insert into calle (calle) values ('Thap Than');
-insert into calle (calle) values ('Minle');
-insert into calle (calle) values ('Qingdao');
-insert into calle (calle) values ('Chachoengsao');
-insert into calle (calle) values ('Mogocha');
-insert into calle (calle) values ('Ulsan');
-insert into calle (calle) values ('Manabo');
-insert into calle (calle) values ('Pruszcz');
-insert into calle (calle) values ('Texistepeque');
-insert into calle (calle) values ('Warugunung');
-insert into calle (calle) values ('Awka');
-insert into calle (calle) values ('Thawat Buri');
-insert into calle (calle) values ('Capas');
-insert into calle (calle) values ('Kalianget');
-insert into calle (calle) values ('Loanda');
-insert into calle (calle) values ('E’zhou');
-insert into calle (calle) values ('Changhua');
-insert into calle (calle) values ('Sishui');
-insert into calle (calle) values ('Tambakan');
-insert into calle (calle) values ('Cruz das Almas');
-insert into calle (calle) values ('Masons Bay');
-insert into calle (calle) values ('Portelinha');
-insert into calle (calle) values ('Gränna');
-insert into calle (calle) values ('Casal do Relvas');
-insert into calle (calle) values ('Matatiele');
-insert into calle (calle) values ('Datian');
-insert into calle (calle) values ('Ljubešćica');
-insert into calle (calle) values ('Tiling');
-insert into calle (calle) values ('Soubré');
-insert into calle (calle) values ('Vale de São Cosme');
-insert into calle (calle) values ('Puerto Castilla');
-insert into calle (calle) values ('Jönköping');
-insert into calle (calle) values ('Chicago');
-insert into calle (calle) values ('Ystad');
-insert into calle (calle) values ('Champigny-sur-Marne');
-insert into calle (calle) values ('Takedamachi');
-insert into calle (calle) values ('Bastos');
-insert into calle (calle) values ('Shuangjing');
-insert into calle (calle) values ('Carmen');
-insert into calle (calle) values ('Hutang');
-insert into calle (calle) values ('Stockholm');
-insert into calle (calle) values ('Gaocheng');
-insert into calle (calle) values ('Driefontein');
-insert into calle (calle) values ('Kadumelati');
-insert into calle (calle) values ('Serpukhov');
-insert into calle (calle) values ('Namangan');
-insert into calle (calle) values ('Sumberarumkrajan');
-insert into calle (calle) values ('Airmata');
-insert into calle (calle) values ('Gunungmenang');
-insert into calle (calle) values ('Vũng Tàu');
-insert into calle (calle) values ('Souto');
-insert into calle (calle) values ('São Sebastião');
-insert into calle (calle) values ('Gornji Milanovac');
-insert into calle (calle) values ('Ursus');
-insert into calle (calle) values ('Ngajum');
-insert into calle (calle) values ('Porto Martins');
-insert into calle (calle) values ('Lebedyn');
-insert into calle (calle) values ('Kadugannawa');
-insert into calle (calle) values ('Maiduguri');
-insert into calle (calle) values ('Thành Phố Nam Định');
-insert into calle (calle) values ('Macedo de Cavaleiros');
-insert into calle (calle) values ('Paris 09');
-insert into calle (calle) values ('Sóc Trăng');
-insert into calle (calle) values ('Rominimbang');
-insert into calle (calle) values ('Negotino');
-insert into calle (calle) values ('Xujia');
-insert into calle (calle) values ('Poissy');
-insert into calle (calle) values ('Gaocheng');
-insert into calle (calle) values ('Sakai-nakajima');
-insert into calle (calle) values ('Langchuan');
-insert into calle (calle) values ('Corral de Bustos');
-insert into calle (calle) values ('Nogueira');
-insert into calle (calle) values ('Sabang');
-insert into calle (calle) values ('Rawa Satu');
-insert into calle (calle) values ('Koronadal');
-insert into calle (calle) values ('Tanjungjaya');
-insert into calle (calle) values ('Ibarra');
-insert into calle (calle) values ('Kinna');
-insert into calle (calle) values ('Rinbung');
-insert into calle (calle) values ('Slavgorod');
-insert into calle (calle) values ('Voyutychi');
-insert into calle (calle) values ('Suchedniów');
-insert into calle (calle) values ('Igbeti');
-insert into calle (calle) values ('Lephalale');
-insert into calle (calle) values ('Xin’an');
-insert into calle (calle) values ('Waldbillig');
-insert into calle (calle) values ('Vitória do Mearim');
-insert into calle (calle) values ('San Basilio');
-insert into calle (calle) values ('Piña');
-insert into calle (calle) values ('Dueñas');
-insert into calle (calle) values ('Antanifotsy');
-insert into calle (calle) values ('Sawaengha');
-insert into calle (calle) values ('Hospitalet De Llobregat, L''');
-insert into calle (calle) values ('Mariposa');
-insert into calle (calle) values ('Yangjingziwan');
-insert into calle (calle) values ('Luntas');
-insert into calle (calle) values ('Murmansk');
-insert into calle (calle) values ('Bor');
-insert into calle (calle) values ('Gaopi');
-insert into calle (calle) values ('San Pedro');
-insert into calle (calle) values ('Louisville');
-insert into calle (calle) values ('Longmiao');
-insert into calle (calle) values ('Nerchinsk');
-insert into calle (calle) values ('Bantay');
-insert into calle (calle) values ('Chynadiyovo');
-insert into calle (calle) values ('Portela');
-insert into calle (calle) values ('Espinho');
-insert into calle (calle) values ('Cimadang');
-insert into calle (calle) values ('Buriwutung');
-insert into calle (calle) values ('Alburitel');
-insert into calle (calle) values ('Xiongshan');
-insert into calle (calle) values ('Velingrad');
-insert into calle (calle) values ('Linhó');
-insert into calle (calle) values ('Yashan');
-insert into calle (calle) values ('Saginaw');
-insert into calle (calle) values ('Osiek nad Notecią');
-insert into calle (calle) values ('Rondonópolis');
-insert into calle (calle) values ('Itapetininga');
-insert into calle (calle) values ('Kermānshāh');
-insert into calle (calle) values ('Buzhakan');
-insert into calle (calle) values ('Bandungan Timur');
-insert into calle (calle) values ('Langchuan');
-insert into calle (calle) values ('Paris 07');
-insert into calle (calle) values ('Baltimore');
-insert into calle (calle) values ('Yudaikelike');
-insert into calle (calle) values ('Huangjiabu');
-insert into calle (calle) values ('Dongshe');
-insert into calle (calle) values ('Sandaohezi');
-insert into calle (calle) values ('Funaishikawa');
-insert into calle (calle) values ('Huancheng');
-insert into calle (calle) values ('Shuikou');
-insert into calle (calle) values ('Doko');
-insert into calle (calle) values ('Tampa');
-insert into calle (calle) values ('Cerca la Source');
-insert into calle (calle) values ('Ospina');
-insert into calle (calle) values ('Xuelu');
-insert into calle (calle) values ('Tapas');
-insert into calle (calle) values ('El Perico');
-insert into calle (calle) values ('San José de los Remates');
-insert into calle (calle) values ('Guangshan Chengguanzhen');
-insert into calle (calle) values ('Sukamaju');
-insert into calle (calle) values ('Akhaldaba');
-insert into calle (calle) values ('Lolodorf');
-insert into calle (calle) values ('Saint-Jean-de-Védas');
-insert into calle (calle) values ('Santa Cruz');
-insert into calle (calle) values ('Sipoholon');
-insert into calle (calle) values ('Paris 01');
-insert into calle (calle) values ('Acli');
-insert into calle (calle) values ('Novokizhinginsk');
-insert into calle (calle) values ('Goiatuba');
-insert into calle (calle) values ('Tournan-en-Brie');
-insert into calle (calle) values ('Petrich');
-insert into calle (calle) values ('Huangshanguan');
-insert into calle (calle) values ('Salinungan Proper');
-insert into calle (calle) values ('Rychtal');
-insert into calle (calle) values ('Lokossa');
-insert into calle (calle) values ('Kozloduy');
-insert into calle (calle) values ('Jaen');
-insert into calle (calle) values ('Kālīganj');
-insert into calle (calle) values ('Valongo');
-insert into calle (calle) values ('Luti');
-insert into calle (calle) values ('Raychikhinsk');
-insert into calle (calle) values ('Tazhuang');
-insert into calle (calle) values ('Maki');
-insert into calle (calle) values ('Xinji');
-insert into calle (calle) values ('Huimin');
-insert into calle (calle) values ('Trairi');
-insert into calle (calle) values ('Novikovo');
-insert into calle (calle) values ('Dadong');
-insert into calle (calle) values ('Facatativá');
-insert into calle (calle) values ('Paris 01');
-insert into calle (calle) values ('Satinka');
-insert into calle (calle) values ('Maglajani');
-insert into calle (calle) values ('Los Fresnos');
-insert into calle (calle) values ('Fengjiang');
-insert into calle (calle) values ('Hanjia');
-insert into calle (calle) values ('Shuangqiao');
-insert into calle (calle) values ('Rájec-Jestřebí');
-insert into calle (calle) values ('Požarevac');
-insert into calle (calle) values ('Manogay');
-insert into calle (calle) values ('Asamankese');
-insert into calle (calle) values ('Kulase');
-insert into calle (calle) values ('Zhongcun');
-insert into calle (calle) values ('Nong Bua');
-insert into calle (calle) values ('Palopo');
-insert into calle (calle) values ('Žiželice');
-insert into calle (calle) values ('Yefimovskiy');
-insert into calle (calle) values ('Talon');
-insert into calle (calle) values ('Hodoš');
-insert into calle (calle) values ('Vera');
-insert into calle (calle) values ('Žitenice');
-insert into calle (calle) values ('Pedreira');
-insert into calle (calle) values ('Kalkara');
-insert into calle (calle) values ('Andarapa');
-insert into calle (calle) values ('Erie');
-insert into calle (calle) values ('Pecka');
-insert into calle (calle) values ('Vrbovec');
-insert into calle (calle) values ('Ciburial');
-insert into calle (calle) values ('Diaoluoshan');
-insert into calle (calle) values ('Wansheng');
-insert into calle (calle) values ('Agía Varvára');
-insert into calle (calle) values ('Al ‘Awjā');
-insert into calle (calle) values ('Balung');
-insert into calle (calle) values ('Otllak');
-insert into calle (calle) values ('Huangyan');
-insert into calle (calle) values ('Grazhdanka');
-insert into calle (calle) values ('Prado');
-insert into calle (calle) values ('Sidamukti');
-insert into calle (calle) values ('Long Hồ');
-insert into calle (calle) values ('Longxian');
-insert into calle (calle) values ('Portland');
-insert into calle (calle) values ('Nouâdhibou');
-insert into calle (calle) values ('Karangpeton');
-insert into calle (calle) values ('Abū Zabad');
-insert into calle (calle) values ('Beaumont');
-insert into calle (calle) values ('San Enrique');
-insert into calle (calle) values ('Tupaciguara');
-insert into calle (calle) values ('Abelheira');
-insert into calle (calle) values ('Novopodrezkovo');
-insert into calle (calle) values ('Tanjung');
-insert into calle (calle) values ('Monte Agudo');
-insert into calle (calle) values ('Chernyakhovsk');
-insert into calle (calle) values ('Guyangan');
-insert into calle (calle) values ('Eustaquio Lopez');
-insert into calle (calle) values ('São Sebastião');
-insert into calle (calle) values ('Luhyny');
-insert into calle (calle) values ('Żarnów');
-insert into calle (calle) values ('Nevel’');
-insert into calle (calle) values ('Mahébourg');
-insert into calle (calle) values ('Lianglin');
-insert into calle (calle) values ('Vantaa');
-insert into calle (calle) values ('Vareiá');
-insert into calle (calle) values ('Itajaí');
-insert into calle (calle) values ('Palotina');
-insert into calle (calle) values ('Rafael Hernandez Ochoa');
-insert into calle (calle) values ('Liuhou');
-insert into calle (calle) values ('Tunbao');
-insert into calle (calle) values ('Kladovo');
-insert into calle (calle) values ('Kaliro');
-insert into calle (calle) values ('Weifang');
-insert into calle (calle) values ('Xinsheng');
-insert into calle (calle) values ('Huasahuasi');
-insert into calle (calle) values ('Martingança-Gare');
-insert into calle (calle) values ('Besukrejo');
-insert into calle (calle) values ('Limit');
-insert into calle (calle) values ('Dumingag');
-insert into calle (calle) values ('Bachowice');
-insert into calle (calle) values ('Onueke');
-insert into calle (calle) values ('Itatinga');
-insert into calle (calle) values ('Espírito Santo do Pinhal');
-insert into calle (calle) values ('Paris La Défense');
-insert into calle (calle) values ('Yongfa');
-insert into calle (calle) values ('Turrialba');
-insert into calle (calle) values ('Praya');
-insert into calle (calle) values ('Dejen');
-insert into calle (calle) values ('Shentang');
-insert into calle (calle) values ('Zhoujiang');
-insert into calle (calle) values ('Vilhena');
-insert into calle (calle) values ('Tân Sơn');
-insert into calle (calle) values ('Villa del Carmen');
-insert into calle (calle) values ('Buta');
-insert into calle (calle) values ('Dahongmen');
-insert into calle (calle) values ('Radovitskiy');
-insert into calle (calle) values ('Kotkot');
-insert into calle (calle) values ('Bornu Yassu');
-insert into calle (calle) values ('Nagiba');
-insert into calle (calle) values ('Hamonggolele');
-insert into calle (calle) values ('Bendorubuh');
-insert into calle (calle) values ('Surazh');
-insert into calle (calle) values ('Mülheim an der Ruhr');
-insert into calle (calle) values ('Taitung City');
-insert into calle (calle) values ('Mae Sai');
-insert into calle (calle) values ('Acatenango');
-insert into calle (calle) values ('Toila');
-insert into calle (calle) values ('Minuyan');
-insert into calle (calle) values ('Ritchie');
-insert into calle (calle) values ('Avignon');
-insert into calle (calle) values ('Cáchira');
-insert into calle (calle) values ('Amsterdam Noord west');
-insert into calle (calle) values ('Buni Yadi');
-insert into calle (calle) values ('Rio Claro');
-insert into calle (calle) values ('Haebaru');
-insert into calle (calle) values ('Yangtan');
-insert into calle (calle) values ('Cepões');
-insert into calle (calle) values ('Turku');
-insert into calle (calle) values ('Circa');
-insert into calle (calle) values ('Jammāl');
-insert into calle (calle) values ('Sioux City');
-insert into calle (calle) values ('Gulrip’shi');
-insert into calle (calle) values ('Wolbrom');
-insert into calle (calle) values ('Bryukhovetskaya');
-insert into calle (calle) values ('Welibo');
-insert into calle (calle) values ('Batambak');
-insert into calle (calle) values ('Qinghu');
-insert into calle (calle) values ('Stockholm');
-insert into calle (calle) values ('Ivouani');
-insert into calle (calle) values ('Stara Błotnica');
-insert into calle (calle) values ('Krasnaya Polyana');
-insert into calle (calle) values ('Getafe');
-insert into calle (calle) values ('Penalva de Alva');
-insert into calle (calle) values ('Šalovci');
-insert into calle (calle) values ('Ngoc Hon Doc');
-insert into calle (calle) values ('Megáli Khóra');
-insert into calle (calle) values ('Añatuya');
-insert into calle (calle) values ('Shebalino');
-insert into calle (calle) values ('Khānpur');
-insert into calle (calle) values ('Hadapu Zhen');
-insert into calle (calle) values ('Albert Town');
-insert into calle (calle) values ('Idvor');
-insert into calle (calle) values ('Bonneuil-sur-Marne');
-insert into calle (calle) values ('Messina');
-insert into calle (calle) values ('Pujijie');
-insert into calle (calle) values ('Aygestan');
-insert into calle (calle) values ('Hongshanzui');
-insert into calle (calle) values ('Talisay');
-insert into calle (calle) values ('Thị Trấn Cao Lộc');
-insert into calle (calle) values ('El Zulia');
-insert into calle (calle) values ('Sangba');
-insert into calle (calle) values ('Biryulëvo');
-insert into calle (calle) values ('Kuala Lumpur');
-insert into calle (calle) values ('Bestöbe');
-insert into calle (calle) values ('Semeljci');
-insert into calle (calle) values ('Tarrafal');
-insert into calle (calle) values ('Ameixoeira');
-insert into calle (calle) values ('Kalinovskaya');
-insert into calle (calle) values ('Kuala Terengganu');
-insert into calle (calle) values ('Xiasha');
-insert into calle (calle) values ('Prantaan');
-insert into calle (calle) values ('Lopandino');
-insert into calle (calle) values ('Sukadami');
-insert into calle (calle) values ('Shuanghekou');
-insert into calle (calle) values ('Hanban');
-insert into calle (calle) values ('Buzen');
-insert into calle (calle) values ('Bueng Khong Long');
-insert into calle (calle) values ('Duncans');
-insert into calle (calle) values ('Iwase');
-insert into calle (calle) values ('Cà Mau');
-insert into calle (calle) values ('Sukamenak');
-insert into calle (calle) values ('Aparecida de Goiânia');
-insert into calle (calle) values ('Sainte-Geneviève-des-Bois');
-insert into calle (calle) values ('Llalli');
-insert into calle (calle) values ('Gardinovci');
-insert into calle (calle) values ('Yuezhao');
-insert into calle (calle) values ('Quốc Oai');
-insert into calle (calle) values ('Encantado');
-insert into calle (calle) values ('Madīnat ‘Īsá');
-insert into calle (calle) values ('Imeni Zhelyabova');
-insert into calle (calle) values ('Dasol');
-insert into calle (calle) values ('Tuzha');
-insert into calle (calle) values ('Funan Chengguanzhen');
-insert into calle (calle) values ('Acomayo');
-insert into calle (calle) values ('Bangad');
-insert into calle (calle) values ('Kotkot');
-insert into calle (calle) values ('Río Gallegos');
-insert into calle (calle) values ('Sumber Tengah');
-insert into calle (calle) values ('Yanagawamachi-saiwaichō');
-insert into calle (calle) values ('Pisões');
-insert into calle (calle) values ('Khorramdarreh');
-insert into calle (calle) values ('Ma‘lūlā');
-insert into calle (calle) values ('Lumil');
-insert into calle (calle) values ('Usicayos');
-insert into calle (calle) values ('Bang Bo');
-insert into calle (calle) values ('Airmadidi');
-insert into calle (calle) values ('Selasari');
-insert into calle (calle) values ('Carreira');
-insert into calle (calle) values ('Luofang');
-insert into calle (calle) values ('Mundão');
-insert into calle (calle) values ('Atlantis');
-insert into calle (calle) values ('Strathmore');
-insert into calle (calle) values ('Rio');
-insert into calle (calle) values ('Klerksdorp');
-insert into calle (calle) values ('Mascouche');
-insert into calle (calle) values ('Curvelo');
-insert into calle (calle) values ('Khān Shaykhūn');
-insert into calle (calle) values ('Agen');
-insert into calle (calle) values ('Huallanca');
-insert into calle (calle) values ('Podbuzh');
-insert into calle (calle) values ('Pallasovka');
-insert into calle (calle) values ('Guxian');
-insert into calle (calle) values ('Shibīn al Qanāţir');
-insert into calle (calle) values ('Aso');
-insert into calle (calle) values ('Cogtong');
-insert into calle (calle) values ('Jiazi');
-insert into calle (calle) values ('Évosmos');
-insert into calle (calle) values ('Potou');
-insert into calle (calle) values ('Gempolan Wetan');
-insert into calle (calle) values ('Rzhev');
-insert into calle (calle) values ('Jiaowei');
-insert into calle (calle) values ('Shengze');
-insert into calle (calle) values ('Guradog');
-insert into calle (calle) values ('Sasar');
-insert into calle (calle) values ('Paccha');
-insert into calle (calle) values ('Shuangjiang');
-insert into calle (calle) values ('Recarei');
-insert into calle (calle) values ('Mjamaoué');
-insert into calle (calle) values ('Dongbatu');
-insert into calle (calle) values ('Purwojoyo');
-insert into calle (calle) values ('Yatunpu');
-insert into calle (calle) values ('Plesná');
-insert into calle (calle) values ('Sychëvo');
-insert into calle (calle) values ('Alzamay');
-insert into calle (calle) values ('Dongjiahe');
-insert into calle (calle) values ('Qırmızı Samux');
-insert into calle (calle) values ('Puger');
-insert into calle (calle) values ('Abomey-Calavi');
-insert into calle (calle) values ('Benešov nad Ploučnicí');
-insert into calle (calle) values ('Babakanloa');
-insert into calle (calle) values ('Metz');
-insert into calle (calle) values ('Bayt Maqdūm');
-insert into calle (calle) values ('Ymittos');
-insert into calle (calle) values ('Keren');
-insert into calle (calle) values ('Biliri');
-insert into calle (calle) values ('Gandajika');
-insert into calle (calle) values ('Novopokrovka');
-insert into calle (calle) values ('Rzgów');
-insert into calle (calle) values ('Yur’yev-Pol’skiy');
-insert into calle (calle) values ('Mhlambanyatsi');
-insert into calle (calle) values ('Liantan');
-insert into calle (calle) values ('Oullins');
-insert into calle (calle) values ('Nagato');
-insert into calle (calle) values ('Otllak');
-insert into calle (calle) values ('Jemielno');
-insert into calle (calle) values ('Desa Borogojol');
-insert into calle (calle) values ('Palestina');
-insert into calle (calle) values ('Jocón');
-insert into calle (calle) values ('Rumyantsevo');
-insert into calle (calle) values ('Negla');
-insert into calle (calle) values ('Codrington');
-insert into calle (calle) values ('Velké Pavlovice');
-insert into calle (calle) values ('Jalaud');
-insert into calle (calle) values ('Kitcharao');
-insert into calle (calle) values ('Arroyo Naranjo');
-insert into calle (calle) values ('Calape');
-insert into calle (calle) values ('Kerkrade');
-insert into calle (calle) values ('Telaga');
-insert into calle (calle) values ('Diepsloot');
-insert into calle (calle) values ('Bojongsari');
-insert into calle (calle) values ('Chiclayo');
-insert into calle (calle) values ('Plettenberg Bay');
-insert into calle (calle) values ('Jiangcun');
-insert into calle (calle) values ('Stefanavíkion');
-insert into calle (calle) values ('El Tránsito');
-insert into calle (calle) values ('Limón');
-insert into calle (calle) values ('Ouangani');
-insert into calle (calle) values ('Pinhal de Frades');
-insert into calle (calle) values ('Pondohan');
-insert into calle (calle) values ('Huangcun');
-insert into calle (calle) values ('Degerfors');
-insert into calle (calle) values ('Sansanné-Mango');
-insert into calle (calle) values ('Barotac Viejo');
-insert into calle (calle) values ('Thị Trấn Thất Khê');
-insert into calle (calle) values ('Sandaogou');
-insert into calle (calle) values ('Florianópolis');
-insert into calle (calle) values ('Buyunshan');
-insert into calle (calle) values ('Paccha');
-insert into calle (calle) values ('Porkhov');
-insert into calle (calle) values ('Huolongmen');
-insert into calle (calle) values ('Ibabang Tayuman');
-insert into calle (calle) values ('Borek Wielkopolski');
-insert into calle (calle) values ('Montepuez');
-insert into calle (calle) values ('Perth');
-insert into calle (calle) values ('Jijia');
-insert into calle (calle) values ('Tsimlyansk');
-insert into calle (calle) values ('Dabancheng');
-insert into calle (calle) values ('Liutao');
-insert into calle (calle) values ('Panaytayon');
-insert into calle (calle) values ('Hexi');
-insert into calle (calle) values ('Soukkouma');
-insert into calle (calle) values ('Chongxian');
-insert into calle (calle) values ('Da’an');
-insert into calle (calle) values ('Nangen');
-insert into calle (calle) values ('Fenoarivo Be');
-insert into calle (calle) values ('Uchimaru');
-insert into calle (calle) values ('Oklahoma City');
-insert into calle (calle) values ('Dolní Bojanovice');
-insert into calle (calle) values ('Nantes');
-insert into calle (calle) values ('Autun');
-insert into calle (calle) values ('Strezhevoy');
-insert into calle (calle) values ('Buritis');
-insert into calle (calle) values ('Rezh');
-insert into calle (calle) values ('Kradinan');
-insert into calle (calle) values ('Jongīyeh');
-insert into calle (calle) values ('Shiyu');
-insert into calle (calle) values ('Boca Raton');
-insert into calle (calle) values ('Champaign');
-insert into calle (calle) values ('Cikandang');
-insert into calle (calle) values ('Roma');
-insert into calle (calle) values ('Gang');
-insert into calle (calle) values ('Bat Khela');
-insert into calle (calle) values ('Aginskoye');
-insert into calle (calle) values ('Gorzyce');
-insert into calle (calle) values ('Lagoa do Itaenga');
-insert into calle (calle) values ('Xiaoyan');
-insert into calle (calle) values ('Frederiksberg');
-insert into calle (calle) values ('Tečovice');
-insert into calle (calle) values ('Katrineholm');
-insert into calle (calle) values ('Ganyesa');
-insert into calle (calle) values ('Djohong');
-insert into calle (calle) values ('Chengjiao');
-insert into calle (calle) values ('Rozsypne');
-insert into calle (calle) values ('Xiaxihao');
-insert into calle (calle) values ('Shiguai');
-insert into calle (calle) values ('Hancheng');
-insert into calle (calle) values ('Lue Amnat');
-insert into calle (calle) values ('Huangnan');
-insert into calle (calle) values ('Novopavlovsk');
-insert into calle (calle) values ('Xinzhu');
-insert into calle (calle) values ('Santa Catalina');
-insert into calle (calle) values ('Imrīsh');
-insert into calle (calle) values ('Araripina');
-insert into calle (calle) values ('Ljungbyholm');
-insert into calle (calle) values ('Nang Rong');
-insert into calle (calle) values ('Noisy-le-Grand');
-insert into calle (calle) values ('Kanugrahan');
-insert into calle (calle) values ('Józefów');
-insert into calle (calle) values ('Novyy Uoyan');
-insert into calle (calle) values ('Listowel');
-insert into calle (calle) values ('Linköping');
-insert into calle (calle) values ('Macha');
-insert into calle (calle) values ('Temuji');
-insert into calle (calle) values ('San Isidro de Lules');
-insert into calle (calle) values ('Chian Yai');
-insert into calle (calle) values ('Storuman');
-insert into calle (calle) values ('Tafeng');
-insert into calle (calle) values ('Martil');
-insert into calle (calle) values ('La Cruz');
-insert into calle (calle) values ('Beijie');
-insert into calle (calle) values ('Broska');
-insert into calle (calle) values ('Primorsko-Akhtarsk');
-insert into calle (calle) values ('Liufu');
-insert into calle (calle) values ('Rechitsy');
-insert into calle (calle) values ('Belén');
-insert into calle (calle) values ('Doksy');
-insert into calle (calle) values ('Douala');
-insert into calle (calle) values ('Mariestad');
-insert into calle (calle) values ('A’yi Take');
-insert into calle (calle) values ('Sandakan');
-insert into calle (calle) values ('Arrifes');
-insert into calle (calle) values ('Kanal');
-insert into calle (calle) values ('Leonídio');
-insert into calle (calle) values ('Torsås');
-insert into calle (calle) values ('Jiangtou');
-insert into calle (calle) values ('Dorchester');
-insert into calle (calle) values ('Dafang');
-insert into calle (calle) values ('Bizhbulyak');
-insert into calle (calle) values ('Nantian');
-insert into calle (calle) values ('Khrenovoye');
-insert into calle (calle) values ('Agudos');
-insert into calle (calle) values ('Velika Kladuša');
-insert into calle (calle) values ('Guling');
-insert into calle (calle) values ('Dąbrowa');
-insert into calle (calle) values ('Libofshë');
-insert into calle (calle) values ('Bhiria');
-insert into calle (calle) values ('Zhifang');
-insert into calle (calle) values ('Debe');
-insert into calle (calle) values ('Bosanski Brod');
-insert into calle (calle) values ('San Antonio');
-insert into calle (calle) values ('Aranđelovac');
-insert into calle (calle) values ('Agnibilékrou');
-insert into calle (calle) values ('Североморск-3');
-insert into calle (calle) values ('Leiling');
-insert into calle (calle) values ('Balakasap');
-insert into calle (calle) values ('Swiętajno');
-insert into calle (calle) values ('Jukui');
-insert into calle (calle) values ('Daleman');
-insert into calle (calle) values ('Xinhe');
-insert into calle (calle) values ('Bingawan');
-insert into calle (calle) values ('Cempa');
-insert into calle (calle) values ('Cujillo');
-insert into calle (calle) values ('Changjiang');
-insert into calle (calle) values ('El Rosario');
-insert into calle (calle) values ('Smołdzino');
-insert into calle (calle) values ('Kagadi');
-insert into calle (calle) values ('Puerto Eldorado');
-insert into calle (calle) values ('Ciklapa');
-insert into calle (calle) values ('Al Qarārah');
-insert into calle (calle) values ('Nizhnyaya Tura');
-insert into calle (calle) values ('Azueira');
-insert into calle (calle) values ('Salaberry-de-Valleyfield');
-insert into calle (calle) values ('Strängnäs');
-insert into calle (calle) values ('Wingham');
-insert into calle (calle) values ('Hangkou');
-insert into calle (calle) values ('Sławoborze');
-insert into calle (calle) values ('San Antonio');
-insert into calle (calle) values ('Sanli');
-insert into calle (calle) values ('Ducheng');
-insert into calle (calle) values ('Souto');
-insert into calle (calle) values ('Falun');
-insert into calle (calle) values ('Calceta');
-insert into calle (calle) values ('Chãos');
-insert into calle (calle) values ('Pavshino');
-insert into calle (calle) values ('Yangxi');
-insert into calle (calle) values ('Niigata-shi');
-insert into calle (calle) values ('Mercedes');
-insert into calle (calle) values ('Qarah Bāgh Bāzār');
-insert into calle (calle) values ('Palotina');
-insert into calle (calle) values ('Barbacoas');
-insert into calle (calle) values ('Ōhara');
-insert into calle (calle) values ('Burnham');
-insert into calle (calle) values ('Shuanghe');
-insert into calle (calle) values ('Delok');
-insert into calle (calle) values ('Louisville');
-insert into calle (calle) values ('Buenavista');
-insert into calle (calle) values ('Horten');
-insert into calle (calle) values ('Moncton');
-insert into calle (calle) values ('Stockholm');
-insert into calle (calle) values ('Parada de Pinhão');
-insert into calle (calle) values ('Makarov');
-insert into calle (calle) values ('Meringkik');
-insert into calle (calle) values ('Manta');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (1,'Hipólito Yrigoyen'),
+	 (2,'Av. Francisco Ramírez'),
+	 (3,'Rivadavia'),
+	 (4,'Estrada'),
+	 (5,'Saavedra'),
+	 (6,'Libertad'),
+	 (7,'De Las Achiras'),
+	 (8,'Chubut'),
+	 (9,'Alemanes Del Volga'),
+	 (10,'Santa Cruz');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (11,'De Los Jazmines'),
+	 (12,'Salta'),
+	 (13,'De Los Malvones'),
+	 (14,'De Las Lilas'),
+	 (15,'De Las Azucenas'),
+	 (16,'La Pampa'),
+	 (17,'De Las Fresias'),
+	 (18,'La Rioja'),
+	 (19,'De Los Lirios'),
+	 (20,'De Las Dalias');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (21,'De Los Gladiolos'),
+	 (22,'Victoria'),
+	 (23,'De Las Violetas'),
+	 (24,'Luis Kaehler'),
+	 (25,'Misiones'),
+	 (26,'Buenos Aires'),
+	 (27,'San Juan'),
+	 (28,'9 De Julio'),
+	 (29,'San Luis'),
+	 (30,'San Arnoldo Janssen');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (31,'Concordia'),
+	 (32,'Conscripto Jorge Benito Jacob'),
+	 (33,'Mendoza'),
+	 (34,'Federación'),
+	 (35,'Diamante'),
+	 (36,'Tucumán'),
+	 (37,'Gualeguaychú'),
+	 (38,'Córdoba'),
+	 (39,'Democracia'),
+	 (40,'Santiago Del Estero');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (41,'Fraternidad'),
+	 (42,'Catamarca'),
+	 (43,'1ro De Mayo'),
+	 (44,'Entre Ríos'),
+	 (45,'Jujuy'),
+	 (46,'Tierra Del Fuego'),
+	 (47,'Formosa'),
+	 (48,'Neuquén'),
+	 (49,'Chaco'),
+	 (50,'Blas Parera');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (51,'Corrientes'),
+	 (52,'Vicente López Y Planes'),
+	 (53,'Santa Fe'),
+	 (54,'Berutti'),
+	 (55,'Av. Intendente Esteban Pesante'),
+	 (56,'Las Golondrinas'),
+	 (57,'América'),
+	 (58,'French'),
+	 (59,'Falucho'),
+	 (60,'Pasaje Racedo');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (61,'Vieytes'),
+	 (62,'Los Chajaes'),
+	 (63,'Alberdi'),
+	 (64,'Dorrego'),
+	 (65,'Otto Sagemüller'),
+	 (66,'General Güemes'),
+	 (67,'San Martín'),
+	 (68,'Sarmiento'),
+	 (69,'Laurencena'),
+	 (70,'Pasaje Echagüe');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (71,'Urquiza'),
+	 (72,'Av. Manuel Belgrano'),
+	 (73,'Av. Humberto Alfredo Seri'),
+	 (74,'Mariano Moreno'),
+	 (75,'López Jordán'),
+	 (76,'Coronel Tomás de Rocamora'),
+	 (77,'Av. 3 De Febrero'),
+	 (78,'Tratado Del Pilar'),
+	 (79,'Dr.  Crisóstomo Soñéz'),
+	 (80,'Av. Independencia');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (81,'Alem'),
+	 (82,'Bartolomé Mitre'),
+	 (83,'Coronel Juan Pringles'),
+	 (84,'Roque Sáenz Peña'),
+	 (85,'Nicolás Avellaneda'),
+	 (86,'Rodríguez Peña'),
+	 (87,'Juan Lavalle'),
+	 (88,'Cepeda'),
+	 (89,'Valentín Alsina'),
+	 (90,'Martín Fierro');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (91,'General Paz'),
+	 (92,'José Hernández'),
+	 (93,'Los Reseros'),
+	 (94,'Estanislao López'),
+	 (95,'Malvinas Argentinas'),
+	 (96,'Italia'),
+	 (97,'San Lorenzo'),
+	 (98,'Los Polvorines'),
+	 (99,'Presidente Juan Domingo Perón'),
+	 (100,'Los Ombues');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (101,'Yapeyú'),
+	 (102,'Maipú'),
+	 (103,'Los Andes'),
+	 (104,'Antonio Stronatti'),
+	 (105,'Brasil'),
+	 (106,'Av. Los Constituyentes'),
+	 (107,'República Oriental del Uruguay'),
+	 (108,'Perito Moreno'),
+	 (109,'Almafuerte'),
+	 (110,'Las Heras');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (111,'Ameghino'),
+	 (112,'Sargento Juan B. Cabral'),
+	 (113,'Rafael Obligado'),
+	 (114,'Los Talas'),
+	 (115,'Remedios De Escalada'),
+	 (116,'Arturo Umberto Illia'),
+	 (117,'Ensenada'),
+	 (118,'Intendente Jorge Heinze'),
+	 (119,'Los Sauces'),
+	 (120,'Las Higuerillas');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (121,'España'),
+	 (122,'Rosario Vera Peñaloza'),
+	 (123,'Félix Oriol'),
+	 (124,'La Delfina'),
+	 (125,'Los Olivos'),
+	 (126,'24 De Abril'),
+	 (127,'Juan XXIII'),
+	 (128,'Chacabuco'),
+	 (129,'Dr. Minguillón'),
+	 (130,'Los Benteveos');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (131,'Los Horneros'),
+	 (132,'Los Zorzales'),
+	 (133,'Las Calandrias'),
+	 (134,'Los Chingolos'),
+	 (135,'Los Teros'),
+	 (136,'Comandante Luis Piedrabuena'),
+	 (137,'Gobernador Lucio Uranga'),
+	 (138,'Los Gorriones'),
+	 (139,'Los Picaflores'),
+	 (140,'Las Torcazas');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (141,'Ana Minguillón'),
+	 (142,'Los Lapachos'),
+	 (143,'Manuel Santillán'),
+	 (144,'Enrique Carbó'),
+	 (145,'Doctor Salomón Ruda'),
+	 (146,'Los Cardenales'),
+	 (147,'Doctor Santiago Stieben'),
+	 (148,'Presidente Raúl R. Alfonsin'),
+	 (149,'Felipe Mors'),
+	 (150,'República Argentina');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (151,'Los Ceibos'),
+	 (152,'25 De Mayo'),
+	 (153,'Los Laureles'),
+	 (154,'Los Jacarandaes'),
+	 (155,'Enrique Santos Discépolo'),
+	 (156,'Magdalena S. de Arnold'),
+	 (157,'Liniers'),
+	 (158,'Luis Sandrini'),
+	 (159,'Carlos Gardel'),
+	 (160,'Benito Quinquela Martín');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (161,'Juan L. Ortiz'),
+	 (162,'Astor Piazzola'),
+	 (163,'Alfonsina Storni'),
+	 (164,'Pepe Biondi'),
+	 (165,'Gabriela Mistral'),
+	 (166,'Anibal Troilo'),
+	 (167,'Luis Federico Leloir'),
+	 (168,'Jorge Cafrune'),
+	 (169,'Los Plátanos'),
+	 (170,'José Linares Cardozo');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (171,'Los Aromos'),
+	 (172,'Los Paraisos'),
+	 (173,'Los Robles'),
+	 (174,'Las Palmeras'),
+	 (175,'Los Algarrobos'),
+	 (176,'Los Pinos'),
+	 (177,'Alicia Moreau de Justo'),
+	 (178,'Los Tilos'),
+	 (179,'Lucie Martin'),
+	 (180,'Las Toronjas');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (181,'Calle Pública 189'),
+	 (182,'Los Eucaliptus'),
+	 (183,'Brigadier General Juan Manuel de Rosas'),
+	 (184,'Las Acacias'),
+	 (185,'Los Fresnos'),
+	 (186,'Los Arces'),
+	 (187,'Los Naranjos'),
+	 (188,'Bicentenario de la Independencia'),
+	 (189,'Los Castaños'),
+	 (190,'Matilde Isabel González');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (191,'Los Faisanes'),
+	 (192,'Intendente Hamad Hamdan'),
+	 (193,'Dr. Alfonso Forns'),
+	 (194,'Vias'),
+	 (195,'Sin Calle'),
+	 (196,'Límite'),
+	 (197,'Prueba 1'),
+	 (198,'Lote Interno'),
+	 (199,'Hamdan'),
+	 (200,'prueba');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (201,'Ejido Crespo'),
+	 (202,'Ruta 12'),
+	 (203,'Parque Industrial'),
+	 (204,'Ruta 131'),
+	 (205,'LAVALLE'),
+	 (206,'SIN DATOS'),
+	 (207,'Aldea San Juan'),
+	 (208,'Padre Enrique Becher'),
+	 (209,'Dr. Ramón Carrillo'),
+	 (210,'Dr. René Favaloro');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (211,'Calle Secundaria'),
+	 (212,'Marcos Laferrara'),
+	 (213,'Hermanos Henkel'),
+	 (214,'Rio Negro'),
+	 (215,'Concepción del Uruguay'),
+	 (216,'Paraná'),
+	 (217,'Rosario del Tala'),
+	 (218,'Capitan Danilo Bolzan'),
+	 (219,'Maria Esther de Miguel'),
+	 (220,'Luz Vieira Mendez');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (221,'Gloria Montoya'),
+	 (222,'Rosa Rotman de Seri'),
+	 (223,'Teresa Ratto'),
+	 (224,'Ana Beatriz Monti'),
+	 (225,'Catalina Heinzenknech'),
+	 (226,'Nogoyá'),
+	 (227,'Gualeguay'),
+	 (228,'Juan Valdemarin'),
+	 (229,'Chajarí'),
+	 (231,'Parque Nac. Pre Delta');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (232,'Vice Comodoro Juan Falconier'),
+	 (233,'Aldea Santa Rosa'),
+	 (234,'Aldea San Rafael'),
+	 (235,'Francisco Sagemuller'),
+	 (236,'Florentina Gomez Miranda'),
+	 (237,'Calle Publica 234'),
+	 (238,'Calle Publica 236'),
+	 (239,'Calle Publica 238'),
+	 (240,'Los Chanás'),
+	 (241,'Los Wichis');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (242,'Susana Kemerer de Regner'),
+	 (243,'Parque Nac. Nahuel Huapi'),
+	 (244,'Parque Nac. Iguazu'),
+	 (245,'Parque Nac. Los Glaciares'),
+	 (246,'Parque Nac. Los Arrayanes'),
+	 (247,'Parque Nac. Rio Pilcomayo'),
+	 (248,'Santiago Eichhorn'),
+	 (249,'Alejandro Mohor'),
+	 (250,'Aurelio Feller'),
+	 (251,'Marcelo Fontana');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (252,'Micieslao Trembecki'),
+	 (253,'Bellamin Pach'),
+	 (254,'Calle Publica 233'),
+	 (255,'Mercedes Sosa'),
+	 (256,'Ponciano Jacinto Zaragoza'),
+	 (257,'José Eduardo Seri'),
+	 (258,'Alfredo Martinez Howard'),
+	 (259,'Arturo Jauretche'),
+	 (260,'Maria Elena Walsh'),
+	 (261,'José Gervasio Artigas');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (262,'Juana Azurduy'),
+	 (263,'Lola Mora'),
+	 (264,'Maria Segovia'),
+	 (265,'Antonio Vicente Seimandi'),
+	 (266,'Juana Manuela Gorriti'),
+	 (267,'Tita Merello'),
+	 (268,'Los Querandíes'),
+	 (269,'Los Guaraníes'),
+	 (270,'Los Mocovíes'),
+	 (271,'Los Charrúas');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (272,'Los Tobas'),
+	 (273,'Puerto Argentino'),
+	 (274,'Parque Nac. El Palmar'),
+	 (275,'Colón'),
+	 (276,'Santiago Besler'),
+	 (277,'Pablo Diana'),
+	 (278,'Roberto Negro Fontanarrosa'),
+	 (279,'Pastor Ricardo F. Huck'),
+	 (280,'Calle Publica 262'),
+	 (281,'Calle Publica 264');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (282,'Juan José Castelli'),
+	 (283,'Juan José Paso'),
+	 (284,'Publica'),
+	 (285,'Gerardo S. Eichhorn'),
+	 (286,'Los Ranqueles'),
+	 (287,'Los Huarpes'),
+	 (288,'Los Diaguitas'),
+	 (289,'Los Tehuelches'),
+	 (290,'Los Quechuas'),
+	 (291,'Los Araucanos');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (292,'Los Mapuches'),
+	 (293,'Gustavo Cerati'),
+	 (294,'Facundo Cabral'),
+	 (295,'Tato Bores'),
+	 (296,'Atahualpa Yupanqui'),
+	 (297,'Florencio Molina Campos'),
+	 (298,'Calle Publica 281'),
+	 (299,'Camino Vecinal'),
+	 (300,'Calle Publica 278'),
+	 (301,'Calle Publica 285');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (302,'Calle Publica 287'),
+	 (303,'Calle Publica 289'),
+	 (304,'Calle Publica 291'),
+	 (305,'Calle Publica 293'),
+	 (306,'Calle Publica 280'),
+	 (307,'Aldea Jacobi'),
+	 (308,'Dr. Martin Lutero'),
+	 (309,'Igualdad'),
+	 (310,'Justicia'),
+	 (311,'Cooperación');
+INSERT INTO eolida.calle (id,calle) VALUES
+	 (312,'Solidaridad'),
+	 (313,'Hermandad');

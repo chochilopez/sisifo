@@ -30,5 +30,4 @@ public class VisitaCreation {
     private String organization; // "Gigared S.A.",
     private String asn; // "AS20207",
     private String geoname_id; // 3432082,
-    private String visitante_id;
 }

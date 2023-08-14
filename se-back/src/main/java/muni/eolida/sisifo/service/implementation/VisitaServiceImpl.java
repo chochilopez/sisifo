@@ -157,6 +157,7 @@ public class VisitaServiceImpl implements VisitaService {
         return count;
     }
 
+    //TODO hacer request a pagina, ademas realizar ingreso de usuario a la visita
     @Override
     public EntityMessenger<VisitaModel> insertar(VisitaCreation model) {
         try {

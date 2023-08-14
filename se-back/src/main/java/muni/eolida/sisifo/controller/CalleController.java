@@ -62,8 +62,8 @@ public class CalleController {
         }
     }
 
-    @GetMapping(value = "/buscar-por-id-con-borrados/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @GetMapping(value = "/buscar-por-id/{id}")
+    @PreAuthorize("hasAuthority('ROL_USUARIO')")
     public ResponseEntity<CalleDTO> findById(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarPorIdConBorrados(id);
         if (CalleModelEntityMessenger.getStatusCode() == 202)
@@ -74,8 +74,20 @@ public class CalleController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
     }
 
-    @GetMapping(value = "/buscar-todos")
+    @GetMapping(value = "/buscar-por-id-con-borrados/{id}")
     @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<CalleDTO> findByIdConBorrados(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+        EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarPorIdConBorrados(id);
+        if (CalleModelEntityMessenger.getStatusCode() == 202)
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
+        else if (CalleModelEntityMessenger.getStatusCode() == 200)
+            return new ResponseEntity<>(calleMapper.toDto(CalleModelEntityMessenger.getObject()), Helper.httpHeaders(CalleModelEntityMessenger.getMessage()), HttpStatus.OK);
+        else
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
+    }
+
+    @GetMapping(value = "/buscar-todos")
+    @PreAuthorize("hasAuthority('ROL_USUARIO')")
     public ResponseEntity<List<CalleDTO>> findAllByRemovedIsNull() {
         EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarTodos();
         if (CalleModelEntityMessenger.getStatusCode() == 202)

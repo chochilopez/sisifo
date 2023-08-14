@@ -46,11 +46,6 @@ public class VisitaMapper {
             visitaModel.setOrganization(visitaCreation.getOrganization());
             visitaModel.setAsn(visitaCreation.getAsn());
             visitaModel.setGeoname_id(visitaCreation.getGeoname_id());
-            if (!Helper.isEmptyString(visitaCreation.getVisitante_id())) {
-                EntityMessenger<UsuarioModel> visitante = usuarioServiceImpl.buscarPorNombreDeUsuario(visitaCreation.getVisitante_id());
-                if (visitante.getStatusCode() == 200)
-                    visitaModel.setVisitante(visitante.getObject());
-            }
 
             return visitaModel;
         } catch (Exception e) {

@@ -36,7 +36,6 @@ public class ReclamoModel extends AbstractAuditoriaModel {
       private CalleModel entreCalle2;
       @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
       private ArchivoModel imagen;
-      private String numero;
       @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
       @ManyToOne(targetEntity = UsuarioModel.class, fetch = FetchType.EAGER)
       private UsuarioModel persona;

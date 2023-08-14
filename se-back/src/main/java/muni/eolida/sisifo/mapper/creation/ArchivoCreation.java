@@ -8,7 +8,4 @@ import lombok.Setter;
 public class ArchivoCreation {
     private String path;
     private String nombre;
-    private String tipo;
-    private String descripcion;
-    private String tamanio;
 }

@@ -36,99 +36,20 @@ public class ArchivoServiceImpl implements ArchivoService {
     }
 
     @Override
-    public EntityMessenger<ArchivoModel> buscarTodosPorTipoArchivo(String tipo) {
+    public EntityMessenger<ArchivoModel> guardarArchivo(byte[] bytes, String usuario, String uuid) {
         try {
-            log.info("Searching for entities Archivo with file type: {}.", tipo);
-            List<ArchivoModel> archivoModelList = archivoDAO.findAllByTipoAndBorradoIsNull(TipoArchivoEnum.valueOf(tipo));
-            if (archivoModelList.isEmpty()) {
-                String message = "No entities Archivo with file type: " + tipo + " were found.";
-                log.warn(message);
-                return new EntityMessenger<ArchivoModel>(null, null, message, 202);
-            } else {
-                String message = archivoModelList.size() + "entities Archivo were found.";
-                log.info(message);
-                return new EntityMessenger<ArchivoModel>(null, archivoModelList, message, 200);
-            }
-        } catch (Exception e) {
-            String message = "An error occurred while trying to find the entities. Exception: " + e + ".";
-            log.error(message);
-            return new EntityMessenger<ArchivoModel>(null, null, message, 204);
-        }
-    }
-
-    @Override
-    public EntityMessenger<ArchivoModel> buscarTodosPorTipoArchivoConBorrados(String tipo) {
-        try {
-            log.info("Searching for entities Archivo with file type: {}, included deleted ones.", tipo);
-            List<ArchivoModel> archivoModelList = archivoDAO.findAllByTipo(TipoArchivoEnum.valueOf(tipo));
-            if (archivoModelList.isEmpty()) {
-                String message = "No entities Archivo with file type: " + tipo + " were found, included deleted ones.";
-                log.warn(message);
-                return new EntityMessenger<ArchivoModel>(null, null, message, 202);
-            } else {
-                String message = archivoModelList.size() + "entities Archivo were found, included deleted ones.";
-                log.info(message);
-                return new EntityMessenger<ArchivoModel>(null, archivoModelList, message, 200);
-            }
-        } catch (Exception e) {
-            String message = "An error occurred while trying to find the entities. Exception: " + e + ".";
-            log.error(message);
-            return new EntityMessenger<ArchivoModel>(null, null, message, 204);
-        }
-    }
-
-    @Override
-    public EntityMessenger<ArchivoModel> guardarArchivo(byte[] bytes, String nombre, String tipo, String descripcion, String tamanio) {
-        try {
-            log.info("Saving file " + nombre + " in Archivo.");
-            String filepath = "";
-            switch (TipoArchivoEnum.valueOf(tipo)) {
-                case TIPO_ARCHIVO_AUDIO -> filepath = filepath + "/media/audio/";
-                case TIPO_ARCHIVO_IMAGEN -> filepath = filepath + "/media/image/";
-                case TIPO_ARCHIVO_VIDEO -> filepath = filepath + "/media/video/";
-                case TIPO_ARCHIVO_DOCUMENTO -> filepath = filepath + "/media/pdf/";
-                default -> {
-                }
-            }
-            Path path = Paths.get(resourcePath + filepath);
+            log.info("Saving file " + usuario + "/" + uuid + " in Archivo.");
+            Path path = Paths.get(resourcePath + "/" + usuario);
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
                 log.info("The directory: {} was created.", path);
             } else {
                 log.info("The directory: {} was already created.", path);
             }
-            LocalDateTime localDateTime = LocalDateTime.now();
-            filepath = filepath + Helper.localDateTimeToString(localDateTime, "yyyy") + "/";
-            path = Paths.get(resourcePath + filepath);
-            if (!Files.exists(path)) {
-                Files.createDirectories(path);
-                log.info("The directory: {} was created.", path);
-            } else {
-                log.info("The directory: {} was already created.", path);
-            }
-            filepath = filepath + Helper.localDateTimeToString(localDateTime, "M") + "/" ;
-            path = Paths.get(resourcePath + filepath);
-            if (!Files.exists(path)) {
-                Files.createDirectories(path);
-                log.info("The directory: {} was created.", path);
-            } else {
-                log.info("The directory: {} was already created.", path);
-            }
-            filepath = filepath + Helper.localDateTimeToString(localDateTime, "d") + "/" ;
-            path = Paths.get(resourcePath + filepath);
-            if (!Files.exists(path)) {
-                Files.createDirectories(path);
-                log.info("The directory: {} was created.", path);
-            } else {
-                log.info("The directory: {} was already created.", path);
-            }
-            Files.write(Paths.get(resourcePath + filepath + nombre), bytes);
+            Files.write(Paths.get(resourcePath + "/" + usuario + "/" + uuid), bytes);
             ArchivoCreation archivoCreation = new ArchivoCreation();
-            archivoCreation.setTipo(tipo);
-            archivoCreation.setNombre(nombre);
-            archivoCreation.setTamanio(tamanio);
-            archivoCreation.setDescripcion(descripcion);
-            archivoCreation.setPath(filepath);
+            archivoCreation.setPath(resourcePath + "/" + usuario);
+            archivoCreation.setNombre(uuid);
             EntityMessenger<ArchivoModel> archivoModelEntityMessenger = this.insertar(archivoCreation);
             if (archivoModelEntityMessenger.getStatusCode() == 201) {
                 String message = "Archivo " + archivoModelEntityMessenger.getObject().getNombre() + " was saved correctly.";
@@ -214,20 +135,6 @@ public class ArchivoServiceImpl implements ArchivoService {
     public Long contarTodosConBorrados() {
         Long count = archivoDAO.count();
         log.info("Table Archivo possess {} entities, included deleted ones.", count);
-        return count;
-    }
-
-    @Override
-    public Long contarTodosPorTipoArchivo(String tipo) {
-        Long count = archivoDAO.countAllByTipoAndBorradoIsNull(TipoArchivoEnum.valueOf(tipo));
-        log.info("Table Archivo possess {} entities of file type: " + tipo + ".", count);
-        return count;
-    }
-
-    @Override
-    public Long contarTodosPorTipoArchivoConBorrados(String tipo) {
-        Long count = archivoDAO.countAllByTipo(TipoArchivoEnum.valueOf(tipo));
-        log.info("Table Archivo possess {} entities of file type: " + tipo + ", included deleted ones.", count);
         return count;
     }
 

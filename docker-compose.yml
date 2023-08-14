@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  mysql-sitio:
+    image: mysql:8.0.28-oracle
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: KOSIJOFjhuisJFhjuhsfdkjasfjk/&()/6()/&987555876587653kHGHJGfy65(&/%8765874766fdfsdfsdf
+      MYSQL_DATABASE: eolida
+      MYSQL_USER: sisifo
+      MYSQL_PASSWORD: KOSIJOFjhuisJFhjuhsfdkjasfjk/&()/6()/&987555876587653kHGHJGfy65(&/%8765874766fdfsdfsdf
+    ports:
+      - "9201:3306"
+    volumes:
+      - ./data:/var/lib/app9201
+
+  # springboot:
+  #   image: openjdk:17-alpine
+  #   container_name: epione_backend
+  #   build:
+  #     context: /home/mgloit/GIT/epione_backend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "9088:9088"
+  #   restart: always
+  #   depends_on:
+  #     - mysql
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:mysql://mysql:4406/helionida
+  #     SPRING_DATASOURCE_USERNAME: helionida
+  #     SPRING_DATASOURCE_PASSWORD: KJfdf/7895)77

@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class ReclamoDTO implements Serializable {
+    private String id;
     private String altura;
     private String barrio;
     private CalleDTO calle;
@@ -18,7 +19,6 @@ public class ReclamoDTO implements Serializable {
     private CalleDTO entreCalle1;
     private CalleDTO entreCalle2;
     private ArchivoDTO imagen;
-    private String numero;
     private UsuarioDTO persona;
     private TipoReclamoDTO tipoReclamo;
 }

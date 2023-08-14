@@ -7,6 +7,7 @@ import muni.eolida.sisifo.helper.Helper;
 import muni.eolida.sisifo.mapper.ReclamoMapper;
 import muni.eolida.sisifo.mapper.creation.ReclamoCreation;
 import muni.eolida.sisifo.model.ReclamoModel;
+import muni.eolida.sisifo.model.UsuarioModel;
 import muni.eolida.sisifo.repository.ReclamoDAO;
 import muni.eolida.sisifo.service.ReclamoService;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,42 @@ public class ReclamoServiceImpl implements ReclamoService {
     private final ReclamoDAO reclamoDAO;
     private final ReclamoMapper reclamoMapper;
     private final UsuarioServiceImpl usuarioService;
+
+    @Override
+    public EntityMessenger<ReclamoModel> buscarMisReclamos() {
+        EntityMessenger<UsuarioModel> usuarioModel = usuarioService.obtenerUsuario();
+        return this.buscarPorCreador(usuarioModel.getObject().getId());
+    }
+
+    @Override
+    public EntityMessenger<ReclamoModel> buscarPorCreador(Long id) {
+        log.info("Buscando entidades Reclamo con id creador: {}.", id);
+        List<ReclamoModel> list = reclamoDAO.findAllByCreadorIdAndBorradoIsNull(id);
+        if (list.isEmpty()) {
+            String message = "No se encontraron entidades Reclamo con id creador " + id + ".";
+            log.warn(message);
+            return new EntityMessenger<ReclamoModel>(null, null, message, 202);
+        } else {
+            String message = "Se encontraron " + list.size() + " entidades Reclamo con id creador " + id + ".";
+            log.info(message);
+            return new EntityMessenger<ReclamoModel>(null, list, message, 200);
+        }
+    }
+
+    @Override
+    public EntityMessenger<ReclamoModel> buscarPorCreadorConBorrados(Long id) {
+        log.info("Searching for entities Reclamo with id creador: {}, included deleted ones.", id);
+        List<ReclamoModel> list = reclamoDAO.findAllByCreadorId(id);
+        if (list.isEmpty()) {
+            String message = "No entities Reclamo was found with id creador " + id + ", included deleted ones.";
+            log.warn(message);
+            return new EntityMessenger<ReclamoModel>(null, null, message, 202);
+        } else {
+            String message = list.size() + " entities Reclamo was found with id creador " + id + ", included deleted ones.";
+            log.info(message);
+            return new EntityMessenger<ReclamoModel>(null, list, message, 200);
+        }
+    }
 
     @Override
     public EntityMessenger<ReclamoModel> buscarPorId(Long id) {

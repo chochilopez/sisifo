@@ -20,10 +20,6 @@ public class ArchivoMapper {
 
             archivoModel.setPath(archivoCreation.getPath());
             archivoModel.setNombre(archivoCreation.getNombre());
-            if (!Helper.isEmptyString(archivoCreation.getTipo()))
-                archivoModel.setTipo(TipoArchivoEnum.valueOf(archivoCreation.getTipo()));
-            archivoModel.setDescripcion(archivoCreation.getDescripcion());
-            archivoModel.setTamanio(archivoCreation.getTamanio());
 
             return archivoModel;
         } catch (Exception e) {
@@ -36,11 +32,9 @@ public class ArchivoMapper {
         try {
             ArchivoDTO dto = new ArchivoDTO();
 
+            dto.setId(archivoModel.getId().toString());
             dto.setPath(archivoModel.getPath());
             dto.setNombre(archivoModel.getNombre());
-            dto.setTipo(archivoModel.getTipo().toString());
-            dto.setDescripcion(archivoModel.getDescripcion());
-            dto.setTamanio(archivoModel.getTamanio());
 
             return dto;
         } catch (Exception e) {

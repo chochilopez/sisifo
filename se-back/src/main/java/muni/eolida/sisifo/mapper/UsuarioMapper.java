@@ -9,9 +9,6 @@ import muni.eolida.sisifo.model.UsuarioModel;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -41,16 +38,12 @@ public class UsuarioMapper {
         try {
             UsuarioDTO dto = new UsuarioDTO();
 
+            dto.setId(usuarioModel.getId().toString());
             dto.setNombre(usuarioModel.getNombre());
             dto.setDni(usuarioModel.getDni());
             dto.setDireccion(usuarioModel.getDireccion());
             dto.setTelefono(usuarioModel.getTelefono());
             dto.setUsername(usuarioModel.getUsername());
-            List<String> roles = new ArrayList<>();
-            for (RolModel rolModel:usuarioModel.getRoles()) {
-                roles.add(rolModel.getRol().name());
-            }
-            dto.setRoles(roles);
 
             return dto;
         } catch (Exception e) {

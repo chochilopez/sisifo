@@ -7,6 +7,8 @@ import muni.eolida.sisifo.helper.Helper;
 import muni.eolida.sisifo.mapper.ReclamoMapper;
 import muni.eolida.sisifo.mapper.creation.ReclamoCreation;
 import muni.eolida.sisifo.mapper.dto.ReclamoDTO;
+import muni.eolida.sisifo.mapper.dto.ReclamoDTO;
+import muni.eolida.sisifo.model.ReclamoModel;
 import muni.eolida.sisifo.model.ReclamoModel;
 import muni.eolida.sisifo.service.implementation.ReclamoServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,57 @@ public class ReclamoController {
 
     private final ReclamoServiceImpl reclamoService;
     private final ReclamoMapper reclamoMapper;
+    
+    @GetMapping(value = "/buscar-mis-reclamos")
+    @PreAuthorize("hasAuthority('ROL_USUARIO')")
+    public ResponseEntity<List<ReclamoDTO>> buscarTodosPorReclamo() {
+        EntityMessenger<ReclamoModel> reclamoModelEntityMessenger = reclamoService.buscarMisReclamos();
+        if (reclamoModelEntityMessenger.getStatusCode() == 202) {
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(reclamoModelEntityMessenger.getMessage())).build();
+        } else if (reclamoModelEntityMessenger.getStatusCode() == 200) {
+            ArrayList<ReclamoDTO> reclamoDTOS = new ArrayList<>();
+            for (ReclamoModel reclamoModel : reclamoModelEntityMessenger.getList()) {
+                reclamoDTOS.add(reclamoMapper.toDto(reclamoModel));
+            }
+            return new ResponseEntity<>(reclamoDTOS, Helper.httpHeaders(reclamoModelEntityMessenger.getMessage()), HttpStatus.OK);
+        } else {
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(reclamoModelEntityMessenger.getMessage())).build();
+        }
+    }
+
+    @GetMapping(value = "/buscar-reclamos-por-usuario/{id}")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<List<ReclamoDTO>> buscarTodosPorReclamo(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 5) Long id) {
+        EntityMessenger<ReclamoModel> reclamoModelEntityMessenger = reclamoService.buscarPorCreador(id);
+        if (reclamoModelEntityMessenger.getStatusCode() == 202) {
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(reclamoModelEntityMessenger.getMessage())).build();
+        } else if (reclamoModelEntityMessenger.getStatusCode() == 200) {
+            ArrayList<ReclamoDTO> reclamoDTOS = new ArrayList<>();
+            for (ReclamoModel reclamoModel : reclamoModelEntityMessenger.getList()) {
+                reclamoDTOS.add(reclamoMapper.toDto(reclamoModel));
+            }
+            return new ResponseEntity<>(reclamoDTOS, Helper.httpHeaders(reclamoModelEntityMessenger.getMessage()), HttpStatus.OK);
+        } else {
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(reclamoModelEntityMessenger.getMessage())).build();
+        }
+    }
+
+    @GetMapping(value = "/buscar-reclamos-por-usuario-con-borrados/{id}")
+    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<List<ReclamoDTO>> buscarTodosPorReclamoConBorrados(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 5) Long id) {
+        EntityMessenger<ReclamoModel> reclamoModelEntityMessenger = reclamoService.buscarPorCreadorConBorrados(id);
+        if (reclamoModelEntityMessenger.getStatusCode() == 202) {
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(reclamoModelEntityMessenger.getMessage())).build();
+        } else if (reclamoModelEntityMessenger.getStatusCode() == 200) {
+            ArrayList<ReclamoDTO> reclamoDTOS = new ArrayList<>();
+            for (ReclamoModel reclamoModel : reclamoModelEntityMessenger.getList()) {
+                reclamoDTOS.add(reclamoMapper.toDto(reclamoModel));
+            }
+            return new ResponseEntity<>(reclamoDTOS, Helper.httpHeaders(reclamoModelEntityMessenger.getMessage()), HttpStatus.OK);
+        } else {
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(reclamoModelEntityMessenger.getMessage())).build();
+        }
+    }
 
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
@@ -101,7 +154,7 @@ public class ReclamoController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ROL_USUARIO')")
     public ResponseEntity<ReclamoDTO> insert(@Valid @RequestBody ReclamoCreation reclamoCreation) {
         EntityMessenger<ReclamoModel> ReclamoModelEntityMessenger = reclamoService.insertar(reclamoCreation);
         if (ReclamoModelEntityMessenger.getStatusCode() == 202)

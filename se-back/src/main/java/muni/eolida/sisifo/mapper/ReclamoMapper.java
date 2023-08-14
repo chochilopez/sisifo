@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.helper.EntityMessenger;
 import muni.eolida.sisifo.helper.Helper;
 import muni.eolida.sisifo.mapper.creation.ReclamoCreation;
-import muni.eolida.sisifo.mapper.dto.ReclamoDTO;
+import muni.eolida.sisifo.mapper.dto.*;
 import muni.eolida.sisifo.model.*;
 import muni.eolida.sisifo.service.implementation.ArchivoServiceImpl;
 import muni.eolida.sisifo.service.implementation.CalleServiceImpl;
@@ -22,55 +22,46 @@ public class ReclamoMapper {
     private final UsuarioServiceImpl usuarioServiceImpl;
     private final TipoReclamoServiceImpl tipoReclamoServiceImpl;
     private final CalleMapper calleMapper;
-    private final ArchivoMapper archivoMapper;
     private final UsuarioMapper usuarioMapper;
     private final TipoReclamoMapper tipoReclamoMapper;
 
     public ReclamoModel toEntity(ReclamoCreation reclamoCreation) {
         try {
             ReclamoModel reclamoModel = new ReclamoModel();
-
             reclamoModel.setAltura(reclamoCreation.getAltura());
             reclamoModel.setBarrio(reclamoCreation.getBarrio());
-            if (!Helper.isEmptyString(reclamoCreation.getCalle_id())) {
-                EntityMessenger<CalleModel> calle = calleServiceImpl.buscarPorId(Long.getLong(reclamoCreation.getCalle_id()));
-                if (calle.getStatusCode() == 200)
-                    reclamoModel.setCalle(calle.getObject());
-            }
-            if (!Helper.isEmptyString(reclamoCreation.getInterseccion_id())) {
-                EntityMessenger<CalleModel> interseccion = calleServiceImpl.buscarPorId(Long.getLong(reclamoCreation.getInterseccion_id()));
-                if (interseccion.getStatusCode() == 200)
-                    reclamoModel.setInterseccion(interseccion.getObject());
-            }
+            EntityMessenger<CalleModel> calle = calleServiceImpl.buscarPorId(reclamoCreation.getCalle_id());
+            if (calle.getStatusCode() == 200)
+                reclamoModel.setCalle(calle.getObject());
+            EntityMessenger<CalleModel> interseccion = calleServiceImpl.buscarPorId(reclamoCreation.getInterseccion_id());
+            if (interseccion.getStatusCode() == 200)
+                reclamoModel.setInterseccion(interseccion.getObject());
             reclamoModel.setCoordinadaX(reclamoCreation.getCoordinadaX());
             reclamoModel.setCoordinadaY(reclamoCreation.getCoordinadaY());
             reclamoModel.setDescripcion(reclamoCreation.getDescripcion());
-            if (!Helper.isEmptyString(reclamoCreation.getEntreCalle1_id())) {
-                EntityMessenger<CalleModel> entreCalle1 = calleServiceImpl.buscarPorId(Long.getLong(reclamoCreation.getEntreCalle1_id()));
-                if (entreCalle1.getStatusCode() == 200)
-                    reclamoModel.setEntreCalle1(entreCalle1.getObject());
+            EntityMessenger<CalleModel> entreCalle1 = calleServiceImpl.buscarPorId(reclamoCreation.getEntreCalle1_id());
+            if (entreCalle1.getStatusCode() == 200)
+                reclamoModel.setEntreCalle1(entreCalle1.getObject());
+            EntityMessenger<CalleModel> entreCalle2 = calleServiceImpl.buscarPorId(reclamoCreation.getEntreCalle2_id());
+            if (entreCalle2.getStatusCode() == 200)
+                reclamoModel.setEntreCalle2(entreCalle2.getObject());
+            String usuario = usuarioServiceImpl.obtenerUsuario().getObject().getId().toString() + "-" + usuarioServiceImpl.obtenerUsuario().getObject().getNombre();
+            String uuid = java.util.UUID.randomUUID().toString();
+            try {
+                if (reclamoCreation.getImagen() != null) {
+                    EntityMessenger<ArchivoModel> imagen = archivoServiceImpl.guardarArchivo(reclamoCreation.getImagen(), usuario, uuid);
+                    if (imagen.getStatusCode() == 200)
+                        reclamoModel.setImagen(imagen.getObject());
+                }
+            } catch (Exception e) {
+                log.error("An error ocurred while trying to save the image: " + e);
             }
-            if (!Helper.isEmptyString(reclamoCreation.getEntreCalle2_id())) {
-                EntityMessenger<CalleModel> entreCalle2 = calleServiceImpl.buscarPorId(Long.getLong(reclamoCreation.getEntreCalle2_id()));
-                if (entreCalle2.getStatusCode() == 200)
-                    reclamoModel.setEntreCalle2(entreCalle2.getObject());
-            }
-            if (!Helper.isEmptyString(reclamoCreation.getImagen_id())) {
-                EntityMessenger<ArchivoModel> imagen = archivoServiceImpl.buscarPorId(Long.getLong(reclamoCreation.getImagen_id()));
-                if (imagen.getStatusCode() == 200)
-                    reclamoModel.setImagen(imagen.getObject());
-            }
-            reclamoModel.setNumero(reclamoCreation.getNumero());
-            if (!Helper.isEmptyString(reclamoCreation.getPersona_id())) {
-                EntityMessenger<UsuarioModel> persona = usuarioServiceImpl.buscarPorId(Long.getLong(reclamoCreation.getPersona_id()));
-                if (persona.getStatusCode() == 200)
-                    reclamoModel.setPersona(persona.getObject());
-            }
-            if (!Helper.isEmptyString(reclamoCreation.getTipoReclamo_id())) {
-                EntityMessenger<TipoReclamoModel> tipoReclamo = tipoReclamoServiceImpl.buscarPorId(Long.getLong(reclamoCreation.getTipoReclamo_id()));
-                if (tipoReclamo.getStatusCode() == 200)
-                    reclamoModel.setTipoReclamo(tipoReclamo.getObject());
-            }
+
+            EntityMessenger<UsuarioModel> usuarioModelEntityMessenger = usuarioServiceImpl.obtenerUsuario();
+            reclamoModel.setPersona(usuarioModelEntityMessenger.getObject());
+            EntityMessenger<TipoReclamoModel> tipoReclamo = tipoReclamoServiceImpl.buscarPorId(reclamoCreation.getTipoReclamo_id());
+            if (tipoReclamo.getStatusCode() == 200)
+                reclamoModel.setTipoReclamo(tipoReclamo.getObject());
 
             return reclamoModel;
         } catch (Exception e) {
@@ -83,6 +74,7 @@ public class ReclamoMapper {
         try {
             ReclamoDTO dto = new ReclamoDTO();
 
+            dto.setId(reclamoModel.getId().toString());
             dto.setAltura(reclamoModel.getAltura());
             dto.setBarrio(reclamoModel.getBarrio());
             if (reclamoModel.getCalle() != null)

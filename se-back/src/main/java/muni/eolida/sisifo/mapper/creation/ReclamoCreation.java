@@ -8,15 +8,13 @@ import lombok.Setter;
 public class ReclamoCreation {
     private String altura;
     private String barrio;
-    private String calle_id;
-    private String interseccion_id;
+    private Long calle_id;
+    private Long interseccion_id;
     private String coordinadaX;
     private String coordinadaY;
     private String descripcion;
-    private String entreCalle1_id;
-    private String entreCalle2_id;
-    private String imagen_id;
-    private String numero;
-    private String persona_id;
-    private String tipoReclamo_id;
+    private Long entreCalle1_id;
+    private Long entreCalle2_id;
+    private byte[] imagen;
+    private Long tipoReclamo_id;
 }

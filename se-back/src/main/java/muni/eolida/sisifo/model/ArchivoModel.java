@@ -20,9 +20,4 @@ public class ArchivoModel extends AbstractAuditoriaModel {
     private Long id;
     private String path;
     private String nombre;
-    @Enumerated(EnumType.STRING)
-    private TipoArchivoEnum tipo;
-    @Column(columnDefinition = "TEXT")
-    private String descripcion;
-    private String tamanio;
 }

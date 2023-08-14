@@ -24,6 +24,36 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
     private final UsuarioServiceImpl usuarioService;
 
     @Override
+    public EntityMessenger<TipoReclamoModel> buscarTodosPorNombre(String nombre) {
+        log.info("Searching for entity TipoReclamoModel with nombre: {}.", nombre);
+        List<TipoReclamoModel> list = tipoReclamoDAO.findAllByNombreIgnoreCaseContainingAndBorradoIsNull(nombre);
+        if (list.isEmpty()) {
+            String message = "No se encontraron entidades Calle con nombre " + nombre + ".";
+            log.warn(message);
+            return new EntityMessenger<TipoReclamoModel>(null, null, message, 202);
+        } else {
+            String message = "Se encontraron " + list.size() + " entidades Calle con nombre " + nombre + ".";
+            log.info(message);
+            return new EntityMessenger<TipoReclamoModel>(null, list, message, 200);
+        }
+    }
+
+    @Override
+    public EntityMessenger<TipoReclamoModel> buscarTodosPorNombreConBorrados(String nombre) {
+        log.info("Searching for entities TipoReclamo with name: {}, included deleted ones.", nombre);
+        List<TipoReclamoModel> list = tipoReclamoDAO.findAllByNombreIgnoreCaseContaining(nombre);
+        if (list.isEmpty()) {
+            String message = "No entities TipoReclamo was found with name " + nombre + ", included deleted ones.";
+            log.warn(message);
+            return new EntityMessenger<TipoReclamoModel>(null, null, message, 202);
+        } else {
+            String message = list.size() + " entities TipoReclamo was found with name " + nombre + ", included deleted ones.";
+            log.info(message);
+            return new EntityMessenger<TipoReclamoModel>(null, list, message, 200);
+        }
+    }
+
+    @Override
     public EntityMessenger<TipoReclamoModel> buscarPorId(Long id) {
         log.info("Searching for entity TipoReclamoModel with id: {}.", id);
         Optional<TipoReclamoModel> object = tipoReclamoDAO.findByIdAndBorradoIsNull(id);

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/tipoReclamo")
+@RequestMapping(value = "/api/tipo-reclamo")
 @RequiredArgsConstructor
 @RestController
 @Slf4j
@@ -28,8 +28,42 @@ public class TipoReclamoController {
     private final TipoReclamoServiceImpl tipoReclamoService;
     private final TipoReclamoMapper tipoReclamoMapper;
 
-    @GetMapping(value = "/buscar-por-id/{id}")
+    @GetMapping(value = "/buscar-por-nombre/{nombre}")
+    @PreAuthorize("hasAuthority('ROL_USUARIO')")
+    public ResponseEntity<List<TipoReclamoDTO>> buscarTodosPorNombre(@PathVariable(name = "nombre") @javax.validation.constraints.Size(min = 3, max = 40) String nombre) {
+        EntityMessenger<TipoReclamoModel> tipoReclamoModelEntityMessenger = tipoReclamoService.buscarTodosPorNombre(nombre);
+        if (tipoReclamoModelEntityMessenger.getStatusCode() == 202) {
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(tipoReclamoModelEntityMessenger.getMessage())).build();
+        } else if (tipoReclamoModelEntityMessenger.getStatusCode() == 200) {
+            ArrayList<TipoReclamoDTO> list = new ArrayList<>();
+            for (TipoReclamoModel tipoReclamoModel : tipoReclamoModelEntityMessenger.getList()) {
+                list.add(tipoReclamoMapper.toDto(tipoReclamoModel));
+            }
+            return new ResponseEntity<>(list, Helper.httpHeaders(tipoReclamoModelEntityMessenger.getMessage()), HttpStatus.OK);
+        } else {
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(tipoReclamoModelEntityMessenger.getMessage())).build();
+        }
+    }
+
+    @GetMapping(value = "/buscar-por-nombre-con-borrados/{nombre}")
     @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    public ResponseEntity<List<TipoReclamoDTO>> buscarTodosPorNombreConBorrados(@PathVariable(name = "nombre") @javax.validation.constraints.Size(min = 3, max = 40) String nombre) {
+        EntityMessenger<TipoReclamoModel> tipoReclamoModelEntityMessenger = tipoReclamoService.buscarTodosPorNombreConBorrados(nombre);
+        if (tipoReclamoModelEntityMessenger.getStatusCode() == 202) {
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(tipoReclamoModelEntityMessenger.getMessage())).build();
+        } else if (tipoReclamoModelEntityMessenger.getStatusCode() == 200) {
+            ArrayList<TipoReclamoDTO> list = new ArrayList<>();
+            for (TipoReclamoModel tipoReclamoModel : tipoReclamoModelEntityMessenger.getList()) {
+                list.add(tipoReclamoMapper.toDto(tipoReclamoModel));
+            }
+            return new ResponseEntity<>(list, Helper.httpHeaders(tipoReclamoModelEntityMessenger.getMessage()), HttpStatus.OK);
+        } else {
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(tipoReclamoModelEntityMessenger.getMessage())).build();
+        }
+    }
+
+    @GetMapping(value = "/buscar-por-id/{id}")
+    @PreAuthorize("hasAuthority('ROL_USUARIO')")
     public ResponseEntity<TipoReclamoDTO> findByIdAndRemovedIsNull(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<TipoReclamoModel> TipoReclamoModelEntityMessenger = tipoReclamoService.buscarPorId(id);
         if (TipoReclamoModelEntityMessenger.getStatusCode() == 202)
@@ -53,7 +87,7 @@ public class TipoReclamoController {
     }
 
     @GetMapping(value = "/buscar-todos")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ROL_USUARIO')")
     public ResponseEntity<List<TipoReclamoDTO>> findAllByRemovedIsNull() {
         EntityMessenger<TipoReclamoModel> TipoReclamoModelEntityMessenger = tipoReclamoService.buscarTodos();
         if (TipoReclamoModelEntityMessenger.getStatusCode() == 202)
