@@ -55,14 +55,14 @@ public class CalleServiceImpl implements CalleService {
 
     @Override
     public EntityMessenger<CalleModel> buscarPorId(Long id) {
-        log.info("Searching for entity CalleModel with id: {}.", id);
+        log.info("Buscando entidades Calle con id: {}.", id);
         Optional<CalleModel> object = calleDAO.findByIdAndBorradoIsNull(id);
         if (object.isEmpty()) {
-            String message = "No entity CalleModel with id: " + id + " was found.";
+            String message = "No se encontraron entidades Calle con id: " + id + ".";
             log.warn(message);
             return new EntityMessenger<CalleModel>(null, null, message, 202);
         } else {
-            String message = "One entity CalleModel was found.";
+            String message = "Se encontro una entidad Calle.";
             log.info(message);
             return new EntityMessenger<CalleModel>(object.get(), null, message, 200);
         }
@@ -85,14 +85,14 @@ public class CalleServiceImpl implements CalleService {
 
     @Override
     public EntityMessenger<CalleModel> buscarTodos() {
-        log.info("Searching for all entities CalleModel.");
+        log.info("Buscando todas las entidades Calle.");
         List<CalleModel> list = calleDAO.findAllByBorradoIsNull();
         if (list.isEmpty()) {
-            String message = "No entities CalleModel were found.";
+            String message = "No se encontraron entidades Calle.";
             log.warn(message);
             return new EntityMessenger<CalleModel>(null, null, message, 202);
         } else {
-            String message = list.size() + " entities CalleModel were found.";
+            String message = list.size() + " entidades Calle fueron encontradas.";
             log.info(message);
             return new EntityMessenger<CalleModel>(null, list, message, 200);
         }

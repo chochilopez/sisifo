@@ -25,14 +25,14 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
 
     @Override
     public EntityMessenger<TipoReclamoModel> buscarTodosPorNombre(String nombre) {
-        log.info("Searching for entity TipoReclamoModel with nombre: {}.", nombre);
+        log.info("Buscando entidades TipoReclamo con nombre: {}.", nombre);
         List<TipoReclamoModel> list = tipoReclamoDAO.findAllByNombreIgnoreCaseContainingAndBorradoIsNull(nombre);
         if (list.isEmpty()) {
-            String message = "No se encontraron entidades Calle con nombre " + nombre + ".";
+            String message = "No se encontraron entidades TipoReclamo con nombre " + nombre + ".";
             log.warn(message);
             return new EntityMessenger<TipoReclamoModel>(null, null, message, 202);
         } else {
-            String message = "Se encontraron " + list.size() + " entidades Calle con nombre " + nombre + ".";
+            String message = "Se encontraron " + list.size() + " entidades TipoReclamo con nombre " + nombre + ".";
             log.info(message);
             return new EntityMessenger<TipoReclamoModel>(null, list, message, 200);
         }
@@ -55,14 +55,14 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
 
     @Override
     public EntityMessenger<TipoReclamoModel> buscarPorId(Long id) {
-        log.info("Searching for entity TipoReclamoModel with id: {}.", id);
+        log.info("Buscando entidades TipoReclamo con id: {}.", id);
         Optional<TipoReclamoModel> object = tipoReclamoDAO.findByIdAndBorradoIsNull(id);
         if (object.isEmpty()) {
-            String message = "No entity TipoReclamoModel with id: " + id + " was found.";
+            String message = "No se encontraron entidades TipoReclamo con id: " + id + ".";
             log.warn(message);
             return new EntityMessenger<TipoReclamoModel>(null, null, message, 202);
         } else {
-            String message = "One entity TipoReclamoModel was found.";
+            String message = "Se encontro una entidad TipoReclamo.";
             log.info(message);
             return new EntityMessenger<TipoReclamoModel>(object.get(), null, message, 200);
         }
@@ -85,14 +85,14 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
 
     @Override
     public EntityMessenger<TipoReclamoModel> buscarTodos() {
-        log.info("Searching for all entities TipoReclamoModel.");
+        log.info("Buscando todas las entidades TipoReclamo.");
         List<TipoReclamoModel> list = tipoReclamoDAO.findAllByBorradoIsNull();
         if (list.isEmpty()) {
-            String message = "No entities TipoReclamoModel were found.";
+            String message = "No se encontraron entidades TipoReclamo.";
             log.warn(message);
             return new EntityMessenger<TipoReclamoModel>(null, null, message, 202);
         } else {
-            String message = list.size() + " entities TipoReclamoModel were found.";
+            String message = list.size() + " entidades TipoReclamo fueron encontradas.";
             log.info(message);
             return new EntityMessenger<TipoReclamoModel>(null, list, message, 200);
         }

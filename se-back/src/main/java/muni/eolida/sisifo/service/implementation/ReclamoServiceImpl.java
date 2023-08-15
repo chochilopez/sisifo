@@ -137,16 +137,16 @@ public class ReclamoServiceImpl implements ReclamoService {
     @Override
     public EntityMessenger<ReclamoModel> insertar(ReclamoCreation model) {
         try {
-            log.info("Inserting entity ReclamoModel: {}.",  model);
+            log.info("Insertando entidad Reclamo: {}.",  model);
             ReclamoModel reclamoModel = reclamoDAO.save(reclamoMapper.toEntity(model));
             reclamoModel.setCreado(Helper.getNow(""));
             reclamoModel.setCreador(usuarioService.obtenerUsuario().getObject());
             reclamoDAO.save(reclamoModel);
-            String message = "The entity ReclamoModel with id: " + reclamoModel.getId() + " was inserted correctly.";
+            String message = "La entidad Reclamo con id: " + reclamoModel.getId() + " fue creada correctamente.";
             log.info(message);
             return new EntityMessenger<ReclamoModel>(reclamoModel, null, message, 201);
         } catch (Exception e) {
-            String message = "An error occurred while trying to persisit the entity. Exception: " + e + ".";
+            String message = "Ocurrio . Exception: " + e + ".";
             log.error(message);
             return new EntityMessenger<ReclamoModel>(null, null, message, 204);
         }

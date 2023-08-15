@@ -65,7 +65,7 @@ public class CalleController {
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('ROL_USUARIO')")
     public ResponseEntity<CalleDTO> findById(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarPorIdConBorrados(id);
+        EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarPorId(id);
         if (CalleModelEntityMessenger.getStatusCode() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
         else if (CalleModelEntityMessenger.getStatusCode() == 200)
