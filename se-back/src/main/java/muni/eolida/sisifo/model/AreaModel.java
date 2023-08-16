@@ -6,22 +6,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Entity
 @NoArgsConstructor
 @Setter
-@Table(name = "archivo")
+@Table(name = "area")
 @EqualsAndHashCode
-public class ArchivoModel extends AbstractAuditoriaModel {
+public class AreaModel extends AbstractAuditoriaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String path;
-    private String nombre;
+    private String area;
 
     // Bidireccional
-    @JoinColumn(name = "reclamo_id")
-    @OneToOne(fetch = FetchType.LAZY)
-    private ReclamoModel reclamo;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "area_id")
+    private List<TipoReclamoModel> tiposReclamos;
 }

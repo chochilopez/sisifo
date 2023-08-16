@@ -29,7 +29,7 @@ public class SeguimientoController {
     private final SeguimientoMapper seguimientoMapper;
 
     @GetMapping(value = "/buscar-por-id/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<SeguimientoDTO> findByIdAndRemovedIsNull(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<SeguimientoModel> SeguimientoModelEntityMessenger = seguimientoService.buscarPorId(id);
         if (SeguimientoModelEntityMessenger.getStatusCode() == 202)
@@ -41,7 +41,7 @@ public class SeguimientoController {
     }
 
     @GetMapping(value = "/buscar-por-id-con-borrados/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<SeguimientoDTO> findById(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<SeguimientoModel> SeguimientoModelEntityMessenger = seguimientoService.buscarPorIdConBorrados(id);
         if (SeguimientoModelEntityMessenger.getStatusCode() == 202)
@@ -53,7 +53,7 @@ public class SeguimientoController {
     }
 
     @GetMapping(value = "/buscar-todos")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<SeguimientoDTO>> findAllByRemovedIsNull() {
         EntityMessenger<SeguimientoModel> SeguimientoModelEntityMessenger = seguimientoService.buscarTodos();
         if (SeguimientoModelEntityMessenger.getStatusCode() == 202)
@@ -70,7 +70,7 @@ public class SeguimientoController {
     }
 
     @GetMapping(value = "/buscar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<SeguimientoDTO>> findAll() {
         EntityMessenger<SeguimientoModel> SeguimientoModelEntityMessenger = seguimientoService.buscarTodosConBorrados();
         if (SeguimientoModelEntityMessenger.getStatusCode() == 202)
@@ -87,21 +87,21 @@ public class SeguimientoController {
     }
 
     @GetMapping(value = "/contar-todos")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Long> countAll() {
         Long quantity= seguimientoService.contarTodos();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/contar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Long> countAllByRemovedIsNull() {
         Long quantity= seguimientoService.contarTodosConBorrados();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<SeguimientoDTO> insert(@Valid @RequestBody SeguimientoCreation seguimientoCreation) {
         EntityMessenger<SeguimientoModel> SeguimientoModelEntityMessenger = seguimientoService.insertar(seguimientoCreation);
         if (SeguimientoModelEntityMessenger.getStatusCode() == 202)
@@ -113,7 +113,7 @@ public class SeguimientoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<SeguimientoDTO> update(@Valid @RequestBody SeguimientoModel seguimientoModel) {
         EntityMessenger<SeguimientoModel> SeguimientoModelEntityMessenger = seguimientoService.actualizar(seguimientoModel);
         if (SeguimientoModelEntityMessenger.getStatusCode() == 202)
@@ -125,7 +125,7 @@ public class SeguimientoController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<SeguimientoDTO> delete(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<SeguimientoModel> SeguimientoModelEntityMessenger = seguimientoService.borrar(id);
         if (SeguimientoModelEntityMessenger.getStatusCode() == 202)
@@ -137,7 +137,7 @@ public class SeguimientoController {
     }
 
     @PostMapping(value = "/reciclar/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<SeguimientoDTO> recycle(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<SeguimientoModel> SeguimientoModelEntityMessenger = seguimientoService.reciclar(id);
         if (SeguimientoModelEntityMessenger.getStatusCode() == 202)
@@ -149,7 +149,7 @@ public class SeguimientoController {
     }
 
     @DeleteMapping(value = "/destruir/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> destroy(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<SeguimientoModel> SeguimientoModelEntityMessenger = seguimientoService.destruir(id);
         if (SeguimientoModelEntityMessenger.getStatusCode() == 202)

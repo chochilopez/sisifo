@@ -29,7 +29,7 @@ public class ArchivoController {
     private final ArchivoMapper archivoMapper;
 
     @GetMapping(value = "/buscar-por-id/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<ArchivoDTO> findByIdAndRemovedIsNull(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<ArchivoModel> ArchivoModelEntityMessenger = archivoService.buscarPorId(id);
         if (ArchivoModelEntityMessenger.getStatusCode() == 202)
@@ -41,7 +41,7 @@ public class ArchivoController {
     }
 
     @GetMapping(value = "/buscar-por-id-con-borrados/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<ArchivoDTO> findById(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<ArchivoModel> ArchivoModelEntityMessenger = archivoService.buscarPorIdConBorrados(id);
         if (ArchivoModelEntityMessenger.getStatusCode() == 202)
@@ -53,7 +53,7 @@ public class ArchivoController {
     }
 
     @GetMapping(value = "/buscar-todos")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<ArchivoDTO>> findAllByRemovedIsNull() {
         EntityMessenger<ArchivoModel> ArchivoModelEntityMessenger = archivoService.buscarTodos();
         if (ArchivoModelEntityMessenger.getStatusCode() == 202)
@@ -70,7 +70,7 @@ public class ArchivoController {
     }
 
     @GetMapping(value = "/buscar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<ArchivoDTO>> findAll() {
         EntityMessenger<ArchivoModel> ArchivoModelEntityMessenger = archivoService.buscarTodosConBorrados();
         if (ArchivoModelEntityMessenger.getStatusCode() == 202)
@@ -87,21 +87,21 @@ public class ArchivoController {
     }
 
     @GetMapping(value = "/contar-todos")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Long> countAll() {
         Long quantity= archivoService.contarTodos();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/contar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Long> countAllByRemovedIsNull() {
         Long quantity= archivoService.contarTodosConBorrados();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<ArchivoDTO> insert(@Valid @RequestBody ArchivoCreation archivoCreation) {
         EntityMessenger<ArchivoModel> ArchivoModelEntityMessenger = archivoService.insertar(archivoCreation);
         if (ArchivoModelEntityMessenger.getStatusCode() == 202)
@@ -113,7 +113,7 @@ public class ArchivoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<ArchivoDTO> update(@Valid @RequestBody ArchivoModel archivoModel) {
         EntityMessenger<ArchivoModel> ArchivoModelEntityMessenger = archivoService.actualizar(archivoModel);
         if (ArchivoModelEntityMessenger.getStatusCode() == 202)
@@ -125,7 +125,7 @@ public class ArchivoController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<ArchivoDTO> delete(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<ArchivoModel> ArchivoModelEntityMessenger = archivoService.borrar(id);
         if (ArchivoModelEntityMessenger.getStatusCode() == 202)
@@ -137,7 +137,7 @@ public class ArchivoController {
     }
 
     @PostMapping(value = "/reciclar/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<ArchivoDTO> recycle(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<ArchivoModel> ArchivoModelEntityMessenger = archivoService.reciclar(id);
         if (ArchivoModelEntityMessenger.getStatusCode() == 202)
@@ -149,7 +149,7 @@ public class ArchivoController {
     }
 
     @DeleteMapping(value = "/destruir/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> destroy(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<ArchivoModel> ArchivoModelEntityMessenger = archivoService.destruir(id);
         if (ArchivoModelEntityMessenger.getStatusCode() == 202)

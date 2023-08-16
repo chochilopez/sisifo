@@ -31,6 +31,76 @@ public class ReclamoServiceImpl implements ReclamoService {
     }
 
     @Override
+    public List<ReclamoModel> findAllByCreadorId(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByCreadorIdAndBorradoIsNull(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByCreadorNombreContainingIgnoreCase(String nombre) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByCreadorNombreContainingIgnoreCaseAndBorradoIsNull(String nombre) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByCalleId(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByCalleIdAndBorradoIsNull(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByCalleCalleContainingIgnoreCase(String calle) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByCalleCalleContainingIgnoreCaseAndBorradoIsNull(String calle) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByTipoReclamoId(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByTipoReclamoIdAndBorradoIsNull(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByTipoReclamoTipoContainingIgnoreCase(String tipo) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByTipoReclamoTipoContainingIgnoreCaseAndBorradoIsNull(Long tipo) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByDescripcionContainingIgnoreCase(String descripcion) {
+        return null;
+    }
+
+    @Override
+    public List<ReclamoModel> findAllByDescripcionContainingIgnoreCaseAndBorradoIsNull(Long descripcion) {
+        return null;
+    }
+
+    @Override
     public EntityMessenger<ReclamoModel> buscarPorCreador(Long id) {
         log.info("Buscando entidades Reclamo con id creador: {}.", id);
         List<ReclamoModel> list = reclamoDAO.findAllByCreadorIdAndBorradoIsNull(id);

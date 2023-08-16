@@ -29,7 +29,7 @@ public class UsuarioController {
     private final UsuarioMapper usuarioMapper;
 
     @GetMapping(value = "/buscar-por-id/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<UsuarioDTO> findByIdAndRemovedIsNull(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<UsuarioModel> UsuarioModelEntityMessenger = usuarioService.buscarPorId(id);
         if (UsuarioModelEntityMessenger.getStatusCode() == 202)
@@ -41,7 +41,7 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/buscar-por-id-con-borrados/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<UsuarioDTO> findById(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<UsuarioModel> UsuarioModelEntityMessenger = usuarioService.buscarPorIdConBorrados(id);
         if (UsuarioModelEntityMessenger.getStatusCode() == 202)
@@ -53,7 +53,7 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/buscar-todos")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<UsuarioDTO>> findAllByRemovedIsNull() {
         EntityMessenger<UsuarioModel> UsuarioModelEntityMessenger = usuarioService.buscarTodos();
         if (UsuarioModelEntityMessenger.getStatusCode() == 202)
@@ -70,7 +70,7 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/buscar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<UsuarioDTO>> findAll() {
         EntityMessenger<UsuarioModel> UsuarioModelEntityMessenger = usuarioService.buscarTodosConBorrados();
         if (UsuarioModelEntityMessenger.getStatusCode() == 202)
@@ -87,21 +87,21 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/contar-todos")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Long> countAll() {
         Long quantity= usuarioService.contarTodos();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/contar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Long> countAllByRemovedIsNull() {
         Long quantity= usuarioService.contarTodosConBorrados();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<UsuarioDTO> insert(@Valid @RequestBody UsuarioCreation usuarioCreation) {
         EntityMessenger<UsuarioModel> UsuarioModelEntityMessenger = usuarioService.insertar(usuarioCreation);
         if (UsuarioModelEntityMessenger.getStatusCode() == 202)
@@ -113,7 +113,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<UsuarioDTO> update(@Valid @RequestBody UsuarioModel usuarioModel) {
         EntityMessenger<UsuarioModel> UsuarioModelEntityMessenger = usuarioService.actualizar(usuarioModel);
         if (UsuarioModelEntityMessenger.getStatusCode() == 202)
@@ -125,7 +125,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<UsuarioDTO> delete(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<UsuarioModel> UsuarioModelEntityMessenger = usuarioService.borrar(id);
         if (UsuarioModelEntityMessenger.getStatusCode() == 202)
@@ -137,7 +137,7 @@ public class UsuarioController {
     }
 
     @PostMapping(value = "/reciclar/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<UsuarioDTO> recycle(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<UsuarioModel> UsuarioModelEntityMessenger = usuarioService.reciclar(id);
         if (UsuarioModelEntityMessenger.getStatusCode() == 202)
@@ -149,7 +149,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping(value = "/destruir/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> destroy(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<UsuarioModel> UsuarioModelEntityMessenger = usuarioService.destruir(id);
         if (UsuarioModelEntityMessenger.getStatusCode() == 202)

@@ -26,7 +26,7 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
     @Override
     public EntityMessenger<TipoReclamoModel> buscarTodosPorNombre(String nombre) {
         log.info("Buscando entidades TipoReclamo con nombre: {}.", nombre);
-        List<TipoReclamoModel> list = tipoReclamoDAO.findAllByNombreIgnoreCaseContainingAndBorradoIsNull(nombre);
+        List<TipoReclamoModel> list = tipoReclamoDAO.findAllByTipoIgnoreCaseContainingAndBorradoIsNull(nombre);
         if (list.isEmpty()) {
             String message = "No se encontraron entidades TipoReclamo con nombre " + nombre + ".";
             log.warn(message);
@@ -41,7 +41,7 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
     @Override
     public EntityMessenger<TipoReclamoModel> buscarTodosPorNombreConBorrados(String nombre) {
         log.info("Searching for entities TipoReclamo with name: {}, included deleted ones.", nombre);
-        List<TipoReclamoModel> list = tipoReclamoDAO.findAllByNombreIgnoreCaseContaining(nombre);
+        List<TipoReclamoModel> list = tipoReclamoDAO.findAllByTipoIgnoreCaseContaining(nombre);
         if (list.isEmpty()) {
             String message = "No entities TipoReclamo was found with name " + nombre + ", included deleted ones.";
             log.warn(message);

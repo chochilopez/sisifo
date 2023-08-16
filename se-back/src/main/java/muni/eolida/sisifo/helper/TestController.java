@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TestController {
     @GetMapping(value = "/usuario")
-    @PreAuthorize("hasAuthority('ROL_USUARIO')")
+    @PreAuthorize("hasAuthority('USUARIO')")
     public String usuario() { return "Autoridad Usuario."; }
 
     @GetMapping(value = "/administrador")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public String administrador() { return "Autoridad administrador."; }
 }

@@ -29,7 +29,7 @@ public class CalleController {
     private final CalleMapper calleMapper;
 
     @GetMapping(value = "/buscar-por-nombre/{calle}")
-    @PreAuthorize("hasAuthority('ROL_USUARIO')")
+    @PreAuthorize("hasAuthority('USUARIO')")
     public ResponseEntity<List<CalleDTO>> buscarTodosPorCalle(@PathVariable(name = "calle") @javax.validation.constraints.Size(min = 3, max = 40) String calle) {
         EntityMessenger<CalleModel> calleModelEntityMessenger = calleService.buscarTodosPorCalle(calle);
         if (calleModelEntityMessenger.getStatusCode() == 202) {
@@ -46,7 +46,7 @@ public class CalleController {
     }
 
     @GetMapping(value = "/buscar-por-nombre-con-borrados/{calle}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<CalleDTO>> buscarTodosPorCalleConBorrados(@PathVariable(name = "calle") @javax.validation.constraints.Size(min = 3, max = 40) String calle) {
         EntityMessenger<CalleModel> calleModelEntityMessenger = calleService.buscarTodosPorCalleConBorrados(calle);
         if (calleModelEntityMessenger.getStatusCode() == 202) {
@@ -63,7 +63,7 @@ public class CalleController {
     }
 
     @GetMapping(value = "/buscar-por-id/{id}")
-    @PreAuthorize("hasAuthority('ROL_USUARIO')")
+    @PreAuthorize("hasAuthority('USUARIO')")
     public ResponseEntity<CalleDTO> findById(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarPorId(id);
         if (CalleModelEntityMessenger.getStatusCode() == 202)
@@ -75,7 +75,7 @@ public class CalleController {
     }
 
     @GetMapping(value = "/buscar-por-id-con-borrados/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<CalleDTO> findByIdConBorrados(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarPorIdConBorrados(id);
         if (CalleModelEntityMessenger.getStatusCode() == 202)
@@ -87,7 +87,7 @@ public class CalleController {
     }
 
     @GetMapping(value = "/buscar-todos")
-    @PreAuthorize("hasAuthority('ROL_USUARIO')")
+    @PreAuthorize("hasAuthority('USUARIO')")
     public ResponseEntity<List<CalleDTO>> findAllByRemovedIsNull() {
         EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarTodos();
         if (CalleModelEntityMessenger.getStatusCode() == 202)
@@ -104,7 +104,7 @@ public class CalleController {
     }
 
     @GetMapping(value = "/buscar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<CalleDTO>> findAll() {
         EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarTodosConBorrados();
         if (CalleModelEntityMessenger.getStatusCode() == 202)
@@ -121,21 +121,21 @@ public class CalleController {
     }
 
     @GetMapping(value = "/contar-todos")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Long> countAll() {
         Long quantity= calleService.contarTodos();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/contar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Long> countAllByRemovedIsNull() {
         Long quantity= calleService.contarTodosConBorrados();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<CalleDTO> insert(@Valid @RequestBody CalleCreation calleCreation) {
         EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.insertar(calleCreation);
         if (CalleModelEntityMessenger.getStatusCode() == 202)
@@ -147,7 +147,7 @@ public class CalleController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<CalleDTO> update(@Valid @RequestBody CalleModel calleModel) {
         EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.actualizar(calleModel);
         if (CalleModelEntityMessenger.getStatusCode() == 202)
@@ -159,7 +159,7 @@ public class CalleController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<CalleDTO> delete(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.borrar(id);
         if (CalleModelEntityMessenger.getStatusCode() == 202)
@@ -171,7 +171,7 @@ public class CalleController {
     }
 
     @PostMapping(value = "/reciclar/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<CalleDTO> recycle(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.reciclar(id);
         if (CalleModelEntityMessenger.getStatusCode() == 202)
@@ -183,7 +183,7 @@ public class CalleController {
     }
 
     @DeleteMapping(value = "/destruir/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> destroy(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.destruir(id);
         if (CalleModelEntityMessenger.getStatusCode() == 202)

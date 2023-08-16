@@ -2,14 +2,9 @@ package muni.eolida.sisifo.mapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
 import muni.eolida.sisifo.mapper.creation.TipoReclamoCreation;
 import muni.eolida.sisifo.mapper.dto.TipoReclamoDTO;
 import muni.eolida.sisifo.model.TipoReclamoModel;
-import muni.eolida.sisifo.model.UsuarioModel;
-import muni.eolida.sisifo.model.enums.TipoDocumentoEnum;
-import muni.eolida.sisifo.service.implementation.UsuarioServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,9 +15,6 @@ public class TipoReclamoMapper {
         try {
             TipoReclamoModel tipoReclamoModel = new TipoReclamoModel();
 
-            tipoReclamoModel.setAreaResuelve(Integer.valueOf(tipoReclamoCreation.getAreaResuelve()));
-            tipoReclamoModel.setCantidadDiasResolucion(Integer.valueOf(tipoReclamoCreation.getCantidadDiasResolucion()));
-            tipoReclamoModel.setNombre(tipoReclamoCreation.getNombre());
 
             return tipoReclamoModel;
         } catch (Exception e) {
@@ -36,7 +28,6 @@ public class TipoReclamoMapper {
             TipoReclamoDTO dto = new TipoReclamoDTO();
 
             dto.setId(tipoReclamoModel.getId().toString());
-            dto.setNombre(tipoReclamoModel.getNombre());
 
             return dto;
         } catch (Exception e) {

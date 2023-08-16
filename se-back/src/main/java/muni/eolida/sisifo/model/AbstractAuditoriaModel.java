@@ -1,9 +1,12 @@
 package muni.eolida.sisifo.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import java.time.LocalDateTime;
 
@@ -11,18 +14,19 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Setter
 public abstract class AbstractAuditoriaModel {
-      @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-      @ManyToOne(targetEntity = UsuarioModel.class, fetch = FetchType.EAGER)
-      private UsuarioModel creador;
-      private LocalDateTime creado;
 
-      @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-      @ManyToOne(targetEntity = UsuarioModel.class, fetch = FetchType.EAGER)
-      private UsuarioModel borrador;
-      private LocalDateTime borrado;
+    @Cascade(CascadeType.ALL)
+    @ManyToOne()
+    private UsuarioModel creador;
+    private LocalDateTime creado;
 
-      @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-      @ManyToOne(targetEntity = UsuarioModel.class, fetch = FetchType.EAGER)
-      private UsuarioModel modificador;
-      private LocalDateTime modificacion;
+    @Cascade(CascadeType.ALL)
+    @ManyToOne()
+    private UsuarioModel borrador;
+    private LocalDateTime borrado;
+
+    @Cascade(CascadeType.ALL)
+    @ManyToOne()
+    private UsuarioModel modificador;
+    private LocalDateTime modificacion;
 }

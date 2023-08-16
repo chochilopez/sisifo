@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface TipoReclamoDAO extends GenericRepository<TipoReclamoModel> {
-    List<TipoReclamoModel> findAllByNombreIgnoreCaseContaining(String nombre);
-    List<TipoReclamoModel> findAllByNombreIgnoreCaseContainingAndBorradoIsNull(String nombre);
+    List<TipoReclamoModel> findAllByTipoIgnoreCaseContaining(String tipo);
+    List<TipoReclamoModel> findAllByTipoIgnoreCaseContainingAndBorradoIsNull(String tipo);
 }

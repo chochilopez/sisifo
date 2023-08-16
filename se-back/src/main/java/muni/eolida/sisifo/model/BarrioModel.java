@@ -8,26 +8,20 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity
 @Getter
+@Entity
 @NoArgsConstructor
 @Setter
-@Table(name = "tipo_reclamo")
+@Table(name = "barrio")
 @EqualsAndHashCode
-public class TipoReclamoModel extends AbstractAuditoriaModel {
+public class BarrioModel extends AbstractAuditoriaModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String tipo;
+	private String barrio;
 
-	// Bidireccional
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "reclamo_id")
+	@JoinColumn(name = "barrio_id")
 	private List<ReclamoModel> reclamos;
-
-	// Bidireccional
-	@ManyToOne()
-	@JoinColumn(name = "area_id")
-	private AreaModel area;
 }

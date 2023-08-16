@@ -26,8 +26,10 @@ public class HelperController {
 
     @PutMapping(value = "/cargar-roles")
     public ResponseEntity<?> autoridades() {
-        EntityMessenger<RolModel> rol1 = rolService.insertar(new RolCreation(RolEnum.ROL_USUARIO.name()));
-        EntityMessenger<RolModel> rol2 = rolService.insertar(new RolCreation(RolEnum.ROL_ADMINISTRADOR.name()));
+        EntityMessenger<RolModel> rol1 = rolService.insertar(new RolCreation(RolEnum.CONTRIBUYENTE.name()));
+        EntityMessenger<RolModel> rol2 = rolService.insertar(new RolCreation(RolEnum.EMPLEADO.name()));
+        EntityMessenger<RolModel> rol3 = rolService.insertar(new RolCreation(RolEnum.CAPATAZ.name()));
+        EntityMessenger<RolModel> rol4 = rolService.insertar(new RolCreation(RolEnum.JEFE.name()));
 
 
         return ResponseEntity.status(HttpStatus.OK).body(Helper.httpHeaders(rol1.getMessage() + " - " + rol2.getMessage()));
@@ -35,15 +37,17 @@ public class HelperController {
 
     @PutMapping(value = "/cargar-usuarios")
     public ResponseEntity<?> usuarios() {
-        EntityMessenger<UsuarioModel> user1 = usuarioServiceImpl.insertar(new UsuarioCreation("Admin", "123","25 de Mayo 943", "4951160", "admin@municrespo.gob.ar", "admincito"));
+        EntityMessenger<UsuarioModel> user1 = usuarioServiceImpl.insertar(new UsuarioCreation("admin", "123","25 de Mayo 943", "4951160", "admin@municrespo.gob.ar", "admincito"));
         EntityMessenger<UsuarioModel> user2 = usuarioServiceImpl.insertar(new UsuarioCreation("Fulano Fulanito", "98987987","Siempreviva 123", "4951951", "fulano@fulanito.com.ar", "fulanito"));
+        EntityMessenger<UsuarioModel> user3 = usuarioServiceImpl.insertar(new UsuarioCreation("Fulano Fulanito", "98987987","Siempreviva 123", "4951951", "fulano@fulanito.com.ar", "fulanito"));
+        EntityMessenger<UsuarioModel> user4 = usuarioServiceImpl.insertar(new UsuarioCreation("Fulano Fulanito", "98987987","Siempreviva 123", "4951951", "fulano@fulanito.com.ar", "fulanito"));
 
         if (user1.getStatusCode() == 201) {
-            usuarioServiceImpl.darRol(user1.getObject(), RolEnum.ROL_USUARIO);
+            usuarioServiceImpl.darRol(user1.getObject(), RolEnum.CAPATAZ);
         }
         if (user2.getStatusCode() == 201) {
-            usuarioServiceImpl.darRol(user1.getObject(), RolEnum.ROL_ADMINISTRADOR);
-            usuarioServiceImpl.darRol(user2.getObject(), RolEnum.ROL_USUARIO);
+            usuarioServiceImpl.darRol(user1.getObject(), RolEnum.CAPATAZ);
+            usuarioServiceImpl.darRol(user2.getObject(), RolEnum.CONTRIBUYENTE);
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(Helper.httpHeaders(user1.getMessage() + "\n" +user2.getMessage()));

@@ -31,7 +31,7 @@ public class ReclamoController {
     private final ReclamoMapper reclamoMapper;
     
     @GetMapping(value = "/buscar-mis-reclamos")
-    @PreAuthorize("hasAuthority('ROL_USUARIO')")
+    @PreAuthorize("hasAuthority('USUARIO')")
     public ResponseEntity<List<ReclamoDTO>> buscarTodosPorReclamo() {
         EntityMessenger<ReclamoModel> reclamoModelEntityMessenger = reclamoService.buscarMisReclamos();
         if (reclamoModelEntityMessenger.getStatusCode() == 202) {
@@ -48,7 +48,7 @@ public class ReclamoController {
     }
 
     @GetMapping(value = "/buscar-reclamos-por-usuario/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<ReclamoDTO>> buscarTodosPorReclamo(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 5) Long id) {
         EntityMessenger<ReclamoModel> reclamoModelEntityMessenger = reclamoService.buscarPorCreador(id);
         if (reclamoModelEntityMessenger.getStatusCode() == 202) {
@@ -65,7 +65,7 @@ public class ReclamoController {
     }
 
     @GetMapping(value = "/buscar-reclamos-por-usuario-con-borrados/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<ReclamoDTO>> buscarTodosPorReclamoConBorrados(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 5) Long id) {
         EntityMessenger<ReclamoModel> reclamoModelEntityMessenger = reclamoService.buscarPorCreadorConBorrados(id);
         if (reclamoModelEntityMessenger.getStatusCode() == 202) {
@@ -82,7 +82,7 @@ public class ReclamoController {
     }
 
     @GetMapping(value = "/buscar-por-id/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<ReclamoDTO> findByIdAndRemovedIsNull(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<ReclamoModel> ReclamoModelEntityMessenger = reclamoService.buscarPorId(id);
         if (ReclamoModelEntityMessenger.getStatusCode() == 202)
@@ -94,7 +94,7 @@ public class ReclamoController {
     }
 
     @GetMapping(value = "/buscar-por-id-con-borrados/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<ReclamoDTO> findById(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<ReclamoModel> ReclamoModelEntityMessenger = reclamoService.buscarPorIdConBorrados(id);
         if (ReclamoModelEntityMessenger.getStatusCode() == 202)
@@ -106,7 +106,7 @@ public class ReclamoController {
     }
 
     @GetMapping(value = "/buscar-todos")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<ReclamoDTO>> findAllByRemovedIsNull() {
         EntityMessenger<ReclamoModel> ReclamoModelEntityMessenger = reclamoService.buscarTodos();
         if (ReclamoModelEntityMessenger.getStatusCode() == 202)
@@ -123,7 +123,7 @@ public class ReclamoController {
     }
 
     @GetMapping(value = "/buscar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<ReclamoDTO>> findAll() {
         EntityMessenger<ReclamoModel> ReclamoModelEntityMessenger = reclamoService.buscarTodosConBorrados();
         if (ReclamoModelEntityMessenger.getStatusCode() == 202)
@@ -140,21 +140,21 @@ public class ReclamoController {
     }
 
     @GetMapping(value = "/contar-todos")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Long> countAll() {
         Long quantity= reclamoService.contarTodos();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/contar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Long> countAllByRemovedIsNull() {
         Long quantity= reclamoService.contarTodosConBorrados();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ROL_USUARIO')")
+    @PreAuthorize("hasAuthority('USUARIO')")
     public ResponseEntity<ReclamoDTO> insert(@Valid @RequestBody ReclamoCreation reclamoCreation) {
         EntityMessenger<ReclamoModel> ReclamoModelEntityMessenger = reclamoService.insertar(reclamoCreation);
         if (ReclamoModelEntityMessenger.getStatusCode() == 202)
@@ -166,7 +166,7 @@ public class ReclamoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<ReclamoDTO> update(@Valid @RequestBody ReclamoModel reclamoModel) {
         EntityMessenger<ReclamoModel> ReclamoModelEntityMessenger = reclamoService.actualizar(reclamoModel);
         if (ReclamoModelEntityMessenger.getStatusCode() == 202)
@@ -178,7 +178,7 @@ public class ReclamoController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<ReclamoDTO> delete(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<ReclamoModel> ReclamoModelEntityMessenger = reclamoService.borrar(id);
         if (ReclamoModelEntityMessenger.getStatusCode() == 202)
@@ -190,7 +190,7 @@ public class ReclamoController {
     }
 
     @PostMapping(value = "/reciclar/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<ReclamoDTO> recycle(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<ReclamoModel> ReclamoModelEntityMessenger = reclamoService.reciclar(id);
         if (ReclamoModelEntityMessenger.getStatusCode() == 202)
@@ -202,7 +202,7 @@ public class ReclamoController {
     }
 
     @DeleteMapping(value = "/destruir/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> destroy(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<ReclamoModel> ReclamoModelEntityMessenger = reclamoService.destruir(id);
         if (ReclamoModelEntityMessenger.getStatusCode() == 202)

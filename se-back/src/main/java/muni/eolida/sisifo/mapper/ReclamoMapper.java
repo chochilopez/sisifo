@@ -29,7 +29,6 @@ public class ReclamoMapper {
         try {
             ReclamoModel reclamoModel = new ReclamoModel();
             reclamoModel.setAltura(reclamoCreation.getAltura());
-            reclamoModel.setBarrio(reclamoCreation.getBarrio());
             EntityMessenger<CalleModel> calle = calleServiceImpl.buscarPorId(reclamoCreation.getCalle_id());
             if (calle.getStatusCode() == 200)
                 reclamoModel.setCalle(calle.getObject());
@@ -76,7 +75,6 @@ public class ReclamoMapper {
 
             dto.setId(reclamoModel.getId().toString());
             dto.setAltura(reclamoModel.getAltura());
-            dto.setBarrio(reclamoModel.getBarrio());
             if (reclamoModel.getCalle() != null)
                 dto.setCalle(calleMapper.toDto(reclamoModel.getCalle()));
             if (reclamoModel.getInterseccion() != null)

@@ -77,10 +77,10 @@ public class AutenticacionServiceImpl implements AutenticacionService {
         String token = jwtUtils.generateToken(userdetails);
         Collection<? extends GrantedAuthority> authorities = userdetails.getAuthorities();
         Set<String> auths=new HashSet<>();
-        if (authorities.contains(new SimpleGrantedAuthority(RolEnum.ROL_USUARIO.name())))
-            auths.add("ROL_USUARIO");
-        if (authorities.contains(new SimpleGrantedAuthority(RolEnum.ROL_ADMINISTRADOR.name())))
-            auths.add("ROL_ADMINISTRADOR");
+        if (authorities.contains(new SimpleGrantedAuthority(RolEnum.JEFE.name())))
+            auths.add("USUARIO");
+        if (authorities.contains(new SimpleGrantedAuthority(RolEnum.CAPATAZ.name())))
+            auths.add("ADMINISTRADOR");
 
         String message = "El usuario " + loginRequest.getUsername() + " se logueo correctamente.";
         log.info(message);
@@ -121,7 +121,7 @@ public class AutenticacionServiceImpl implements AutenticacionService {
                     usuarioCreation.getUsername(),
                     body
             ));
-            usuario = usuarioService.darRol(usuario.getObject(), RolEnum.ROL_USUARIO);
+            usuario = usuarioService.darRol(usuario.getObject(), RolEnum.CONTRIBUYENTE);
             if (emailModelEntityMessenger.getStatusCode() == 201) {
                 String message = "The user " + usuarioCreation.getUsername() + " was created. Confirmation email sended.";
                 log.info(message);

@@ -28,10 +28,10 @@ public class JwtUtils {
     public String generateToken(UserDetails userdetails) {
         Map<String, Object> claims = new HashMap<>();
         Collection<? extends GrantedAuthority> roles = userdetails.getAuthorities();
-        if (roles.contains(new SimpleGrantedAuthority(RolEnum.ROL_USUARIO.name())))
-            claims.put("ROL_USUARIO", true);
-        if (roles.contains(new SimpleGrantedAuthority(RolEnum.ROL_ADMINISTRADOR.name())))
-            claims.put("ROL_ADMINISTRADOR", true);
+        if (roles.contains(new SimpleGrantedAuthority(RolEnum.JEFE.name())))
+            claims.put("USUARIO", true);
+        if (roles.contains(new SimpleGrantedAuthority(RolEnum.CONTRIBUYENTE.name())))
+            claims.put("ADMINISTRADOR", true);
 
         return doGenerateToken(claims, userdetails.getUsername());
     }
@@ -40,10 +40,10 @@ public class JwtUtils {
 //    public String generateToken(UserDetails userDetails) {
 //        Map<String, Object> claims = new HashMap<>();
 //        Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities();
-//        if (roles.contains(new SimpleGrantedAuthority(RolEnum.ROL_USUARIO.name())))
-//            claims.put("ROL_USUARIO", true);
-//        if (roles.contains(new SimpleGrantedAuthority(RolEnum.ROL_ADMINISTRADOR.name())))
-//            claims.put("ROL_ADMINISTRADOR", true);
+//        if (roles.contains(new SimpleGrantedAuthority(RolEnum.USUARIO.name())))
+//            claims.put("USUARIO", true);
+//        if (roles.contains(new SimpleGrantedAuthority(RolEnum.ADMINISTRADOR.name())))
+//            claims.put("ADMINISTRADOR", true);
 //
 //        return doGenerateToken(claims, userDetails.getUsername());
 //    }
@@ -81,13 +81,13 @@ public class JwtUtils {
         Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
         List<GrantedAuthority> roles=new ArrayList<GrantedAuthority>();
 
-        Boolean usuario = claims.get("ROL_USUARIO", Boolean.class);
-        Boolean administrador = claims.get("ROL_ADMINISTRADOR", Boolean.class);
+        Boolean usuario = claims.get("USUARIO", Boolean.class);
+        Boolean administrador = claims.get("ADMINISTRADOR", Boolean.class);
 
         if (usuario != null && usuario)
-            roles.add(new SimpleGrantedAuthority(RolEnum.ROL_USUARIO.name()));
+            roles.add(new SimpleGrantedAuthority(RolEnum.JEFE.name()));
         if (administrador != null && administrador)
-            roles.add(new SimpleGrantedAuthority(RolEnum.ROL_ADMINISTRADOR.name()));
+            roles.add(new SimpleGrantedAuthority(RolEnum.CAPATAZ.name()));
 
         return roles;
     }

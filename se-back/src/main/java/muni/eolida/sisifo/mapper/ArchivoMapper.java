@@ -6,7 +6,6 @@ import muni.eolida.sisifo.helper.Helper;
 import muni.eolida.sisifo.mapper.creation.ArchivoCreation;
 import muni.eolida.sisifo.mapper.dto.ArchivoDTO;
 import muni.eolida.sisifo.model.ArchivoModel;
-import muni.eolida.sisifo.model.enums.TipoArchivoEnum;
 import org.springframework.stereotype.Component;
 
 @Component

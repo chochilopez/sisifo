@@ -8,4 +8,5 @@ import muni.eolida.sisifo.model.TipoReclamoModel;
 public interface TipoReclamoService extends GenericService<TipoReclamoCreation, TipoReclamoModel> {
     EntityMessenger<TipoReclamoModel> buscarTodosPorNombre(String nombre);
     EntityMessenger<TipoReclamoModel> buscarTodosPorNombreConBorrados(String nombre);
+
 }

@@ -19,9 +19,6 @@ public class SeguimientoMapper {
             SeguimientoModel seguimientoModel = new SeguimientoModel();
 
             seguimientoModel.setDescripcion(seguimientoCreation.getDescripcion());
-            seguimientoModel.setEstado(seguimientoCreation.getEstado());
-            if (!Helper.isEmptyString(seguimientoCreation.getEstadoReclamo()))
-                seguimientoModel.setEstadoReclamo(TipoEstadoReclamoEnum.valueOf(seguimientoCreation.getEstadoReclamo()));
 
             return seguimientoModel;
         } catch (Exception e) {
@@ -35,8 +32,6 @@ public class SeguimientoMapper {
             SeguimientoDTO dto = new SeguimientoDTO();
 
             dto.setDescripcion(seguimientoModel.getDescripcion());
-            dto.setEstado(seguimientoModel.getEstado());
-            dto.setEstadoReclamo(seguimientoModel.getEstadoReclamo().toString());
 
             return dto;
         } catch (Exception e) {

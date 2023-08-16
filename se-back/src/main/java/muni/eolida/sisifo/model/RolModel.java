@@ -3,13 +3,15 @@ package muni.eolida.sisifo.model;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import muni.eolida.sisifo.model.enums.RolEnum;
 
+import java.util.Set;
+
 @Getter
 @Entity
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Setter
 @Table(name = "rol")
 @EqualsAndHashCode
@@ -19,8 +21,4 @@ public class RolModel extends AbstractAuditoriaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private RolEnum rol;
-
-    public RolModel(RolEnum rol) {
-        this.rol = rol;
-    }
 }

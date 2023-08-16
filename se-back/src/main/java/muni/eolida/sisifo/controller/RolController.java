@@ -29,7 +29,7 @@ public class RolController {
     private final RolMapper rolMapper;
 
     @GetMapping(value = "/buscar-por-id/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<RolDTO> findByIdAndRemovedIsNull(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<RolModel> RolModelEntityMessenger = rolService.buscarPorId(id);
         if (RolModelEntityMessenger.getStatusCode() == 202)
@@ -41,7 +41,7 @@ public class RolController {
     }
 
     @GetMapping(value = "/buscar-por-id-con-borrados/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<RolDTO> findById(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<RolModel> RolModelEntityMessenger = rolService.buscarPorIdConBorrados(id);
         if (RolModelEntityMessenger.getStatusCode() == 202)
@@ -53,7 +53,7 @@ public class RolController {
     }
 
     @GetMapping(value = "/buscar-todos")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<RolDTO>> findAllByRemovedIsNull() {
         EntityMessenger<RolModel> RolModelEntityMessenger = rolService.buscarTodos();
         if (RolModelEntityMessenger.getStatusCode() == 202)
@@ -70,7 +70,7 @@ public class RolController {
     }
 
     @GetMapping(value = "/buscar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<List<RolDTO>> findAll() {
         EntityMessenger<RolModel> RolModelEntityMessenger = rolService.buscarTodosConBorrados();
         if (RolModelEntityMessenger.getStatusCode() == 202)
@@ -87,21 +87,21 @@ public class RolController {
     }
 
     @GetMapping(value = "/contar-todos")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Long> countAll() {
         Long quantity= rolService.contarTodos();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/contar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Long> countAllByRemovedIsNull() {
         Long quantity= rolService.contarTodosConBorrados();
         return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<RolDTO> insert(@Valid @RequestBody RolCreation rolCreation) {
         EntityMessenger<RolModel> RolModelEntityMessenger = rolService.insertar(rolCreation);
         if (RolModelEntityMessenger.getStatusCode() == 202)
@@ -113,7 +113,7 @@ public class RolController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<RolDTO> update(@Valid @RequestBody RolModel rolModel) {
         EntityMessenger<RolModel> RolModelEntityMessenger = rolService.actualizar(rolModel);
         if (RolModelEntityMessenger.getStatusCode() == 202)
@@ -125,7 +125,7 @@ public class RolController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<RolDTO> delete(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<RolModel> RolModelEntityMessenger = rolService.borrar(id);
         if (RolModelEntityMessenger.getStatusCode() == 202)
@@ -137,7 +137,7 @@ public class RolController {
     }
 
     @PostMapping(value = "/reciclar/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<RolDTO> recycle(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<RolModel> RolModelEntityMessenger = rolService.reciclar(id);
         if (RolModelEntityMessenger.getStatusCode() == 202)
@@ -149,7 +149,7 @@ public class RolController {
     }
 
     @DeleteMapping(value = "/destruir/{id}")
-    @PreAuthorize("hasAuthority('ROL_ADMINISTRADOR')")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> destroy(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
         EntityMessenger<RolModel> RolModelEntityMessenger = rolService.destruir(id);
         if (RolModelEntityMessenger.getStatusCode() == 202)
