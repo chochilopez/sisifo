@@ -21,6 +21,9 @@ public class ReclamoModel extends AbstractAuditoriaModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String coordinadaX;
+	private String coordinadaY;
+	private String descripcion;
 
 	// Bidireccional
 	@NotNull
@@ -35,15 +38,12 @@ public class ReclamoModel extends AbstractAuditoriaModel {
 	// Bidireccional
 	@ManyToOne()
 	@JoinColumn(name = "barrio_id")
-	private CalleModel barrio;
+	private BarrioModel barrio;
 
 	// Bidireccional
 	@ManyToOne()
 	@JoinColumn(name = "interseccion_id")
 	private CalleModel interseccion;
-	private String coordinadaX;
-	private String coordinadaY;
-	private String descripcion;
 
 	// Bidireccional
 	@ManyToOne()

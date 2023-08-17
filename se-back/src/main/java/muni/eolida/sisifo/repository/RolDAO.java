@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface RolDAO extends GenericRepository<RolModel> {
     Optional<RolModel> findByRol(RolEnum rol);
-    Optional<RolModel> findByRolAndBorradoIsNull(RolEnum rol);
+    Optional<RolModel> findByRolAndEliminadaIsNull(RolEnum rol);
 }

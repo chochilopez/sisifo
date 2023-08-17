@@ -29,9 +29,13 @@ public class JwtUtils {
         Map<String, Object> claims = new HashMap<>();
         Collection<? extends GrantedAuthority> roles = userdetails.getAuthorities();
         if (roles.contains(new SimpleGrantedAuthority(RolEnum.JEFE.name())))
-            claims.put("USUARIO", true);
+            claims.put("JEFE", true);
+        if (roles.contains(new SimpleGrantedAuthority(RolEnum.CAPATAZ.name())))
+            claims.put("CAPATAZ", true);
+        if (roles.contains(new SimpleGrantedAuthority(RolEnum.EMPLEADO.name())))
+            claims.put("EMPLEADO", true);
         if (roles.contains(new SimpleGrantedAuthority(RolEnum.CONTRIBUYENTE.name())))
-            claims.put("ADMINISTRADOR", true);
+            claims.put("CONTRIBUYENTE", true);
 
         return doGenerateToken(claims, userdetails.getUsername());
     }
@@ -81,13 +85,19 @@ public class JwtUtils {
         Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
         List<GrantedAuthority> roles=new ArrayList<GrantedAuthority>();
 
-        Boolean usuario = claims.get("USUARIO", Boolean.class);
-        Boolean administrador = claims.get("ADMINISTRADOR", Boolean.class);
+        Boolean jefe = claims.get("JEFE", Boolean.class);
+        Boolean capataz = claims.get("CAPATAZ", Boolean.class);
+        Boolean empleado = claims.get("EMPLEADO", Boolean.class);
+        Boolean contribuyente = claims.get("CONTRIBUYENTE", Boolean.class);
 
-        if (usuario != null && usuario)
+        if (jefe != null && jefe)
             roles.add(new SimpleGrantedAuthority(RolEnum.JEFE.name()));
-        if (administrador != null && administrador)
+        if (capataz != null && capataz)
             roles.add(new SimpleGrantedAuthority(RolEnum.CAPATAZ.name()));
+        if (empleado != null && empleado)
+            roles.add(new SimpleGrantedAuthority(RolEnum.EMPLEADO.name()));
+        if (contribuyente != null && contribuyente)
+            roles.add(new SimpleGrantedAuthority(RolEnum.CONTRIBUYENTE.name()));
 
         return roles;
     }

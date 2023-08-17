@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AreaCreation {
-    private String calle;
+    private String area;
 }

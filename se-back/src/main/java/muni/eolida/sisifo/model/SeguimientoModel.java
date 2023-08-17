@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum;
-
 import java.util.List;
 
 @Entity

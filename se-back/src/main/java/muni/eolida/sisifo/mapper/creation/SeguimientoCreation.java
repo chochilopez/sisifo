@@ -7,6 +7,5 @@ import lombok.Setter;
 @Setter
 public class SeguimientoCreation {
     private String descripcion;
-    private String estado;
-    private String estadoReclamo;
+    private Long reclamo_id;
 }

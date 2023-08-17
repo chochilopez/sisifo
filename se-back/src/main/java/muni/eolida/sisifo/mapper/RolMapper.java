@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class RolMapper {
 
+    private Long id;
+    private RolEnum rol;
+
     public RolModel toEntity(RolCreation rolCreation) {
         try {
             log.info("Rol creation to entity.");
@@ -32,6 +35,7 @@ public class RolMapper {
             log.info("Rol entity to dto.");
             RolDTO dto = new RolDTO();
 
+            dto.setId(rolModel.getId().toString());
             dto.setRol(rolModel.getRol().toString());
 
             return dto;

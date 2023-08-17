@@ -9,7 +9,7 @@ import java.util.Optional;
 @NoRepositoryBean
 public interface GenericRepository<E> extends JpaRepository<E, Long> {
     Optional<E> findById(Long id);
-    Optional<E> findByIdAndBorradoIsNull(Long id);
-    List<E> findAllByBorradoIsNull();
-    Long countAllByBorradoIsNull();
+    Optional<E> findByIdAndEliminadaIsNull(Long id);
+    List<E> findAllByEliminadaIsNull();
+    Long countAllByEliminadaIsNull();
 }

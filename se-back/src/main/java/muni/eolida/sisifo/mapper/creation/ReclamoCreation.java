@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class ReclamoCreation {
     private String altura;
-    private String barrio;
+    private Long barrio_id;
     private Long calle_id;
     private Long interseccion_id;
     private String coordinadaX;
@@ -17,4 +17,5 @@ public class ReclamoCreation {
     private Long entreCalle2_id;
     private byte[] imagen;
     private Long tipoReclamo_id;
+    private Long persona_id;
 }

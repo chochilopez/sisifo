@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TipoReclamoCreation {
-    private String tipo;
+public class EstadoReclamoCreation {
+    private String estado;
 }

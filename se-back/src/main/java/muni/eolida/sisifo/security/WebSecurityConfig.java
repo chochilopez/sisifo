@@ -1,5 +1,6 @@
 package muni.eolida.sisifo.security;
 
+import lombok.RequiredArgsConstructor;
 import muni.eolida.sisifo.security.jwt.AuthEntryPointJwt;
 import muni.eolida.sisifo.security.jwt.AuthTokenFilter;
 import muni.eolida.sisifo.security.services.UserDetailsServiceImpl;
@@ -19,12 +20,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
-  @Autowired
-  UserDetailsServiceImpl userDetailsService;
-
-  @Autowired
-  private AuthEntryPointJwt unauthorizedHandler;
+  private final UserDetailsServiceImpl userDetailsService;
+  private final AuthEntryPointJwt unauthorizedHandler;
 
   @Bean
   public AuthTokenFilter authenticationJwtTokenFilter() {

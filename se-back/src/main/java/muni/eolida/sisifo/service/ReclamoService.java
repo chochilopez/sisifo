@@ -4,26 +4,30 @@ import muni.eolida.sisifo.helper.EntityMessenger;
 import muni.eolida.sisifo.helper.GenericService;
 import muni.eolida.sisifo.mapper.creation.ReclamoCreation;
 import muni.eolida.sisifo.model.ReclamoModel;
-
-import java.util.List;
+import java.time.LocalDateTime;
 
 public interface ReclamoService extends GenericService<ReclamoCreation, ReclamoModel> {
-    EntityMessenger<ReclamoModel> buscarPorCreador(Long id);
-    EntityMessenger<ReclamoModel> buscarPorCreadorConBorrados(Long id);
     EntityMessenger<ReclamoModel> buscarMisReclamos();
-
-    List<ReclamoModel> findAllByCreadorId(Long id);
-    List<ReclamoModel> findAllByCreadorIdAndBorradoIsNull(Long id);
-    List<ReclamoModel> findAllByCreadorNombreContainingIgnoreCase(String nombre);
-    List<ReclamoModel> findAllByCreadorNombreContainingIgnoreCaseAndBorradoIsNull(String nombre);
-    List<ReclamoModel> findAllByCalleId(Long id);
-    List<ReclamoModel> findAllByCalleIdAndBorradoIsNull(Long id);
-    List<ReclamoModel> findAllByCalleCalleContainingIgnoreCase(String calle);
-    List<ReclamoModel> findAllByCalleCalleContainingIgnoreCaseAndBorradoIsNull(String calle);
-    List<ReclamoModel> findAllByTipoReclamoId(Long id);
-    List<ReclamoModel> findAllByTipoReclamoIdAndBorradoIsNull(Long id);
-    List<ReclamoModel> findAllByTipoReclamoTipoContainingIgnoreCase(String tipo);
-    List<ReclamoModel> findAllByTipoReclamoTipoContainingIgnoreCaseAndBorradoIsNull(Long tipo);
-    List<ReclamoModel> findAllByDescripcionContainingIgnoreCase(String descripcion);
-    List<ReclamoModel> findAllByDescripcionContainingIgnoreCaseAndBorradoIsNull(Long descripcion);
+    EntityMessenger<ReclamoModel> buscarPorCreador(Long id);
+    EntityMessenger<ReclamoModel> buscarPorCreadorConEliminadas(Long id);
+    EntityMessenger<ReclamoModel> buscarPorCreadorId(Long id);
+    EntityMessenger<ReclamoModel> buscarPorCreadorIdConEliminadas(Long id);
+    EntityMessenger<ReclamoModel> buscarPorTipoReclamoId(Long id);
+    EntityMessenger<ReclamoModel> buscarPorTipoReclamoIdConEliminadas(Long id);
+    EntityMessenger<ReclamoModel> buscarPorBarrioId(Long id);
+    EntityMessenger<ReclamoModel> buscarPorBarrioIdConEliminadas(Long id);
+    EntityMessenger<ReclamoModel> buscarPorCalleId(Long id);
+    EntityMessenger<ReclamoModel> buscarPorCalleIdConEliminadas(Long id);
+    EntityMessenger<ReclamoModel> buscarTodasPorByCreadorNombre(String nombre);
+    EntityMessenger<ReclamoModel> buscarTodasPorCreadorNombreConEliminadas(String nombre);
+    EntityMessenger<ReclamoModel> buscarTodasPorCalleCalle(String calle);
+    EntityMessenger<ReclamoModel> buscarTodasPorCalleCalleConEliminadas(String calle);
+    EntityMessenger<ReclamoModel> buscarTodasPorTipoReclamoTipo(String tipo);
+    EntityMessenger<ReclamoModel> buscarTodasPorTipoReclamoTipoConEliminadas(Long tipo);
+    EntityMessenger<ReclamoModel> buscarTodasPorDescripcion(String descripcion);
+    EntityMessenger<ReclamoModel> buscarTodasPorDescripcionConEliminadas(Long descripcion);
+    EntityMessenger<ReclamoModel> buscarTodasPorBarrioCalle(String barrio);
+    EntityMessenger<ReclamoModel> buscarTodasPorBarrioCalleConEliminadas(String barrio);
+    EntityMessenger<ReclamoModel> buscarTodasPorCreadaEntreFechas(LocalDateTime inicio, LocalDateTime fin);
+    EntityMessenger<ReclamoModel> buscarTodasPorCreadaEntreFechasConEliminadas(LocalDateTime inicio, LocalDateTime fin);
 }

@@ -8,6 +8,8 @@ import muni.eolida.sisifo.model.RolModel;
 import muni.eolida.sisifo.model.UsuarioModel;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -24,8 +26,8 @@ public class UsuarioMapper {
             usuarioModel.setDireccion(usuarioCreation.getDireccion());
             usuarioModel.setTelefono(usuarioCreation.getTelefono());
             usuarioModel.setUsername(usuarioCreation.getUsername());
-            usuarioModel.setHabilitada(false);
             usuarioModel.setPassword(bcryptEncoder.encode(usuarioCreation.getPassword()));
+            usuarioModel.setHabilitada(false);
 
             return usuarioModel;
         } catch (Exception e) {
@@ -37,13 +39,16 @@ public class UsuarioMapper {
     public UsuarioDTO toDto(UsuarioModel usuarioModel) {
         try {
             UsuarioDTO dto = new UsuarioDTO();
-
             dto.setId(usuarioModel.getId().toString());
             dto.setNombre(usuarioModel.getNombre());
             dto.setDni(usuarioModel.getDni());
             dto.setDireccion(usuarioModel.getDireccion());
             dto.setTelefono(usuarioModel.getTelefono());
             dto.setUsername(usuarioModel.getUsername());
+            List<String> roles = new ArrayList<>();
+            for (RolModel rol:usuarioModel.getRoles()) {
+                roles.add(rol.getRol().toString());
+            }
 
             return dto;
         } catch (Exception e) {

@@ -9,5 +9,5 @@ import java.io.Serializable;
 @Setter
 public class TipoReclamoDTO implements Serializable {
     private String id;
-    private String nombre;
+    private String tipo;
 }

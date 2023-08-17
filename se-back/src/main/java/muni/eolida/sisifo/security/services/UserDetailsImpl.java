@@ -26,8 +26,6 @@ public class UserDetailsImpl implements UserDetails {
   private String password;
   private Collection<? extends GrantedAuthority> authorities;
 
-
-
   public static UserDetailsImpl build(UsuarioModel user) {
     List<GrantedAuthority> authorities = user.getRoles().stream()
         .map(role -> new SimpleGrantedAuthority(role.getRol().name()))

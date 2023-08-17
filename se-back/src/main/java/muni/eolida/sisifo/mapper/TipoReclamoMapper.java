@@ -7,14 +7,18 @@ import muni.eolida.sisifo.mapper.dto.TipoReclamoDTO;
 import muni.eolida.sisifo.model.TipoReclamoModel;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class TipoReclamoMapper {
+
     public TipoReclamoModel toEntity(TipoReclamoCreation tipoReclamoCreation) {
         try {
             TipoReclamoModel tipoReclamoModel = new TipoReclamoModel();
 
+            tipoReclamoModel.setTipo(tipoReclamoCreation.getTipo());
 
             return tipoReclamoModel;
         } catch (Exception e) {
@@ -28,6 +32,7 @@ public class TipoReclamoMapper {
             TipoReclamoDTO dto = new TipoReclamoDTO();
 
             dto.setId(tipoReclamoModel.getId().toString());
+            dto.setTipo(tipoReclamoModel.getTipo());
 
             return dto;
         } catch (Exception e) {

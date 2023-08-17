@@ -23,36 +23,36 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class UsuarioServiceImpl implements UsuarioService {
-    
+
     private final UsuarioDAO usuarioDAO;
     private final UsuarioMapper usuarioMapper;
     private final RolServiceImpl rolService;
 
     @Override
-    public EntityMessenger<UsuarioModel> buscarPorNombreDeUsuario(String username) {
-        log.info("Searching for entity User with username: {}.", username);
-        Optional<UsuarioModel> object = usuarioDAO.findByUsernameContainingIgnoreCaseAndBorradoIsNullAndHabilitadaIsTrue(username);
+    public EntityMessenger<UsuarioModel> buscarPorNombreDeUsuario(String nombreUsuario) {
+        log.info("Buscando la entidad Usuario con nombre de usuario: {}.", nombreUsuario);
+        Optional<UsuarioModel> object = usuarioDAO.findByUsernameContainingIgnoreCaseAndEliminadaIsNull(nombreUsuario);
         if (object.isEmpty()) {
-            String message = "No entity User with username: " + username + " was found.";
+            String message = "No se encontro una entidad Usuario con nombre de usuario: " + nombreUsuario + ".";
             log.warn(message);
             return new EntityMessenger<UsuarioModel>(null, null, message, 202);
         } else {
-            String message = "One entity User was found.";
+            String message = "Se encontro una entidad Usuario.";
             log.info(message);
             return new EntityMessenger<UsuarioModel>(object.get(), null, message, 200);
         }
     }
 
     @Override
-    public EntityMessenger<UsuarioModel> buscarPorNombreDeUsuarioConBorrados(String username) {
-        log.info("Searching for entity User with username: {}, included deleted ones.", username);
-        Optional<UsuarioModel> object = usuarioDAO.findByUsernameContainingIgnoreCase(username);
+    public EntityMessenger<UsuarioModel> buscarPorNombreDeUsuarioConEliminadas(String nombreUsuario) {
+        log.info("Buscando la entidad Usuario con nombre de usuario: {}, incluidas las eliminadas.", nombreUsuario);
+        Optional<UsuarioModel> object = usuarioDAO.findByUsernameContainingIgnoreCase(nombreUsuario);
         if (object.isEmpty()) {
-            String message = "No entity User with username: " + username + " was found, included deleted ones.";
+            String message = "No se encontro una entidad Usuario con nombre de usuario: " + nombreUsuario + ", incluidas las eliminadas.";
             log.warn(message);
             return new EntityMessenger<UsuarioModel>(null, null, message, 202);
         } else {
-            String message = "One entity User was found, included deleted ones.";
+            String message = "Se encontro una entidad Usuario, incluidas las eliminadas.";
             log.info(message);
             return new EntityMessenger<UsuarioModel>(object.get(), null, message, 200);
         }
@@ -60,10 +60,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public EntityMessenger<UsuarioModel> darRol(UsuarioModel usuarioModel, RolEnum rolEnum) {
-        log.info("Adding authority {} to username {}.", rolEnum, usuarioModel.getUsername());
+        log.info("Agregando el rol {} al usuario {}.", rolEnum, usuarioModel.getUsername());
         EntityMessenger<RolModel> rolModelEntityMessenger =  rolService.buscarTodosPorRol(rolEnum);
         if (rolModelEntityMessenger.getStatusCode() != 200){
-            String message = "Unexistent authority: " + rolEnum + ".";
+            String message = "No existe el rol: " + rolEnum + ".";
             log.warn(message);
             return new EntityMessenger<UsuarioModel>(null, null, message, 202);
         }
@@ -73,7 +73,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         usuarioModel.getRoles().add(rolModelEntityMessenger.getObject());
         this.actualizar(usuarioModel);
-        String message = "The authority " + rolEnum + " was added to username " + usuarioModel.getUsername() + ".";
+        String message = "El rol " + rolEnum + " fue añadido correctamente al usuario " + usuarioModel.getUsername() + ".";
         log.info(message);
         return new EntityMessenger<UsuarioModel>(usuarioModel, null, message, 200);
     }
@@ -89,93 +89,91 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public EntityMessenger<UsuarioModel> buscarPorId(Long id) {
-        log.info("Searching for entity User with id: {}.", id);
-        Optional<UsuarioModel> object = usuarioDAO.findByIdAndBorradoIsNull(id);
+        log.info("Buscando la entidad Usuario con id: {}.", id);
+        Optional<UsuarioModel> object = usuarioDAO.findByIdAndEliminadaIsNull(id);
         if (object.isEmpty()) {
-            String message = "No entity User with id: " + id + " was found.";
+            String message = "No se encontro una entidad Usuario con id: " + id + ".";
             log.warn(message);
             return new EntityMessenger<UsuarioModel>(null, null, message, 202);
         } else {
-            String message = "One entity User was found.";
+            String message = "Se encontro una entidad Usuario.";
             log.info(message);
             return new EntityMessenger<UsuarioModel>(object.get(), null, message, 200);
         }
     }
 
     @Override
-    public EntityMessenger<UsuarioModel> buscarPorIdConBorrados(Long id) {
-        log.info("Searching for entity User with id: {}, included deleted ones.", id);
+    public EntityMessenger<UsuarioModel> buscarPorIdConEliminadas(Long id) {
+        log.info("Buscando la entidad Usuario con id: {}, incluidas las eliminadas.", id);
         Optional<UsuarioModel> object = usuarioDAO.findById(id);
         if (object.isEmpty()) {
-            String message = "No entity User with id: " + id + " was found, included deleted ones.";
+            String message = "No se encontro una entidad Usuario con id: " + id + ", incluidas las eliminadas.";
             log.warn(message);
             return new EntityMessenger<UsuarioModel>(null, null, message, 202);
         } else {
-            String message = "One entity User was found, included deleted ones.";
+            String message = "Se encontro una entidad Usuario, incluidas las eliminadas.";
             log.info(message);
             return new EntityMessenger<UsuarioModel>(object.get(), null, message, 200);
         }
     }
 
     @Override
-    public EntityMessenger<UsuarioModel> buscarTodos() {
-        log.info("Searching for all entities User.");
-        List<UsuarioModel> list = usuarioDAO.findAllByBorradoIsNull();
+    public EntityMessenger<UsuarioModel> buscarTodas() {
+        log.info("Buscando todas las entidades Usuario.");
+        List<UsuarioModel> list = usuarioDAO.findAllByEliminadaIsNull();
         if (list.isEmpty()) {
-            String message = "No entities User were found.";
+            String message = "No se encontraron entidades Usuario.";
             log.warn(message);
             return new EntityMessenger<UsuarioModel>(null, null, message, 202);
         } else {
-            String message = list.size() + " entities User were found.";
+            String message = "Se encontraron " + list.size() + " entidades Usuario.";
             log.info(message);
             return new EntityMessenger<UsuarioModel>(null, list, message, 200);
         }
     }
 
     @Override
-    public EntityMessenger<UsuarioModel> buscarTodosConBorrados() {
-        log.info("Searching for all entities User, included deleted ones.");
-        List<UsuarioModel> list = usuarioDAO.findAll()  ;
+    public EntityMessenger<UsuarioModel> buscarTodasConEliminadas() {
+        log.info("Buscando todas las entidades Usuario, incluidas las eliminadas.");
+        List<UsuarioModel> list = usuarioDAO.findAll();
         if (list.isEmpty()) {
-            String message = "No entities User were found, included deleted ones.";
+            String message = "No se encontrarón entidades Usuario, incluidas las eliminadas.";
             log.warn(message);
             return new EntityMessenger<UsuarioModel>(null, null, message, 202);
         } else {
-            String message = list.size() + " entities User were found, included deleted ones.";
+            String message = "Se encontraron " + list.size() + " entidades Usuario, incluidas las eliminadas.";
             log.info(message);
             return new EntityMessenger<UsuarioModel>(null, list, message, 200);
         }
     }
 
     @Override
-    public Long contarTodos() {
-        Long count = usuarioDAO.countAllByBorradoIsNull();
-        log.info("Table User possess {} entities.", count);
+    public Long contarTodas() {
+        Long count = usuarioDAO.countAllByEliminadaIsNull();
+        log.info("Existen {} entidades Usuario.", count);
         return count;
     }
 
     @Override
-    public Long contarTodosConBorrados() {
+    public Long contarTodasConEliminadas() {
         Long count = usuarioDAO.count();
-        log.info("Table User possess {} entities, included deleted ones.", count);
+        log.info("Existen {} entidades Usuario, incluidas las eliminadas.", count);
         return count;
     }
 
     @Override
     public EntityMessenger<UsuarioModel> insertar(UsuarioCreation model) {
         try {
-            log.info("Inserting entity User: {}.",  model);
-            if (usuarioDAO.existsByUsernameContainingIgnoreCase(model.getUsername()))
-                return new EntityMessenger<UsuarioModel>(null, null, "Ya existe un usuario con ese email.", 202);
-            UsuarioModel usuarioModel = usuarioDAO.save(usuarioMapper.toEntity(model));
-            usuarioModel.setCreado(Helper.getNow(""));
-            usuarioModel.setCreador(this.obtenerUsuario().getObject());
-            usuarioDAO.save(usuarioModel);
-            String message = "The entity User with id: " + usuarioModel.getId() + " was inserted correctly.";
+            log.info("Insertando la entidad Usuario: {}.",  model);
+            UsuarioModel object = usuarioDAO.save(usuarioMapper.toEntity(model));
+            object.setCreada(Helper.getNow(""));
+            object.setCreador(this.obtenerUsuario().getObject());
+            usuarioDAO.save(object);
+            String message = "La entidad Usuario con id: " + object.getId() + ", fue insertada correctamente.";
             log.info(message);
-            return new EntityMessenger<UsuarioModel>(usuarioModel, null, message, 201);
+            return new EntityMessenger<UsuarioModel>(object, null, message, 201);
         } catch (Exception e) {
-            String message = "An error occurred while trying to persisit the entity. Exception: " + e + ".";
+            String message = "Ocurrió un error al intentar insertar la entidad Usuario. Excepción: " + e + ".";
             log.error(message);
             return new EntityMessenger<UsuarioModel>(null, null, message, 204);
         }
@@ -184,20 +182,20 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public EntityMessenger<UsuarioModel> actualizar(UsuarioModel model) {
         try {
-            log.info("Updating entity User: {}.",  model);
+            log.info("Actualizando la entidad Usuario: {}.",  model);
             if (model.getId() != null) {
                 EntityMessenger<UsuarioModel> existant = this.buscarPorId(model.getId());
                 if (existant.getStatusCode() == 202)
                     return existant;
             }
-            model.setModificacion(Helper.getNow(""));
+            model.setModificada(Helper.getNow(""));
             model.setModificador(this.obtenerUsuario().getObject());
-            UsuarioModel usuarioModel = usuarioDAO.save(model);
-            String message = "The entity User with id: " + usuarioModel.getId() + " was updated correctly.";
+            UsuarioModel object = usuarioDAO.save(model);
+            String message = "La entidad Usuario con id: " + object.getId() + ", fue actualizada correctamente.";
             log.info(message);
-            return new EntityMessenger<UsuarioModel>(usuarioModel, null, message, 201);
+            return new EntityMessenger<UsuarioModel>(object, null, message, 201);
         } catch (Exception e) {
-            String message = "An error occurred while trying to persisit the entity. Exception: " + e + ".";
+            String message = "Ocurrió un error al intentar actualizar la entidad Usuario. Excepción: " + e + ".";
             log.error(message);
             return new EntityMessenger<UsuarioModel>(null, null, message, 204);
         }
@@ -205,37 +203,37 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public EntityMessenger<UsuarioModel> reciclar(Long id) {
-        log.info("Recycling entity User with: {}.", id);
-        EntityMessenger<UsuarioModel> entityMessenger = this.buscarPorIdConBorrados(id);
+        log.info("Reciclando la entidad Usuario con id: {}.", id);
+        EntityMessenger<UsuarioModel> entityMessenger = this.buscarPorIdConEliminadas(id);
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        if (entityMessenger.getObject().getBorrado() == null) {
-            String message = "The entity User with id: " + id + " was not deleted.";
+        if (entityMessenger.getObject().getEliminada() == null) {
+            String message = "La entidad Usuario con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.";
             log.warn(message);
             entityMessenger.setMessage(message);
             return entityMessenger;
         }
-        entityMessenger.getObject().setBorrado(null);
-        entityMessenger.getObject().setBorrador(null);
+        entityMessenger.getObject().setEliminada(null);
+        entityMessenger.getObject().setEliminador(null);
         entityMessenger.setObject(usuarioDAO.save(entityMessenger.getObject()));
-        String message = "The entity User with id: " + id + " was recycled correctly.";
+        String message = "La entidad Usuario con id: " + id + ", fue reciclada correctamente.";
         entityMessenger.setMessage(message);
         log.info(message);
         return entityMessenger;
     }
 
     @Override
-    public EntityMessenger<UsuarioModel> borrar(Long id) {
-        log.info("Deleting entity User with: {}.", id);
+    public EntityMessenger<UsuarioModel> eliminar(Long id) {
+        log.info("Borrando la entidad Usuario con id: {}.", id);
         EntityMessenger<UsuarioModel> entityMessenger = this.buscarPorId(id);
         if (entityMessenger.getStatusCode() == 202) {
             return entityMessenger;
         }
-        entityMessenger.getObject().setBorrado(Helper.getNow(""));
-        entityMessenger.getObject().setBorrador(this.obtenerUsuario().getObject());
+        entityMessenger.getObject().setEliminada(Helper.getNow(""));
+        entityMessenger.getObject().setEliminador(this.obtenerUsuario().getObject());
         entityMessenger.setObject(usuarioDAO.save(entityMessenger.getObject()));
-        String message = "The entity User with id: " + id + " was deleted correctly.";
+        String message = "La entidad Usuario con id: " + id + ", fue borrada correctamente.";
         entityMessenger.setMessage(message);
         log.info(message);
         return entityMessenger;
@@ -243,23 +241,29 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public EntityMessenger<UsuarioModel> destruir(Long id) {
-        log.info("Destroying entity User with: {}.", id);
-        EntityMessenger<UsuarioModel> entityMessenger = this.buscarPorIdConBorrados(id);
-        if (entityMessenger.getStatusCode() == 202) {
-            return entityMessenger;
-        }
-        if (entityMessenger.getObject().getBorrado() == null) {
-            String message = "The entity User with id: " + id + " was not deleted correctly, thus, cannot be destroyed.";
-            log.info(message);
-            entityMessenger.setStatusCode(202);
+        try {
+            log.info("Destruyendo la entidad Usuario con id: {}.", id);
+            EntityMessenger<UsuarioModel> entityMessenger = this.buscarPorIdConEliminadas(id);
+            if (entityMessenger.getStatusCode() == 202) {
+                return entityMessenger;
+            }
+            if (entityMessenger.getObject().getEliminada() == null) {
+                String message = "La entidad Usuario con id: " + id + ", no se encuentra eliminada, por lo tanto no puede ser destruida.";
+                log.info(message);
+                entityMessenger.setStatusCode(202);
+                entityMessenger.setMessage(message);
+                return entityMessenger;
+            }
+            usuarioDAO.delete(entityMessenger.getObject());
+            String message = "La entidad fue destruida correctamente.";
             entityMessenger.setMessage(message);
+            entityMessenger.setObject(null);
+            log.info(message);
             return entityMessenger;
+        } catch (Exception e) {
+            String message = "Ocurrió un error al intentar destruir la entidad Usuario. Excepción: " + e + ".";
+            log.error(message);
+            return new EntityMessenger<UsuarioModel>(null, null, message, 204);
         }
-        usuarioDAO.delete(entityMessenger.getObject());
-        String message = "The entity was destroyed.";
-        entityMessenger.setMessage(message);
-        entityMessenger.setObject(null);
-        log.info(message);
-        return entityMessenger;
     }
 }

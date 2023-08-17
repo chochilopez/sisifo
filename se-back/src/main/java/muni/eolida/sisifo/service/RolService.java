@@ -7,6 +7,6 @@ import muni.eolida.sisifo.model.RolModel;
 import muni.eolida.sisifo.model.enums.RolEnum;
 
 public interface RolService extends GenericService<RolCreation, RolModel> {
-    EntityMessenger<RolModel> buscarTodosPorRol(RolEnum rol);
-    EntityMessenger<RolModel> buscarTodosPorRolConBorrados(RolEnum rol);
+    EntityMessenger<RolModel> buscarPorRol(RolEnum rol);
+    EntityMessenger<RolModel> buscarPorRolConEliminadas(RolEnum rol);
 }

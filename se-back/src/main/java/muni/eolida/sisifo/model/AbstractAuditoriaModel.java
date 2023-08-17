@@ -18,15 +18,15 @@ public abstract class AbstractAuditoriaModel {
     @Cascade(CascadeType.ALL)
     @ManyToOne()
     private UsuarioModel creador;
-    private LocalDateTime creado;
+    private LocalDateTime creada;
 
     @Cascade(CascadeType.ALL)
     @ManyToOne()
-    private UsuarioModel borrador;
-    private LocalDateTime borrado;
+    private UsuarioModel eliminador;
+    private LocalDateTime eliminada;
 
     @Cascade(CascadeType.ALL)
     @ManyToOne()
     private UsuarioModel modificador;
-    private LocalDateTime modificacion;
+    private LocalDateTime modificada;
 }

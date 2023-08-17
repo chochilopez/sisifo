@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface CalleDAO extends GenericRepository<CalleModel> {
     List<CalleModel> findAllByCalleIgnoreCaseContaining(String calle);
-    List<CalleModel> findAllByCalleIgnoreCaseContainingAndBorradoIsNull(String calle);
+    List<CalleModel> findAllByCalleIgnoreCaseContainingAndEliminadaIsNull(String calle);
 }
