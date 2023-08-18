@@ -1,6 +1,5 @@
 package muni.eolida.sisifo.helper;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 
@@ -13,10 +12,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@RequiredArgsConstructor
 @Slf4j
 public class Helper {
-    public static HttpHeaders httpHeaders (String message) {
+    public static HttpHeaders httpHeaders (String mensaje) {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "message");
         headers.set("message", message);

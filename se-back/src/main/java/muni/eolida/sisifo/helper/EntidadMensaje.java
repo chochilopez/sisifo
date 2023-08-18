@@ -14,7 +14,7 @@ import java.util.List;
 public class EntityMessenger<E> {
     private E object;
     private List<E> list;
-    private String message;
+    private String mensaje;
     private Integer statusCode;
 
 }
