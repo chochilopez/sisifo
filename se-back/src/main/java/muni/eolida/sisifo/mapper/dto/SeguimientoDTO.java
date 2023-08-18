@@ -11,5 +11,4 @@ public class SeguimientoDTO implements Serializable {
     private String id;
     private String descripcion;
     private List<EstadoReclamoDTO> estados;
-    private ReclamoDTO reclamo;
 }

@@ -11,10 +11,10 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Setter
-public class EntityMessenger<E> {
-    private E object;
-    private List<E> list;
+public class EntidadMensaje<E> {
+    private E objeto;
+    private List<E> listado;
     private String mensaje;
-    private Integer statusCode;
+    private Integer estado;
 
 }

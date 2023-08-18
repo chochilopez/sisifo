@@ -1,6 +1,5 @@
 package muni.eolida.sisifo.mapper;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.creation.RolCreation;
 import muni.eolida.sisifo.mapper.dto.RolDTO;
@@ -9,7 +8,6 @@ import muni.eolida.sisifo.model.enums.RolEnum;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 @Slf4j
 public class RolMapper {
 

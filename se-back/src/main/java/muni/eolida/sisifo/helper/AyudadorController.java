@@ -18,39 +18,40 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/ayuda")
 @RestController
-public class HelperController {
+public class AyudadorController {
 
     @Autowired
     private UsuarioServiceImpl usuarioServiceImpl;
     @Autowired
     private RolServiceImpl rolService;
 
+    //FIX ARREGLAR USUARIOS ROLES
     @PutMapping(value = "/cargar-roles")
     public ResponseEntity<?> autoridades() {
-        EntityMessenger<RolModel> rol1 = rolService.insertar(new RolCreation(RolEnum.CONTRIBUYENTE.name()));
-        EntityMessenger<RolModel> rol2 = rolService.insertar(new RolCreation(RolEnum.EMPLEADO.name()));
-        EntityMessenger<RolModel> rol3 = rolService.insertar(new RolCreation(RolEnum.CAPATAZ.name()));
-        EntityMessenger<RolModel> rol4 = rolService.insertar(new RolCreation(RolEnum.JEFE.name()));
+        EntidadMensaje<RolModel> rol1 = rolService.insertar(new RolCreation(RolEnum.CONTRIBUYENTE.name()));
+        EntidadMensaje<RolModel> rol2 = rolService.insertar(new RolCreation(RolEnum.EMPLEADO.name()));
+        EntidadMensaje<RolModel> rol3 = rolService.insertar(new RolCreation(RolEnum.CAPATAZ.name()));
+        EntidadMensaje<RolModel> rol4 = rolService.insertar(new RolCreation(RolEnum.JEFE.name()));
 
 
-        return ResponseEntity.status(HttpStatus.OK).body(Helper.httpHeaders(rol1.getMessage() + " - " + rol2.getMessage()));
+        return ResponseEntity.status(HttpStatus.OK).body(Ayudador.httpHeaders(rol1.getMensaje() + " - " + rol2.getMensaje()));
     }
 
     @PutMapping(value = "/cargar-usuarios")
     public ResponseEntity<?> usuarios() {
-        EntityMessenger<UsuarioModel> user1 = usuarioServiceImpl.insertar(new UsuarioCreation("admin", "123","25 de Mayo 943", "4951160", "admin@municrespo.gob.ar", "admincito"));
-        EntityMessenger<UsuarioModel> user2 = usuarioServiceImpl.insertar(new UsuarioCreation("Fulano Fulanito", "98987987","Siempreviva 123", "4951951", "fulano@fulanito.com.ar", "fulanito"));
-        EntityMessenger<UsuarioModel> user3 = usuarioServiceImpl.insertar(new UsuarioCreation("Fulano Fulanito", "98987987","Siempreviva 123", "4951951", "fulano@fulanito.com.ar", "fulanito"));
-        EntityMessenger<UsuarioModel> user4 = usuarioServiceImpl.insertar(new UsuarioCreation("Fulano Fulanito", "98987987","Siempreviva 123", "4951951", "fulano@fulanito.com.ar", "fulanito"));
+        EntidadMensaje<UsuarioModel> user1 = usuarioServiceImpl.insertar(new UsuarioCreation("admin", "123","25 de Mayo 943", "4951160", "admin@municrespo.gob.ar", "admincito"));
+        EntidadMensaje<UsuarioModel> user2 = usuarioServiceImpl.insertar(new UsuarioCreation("Fulano Fulanito", "98987987","Siempreviva 123", "4951951", "fulano@fulanito.com.ar", "fulanito"));
+        EntidadMensaje<UsuarioModel> user3 = usuarioServiceImpl.insertar(new UsuarioCreation("Fulano Fulanito", "98987987","Siempreviva 123", "4951951", "fulano@fulanito.com.ar", "fulanito"));
+        EntidadMensaje<UsuarioModel> user4 = usuarioServiceImpl.insertar(new UsuarioCreation("Fulano Fulanito", "98987987","Siempreviva 123", "4951951", "fulano@fulanito.com.ar", "fulanito"));
 
-        if (user1.getStatusCode() == 201) {
-            usuarioServiceImpl.darRol(user1.getObject(), RolEnum.CAPATAZ);
+        if (user1.getEstado() == 201) {
+            usuarioServiceImpl.darRol(user1.getObjeto(), RolEnum.CAPATAZ);
         }
-        if (user2.getStatusCode() == 201) {
-            usuarioServiceImpl.darRol(user1.getObject(), RolEnum.CAPATAZ);
-            usuarioServiceImpl.darRol(user2.getObject(), RolEnum.CONTRIBUYENTE);
+        if (user2.getEstado() == 201) {
+            usuarioServiceImpl.darRol(user1.getObjeto(), RolEnum.CAPATAZ);
+            usuarioServiceImpl.darRol(user2.getObjeto(), RolEnum.CONTRIBUYENTE);
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(Helper.httpHeaders(user1.getMessage() + "\n" +user2.getMessage()));
+        return ResponseEntity.status(HttpStatus.OK).body(Ayudador.httpHeaders(user1.getMensaje() + "\n" +user2.getMensaje()));
     }
 }

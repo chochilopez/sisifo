@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import muni.eolida.sisifo.helper.AbstractAuditoriaModel;
 
 @Getter
 @Entity

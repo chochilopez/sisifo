@@ -1,11 +1,8 @@
 package muni.eolida.sisifo.helper;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 //@Component
-@RequiredArgsConstructor
 public class Runner implements CommandLineRunner {
 
     @Override

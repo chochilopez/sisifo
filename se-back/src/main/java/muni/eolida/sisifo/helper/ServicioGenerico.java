@@ -1,16 +1,16 @@
 package muni.eolida.sisifo.helper;
 
 
-public interface GenericService<E, T> {
-    EntityMessenger<T> buscarPorId(Long id);
-    EntityMessenger<T> buscarPorIdConEliminadas(Long id);
-    EntityMessenger<T> buscarTodas();
-    EntityMessenger<T> buscarTodasConEliminadas();
+public interface ServicioGenerico<E, T> {
+    EntidadMensaje<T> buscarPorId(Long id);
+    EntidadMensaje<T> buscarPorIdConEliminadas(Long id);
+    EntidadMensaje<T> buscarTodas();
+    EntidadMensaje<T> buscarTodasConEliminadas();
     Long contarTodas();
     Long contarTodasConEliminadas();
-    EntityMessenger<T> insertar(E e);
-    EntityMessenger<T> actualizar(T t);
-    EntityMessenger<T> reciclar(Long id);
-    EntityMessenger<T> eliminar(Long id);
-    EntityMessenger<T> destruir(Long id);
+    EntidadMensaje<T> insertar(E e);
+    EntidadMensaje<T> actualizar(T t);
+    EntidadMensaje<T> reciclar(Long id);
+    EntidadMensaje<T> eliminar(Long id);
+    EntidadMensaje<T> destruir(Long id);
 }

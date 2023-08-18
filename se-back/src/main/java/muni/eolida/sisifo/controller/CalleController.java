@@ -1,14 +1,14 @@
 package muni.eolida.sisifo.controller;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.helper.EntidadMensaje;
+import muni.eolida.sisifo.helper.Ayudador;
 import muni.eolida.sisifo.mapper.CalleMapper;
 import muni.eolida.sisifo.mapper.creation.CalleCreation;
 import muni.eolida.sisifo.mapper.dto.CalleDTO;
 import muni.eolida.sisifo.model.CalleModel;
 import muni.eolida.sisifo.service.implementation.CalleServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,177 +20,178 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/calle")
-@RequiredArgsConstructor
 @RestController
 @Slf4j
 public class CalleController {
 
-    private final CalleServiceImpl calleService;
-    private final CalleMapper calleMapper;
+    @Autowired
+    private CalleServiceImpl calleService;
+    @Autowired
+    private CalleMapper calleMapper;
 
     @GetMapping(value = "/buscar-por-nombre/{calle}")
-    @PreAuthorize("hasAuthority('USUARIO')")
-    public ResponseEntity<List<CalleDTO>> buscarTodosPorCalle(@PathVariable(name = "calle") @javax.validation.constraints.Size(min = 3, max = 40) String calle) {
-        EntityMessenger<CalleModel> calleModelEntityMessenger = calleService.buscarTodosPorCalle(calle);
-        if (calleModelEntityMessenger.getStatusCode() == 202) {
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(calleModelEntityMessenger.getMessage())).build();
-        } else if (calleModelEntityMessenger.getStatusCode() == 200) {
+    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
+    public ResponseEntity<List<CalleDTO>> buscarTodasPorCalle(@PathVariable(name = "calle") @javax.validation.constraints.Size(min = 3, max = 40) String calle) {
+        EntidadMensaje<CalleModel> listado = calleService.buscarTodasPorCalle(calle);
+        if (listado.getEstado() == 202) {
+            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+        } else if (listado.getEstado() == 200) {
             ArrayList<CalleDTO> calleDTOS = new ArrayList<>();
-            for (CalleModel calleModel : calleModelEntityMessenger.getList()) {
+            for (CalleModel calleModel : listado.getListado()) {
                 calleDTOS.add(calleMapper.toDto(calleModel));
             }
-            return new ResponseEntity<>(calleDTOS, Helper.httpHeaders(calleModelEntityMessenger.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(calleDTOS, Ayudador.httpHeaders(listado.getMensaje()), HttpStatus.OK);
         } else {
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(calleModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
         }
     }
 
-    @GetMapping(value = "/buscar-por-nombre-con-borrados/{calle}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ResponseEntity<List<CalleDTO>> buscarTodosPorCalleConBorrados(@PathVariable(name = "calle") @javax.validation.constraints.Size(min = 3, max = 40) String calle) {
-        EntityMessenger<CalleModel> calleModelEntityMessenger = calleService.buscarTodosPorCalleConBorrados(calle);
-        if (calleModelEntityMessenger.getStatusCode() == 202) {
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(calleModelEntityMessenger.getMessage())).build();
-        } else if (calleModelEntityMessenger.getStatusCode() == 200) {
+    @GetMapping(value = "/buscar-por-nombre-con-eliminadas/{calle}")
+    @PreAuthorize("hasAuthority('CAPATAZ')")
+    public ResponseEntity<List<CalleDTO>> buscarTodasPorCalleConEliminadas(@PathVariable(name = "calle") @javax.validation.constraints.Size(min = 3, max = 40) String calle) {
+        EntidadMensaje<CalleModel> listado = calleService.buscarTodasPorCalleConEliminadas(calle);
+        if (listado.getEstado() == 202) {
+            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+        } else if (listado.getEstado() == 200) {
             ArrayList<CalleDTO> calleDTOS = new ArrayList<>();
-            for (CalleModel calleModel : calleModelEntityMessenger.getList()) {
+            for (CalleModel calleModel : listado.getListado()) {
                 calleDTOS.add(calleMapper.toDto(calleModel));
             }
-            return new ResponseEntity<>(calleDTOS, Helper.httpHeaders(calleModelEntityMessenger.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(calleDTOS, Ayudador.httpHeaders(listado.getMensaje()), HttpStatus.OK);
         } else {
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(calleModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
         }
     }
 
     @GetMapping(value = "/buscar-por-id/{id}")
-    @PreAuthorize("hasAuthority('USUARIO')")
-    public ResponseEntity<CalleDTO> findById(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarPorId(id);
-        if (CalleModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
-        else if (CalleModelEntityMessenger.getStatusCode() == 200)
-            return new ResponseEntity<>(calleMapper.toDto(CalleModelEntityMessenger.getObject()), Helper.httpHeaders(CalleModelEntityMessenger.getMessage()), HttpStatus.OK);
+    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
+    public ResponseEntity<CalleDTO> buscarPorId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+        EntidadMensaje<CalleModel> objeto = calleService.buscarPorId(id);
+        if (objeto.getEstado() == 202)
+            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+        else if (objeto.getEstado() == 200)
+            return new ResponseEntity<>(calleMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
     }
 
-    @GetMapping(value = "/buscar-por-id-con-borrados/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ResponseEntity<CalleDTO> findByIdConBorrados(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarPorIdConBorrados(id);
-        if (CalleModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
-        else if (CalleModelEntityMessenger.getStatusCode() == 200)
-            return new ResponseEntity<>(calleMapper.toDto(CalleModelEntityMessenger.getObject()), Helper.httpHeaders(CalleModelEntityMessenger.getMessage()), HttpStatus.OK);
+    @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
+    @PreAuthorize("hasAuthority('CAPATAZ')")
+    public ResponseEntity<CalleDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+        EntidadMensaje<CalleModel> objeto = calleService.buscarPorIdConEliminadas(id);
+        if (objeto.getEstado() == 202)
+            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+        else if (objeto.getEstado() == 200)
+            return new ResponseEntity<>(calleMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
     }
 
-    @GetMapping(value = "/buscar-todos")
-    @PreAuthorize("hasAuthority('USUARIO')")
-    public ResponseEntity<List<CalleDTO>> findAllByRemovedIsNull() {
-        EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarTodos();
-        if (CalleModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
-        else if (CalleModelEntityMessenger.getStatusCode() == 200){
+    @GetMapping(value = "/buscar-todas")
+    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
+    public ResponseEntity<List<CalleDTO>> buscarTodas() {
+        EntidadMensaje<CalleModel> listado = calleService.buscarTodas();
+        if (listado.getEstado() == 202)
+            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+        else if (listado.getEstado() == 200){
             ArrayList<CalleDTO> CalleDTOs = new ArrayList<>();
-            for (CalleModel CalleModel:CalleModelEntityMessenger.getList()) {
+            for (CalleModel CalleModel:listado.getListado()) {
                 CalleDTOs.add(calleMapper.toDto(CalleModel));
             }
-            return new ResponseEntity<>(CalleDTOs, Helper.httpHeaders(CalleModelEntityMessenger.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(CalleDTOs, Ayudador.httpHeaders(listado.getMensaje()), HttpStatus.OK);
         }
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
     }
 
-    @GetMapping(value = "/buscar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ResponseEntity<List<CalleDTO>> findAll() {
-        EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.buscarTodosConBorrados();
-        if (CalleModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
-        else if (CalleModelEntityMessenger.getStatusCode() == 200){
+    @GetMapping(value = "/buscar-todas-con-eliminadas")
+    @PreAuthorize("hasAuthority('CAPATAZ')")
+    public ResponseEntity<List<CalleDTO>> buscarTodasConEliminadas() {
+        EntidadMensaje<CalleModel> listado = calleService.buscarTodasConEliminadas();
+        if (listado.getEstado() == 202)
+            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+        else if (listado.getEstado() == 200){
             ArrayList<CalleDTO> CalleDTOs = new ArrayList<>();
-            for (CalleModel CalleModel:CalleModelEntityMessenger.getList()) {
+            for (CalleModel CalleModel:listado.getListado()) {
                 CalleDTOs.add(calleMapper.toDto(CalleModel));
             }
-            return new ResponseEntity<>(CalleDTOs, Helper.httpHeaders(CalleModelEntityMessenger.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(CalleDTOs, Ayudador.httpHeaders(listado.getMensaje()), HttpStatus.OK);
         }
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
     }
 
-    @GetMapping(value = "/contar-todos")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ResponseEntity<Long> countAll() {
-        Long quantity= calleService.contarTodos();
-        return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
+    @GetMapping(value = "/contar-todas")
+    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
+    public ResponseEntity<Long> contarTodas() {
+        Long cantidad = calleService.contarTodas();
+        return new ResponseEntity<>(cantidad, Ayudador.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/contar-todos-con-borrados")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ResponseEntity<Long> countAllByRemovedIsNull() {
-        Long quantity= calleService.contarTodosConBorrados();
-        return new ResponseEntity<>(quantity, Helper.httpHeaders(String.valueOf(quantity)), HttpStatus.OK);
+    @GetMapping(value = "/contar-todas-con-eliminadas")
+    @PreAuthorize("hasAuthority('CAPATAZ')")
+    public ResponseEntity<Long> contarTodasConEliminadas() {
+        Long cantidad = calleService.contarTodasConEliminadas();
+        return new ResponseEntity<>(cantidad, Ayudador.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ResponseEntity<CalleDTO> insert(@Valid @RequestBody CalleCreation calleCreation) {
-        EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.insertar(calleCreation);
-        if (CalleModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
-        else if (CalleModelEntityMessenger.getStatusCode() == 201)
-            return new ResponseEntity<>(calleMapper.toDto(CalleModelEntityMessenger.getObject()), Helper.httpHeaders(CalleModelEntityMessenger.getMessage()), HttpStatus.CREATED);
+    @PreAuthorize("hasAuthority('CAPATAZ')")
+    public ResponseEntity<CalleDTO> insertar(@Valid @RequestBody CalleCreation calleCreation) {
+        EntidadMensaje<CalleModel> objeto = calleService.insertar(calleCreation);
+        if (objeto.getEstado() == 202)
+            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+        else if (objeto.getEstado() == 201)
+            return new ResponseEntity<>(calleMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ResponseEntity<CalleDTO> update(@Valid @RequestBody CalleModel calleModel) {
-        EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.actualizar(calleModel);
-        if (CalleModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
-        else if (CalleModelEntityMessenger.getStatusCode() == 201)
-            return new ResponseEntity<>(calleMapper.toDto(CalleModelEntityMessenger.getObject()), Helper.httpHeaders(CalleModelEntityMessenger.getMessage()), HttpStatus.CREATED);
+    @PreAuthorize("hasAuthority('CAPATAZ')")
+    public ResponseEntity<CalleDTO> actualizar(@Valid @RequestBody CalleModel calleModel) {
+        EntidadMensaje<CalleModel> objeto = calleService.actualizar(calleModel);
+        if (objeto.getEstado() == 202)
+            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+        else if (objeto.getEstado() == 201)
+            return new ResponseEntity<>(calleMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ResponseEntity<CalleDTO> delete(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.borrar(id);
-        if (CalleModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
-        else if (CalleModelEntityMessenger.getStatusCode() == 201)
-            return new ResponseEntity<>(calleMapper.toDto(CalleModelEntityMessenger.getObject()), Helper.httpHeaders(CalleModelEntityMessenger.getMessage()), HttpStatus.OK);
+    @PreAuthorize("hasAuthority('CAPATAZ')")
+    public ResponseEntity<CalleDTO> borrar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+        EntidadMensaje<CalleModel> objeto = calleService.eliminar(id);
+        if (objeto.getEstado() == 202)
+            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+        else if (objeto.getEstado() == 201)
+            return new ResponseEntity<>(calleMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
     }
 
     @PostMapping(value = "/reciclar/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ResponseEntity<CalleDTO> recycle(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.reciclar(id);
-        if (CalleModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
-        else if (CalleModelEntityMessenger.getStatusCode() == 200)
-            return new ResponseEntity<>(calleMapper.toDto(CalleModelEntityMessenger.getObject()), Helper.httpHeaders(CalleModelEntityMessenger.getMessage()), HttpStatus.OK);
+    @PreAuthorize("hasAuthority('JEFE')")
+    public ResponseEntity<CalleDTO> reciclar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+        EntidadMensaje<CalleModel> objeto = calleService.reciclar(id);
+        if (objeto.getEstado() == 202)
+            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+        else if (objeto.getEstado() == 200)
+            return new ResponseEntity<>(calleMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
     }
 
     @DeleteMapping(value = "/destruir/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ResponseEntity<String> destroy(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntityMessenger<CalleModel> CalleModelEntityMessenger = calleService.destruir(id);
-        if (CalleModelEntityMessenger.getStatusCode() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
-        else if (CalleModelEntityMessenger.getStatusCode() == 200)
-            return new ResponseEntity<>(CalleModelEntityMessenger.getMessage(), Helper.httpHeaders(CalleModelEntityMessenger.getMessage()), HttpStatus.OK);
+    @PreAuthorize("hasAuthority('JEFE')")
+    public ResponseEntity<String> destruir(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+        EntidadMensaje<CalleModel> objeto = calleService.destruir(id);
+        if (objeto.getEstado() == 202)
+            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+        else if (objeto.getEstado() == 200)
+            return new ResponseEntity<>(objeto.getMensaje(), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(CalleModelEntityMessenger.getMessage())).build();
+            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface GenericRepository<E> extends JpaRepository<E, Long> {
+public interface RepositorioGenerico<E> extends JpaRepository<E, Long> {
     Optional<E> findById(Long id);
     Optional<E> findByIdAndEliminadaIsNull(Long id);
     List<E> findAllByEliminadaIsNull();

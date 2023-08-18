@@ -3,17 +3,17 @@ package muni.eolida.sisifo.helper.email;
 import lombok.*;
 
 import jakarta.persistence.*;
-import muni.eolida.sisifo.model.AbstractAuditoriaModel;
+import muni.eolida.sisifo.helper.AbstractAuditoriaModel;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Setter
 @Table(name = "email")
 @EqualsAndHashCode
-public class EmailModel {
+public class EmailModel extends AbstractAuditoriaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

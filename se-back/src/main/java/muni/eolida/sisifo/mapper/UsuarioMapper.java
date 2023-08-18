@@ -1,21 +1,21 @@
 package muni.eolida.sisifo.mapper;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.creation.UsuarioCreation;
 import muni.eolida.sisifo.mapper.dto.UsuarioDTO;
 import muni.eolida.sisifo.model.RolModel;
 import muni.eolida.sisifo.model.UsuarioModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 @Slf4j
 public class UsuarioMapper {
-    private final PasswordEncoder bcryptEncoder;
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
 
     public UsuarioModel toEntity(UsuarioCreation usuarioCreation) {
         try {

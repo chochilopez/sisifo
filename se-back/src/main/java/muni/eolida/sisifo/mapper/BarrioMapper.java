@@ -1,6 +1,5 @@
 package muni.eolida.sisifo.mapper;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.creation.BarrioCreation;
 import muni.eolida.sisifo.mapper.dto.BarrioDTO;
@@ -8,7 +7,6 @@ import muni.eolida.sisifo.model.BarrioModel;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 @Slf4j
 public class BarrioMapper {
 

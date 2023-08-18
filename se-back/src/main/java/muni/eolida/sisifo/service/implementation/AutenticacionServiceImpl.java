@@ -1,8 +1,7 @@
 package muni.eolida.sisifo.service.implementation;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.helper.EntidadMensaje;
 import muni.eolida.sisifo.helper.email.EmailModel;
 import muni.eolida.sisifo.helper.email.mapper.EmailCreation;
 import muni.eolida.sisifo.helper.email.service.EmailServiceImpl;
@@ -16,6 +15,7 @@ import muni.eolida.sisifo.security.jwt.JwtUtils;
 import muni.eolida.sisifo.security.services.UserDetailsServiceImpl;
 import org.apache.tomcat.util.codec.binary.Base64;
 import muni.eolida.sisifo.service.AutenticacionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -35,15 +35,20 @@ import java.util.Set;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class AutenticacionServiceImpl implements AutenticacionService {
 
-    private final UsuarioServiceImpl usuarioService;
-    private final UsuarioDAO usuarioDAO;
-    private final AuthenticationManager authenticationManager;
-    private final UserDetailsServiceImpl userDetailsService;
-    private final JwtUtils jwtUtils;
-    private final EmailServiceImpl emailService;
+    @Autowired
+    private UsuarioServiceImpl usuarioService;
+    @Autowired
+    private UsuarioDAO usuarioDAO;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private JwtUtils jwtUtils;
+    @Autowired
+    private EmailServiceImpl emailService;
 
     @Value("${sisifo.app.mail.username}")
     private String sender;
@@ -52,21 +57,21 @@ public class AutenticacionServiceImpl implements AutenticacionService {
     private static final BytesKeyGenerator DEFAULT_TOKEN_GENERATOR = KeyGenerators.secureRandom(15);
 
     @Override
-    public EntityMessenger<JwtResponse> ingresarUsuario(LoginRequest loginRequest) {
+    public EntidadMensaje<JwtResponse> ingresarUsuario(LoginRequest loginRequest) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         } catch (DisabledException e) {
-            String message = "El usuario se encuentra deshabilitado.";
-            log.info(message);
-            return new EntityMessenger<JwtResponse>(null, null, message, 204);
+            String mensaje = "El usuario se encuentra deshabilitado.";
+            log.info(mensaje);
+            return new EntidadMensaje<JwtResponse>(null, null, mensaje, 204);
         } catch (BadCredentialsException e) {
-            String message = "El usuario no posee credenciales válidas.";
-            log.info(message);
-            return new EntityMessenger<JwtResponse>(null, null, message, 204);
+            String mensaje = "El usuario no posee credenciales válidas.";
+            log.info(mensaje);
+            return new EntidadMensaje<JwtResponse>(null, null, mensaje, 204);
         } catch (UsernameNotFoundException e) {
-            String message = "El usuario no existe o la cuenta no se encuentra habilitada.";
-            log.info(message);
-            return new EntityMessenger<JwtResponse>(null, null, message, 202);
+            String mensaje = "El usuario no existe o la cuenta no se encuentra habilitada.";
+            log.info(mensaje);
+            return new EntidadMensaje<JwtResponse>(null, null, mensaje, 202);
         }
         UserDetails userdetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
         String token = jwtUtils.generateToken(userdetails);
@@ -81,50 +86,50 @@ public class AutenticacionServiceImpl implements AutenticacionService {
         if (authorities.contains(new SimpleGrantedAuthority(RolEnum.CONTRIBUYENTE.name())))
             auths.add("CONTRIBUYENTE");
 
-        String message = "El usuario " + loginRequest.getUsername() + " se logueo correctamente.";
-        log.info(message);
-        return new EntityMessenger<JwtResponse>(new JwtResponse(token, userdetails.getUsername(), auths), null, message, 200);
+        String mensaje = "El usuario " + loginRequest.getUsername() + " se logueo correctamente.";
+        log.info(mensaje);
+        return new EntidadMensaje<JwtResponse>(new JwtResponse(token, userdetails.getUsername(), auths), null, mensaje, 200);
     }
 
     @Override
-    public EntityMessenger<UsuarioModel>  validarToken(Long id, String token) {
-        EntityMessenger<UsuarioModel> usuario = usuarioService.buscarPorId(id);
-        if (usuario.getStatusCode() == 200) {
-            if (usuario.getObject().getToken().equals(token)) {
-                usuario.getObject().setHabilitada(true);
-                usuario = usuarioService.actualizar(usuario.getObject());
-                String message = "La cuenta de usaurio: " + usuario.getObject().getUsername() + ", se habilitó correctamente.";
-                log.info(message);
-                usuario.setMessage(message);
+    public EntidadMensaje<UsuarioModel> validarToken(Long id, String token) {
+        EntidadMensaje<UsuarioModel> usuario = usuarioService.buscarPorId(id);
+        if (usuario.getEstado() == 200) {
+            if (usuario.getObjeto().getToken().equals(token)) {
+                usuario.getObjeto().setHabilitada(true);
+                usuario = usuarioService.actualizar(usuario.getObjeto());
+                String mensaje = "La cuenta de usaurio: " + usuario.getObjeto().getUsername() + ", se habilitó correctamente.";
+                log.info(mensaje);
+                usuario.setMensaje(mensaje);
                 return usuario;
             } else {
-                String message = "Ocurrió un error al intentar habilitar la cuenta.";
-                log.warn(message);
-                return new EntityMessenger<UsuarioModel>(null, null, message, 204);
+                String mensaje = "Ocurrió un error al intentar habilitar la cuenta.";
+                log.warn(mensaje);
+                return new EntidadMensaje<UsuarioModel>(null, null, mensaje, 204);
             }
         }
         return usuario;
     }
 
     @Override
-    public EntityMessenger<UsuarioModel> registrarUsuario(UsuarioCreation usuarioCreation) {
-        EntityMessenger<UsuarioModel> usuario = usuarioService.insertar(usuarioCreation);
-        if (usuario.getStatusCode() == 201) {
-            usuario.getObject().setHabilitada(false);
+    public EntidadMensaje<UsuarioModel> registrarUsuario(UsuarioCreation usuarioCreation) {
+        EntidadMensaje<UsuarioModel> usuario = usuarioService.insertar(usuarioCreation);
+        if (usuario.getEstado() == 201) {
+            usuario.getObjeto().setHabilitada(false);
             String token = Base64.encodeBase64URLSafeString(DEFAULT_TOKEN_GENERATOR.generateKey());
-            usuario.getObject().setToken(token);
-            String body = path + usuario.getObject().getId() + "/" +  token;
-            EntityMessenger<EmailModel> emailModelEntityMessenger = emailService.sendSimpleEmail(new EmailCreation(
+            usuario.getObjeto().setToken(token);
+            String body = path + usuario.getObjeto().getId() + "/" +  token;
+            EntidadMensaje<EmailModel> emailModelEntidadMensaje = emailService.enviarEmailSimple(new EmailCreation(
                     "Confirmá tu dirección de email para continuar con tu reclamo.",
                     this.sender,
                     usuarioCreation.getUsername(),
                     body
             ));
-            usuario = usuarioService.darRol(usuario.getObject(), RolEnum.CONTRIBUYENTE);
-            if (emailModelEntityMessenger.getStatusCode() == 201) {
-                String message = "El usuario " + usuarioCreation.getUsername() + " fue creado correctamente. En envió el email de confirmación.";
-                log.info(message);
-                return new EntityMessenger<UsuarioModel>(usuario.getObject(), null, message, 201);
+            usuario = usuarioService.darRol(usuario.getObjeto(), RolEnum.CONTRIBUYENTE);
+            if (emailModelEntidadMensaje.getEstado() == 201) {
+                String mensaje = "El usuario " + usuarioCreation.getUsername() + " fue creado correctamente. En envió el email de confirmación.";
+                log.info(mensaje);
+                return new EntidadMensaje<UsuarioModel>(usuario.getObjeto(), null, mensaje, 201);
             }
         }
         return usuario;

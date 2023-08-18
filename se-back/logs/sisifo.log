@@ -1,34 +1,88 @@
-2023-08-17 07:34:09 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 17.0.7 with PID 2318018 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-17 07:34:09 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-17 07:34:09 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-17 07:34:09 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 51 ms. Found 9 JPA repository interfaces.
-2023-08-17 07:34:09 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-17 07:34:09 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-17 07:34:09 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-17 07:34:09 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-17 07:34:09 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 792 ms
-2023-08-17 07:34:09 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-17 07:34:09 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-17 07:34:09 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-17 07:34:10 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-17 07:34:10 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-17 07:34:10 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-17 07:34:10 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@55053f81
-2023-08-17 07:34:10 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-17 07:34:10 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-17 07:34:10 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-17 07:34:10 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-17 07:34:11 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-17 07:34:12 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'seguimientoController' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/controller/SeguimientoController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'seguimientoServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/SeguimientoServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'seguimientoDAO' defined in muni.eolida.sisifo.repository.SeguimientoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.SeguimientoDAO.findAllByEstadoReclamoAndBorradoIsNull(muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum); Reason: Failed to create query for method public abstract java.util.List muni.eolida.sisifo.repository.SeguimientoDAO.findAllByEstadoReclamoAndBorradoIsNull(muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum); No property 'estadoReclamo' found for type 'SeguimientoModel'
-2023-08-17 07:34:12 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-17 07:34:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-17 07:34:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-17 07:34:12 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2023-08-17 07:34:12 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2023-08-18 08:43:24 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 17.0.7 with PID 2480219 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-18 08:43:24 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-18 08:43:24 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-18 08:43:24 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 52 ms. Found 11 JPA repository interfaces.
+2023-08-18 08:43:24 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-18 08:43:24 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-18 08:43:24 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-18 08:43:24 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-18 08:43:24 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 773 ms
+2023-08-18 08:43:24 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-18 08:43:25 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-18 08:43:25 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-18 08:43:25 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 08:43:25 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-18 08:43:25 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-18 08:43:25 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@79d4ff58
+2023-08-18 08:43:25 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-18 08:43:25 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-18 08:43:25 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 08:43:26 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-18 08:43:27 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 08:43:27 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'autenticacionController': Unsatisfied dependency expressed through field 'autenticacionService': Error creating bean with name 'autenticacionServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/AutenticacionServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'usuarioServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/UsuarioServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'rolServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/RolServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'usuarioServiceImpl': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2023-08-18 08:43:27 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 08:43:27 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-18 08:43:27 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-18 08:43:27 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2023-08-18 08:43:27 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2023-08-17 07:34:12 [main] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'seguimientoController' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/controller/SeguimientoController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'seguimientoServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/SeguimientoServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'seguimientoDAO' defined in muni.eolida.sisifo.repository.SeguimientoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.SeguimientoDAO.findAllByEstadoReclamoAndBorradoIsNull(muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum); Reason: Failed to create query for method public abstract java.util.List muni.eolida.sisifo.repository.SeguimientoDAO.findAllByEstadoReclamoAndBorradoIsNull(muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum); No property 'estadoReclamo' found for type 'SeguimientoModel'
+2023-08-18 08:43:27 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+   autenticacionController (field muni.eolida.sisifo.service.implementation.AutenticacionServiceImpl muni.eolida.sisifo.controller.AutenticacionController.autenticacionService)
+      ↓
+   autenticacionServiceImpl defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/AutenticacionServiceImpl.class]
+┌─────┐
+|  usuarioServiceImpl defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/UsuarioServiceImpl.class]
+↑     ↓
+|  rolServiceImpl defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/RolServiceImpl.class]
+└─────┘
+
+
+Action:
+
+Relying upon circular references is discouraged and they are prohibited by default. Update your application to remove the dependency cycle between beans. As a last resort, it may be possible to break the cycle automatically by setting spring.main.allow-circular-references to true.
+
+2023-08-18 08:45:15 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 17.0.7 with PID 2480551 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-18 08:45:15 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-18 08:45:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-18 08:45:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 49 ms. Found 11 JPA repository interfaces.
+2023-08-18 08:45:16 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-18 08:45:16 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-18 08:45:16 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-18 08:45:16 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-18 08:45:16 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 757 ms
+2023-08-18 08:45:16 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-18 08:45:16 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-18 08:45:16 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-18 08:45:16 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 08:45:16 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-18 08:45:16 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-18 08:45:17 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@485deee1
+2023-08-18 08:45:17 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-18 08:45:17 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-18 08:45:17 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 08:45:17 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-18 08:45:18 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 08:45:18 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-18 08:45:19 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'reclamoMapper' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/ReclamoMapper.class]: Unsatisfied dependency expressed through constructor parameter 10: Error creating bean with name 'seguimientoMapper' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/SeguimientoMapper.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/ReclamoServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoDAO' defined in muni.eolida.sisifo.repository.ReclamoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime); Reason: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
+2023-08-18 08:45:19 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 08:45:19 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-18 08:45:19 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-18 08:45:19 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2023-08-18 08:45:19 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-08-18 08:45:19 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'reclamoMapper' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/ReclamoMapper.class]: Unsatisfied dependency expressed through constructor parameter 10: Error creating bean with name 'seguimientoMapper' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/SeguimientoMapper.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/ReclamoServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoDAO' defined in muni.eolida.sisifo.repository.ReclamoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime); Reason: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:800)
 	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:245)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1352)
@@ -49,7 +103,7 @@ org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
 	at muni.eolida.sisifo.SisifoApplication.main(SisifoApplication.java:10)
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'seguimientoServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/SeguimientoServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'seguimientoDAO' defined in muni.eolida.sisifo.repository.SeguimientoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.SeguimientoDAO.findAllByEstadoReclamoAndBorradoIsNull(muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum); Reason: Failed to create query for method public abstract java.util.List muni.eolida.sisifo.repository.SeguimientoDAO.findAllByEstadoReclamoAndBorradoIsNull(muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum); No property 'estadoReclamo' found for type 'SeguimientoModel'
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'seguimientoMapper' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/SeguimientoMapper.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/ReclamoServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoDAO' defined in muni.eolida.sisifo.repository.ReclamoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime); Reason: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:800)
 	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:245)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1352)
@@ -63,10 +117,25 @@ Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Err
 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:888)
 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
 	... 19 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'seguimientoDAO' defined in muni.eolida.sisifo.repository.SeguimientoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.SeguimientoDAO.findAllByEstadoReclamoAndBorradoIsNull(muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum); Reason: Failed to create query for method public abstract java.util.List muni.eolida.sisifo.repository.SeguimientoDAO.findAllByEstadoReclamoAndBorradoIsNull(muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum); No property 'estadoReclamo' found for type 'SeguimientoModel'
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'reclamoServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/ReclamoServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoDAO' defined in muni.eolida.sisifo.repository.ReclamoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime); Reason: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:800)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:245)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1189)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 33 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reclamoDAO' defined in muni.eolida.sisifo.repository.ReclamoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime); Reason: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
@@ -77,10 +146,9 @@ Caused by: org.springframework.beans.factory.BeanCreationException: Error creati
 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:888)
 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
-	... 33 common frames omitted
-Caused by: org.springframework.data.repository.query.QueryCreationException: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.SeguimientoDAO.findAllByEstadoReclamoAndBorradoIsNull(muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum); Reason: Failed to create query for method public abstract java.util.List muni.eolida.sisifo.repository.SeguimientoDAO.findAllByEstadoReclamoAndBorradoIsNull(muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum); No property 'estadoReclamo' found for type 'SeguimientoModel'
+	... 47 common frames omitted
+Caused by: org.springframework.data.repository.query.QueryCreationException: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime); Reason: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
 	at org.springframework.data.repository.query.QueryCreationException.create(QueryCreationException.java:101)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:115)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.mapMethodsToQuery(QueryExecutorMethodInterceptor.java:99)
@@ -95,43 +163,401 @@ Caused by: org.springframework.data.repository.query.QueryCreationException: Cou
 	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:132)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
-	... 44 common frames omitted
-Caused by: java.lang.IllegalArgumentException: Failed to create query for method public abstract java.util.List muni.eolida.sisifo.repository.SeguimientoDAO.findAllByEstadoReclamoAndBorradoIsNull(muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum); No property 'estadoReclamo' found for type 'SeguimientoModel'
-	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:107)
-	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:124)
-	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:258)
+	... 58 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
+	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:100)
+	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.<init>(SimpleJpaQuery.java:70)
+	at org.springframework.data.jpa.repository.query.JpaQueryFactory.fromMethodWithQueryString(JpaQueryFactory.java:60)
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$DeclaredQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:170)
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:252)
 	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:95)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:111)
-	... 56 common frames omitted
-Caused by: org.springframework.data.mapping.PropertyReferenceException: No property 'estadoReclamo' found for type 'SeguimientoModel'
-	at org.springframework.data.mapping.PropertyPath.<init>(PropertyPath.java:90)
-	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:405)
-	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:381)
-	at org.springframework.data.mapping.PropertyPath.lambda$from$0(PropertyPath.java:334)
-	at java.base/java.util.concurrent.ConcurrentMap.computeIfAbsent(ConcurrentMap.java:330)
-	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:316)
-	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:299)
-	at org.springframework.data.repository.query.parser.Part.<init>(Part.java:81)
-	at org.springframework.data.repository.query.parser.PartTree$OrPart.lambda$new$0(PartTree.java:242)
-	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
-	at org.springframework.data.repository.query.parser.PartTree$OrPart.<init>(PartTree.java:243)
-	at org.springframework.data.repository.query.parser.PartTree$Predicate.lambda$new$0(PartTree.java:372)
-	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
-	at org.springframework.data.repository.query.parser.PartTree$Predicate.<init>(PartTree.java:373)
-	at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:96)
-	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:100)
-	... 60 common frames omitted
+	... 70 common frames omitted
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: A query exception occurred [select * from reclamo r where creada BETWEEN :inicio AND :fin and eliminada is null]
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:138)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:162)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:168)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:795)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:704)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:120)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:360)
+	at jdk.proxy2/jdk.proxy2.$Proxy123.createQuery(Unknown Source)
+	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:94)
+	... 76 common frames omitted
+Caused by: org.hibernate.query.SemanticException: A query exception occurred [select * from reclamo r where creada BETWEEN :inicio AND :fin and eliminada is null]
+	at org.hibernate.query.hql.internal.StandardHqlTranslator.parseHql(StandardHqlTranslator.java:130)
+	at org.hibernate.query.hql.internal.StandardHqlTranslator.translate(StandardHqlTranslator.java:77)
+	at org.hibernate.internal.AbstractSharedSessionContract.lambda$interpretHql$2(AbstractSharedSessionContract.java:744)
+	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.createHqlInterpretation(QueryInterpretationCacheStandardImpl.java:141)
+	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.resolveHqlInterpretation(QueryInterpretationCacheStandardImpl.java:128)
+	at org.hibernate.internal.AbstractSharedSessionContract.interpretHql(AbstractSharedSessionContract.java:741)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:786)
+	... 85 common frames omitted
+Caused by: org.hibernate.query.sqm.ParsingException: line 1:7 no viable alternative at input 'select*'
+	at org.hibernate.query.hql.internal.StandardHqlTranslator$1.syntaxError(StandardHqlTranslator.java:46)
+	at org.antlr.v4.runtime.ProxyErrorListener.syntaxError(ProxyErrorListener.java:41)
+	at org.antlr.v4.runtime.Parser.notifyErrorListeners(Parser.java:543)
+	at org.antlr.v4.runtime.DefaultErrorStrategy.reportNoViableAlternative(DefaultErrorStrategy.java:310)
+	at org.antlr.v4.runtime.DefaultErrorStrategy.reportError(DefaultErrorStrategy.java:136)
+	at org.hibernate.grammars.hql.HqlParser.queryExpression(HqlParser.java:1780)
+	at org.hibernate.grammars.hql.HqlParser.selectStatement(HqlParser.java:400)
+	at org.hibernate.grammars.hql.HqlParser.statement(HqlParser.java:331)
+	at org.hibernate.query.hql.internal.StandardHqlTranslator.parseHql(StandardHqlTranslator.java:116)
+	... 91 common frames omitted
+2023-08-18 08:47:18 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 17.0.7 with PID 2480958 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-18 08:47:18 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-18 08:47:19 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-18 08:47:19 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 52 ms. Found 11 JPA repository interfaces.
+2023-08-18 08:47:19 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-18 08:47:19 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-18 08:47:19 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-18 08:47:19 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-18 08:47:19 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 781 ms
+2023-08-18 08:47:19 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-18 08:47:19 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-18 08:47:19 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-18 08:47:19 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 08:47:19 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-18 08:47:19 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-18 08:47:19 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@25cde5bb
+2023-08-18 08:47:19 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-18 08:47:19 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-18 08:47:20 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 08:47:20 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-18 08:47:21 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 08:47:21 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-18 08:47:22 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'reclamoMapper' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/ReclamoMapper.class]: Unsatisfied dependency expressed through constructor parameter 10: Error creating bean with name 'seguimientoMapper' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/SeguimientoMapper.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/ReclamoServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoDAO' defined in muni.eolida.sisifo.repository.ReclamoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime); Reason: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
+2023-08-18 08:47:22 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 08:47:22 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-18 08:47:22 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-18 08:47:22 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2023-08-18 08:47:22 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-08-18 08:47:22 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'reclamoMapper' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/ReclamoMapper.class]: Unsatisfied dependency expressed through constructor parameter 10: Error creating bean with name 'seguimientoMapper' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/SeguimientoMapper.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/ReclamoServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoDAO' defined in muni.eolida.sisifo.repository.ReclamoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime); Reason: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:800)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:245)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1189)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:942)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:436)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at muni.eolida.sisifo.SisifoApplication.main(SisifoApplication.java:10)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'seguimientoMapper' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/SeguimientoMapper.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/ReclamoServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoDAO' defined in muni.eolida.sisifo.repository.ReclamoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime); Reason: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:800)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:245)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1189)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 19 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'reclamoServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/ReclamoServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoDAO' defined in muni.eolida.sisifo.repository.ReclamoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime); Reason: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:800)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:245)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1189)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 33 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reclamoDAO' defined in muni.eolida.sisifo.repository.ReclamoDAO defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime); Reason: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1417)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1337)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 47 common frames omitted
+Caused by: org.springframework.data.repository.query.QueryCreationException: Could not create query for public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime); Reason: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
+	at org.springframework.data.repository.query.QueryCreationException.create(QueryCreationException.java:101)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:115)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.mapMethodsToQuery(QueryExecutorMethodInterceptor.java:99)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lambda$new$0(QueryExecutorMethodInterceptor.java:88)
+	at java.base/java.util.Optional.map(Optional.java:260)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.<init>(QueryExecutorMethodInterceptor.java:88)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:357)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$5(RepositoryFactoryBeanSupport.java:279)
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:245)
+	at org.springframework.data.util.Lazy.get(Lazy.java:114)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:285)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:132)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	... 58 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Validation failed for query for method public abstract java.util.List muni.eolida.sisifo.repository.ReclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(java.time.LocalDateTime,java.time.LocalDateTime)
+	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:100)
+	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.<init>(SimpleJpaQuery.java:70)
+	at org.springframework.data.jpa.repository.query.JpaQueryFactory.fromMethodWithQueryString(JpaQueryFactory.java:60)
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$DeclaredQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:170)
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:252)
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:95)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:111)
+	... 70 common frames omitted
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: A query exception occurred [select * from reclamo r where creada BETWEEN :inicio AND :fin and eliminada is null]
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:138)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:162)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:168)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:795)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:704)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:120)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:360)
+	at jdk.proxy2/jdk.proxy2.$Proxy123.createQuery(Unknown Source)
+	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:94)
+	... 76 common frames omitted
+Caused by: org.hibernate.query.SemanticException: A query exception occurred [select * from reclamo r where creada BETWEEN :inicio AND :fin and eliminada is null]
+	at org.hibernate.query.hql.internal.StandardHqlTranslator.parseHql(StandardHqlTranslator.java:130)
+	at org.hibernate.query.hql.internal.StandardHqlTranslator.translate(StandardHqlTranslator.java:77)
+	at org.hibernate.internal.AbstractSharedSessionContract.lambda$interpretHql$2(AbstractSharedSessionContract.java:744)
+	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.createHqlInterpretation(QueryInterpretationCacheStandardImpl.java:141)
+	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.resolveHqlInterpretation(QueryInterpretationCacheStandardImpl.java:128)
+	at org.hibernate.internal.AbstractSharedSessionContract.interpretHql(AbstractSharedSessionContract.java:741)
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:786)
+	... 85 common frames omitted
+Caused by: org.hibernate.query.sqm.ParsingException: line 1:7 no viable alternative at input 'select*'
+	at org.hibernate.query.hql.internal.StandardHqlTranslator$1.syntaxError(StandardHqlTranslator.java:46)
+	at org.antlr.v4.runtime.ProxyErrorListener.syntaxError(ProxyErrorListener.java:41)
+	at org.antlr.v4.runtime.Parser.notifyErrorListeners(Parser.java:543)
+	at org.antlr.v4.runtime.DefaultErrorStrategy.reportNoViableAlternative(DefaultErrorStrategy.java:310)
+	at org.antlr.v4.runtime.DefaultErrorStrategy.reportError(DefaultErrorStrategy.java:136)
+	at org.hibernate.grammars.hql.HqlParser.queryExpression(HqlParser.java:1780)
+	at org.hibernate.grammars.hql.HqlParser.selectStatement(HqlParser.java:400)
+	at org.hibernate.grammars.hql.HqlParser.statement(HqlParser.java:331)
+	at org.hibernate.query.hql.internal.StandardHqlTranslator.parseHql(StandardHqlTranslator.java:116)
+	... 91 common frames omitted
+2023-08-18 08:50:06 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 17.0.7 with PID 2481526 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-18 08:50:06 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-18 08:50:06 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-18 08:50:06 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 54 ms. Found 11 JPA repository interfaces.
+2023-08-18 08:50:07 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-18 08:50:07 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-18 08:50:07 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-18 08:50:07 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-18 08:50:07 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 761 ms
+2023-08-18 08:50:07 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-18 08:50:07 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-18 08:50:07 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-18 08:50:07 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 08:50:07 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-18 08:50:07 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-18 08:50:07 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@36e409e0
+2023-08-18 08:50:07 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-18 08:50:07 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-18 08:50:07 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 08:50:08 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-18 08:50:08 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 08:50:09 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-18 08:50:09 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'reclamoMapper' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/ReclamoMapper.class]: Unsatisfied dependency expressed through constructor parameter 10: Error creating bean with name 'seguimientoMapper' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/SeguimientoMapper.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'reclamoServiceImpl' defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/ReclamoServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'reclamoMapper': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2023-08-18 08:50:09 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 08:50:09 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-18 08:50:09 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-18 08:50:09 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2023-08-18 08:50:09 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-08-18 08:50:09 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌─────┐
+|  reclamoMapper defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/ReclamoMapper.class]
+↑     ↓
+|  seguimientoMapper defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/mapper/SeguimientoMapper.class]
+↑     ↓
+|  reclamoServiceImpl defined in file [/home/repara/GIT/sisifo/se-back/target/classes/muni/eolida/sisifo/service/implementation/ReclamoServiceImpl.class]
+└─────┘
+
+
+Action:
+
+Relying upon circular references is discouraged and they are prohibited by default. Update your application to remove the dependency cycle between beans. As a last resort, it may be possible to break the cycle automatically by setting spring.main.allow-circular-references to true.
+
+2023-08-18 09:02:12 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 09:02:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-18 09:02:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-18 09:04:18 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 17.0.7 with PID 2483586 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-18 09:04:18 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-18 09:04:18 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-18 09:04:18 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 49 ms. Found 11 JPA repository interfaces.
+2023-08-18 09:04:19 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-18 09:04:19 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-18 09:04:19 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-18 09:04:19 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-18 09:04:19 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 757 ms
+2023-08-18 09:04:19 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-18 09:04:19 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-18 09:04:19 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-18 09:04:19 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 09:04:19 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-18 09:04:19 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-18 09:04:19 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@36e409e0
+2023-08-18 09:04:19 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-18 09:04:19 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-18 09:04:19 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 09:04:20 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-18 09:04:20 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 09:04:21 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-18 09:04:21 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6238b10a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@225b460a, org.springframework.security.web.context.SecurityContextHolderFilter@21252bef, org.springframework.security.web.header.HeaderWriterFilter@6c2063e0, org.springframework.security.web.authentication.logout.LogoutFilter@b2db8bc, muni.eolida.sisifo.security.jwt.AuthTokenFilter@7a25f8ee, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@52984065, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6dd59886, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@26c494d7, org.springframework.security.web.session.SessionManagementFilter@76a1cc1a, org.springframework.security.web.access.ExceptionTranslationFilter@44f5259a, org.springframework.security.web.access.intercept.AuthorizationFilter@7927209f]
+2023-08-18 09:04:22 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-18 09:04:22 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 3.885 seconds (process running for 4.135)
+2023-08-18 09:10:29 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 09:10:29 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-18 09:10:29 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-18 09:42:25 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 17.0.7 with PID 2489430 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-18 09:42:25 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-18 09:42:25 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-18 09:42:25 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 11 JPA repository interfaces.
+2023-08-18 09:42:26 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-18 09:42:26 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-18 09:42:26 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-18 09:42:26 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-18 09:42:26 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 734 ms
+2023-08-18 09:42:26 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-18 09:42:26 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-18 09:42:26 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-18 09:42:26 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 09:42:26 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-18 09:42:26 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-18 09:42:26 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@38a96593
+2023-08-18 09:42:26 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-18 09:42:26 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-18 09:42:26 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 09:42:27 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-18 09:42:27 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 09:42:28 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-18 09:42:28 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@73ab649f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@234dfc8e, org.springframework.security.web.context.SecurityContextHolderFilter@5a6f1342, org.springframework.security.web.header.HeaderWriterFilter@71d0ad00, org.springframework.security.web.authentication.logout.LogoutFilter@732ae29c, muni.eolida.sisifo.security.jwt.AuthTokenFilter@27a23d87, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e9a9683, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7040d71, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@18918ab9, org.springframework.security.web.session.SessionManagementFilter@3ce067bd, org.springframework.security.web.access.ExceptionTranslationFilter@225b460a, org.springframework.security.web.access.intercept.AuthorizationFilter@50b010d4]
+2023-08-18 09:42:28 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-18 09:42:28 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 3.635 seconds (process running for 3.877)
+2023-08-18 09:57:06 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 09:57:06 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-18 09:57:06 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-18 09:57:09 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 17.0.7 with PID 2492053 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-18 09:57:09 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-18 09:57:10 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-18 09:57:10 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 58 ms. Found 11 JPA repository interfaces.
+2023-08-18 09:57:10 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-18 09:57:10 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-18 09:57:10 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-18 09:57:10 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-18 09:57:10 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 766 ms
+2023-08-18 09:57:10 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-18 09:57:10 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-18 09:57:10 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-18 09:57:10 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 09:57:10 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-18 09:57:10 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-18 09:57:10 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4be12f6c
+2023-08-18 09:57:10 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-18 09:57:10 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-18 09:57:11 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 09:57:11 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-18 09:57:12 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 09:57:12 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-18 09:57:13 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5f606ab6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@384cd83a, org.springframework.security.web.context.SecurityContextHolderFilter@100d5018, org.springframework.security.web.header.HeaderWriterFilter@74b13aa, org.springframework.security.web.authentication.logout.LogoutFilter@1ec96512, muni.eolida.sisifo.security.jwt.AuthTokenFilter@4a937d43, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3e7940b3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1ae37be2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@198a653, org.springframework.security.web.session.SessionManagementFilter@3359217d, org.springframework.security.web.access.ExceptionTranslationFilter@eccaf1b, org.springframework.security.web.access.intercept.AuthorizationFilter@1c5f6292]
+2023-08-18 09:57:13 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-18 09:57:13 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 3.85 seconds (process running for 4.107)
+2023-08-18 11:22:50 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 11:22:50 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-18 11:22:50 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-18 11:22:54 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 17.0.7 with PID 2503033 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-18 11:22:54 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-18 11:22:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-18 11:22:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 51 ms. Found 11 JPA repository interfaces.
+2023-08-18 11:22:55 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-18 11:22:55 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-18 11:22:55 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-18 11:22:55 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-18 11:22:55 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 729 ms
+2023-08-18 11:22:55 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-18 11:22:55 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-18 11:22:55 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-18 11:22:55 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 11:22:55 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-18 11:22:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-18 11:22:55 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@31940704
+2023-08-18 11:22:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-18 11:22:55 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-18 11:22:55 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 11:22:56 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-18 11:22:56 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 11:22:57 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-18 11:22:57 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7bca98d5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6bbff652, org.springframework.security.web.context.SecurityContextHolderFilter@5246453e, org.springframework.security.web.header.HeaderWriterFilter@33a39d7e, org.springframework.security.web.authentication.logout.LogoutFilter@7e092ca, muni.eolida.sisifo.security.jwt.AuthTokenFilter@37e28b20, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4b19ee18, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2561d61, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3d72abea, org.springframework.security.web.session.SessionManagementFilter@2c9af700, org.springframework.security.web.access.ExceptionTranslationFilter@3119fcad, org.springframework.security.web.access.intercept.AuthorizationFilter@24244ea]
+2023-08-18 11:22:57 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-18 11:22:57 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 3.648 seconds (process running for 3.923)
+2023-08-18 12:36:11 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 12:36:11 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-18 12:36:11 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-18 12:46:40 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 17.0.7 with PID 2514703 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-18 12:46:40 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-18 12:46:40 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-18 12:46:40 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 54 ms. Found 11 JPA repository interfaces.
+2023-08-18 12:46:41 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-18 12:46:41 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-18 12:46:41 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-18 12:46:41 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-18 12:46:41 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 804 ms
+2023-08-18 12:46:41 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-18 12:46:41 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-18 12:46:41 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-18 12:46:41 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 12:46:41 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-18 12:46:41 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-18 12:46:41 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@49c83262
+2023-08-18 12:46:41 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-18 12:46:41 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-18 12:46:41 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-18 12:46:42 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-18 12:46:43 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 12:46:43 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-18 12:46:44 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@31a9eaa, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@19370af1, org.springframework.security.web.context.SecurityContextHolderFilter@18a349cb, org.springframework.security.web.header.HeaderWriterFilter@58e9e852, org.springframework.security.web.authentication.logout.LogoutFilter@2e214d39, muni.eolida.sisifo.security.jwt.AuthTokenFilter@206de1f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6012bee8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@60b8c05c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@67c912d3, org.springframework.security.web.session.SessionManagementFilter@57f83dc7, org.springframework.security.web.access.ExceptionTranslationFilter@5a35efac, org.springframework.security.web.access.intercept.AuthorizationFilter@456beb8b]
+2023-08-18 12:46:44 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-18 12:46:44 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.156 seconds (process running for 4.453)
+2023-08-18 13:09:45 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-18 13:09:45 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-18 13:09:45 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

@@ -1,17 +1,13 @@
 package muni.eolida.sisifo.service;
 
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.GenericService;
+import muni.eolida.sisifo.helper.EntidadMensaje;
+import muni.eolida.sisifo.helper.ServicioGenerico;
 import muni.eolida.sisifo.mapper.creation.TipoReclamoCreation;
 import muni.eolida.sisifo.model.TipoReclamoModel;
 
-public interface TipoReclamoService extends GenericService<TipoReclamoCreation, TipoReclamoModel> {
-    EntityMessenger<TipoReclamoModel> buscarTodasPorAreaId(Long id);
-    EntityMessenger<TipoReclamoModel> buscarTodasPorAreaIdConEliminadas(Long id);
-    EntityMessenger<TipoReclamoModel> buscarTodasPorTipo(String tipo);
-    EntityMessenger<TipoReclamoModel> buscarTodasPorTipoConEliminadas(String tipo);
-    EntityMessenger<TipoReclamoModel> buscarTodasPorAreaArea(String nombre);
-    EntityMessenger<TipoReclamoModel> buscarTodasPorAreaAreaConEliminadas(String nombre);
-    EntityMessenger<TipoReclamoModel> buscarTodasPorNombre(String nombre);
-    EntityMessenger<TipoReclamoModel> buscarTodasPorNombreConEliminadas(String nombre);
+public interface TipoReclamoService extends ServicioGenerico<TipoReclamoCreation, TipoReclamoModel> {
+    EntidadMensaje<TipoReclamoModel> buscarTodasPorAreaId(Long id);
+    EntidadMensaje<TipoReclamoModel> buscarTodasPorAreaIdConEliminadas(Long id);
+    EntidadMensaje<TipoReclamoModel> buscarTodasPorTipo(String tipo);
+    EntidadMensaje<TipoReclamoModel> buscarTodasPorTipoConEliminadas(String tipo);
 }

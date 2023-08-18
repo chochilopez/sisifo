@@ -1,330 +1,403 @@
 package muni.eolida.sisifo.service.implementation;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.helper.EntidadMensaje;
+import muni.eolida.sisifo.helper.Ayudador;
 import muni.eolida.sisifo.mapper.ReclamoMapper;
 import muni.eolida.sisifo.mapper.creation.ReclamoCreation;
 import muni.eolida.sisifo.model.ReclamoModel;
 import muni.eolida.sisifo.model.UsuarioModel;
 import muni.eolida.sisifo.repository.ReclamoDAO;
 import muni.eolida.sisifo.service.ReclamoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
 @Service
 @Slf4j
 public class ReclamoServiceImpl implements ReclamoService {
 
-    private final ReclamoDAO reclamoDAO;
-    private final ReclamoMapper reclamoMapper;
-    private final UsuarioServiceImpl usuarioService;
+    @Autowired
+    private ReclamoDAO reclamoDAO;
+    @Autowired
+    private ReclamoMapper reclamoMapper;
+    @Autowired
+    private UsuarioServiceImpl usuarioService;
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarMisReclamos() {
-        EntityMessenger<UsuarioModel> usuarioModel = usuarioService.obtenerUsuario();
-        log.info("Obteniendo los reclamos del usuario: {}.", usuarioModel.getObject().getUsername());
-        EntityMessenger<ReclamoModel> reclamo = this.buscarPorCreador(usuarioModel.getObject().getId());
-        if (reclamo.getStatusCode() == 200) {
-            String message = "Se encontraron " + reclamo.getList().size() + " + reclamos para el usuario + " + usuarioModel.getObject().getUsername() + ".";
-            log.info(message);
-            reclamo.setMessage(message);
+    public EntidadMensaje<ReclamoModel> buscarMisReclamos() {
+        EntidadMensaje<UsuarioModel> usuarioModel = usuarioService.obtenerUsuario();
+        log.info("Obteniendo los reclamos del usuario: {}.", usuarioModel.getObjeto().getUsername());
+        EntidadMensaje<ReclamoModel> reclamo = this.buscarTodasPorCreadorId(usuarioModel.getObjeto().getId());
+        if (reclamo.getEstado() == 200) {
+            String mensaje = "Se encontraron " + reclamo.getListado().size() + " + reclamos para el usuario + " + usuarioModel.getObjeto().getUsername() + ".";
+            log.info(mensaje);
+            reclamo.setMensaje(mensaje);
         }
         return reclamo;
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarPorCreador(Long id) {
-        return null;
+    public EntidadMensaje<ReclamoModel> buscarTodasPorTipoReclamoId(Long id) {
+        log.info("Buscando todas la entidades Reclamo con id de TipoReclamo: {}.", id);
+        List<ReclamoModel> listado = reclamoDAO.findAllByTipoReclamoIdAndEliminadaIsNull(id);
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo con id de TipoReclamo: " + id + ".";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
+        } else {
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
+        }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarPorCreadorConEliminadas(Long id) {
-        return null;
+    public EntidadMensaje<ReclamoModel> buscarTodasPorTipoReclamoIdConEliminadas(Long id) {
+        log.info("Buscando todas la entidades Reclamo con id de TipoReclamo: {}, incluidas las eliminadas.", id);
+        List<ReclamoModel> listado = reclamoDAO.findAllByTipoReclamoId(id);
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo con id de TipoReclamo: " + id + ", incluidas las eliminadas.";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
+        } else {
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo, incluidas las eliminadas.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
+        }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarPorCreadorId(Long id) {
-        return null;
+    public EntidadMensaje<ReclamoModel> buscarTodasPorBarrioId(Long id) {
+        log.info("Buscando todas la entidades Reclamo con id de Barrio: {}.", id);
+        List<ReclamoModel> listado = reclamoDAO.findAllByBarrioIdAndEliminadaIsNull(id);
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo con id de Barrio: " + id + ".";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
+        } else {
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
+        }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarPorCreadorIdConEliminadas(Long id) {
-        return null;
+    public EntidadMensaje<ReclamoModel> buscarTodasPorBarrioIdConEliminadas(Long id) {
+        log.info("Buscando todas la entidades Reclamo con id de Barrio: {}, incluidas las eliminadas.", id);
+        List<ReclamoModel> listado = reclamoDAO.findAllByBarrioId(id);
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo con id de Barrio: " + id + ", incluidas las eliminadas.";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
+        } else {
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo, incluidas las eliminadas.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
+        }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarPorTipoReclamoId(Long id) {
-        return null;
+    public EntidadMensaje<ReclamoModel> buscarTodasPorCalleId(Long id) {
+        log.info("Buscando todas la entidades Reclamo con id de Calle: {}.", id);
+        List<ReclamoModel> listado = reclamoDAO.findAllByCalleIdAndEliminadaIsNull(id);
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo con id de Calle: " + id + ".";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
+        } else {
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
+        }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarPorTipoReclamoIdConEliminadas(Long id) {
-        return null;
+    public EntidadMensaje<ReclamoModel> buscarTodasPorCalleIdConEliminadas(Long id) {
+        log.info("Buscando todas la entidades Reclamo con id de Calle: {}, incluidas las eliminadas.", id);
+        List<ReclamoModel> listado = reclamoDAO.findAllByCalleId(id);
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo con id de Calle: " + id + ", incluidas las eliminadas.";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
+        } else {
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo, incluidas las eliminadas.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
+        }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarPorBarrioId(Long id) {
-        return null;
+    public EntidadMensaje<ReclamoModel> buscarTodasPorDescripcion(String descripcion) {
+        log.info("Buscando todas la entidades Reclamo con descripcion: {}.", descripcion);
+        List<ReclamoModel> listado = reclamoDAO.findAllByDescripcionContainingIgnoreCaseAndEliminadaIsNull(descripcion);
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo con descripcion: " + descripcion + ".";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
+        } else {
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
+        }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarPorBarrioIdConEliminadas(Long id) {
-        return null;
+    public EntidadMensaje<ReclamoModel> buscarTodasPorDescripcionConEliminadas(String descripcion) {
+        log.info("Buscando todas la entidades Reclamo con descripcion: {}, incluidas las eliminadas.", descripcion);
+        List<ReclamoModel> listado = reclamoDAO.findAllByDescripcionContainingIgnoreCase(descripcion);
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo con descripcion: " + descripcion + ", incluidas las eliminadas.";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
+        } else {
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo, incluidas las eliminadas.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
+        }
+    }
+
+    //FIX encerrar todos los servicios en bloques try catch - reparar fechas
+    @Override
+    public EntidadMensaje<ReclamoModel> buscarTodasPorCreadaEntreFechas(LocalDateTime inicio, LocalDateTime fin) {
+        log.info("Buscando todas la entidades Reclamo con fecha de creacion entre {} y {}.", inicio, fin);
+        List<ReclamoModel> listado = reclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(inicio, fin);
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo con fecha de creacion entre " + inicio + " y " + fin + ".";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
+        } else {
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
+        }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarPorCalleId(Long id) {
-        return null;
+    public EntidadMensaje<ReclamoModel> buscarTodasPorCreadaEntreFechasConEliminadas(LocalDateTime inicio, LocalDateTime fin) {
+        log.info("Buscando todas la entidades Reclamo con fecha de creacion entre {} y {}, incluidas las eliminadas.", inicio, fin);
+        List<ReclamoModel> listado = reclamoDAO.findAllByCreadaBetweenInicioAndFin(inicio, fin);
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo con fecha de creacion entre " + inicio + " y " + fin + ", incluidas las eliminadas.";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
+        } else {
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo, incluidas las eliminadas.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
+        }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarPorCalleIdConEliminadas(Long id) {
-        return null;
+    public EntidadMensaje<ReclamoModel> buscarTodasPorCreadorId(Long id) {
+        log.info("Buscando todas la entidades Reclamo con id de Creador: {}.", id);
+        List<ReclamoModel> listado = reclamoDAO.findAllByCreadorIdAndEliminadaIsNull(id);
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo con id de Creador: " + id + ".";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
+        } else {
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
+        }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarTodasPorByCreadorNombre(String nombre) {
-        return null;
+    public EntidadMensaje<ReclamoModel> buscarTodasPorCreadorIdConEliminadas(Long id) {
+        log.info("Buscando todas la entidades Reclamo con id de Creador: {}, incluidas las eliminadas.", id);
+        List<ReclamoModel> listado = reclamoDAO.findAllByCreadorId(id);
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo con id de Creador: " + id + ", incluidas las eliminadas.";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
+        } else {
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo, incluidas las eliminadas.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
+        }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarTodasPorCreadorNombreConEliminadas(String nombre) {
-        return null;
-    }
-
-    @Override
-    public EntityMessenger<ReclamoModel> buscarTodasPorCalleCalle(String calle) {
-        return null;
-    }
-
-    @Override
-    public EntityMessenger<ReclamoModel> buscarTodasPorCalleCalleConEliminadas(String calle) {
-        return null;
-    }
-
-    @Override
-    public EntityMessenger<ReclamoModel> buscarTodasPorTipoReclamoTipo(String tipo) {
-        return null;
-    }
-
-    @Override
-    public EntityMessenger<ReclamoModel> buscarTodasPorTipoReclamoTipoConEliminadas(Long tipo) {
-        return null;
-    }
-
-    @Override
-    public EntityMessenger<ReclamoModel> buscarTodasPorDescripcion(String descripcion) {
-        return null;
-    }
-
-    @Override
-    public EntityMessenger<ReclamoModel> buscarTodasPorDescripcionConEliminadas(Long descripcion) {
-        return null;
-    }
-
-    @Override
-    public EntityMessenger<ReclamoModel> buscarTodasPorBarrioCalle(String barrio) {
-        return null;
-    }
-
-    @Override
-    public EntityMessenger<ReclamoModel> buscarTodasPorBarrioCalleConEliminadas(String barrio) {
-        return null;
-    }
-
-    @Override
-    public EntityMessenger<ReclamoModel> buscarTodasPorCreadaEntreFechas(LocalDateTime inicio, LocalDateTime fin) {
-        return null;
-    }
-
-    @Override
-    public EntityMessenger<ReclamoModel> buscarTodasPorCreadaEntreFechasConEliminadas(LocalDateTime inicio, LocalDateTime fin) {
-        return null;
-    }
-
-    @Override
-    public EntityMessenger<ReclamoModel> buscarPorId(Long id) {
+    public EntidadMensaje<ReclamoModel> buscarPorId(Long id) {
         log.info("Buscando la entidad Reclamo con id: {}.", id);
-        Optional<ReclamoModel> object = reclamoDAO.findByIdAndEliminadaIsNull(id);
-        if (object.isEmpty()) {
-            String message = "No se encontro una entidad Reclamo con id: " + id + ".";
-            log.warn(message);
-            return new EntityMessenger<ReclamoModel>(null, null, message, 202);
+        Optional<ReclamoModel> objeto = reclamoDAO.findByIdAndEliminadaIsNull(id);
+        if (objeto.isEmpty()) {
+            String mensaje = "No se encontro una entidad Reclamo con id: " + id + ".";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
         } else {
-            String message = "Se encontro una entidad Reclamo.";
-            log.info(message);
-            return new EntityMessenger<ReclamoModel>(object.get(), null, message, 200);
+            String mensaje = "Se encontro una entidad Reclamo.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(objeto.get(), null, mensaje, 200);
         }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarPorIdConEliminadas(Long id) {
+    public EntidadMensaje<ReclamoModel> buscarPorIdConEliminadas(Long id) {
         log.info("Buscando la entidad Reclamo con id: {}, incluidas las eliminadas.", id);
-        Optional<ReclamoModel> object = reclamoDAO.findById(id);
-        if (object.isEmpty()) {
-            String message = "No se encontro una entidad Reclamo con id: " + id + ", incluidas las eliminadas.";
-            log.warn(message);
-            return new EntityMessenger<ReclamoModel>(null, null, message, 202);
+        Optional<ReclamoModel> objeto = reclamoDAO.findById(id);
+        if (objeto.isEmpty()) {
+            String mensaje = "No se encontro una entidad Reclamo con id: " + id + ", incluidas las eliminadas.";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
         } else {
-            String message = "Se encontro una entidad Reclamo, incluidas las eliminadas.";
-            log.info(message);
-            return new EntityMessenger<ReclamoModel>(object.get(), null, message, 200);
+            String mensaje = "Se encontro una entidad Reclamo, incluidas las eliminadas.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(objeto.get(), null, mensaje, 200);
         }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarTodas() {
+    public EntidadMensaje<ReclamoModel> buscarTodas() {
         log.info("Buscando todas las entidades Reclamo.");
-        List<ReclamoModel> list = reclamoDAO.findAllByEliminadaIsNull();
-        if (list.isEmpty()) {
-            String message = "No se encontraron entidades Reclamo.";
-            log.warn(message);
-            return new EntityMessenger<ReclamoModel>(null, null, message, 202);
+        List<ReclamoModel> listado = reclamoDAO.findAllByEliminadaIsNull();
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Reclamo.";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
         } else {
-            String message = "Se encontraron " + list.size() + " entidades Reclamo.";
-            log.info(message);
-            return new EntityMessenger<ReclamoModel>(null, list, message, 200);
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
         }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> buscarTodasConEliminadas() {
+    public EntidadMensaje<ReclamoModel> buscarTodasConEliminadas() {
         log.info("Buscando todas las entidades Reclamo, incluidas las eliminadas.");
-        List<ReclamoModel> list = reclamoDAO.findAll();
-        if (list.isEmpty()) {
-            String message = "No se encontrarón entidades Reclamo, incluidas las eliminadas.";
-            log.warn(message);
-            return new EntityMessenger<ReclamoModel>(null, null, message, 202);
+        List<ReclamoModel> listado = reclamoDAO.findAll();
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontrarón entidades Reclamo, incluidas las eliminadas.";
+            log.warn(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 202);
         } else {
-            String message = "Se encontraron " + list.size() + " entidades Reclamo, incluidas las eliminadas.";
-            log.info(message);
-            return new EntityMessenger<ReclamoModel>(null, list, message, 200);
+            String mensaje = "Se encontraron " + listado.size() + " entidades Reclamo, incluidas las eliminadas.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, listado, mensaje, 200);
         }
     }
 
     @Override
     public Long contarTodas() {
-        Long count = reclamoDAO.countAllByEliminadaIsNull();
-        log.info("Existen {} entidades Reclamo.", count);
-        return count;
+        Long cantidad = reclamoDAO.countAllByEliminadaIsNull();
+        log.info("Existen {} entidades Reclamo.", cantidad);
+        return cantidad;
     }
 
     @Override
     public Long contarTodasConEliminadas() {
-        Long count = reclamoDAO.count();
-        log.info("Existen {} entidades Reclamo, incluidas las eliminadas.", count);
-        return count;
+        Long cantidad = reclamoDAO.count();
+        log.info("Existen {} entidades Reclamo, incluidas las eliminadas.", cantidad);
+        return cantidad;
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> insertar(ReclamoCreation model) {
+    public EntidadMensaje<ReclamoModel> insertar(ReclamoCreation model) {
         try {
             log.info("Insertando la entidad Reclamo: {}.",  model);
-            ReclamoModel object = reclamoDAO.save(reclamoMapper.toEntity(model));
-            object.setCreada(Helper.getNow(""));
-            object.setCreador(usuarioService.obtenerUsuario().getObject());
-            reclamoDAO.save(object);
-            String message = "La entidad Reclamo con id: " + object.getId() + ", fue insertada correctamente.";
-            log.info(message);
-            return new EntityMessenger<ReclamoModel>(object, null, message, 201);
+            ReclamoModel objeto = reclamoDAO.save(reclamoMapper.toEntity(model));
+            objeto.setCreada(Ayudador.getAhora(""));
+            objeto.setCreador(usuarioService.obtenerUsuario().getObjeto());
+            reclamoDAO.save(objeto);
+            String mensaje = "La entidad Reclamo con id: " + objeto.getId() + ", fue insertada correctamente.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(objeto, null, mensaje, 201);
         } catch (Exception e) {
-            String message = "Ocurrió un error al intentar insertar la entidad Reclamo. Excepción: " + e + ".";
-            log.error(message);
-            return new EntityMessenger<ReclamoModel>(null, null, message, 204);
+            String mensaje = "Ocurrió un error al intentar insertar la entidad Reclamo. Excepción: " + e + ".";
+            log.error(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> actualizar(ReclamoModel model) {
+    public EntidadMensaje<ReclamoModel> actualizar(ReclamoModel model) {
         try {
             log.info("Actualizando la entidad Reclamo: {}.",  model);
             if (model.getId() != null) {
-                EntityMessenger<ReclamoModel> existant = this.buscarPorId(model.getId());
-                if (existant.getStatusCode() == 202)
-                    return existant;
+                EntidadMensaje<ReclamoModel> entidad = this.buscarPorId(model.getId());
+                if (entidad.getEstado() == 202)
+                    return entidad;
             }
-            model.setModificada(Helper.getNow(""));
-            model.setModificador(usuarioService.obtenerUsuario().getObject());
-            ReclamoModel object = reclamoDAO.save(model);
-            String message = "La entidad Reclamo con id: " + object.getId() + ", fue actualizada correctamente.";
-            log.info(message);
-            return new EntityMessenger<ReclamoModel>(object, null, message, 201);
+            model.setModificada(Ayudador.getAhora(""));
+            model.setModificador(usuarioService.obtenerUsuario().getObjeto());
+            ReclamoModel objeto = reclamoDAO.save(model);
+            String mensaje = "La entidad Reclamo con id: " + objeto.getId() + ", fue actualizada correctamente.";
+            log.info(mensaje);
+            return new EntidadMensaje<ReclamoModel>(objeto, null, mensaje, 201);
         } catch (Exception e) {
-            String message = "Ocurrió un error al intentar actualizar la entidad Reclamo. Excepción: " + e + ".";
-            log.error(message);
-            return new EntityMessenger<ReclamoModel>(null, null, message, 204);
+            String mensaje = "Ocurrió un error al intentar actualizar la entidad Reclamo. Excepción: " + e + ".";
+            log.error(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> reciclar(Long id) {
+    public EntidadMensaje<ReclamoModel> reciclar(Long id) {
         log.info("Reciclando la entidad Reclamo con id: {}.", id);
-        EntityMessenger<ReclamoModel> entityMessenger = this.buscarPorIdConEliminadas(id);
-        if (entityMessenger.getStatusCode() == 202) {
-            return entityMessenger;
+        EntidadMensaje<ReclamoModel> objeto = this.buscarPorIdConEliminadas(id);
+        if (objeto.getEstado() == 202) {
+            return objeto;
         }
-        if (entityMessenger.getObject().getEliminada() == null) {
-            String message = "La entidad Reclamo con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.";
-            log.warn(message);
-            entityMessenger.setMessage(message);
-            return entityMessenger;
+        if (objeto.getObjeto().getEliminada() == null) {
+            String mensaje = "La entidad Reclamo con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.";
+            log.warn(mensaje);
+            objeto.setMensaje(mensaje);
+            return objeto;
         }
-        entityMessenger.getObject().setEliminada(null);
-        entityMessenger.getObject().setEliminador(null);
-        entityMessenger.setObject(reclamoDAO.save(entityMessenger.getObject()));
-        String message = "La entidad Reclamo con id: " + id + ", fue reciclada correctamente.";
-        entityMessenger.setMessage(message);
-        log.info(message);
-        return entityMessenger;
+        objeto.getObjeto().setEliminada(null);
+        objeto.getObjeto().setEliminador(null);
+        objeto.setObjeto(reclamoDAO.save(objeto.getObjeto()));
+        String mensaje = "La entidad Reclamo con id: " + id + ", fue reciclada correctamente.";
+        objeto.setMensaje(mensaje);
+        log.info(mensaje);
+        return objeto;
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> eliminar(Long id) {
+    public EntidadMensaje<ReclamoModel> eliminar(Long id) {
         log.info("Borrando la entidad Reclamo con id: {}.", id);
-        EntityMessenger<ReclamoModel> entityMessenger = this.buscarPorId(id);
-        if (entityMessenger.getStatusCode() == 202) {
-            return entityMessenger;
+        EntidadMensaje<ReclamoModel> objeto = this.buscarPorId(id);
+        if (objeto.getEstado() == 202) {
+            return objeto;
         }
-        entityMessenger.getObject().setEliminada(Helper.getNow(""));
-        entityMessenger.getObject().setEliminador(usuarioService.obtenerUsuario().getObject());
-        entityMessenger.setObject(reclamoDAO.save(entityMessenger.getObject()));
-        String message = "La entidad Reclamo con id: " + id + ", fue borrada correctamente.";
-        entityMessenger.setMessage(message);
-        log.info(message);
-        return entityMessenger;
+        objeto.getObjeto().setEliminada(Ayudador.getAhora(""));
+        objeto.getObjeto().setEliminador(usuarioService.obtenerUsuario().getObjeto());
+        objeto.setObjeto(reclamoDAO.save(objeto.getObjeto()));
+        String mensaje = "La entidad Reclamo con id: " + id + ", fue borrada correctamente.";
+        objeto.setMensaje(mensaje);
+        log.info(mensaje);
+        return objeto;
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> destruir(Long id) {
+    public EntidadMensaje<ReclamoModel> destruir(Long id) {
         try {
             log.info("Destruyendo la entidad Reclamo con id: {}.", id);
-            EntityMessenger<ReclamoModel> entityMessenger = this.buscarPorIdConEliminadas(id);
-            if (entityMessenger.getStatusCode() == 202) {
-                return entityMessenger;
+            EntidadMensaje<ReclamoModel> objeto = this.buscarPorIdConEliminadas(id);
+            if (objeto.getEstado() == 202) {
+                return objeto;
             }
-            if (entityMessenger.getObject().getEliminada() == null) {
-                String message = "La entidad Reclamo con id: " + id + ", no se encuentra eliminada, por lo tanto no puede ser destruida.";
-                log.info(message);
-                entityMessenger.setStatusCode(202);
-                entityMessenger.setMessage(message);
-                return entityMessenger;
+            if (objeto.getObjeto().getEliminada() == null) {
+                String mensaje = "La entidad Reclamo con id: " + id + ", no se encuentra eliminada, por lo tanto no puede ser destruida.";
+                log.info(mensaje);
+                objeto.setEstado(202);
+                objeto.setMensaje(mensaje);
+                return objeto;
             }
-            reclamoDAO.delete(entityMessenger.getObject());
-            String message = "La entidad fue destruida correctamente.";
-            entityMessenger.setMessage(message);
-            entityMessenger.setObject(null);
-            log.info(message);
-            return entityMessenger;
+            reclamoDAO.delete(objeto.getObjeto());
+            String mensaje = "La entidad fue destruida correctamente.";
+            objeto.setMensaje(mensaje);
+            objeto.setObjeto(null);
+            log.info(mensaje);
+            return objeto;
         } catch (Exception e) {
-            String message = "Ocurrió un error al intentar destruir la entidad Reclamo. Excepción: " + e + ".";
-            log.error(message);
-            return new EntityMessenger<ReclamoModel>(null, null, message, 204);
+            String mensaje = "Ocurrió un error al intentar destruir la entidad Reclamo. Excepción: " + e + ".";
+            log.error(mensaje);
+            return new EntidadMensaje<ReclamoModel>(null, null, mensaje, 204);
         }
     }
 }

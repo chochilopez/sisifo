@@ -1,236 +1,233 @@
 package muni.eolida.sisifo.service.implementation;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.helper.EntidadMensaje;
+import muni.eolida.sisifo.helper.Ayudador;
 import muni.eolida.sisifo.mapper.RolMapper;
 import muni.eolida.sisifo.mapper.creation.RolCreation;
 import muni.eolida.sisifo.model.RolModel;
 import muni.eolida.sisifo.model.enums.RolEnum;
 import muni.eolida.sisifo.repository.RolDAO;
 import muni.eolida.sisifo.service.RolService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
 @Service
 @Slf4j
 public class RolServiceImpl implements RolService {
 
-    private final RolDAO rolDAO;
-    private final RolMapper rolMapper;
-    private final UsuarioServiceImpl usuarioService;
+    @Autowired
+    private RolDAO rolDAO;
+    @Autowired
+    private RolMapper rolMapper;
 
     @Override
-    public EntityMessenger<RolModel> buscarPorRol(RolEnum rol) {
+    public EntidadMensaje<RolModel> buscarPorRol(RolEnum rol) {
         log.info("Buscando la entidad Rol con rol: {}.", rol);
-        Optional<RolModel> object = rolDAO.findByRolAndEliminadaIsNull(rol);
-        if (object.isEmpty()) {
-            String message = "No se encontro una entidad Rol con rol: " + rol + ".";
-            log.warn(message);
-            return new EntityMessenger<RolModel>(null, null, message, 202);
+        Optional<RolModel> objeto = rolDAO.findByRolAndEliminadaIsNull(rol);
+        if (objeto.isEmpty()) {
+            String mensaje = "No se encontro una entidad Rol con rol: " + rol + ".";
+            log.warn(mensaje);
+            return new EntidadMensaje<RolModel>(null, null, mensaje, 202);
         } else {
-            String message = "Se encontro una entidad Rol.";
-            log.info(message);
-            return new EntityMessenger<RolModel>(object.get(), null, message, 200);
+            String mensaje = "Se encontro una entidad Rol.";
+            log.info(mensaje);
+            return new EntidadMensaje<RolModel>(objeto.get(), null, mensaje, 200);
         }
     }
 
     @Override
-    public EntityMessenger<RolModel> buscarPorRolConEliminadas(RolEnum rol) {
+    public EntidadMensaje<RolModel> buscarPorRolConEliminadas(RolEnum rol) {
         log.info("Buscando la entidad Rol con rol: {}, incluidas las eliminadas.", rol);
-        Optional<RolModel> object = rolDAO.findByRol(rol);
-        if (object.isEmpty()) {
-            String message = "No se encontro una entidad Rol con rol: " + rol + ", incluidas las eliminadas.";
-            log.warn(message);
-            return new EntityMessenger<RolModel>(null, null, message, 202);
+        Optional<RolModel> objeto = rolDAO.findByRol(rol);
+        if (objeto.isEmpty()) {
+            String mensaje = "No se encontro una entidad Rol con rol: " + rol + ", incluidas las eliminadas.";
+            log.warn(mensaje);
+            return new EntidadMensaje<RolModel>(null, null, mensaje, 202);
         } else {
-            String message = "Se encontro una entidad Rol, incluidas las eliminadas.";
-            log.info(message);
-            return new EntityMessenger<RolModel>(object.get(), null, message, 200);
+            String mensaje = "Se encontro una entidad Rol, incluidas las eliminadas.";
+            log.info(mensaje);
+            return new EntidadMensaje<RolModel>(objeto.get(), null, mensaje, 200);
         }
     }
 
     @Override
-    public EntityMessenger<RolModel> buscarPorId(Long id) {
+    public EntidadMensaje<RolModel> buscarPorId(Long id) {
         log.info("Buscando la entidad Rol con id: {}.", id);
-        Optional<RolModel> object = rolDAO.findByIdAndEliminadaIsNull(id);
-        if (object.isEmpty()) {
-            String message = "No se encontro una entidad Rol con id: " + id + ".";
-            log.warn(message);
-            return new EntityMessenger<RolModel>(null, null, message, 202);
+        Optional<RolModel> objeto = rolDAO.findByIdAndEliminadaIsNull(id);
+        if (objeto.isEmpty()) {
+            String mensaje = "No se encontro una entidad Rol con id: " + id + ".";
+            log.warn(mensaje);
+            return new EntidadMensaje<RolModel>(null, null, mensaje, 202);
         } else {
-            String message = "Se encontro una entidad Rol.";
-            log.info(message);
-            return new EntityMessenger<RolModel>(object.get(), null, message, 200);
+            String mensaje = "Se encontro una entidad Rol.";
+            log.info(mensaje);
+            return new EntidadMensaje<RolModel>(objeto.get(), null, mensaje, 200);
         }
     }
 
     @Override
-    public EntityMessenger<RolModel> buscarPorIdConEliminadas(Long id) {
+    public EntidadMensaje<RolModel> buscarPorIdConEliminadas(Long id) {
         log.info("Buscando la entidad Rol con id: {}, incluidas las eliminadas.", id);
-        Optional<RolModel> object = rolDAO.findById(id);
-        if (object.isEmpty()) {
-            String message = "No se encontro una entidad Rol con id: " + id + ", incluidas las eliminadas.";
-            log.warn(message);
-            return new EntityMessenger<RolModel>(null, null, message, 202);
+        Optional<RolModel> objeto = rolDAO.findById(id);
+        if (objeto.isEmpty()) {
+            String mensaje = "No se encontro una entidad Rol con id: " + id + ", incluidas las eliminadas.";
+            log.warn(mensaje);
+            return new EntidadMensaje<RolModel>(null, null, mensaje, 202);
         } else {
-            String message = "Se encontro una entidad Rol, incluidas las eliminadas.";
-            log.info(message);
-            return new EntityMessenger<RolModel>(object.get(), null, message, 200);
+            String mensaje = "Se encontro una entidad Rol, incluidas las eliminadas.";
+            log.info(mensaje);
+            return new EntidadMensaje<RolModel>(objeto.get(), null, mensaje, 200);
         }
     }
 
     @Override
-    public EntityMessenger<RolModel> buscarTodas() {
+    public EntidadMensaje<RolModel> buscarTodas() {
         log.info("Buscando todas las entidades Rol.");
-        List<RolModel> list = rolDAO.findAllByEliminadaIsNull();
-        if (list.isEmpty()) {
-            String message = "No se encontraron entidades Rol.";
-            log.warn(message);
-            return new EntityMessenger<RolModel>(null, null, message, 202);
+        List<RolModel> listado = rolDAO.findAllByEliminadaIsNull();
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontraron entidades Rol.";
+            log.warn(mensaje);
+            return new EntidadMensaje<RolModel>(null, null, mensaje, 202);
         } else {
-            String message = "Se encontraron " + list.size() + " entidades Rol.";
-            log.info(message);
-            return new EntityMessenger<RolModel>(null, list, message, 200);
+            String mensaje = "Se encontraron " + listado.size() + " entidades Rol.";
+            log.info(mensaje);
+            return new EntidadMensaje<RolModel>(null, listado, mensaje, 200);
         }
     }
 
     @Override
-    public EntityMessenger<RolModel> buscarTodasConEliminadas() {
+    public EntidadMensaje<RolModel> buscarTodasConEliminadas() {
         log.info("Buscando todas las entidades Rol, incluidas las eliminadas.");
-        List<RolModel> list = rolDAO.findAll();
-        if (list.isEmpty()) {
-            String message = "No se encontrarón entidades Rol, incluidas las eliminadas.";
-            log.warn(message);
-            return new EntityMessenger<RolModel>(null, null, message, 202);
+        List<RolModel> listado = rolDAO.findAll();
+        if (listado.isEmpty()) {
+            String mensaje = "No se encontrarón entidades Rol, incluidas las eliminadas.";
+            log.warn(mensaje);
+            return new EntidadMensaje<RolModel>(null, null, mensaje, 202);
         } else {
-            String message = "Se encontraron " + list.size() + " entidades Rol, incluidas las eliminadas.";
-            log.info(message);
-            return new EntityMessenger<RolModel>(null, list, message, 200);
+            String mensaje = "Se encontraron " + listado.size() + " entidades Rol, incluidas las eliminadas.";
+            log.info(mensaje);
+            return new EntidadMensaje<RolModel>(null, listado, mensaje, 200);
         }
     }
 
     @Override
     public Long contarTodas() {
-        Long count = rolDAO.countAllByEliminadaIsNull();
-        log.info("Existen {} entidades Rol.", count);
-        return count;
+        Long cantidad = rolDAO.countAllByEliminadaIsNull();
+        log.info("Existen {} entidades Rol.", cantidad);
+        return cantidad;
     }
 
     @Override
     public Long contarTodasConEliminadas() {
-        Long count = rolDAO.count();
-        log.info("Existen {} entidades Rol, incluidas las eliminadas.", count);
-        return count;
+        Long cantidad = rolDAO.count();
+        log.info("Existen {} entidades Rol, incluidas las eliminadas.", cantidad);
+        return cantidad;
     }
 
     @Override
-    public EntityMessenger<RolModel> insertar(RolCreation model) {
+    public EntidadMensaje<RolModel> insertar(RolCreation model) {
         try {
             log.info("Insertando la entidad Rol: {}.",  model);
-            RolModel object = rolDAO.save(rolMapper.toEntity(model));
-            object.setCreada(Helper.getNow(""));
-            object.setCreador(usuarioService.obtenerUsuario().getObject());
-            rolDAO.save(object);
-            String message = "La entidad Rol con id: " + object.getId() + ", fue insertada correctamente.";
-            log.info(message);
-            return new EntityMessenger<RolModel>(object, null, message, 201);
+            RolModel objeto = rolDAO.save(rolMapper.toEntity(model));
+            objeto.setCreada(Ayudador.getAhora(""));
+            rolDAO.save(objeto);
+            String mensaje = "La entidad Rol con id: " + objeto.getId() + ", fue insertada correctamente.";
+            log.info(mensaje);
+            return new EntidadMensaje<RolModel>(objeto, null, mensaje, 201);
         } catch (Exception e) {
-            String message = "Ocurrió un error al intentar insertar la entidad Rol. Excepción: " + e + ".";
-            log.error(message);
-            return new EntityMessenger<RolModel>(null, null, message, 204);
+            String mensaje = "Ocurrió un error al intentar insertar la entidad Rol. Excepción: " + e + ".";
+            log.error(mensaje);
+            return new EntidadMensaje<RolModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntityMessenger<RolModel> actualizar(RolModel model) {
+    public EntidadMensaje<RolModel> actualizar(RolModel model) {
         try {
             log.info("Actualizando la entidad Rol: {}.",  model);
             if (model.getId() != null) {
-                EntityMessenger<RolModel> existant = this.buscarPorId(model.getId());
-                if (existant.getStatusCode() == 202)
-                    return existant;
+                EntidadMensaje<RolModel> entidad = this.buscarPorId(model.getId());
+                if (entidad.getEstado() == 202)
+                    return entidad;
             }
-            model.setModificada(Helper.getNow(""));
-            model.setModificador(usuarioService.obtenerUsuario().getObject());
-            RolModel object = rolDAO.save(model);
-            String message = "La entidad Rol con id: " + object.getId() + ", fue actualizada correctamente.";
-            log.info(message);
-            return new EntityMessenger<RolModel>(object, null, message, 201);
+            model.setModificada(Ayudador.getAhora(""));
+            RolModel objeto = rolDAO.save(model);
+            String mensaje = "La entidad Rol con id: " + objeto.getId() + ", fue actualizada correctamente.";
+            log.info(mensaje);
+            return new EntidadMensaje<RolModel>(objeto, null, mensaje, 201);
         } catch (Exception e) {
-            String message = "Ocurrió un error al intentar actualizar la entidad Rol. Excepción: " + e + ".";
-            log.error(message);
-            return new EntityMessenger<RolModel>(null, null, message, 204);
+            String mensaje = "Ocurrió un error al intentar actualizar la entidad Rol. Excepción: " + e + ".";
+            log.error(mensaje);
+            return new EntidadMensaje<RolModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntityMessenger<RolModel> reciclar(Long id) {
+    public EntidadMensaje<RolModel> reciclar(Long id) {
         log.info("Reciclando la entidad Rol con id: {}.", id);
-        EntityMessenger<RolModel> entityMessenger = this.buscarPorIdConEliminadas(id);
-        if (entityMessenger.getStatusCode() == 202) {
-            return entityMessenger;
+        EntidadMensaje<RolModel> objeto = this.buscarPorIdConEliminadas(id);
+        if (objeto.getEstado() == 202) {
+            return objeto;
         }
-        if (entityMessenger.getObject().getEliminada() == null) {
-            String message = "La entidad Rol con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.";
-            log.warn(message);
-            entityMessenger.setMessage(message);
-            return entityMessenger;
+        if (objeto.getObjeto().getEliminada() == null) {
+            String mensaje = "La entidad Rol con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.";
+            log.warn(mensaje);
+            objeto.setMensaje(mensaje);
+            return objeto;
         }
-        entityMessenger.getObject().setEliminada(null);
-        entityMessenger.getObject().setEliminador(null);
-        entityMessenger.setObject(rolDAO.save(entityMessenger.getObject()));
-        String message = "La entidad Rol con id: " + id + ", fue reciclada correctamente.";
-        entityMessenger.setMessage(message);
-        log.info(message);
-        return entityMessenger;
+        objeto.getObjeto().setEliminada(null);
+        objeto.getObjeto().setEliminador(null);
+        objeto.setObjeto(rolDAO.save(objeto.getObjeto()));
+        String mensaje = "La entidad Rol con id: " + id + ", fue reciclada correctamente.";
+        objeto.setMensaje(mensaje);
+        log.info(mensaje);
+        return objeto;
     }
 
     @Override
-    public EntityMessenger<RolModel> eliminar(Long id) {
+    public EntidadMensaje<RolModel> eliminar(Long id) {
         log.info("Borrando la entidad Rol con id: {}.", id);
-        EntityMessenger<RolModel> entityMessenger = this.buscarPorId(id);
-        if (entityMessenger.getStatusCode() == 202) {
-            return entityMessenger;
+        EntidadMensaje<RolModel> objeto = this.buscarPorId(id);
+        if (objeto.getEstado() == 202) {
+            return objeto;
         }
-        entityMessenger.getObject().setEliminada(Helper.getNow(""));
-        entityMessenger.getObject().setEliminador(usuarioService.obtenerUsuario().getObject());
-        entityMessenger.setObject(rolDAO.save(entityMessenger.getObject()));
-        String message = "La entidad Rol con id: " + id + ", fue borrada correctamente.";
-        entityMessenger.setMessage(message);
-        log.info(message);
-        return entityMessenger;
+        objeto.getObjeto().setEliminada(Ayudador.getAhora(""));
+        objeto.setObjeto(rolDAO.save(objeto.getObjeto()));
+        String mensaje = "La entidad Rol con id: " + id + ", fue borrada correctamente.";
+        objeto.setMensaje(mensaje);
+        log.info(mensaje);
+        return objeto;
     }
 
     @Override
-    public EntityMessenger<RolModel> destruir(Long id) {
+    public EntidadMensaje<RolModel> destruir(Long id) {
         try {
             log.info("Destruyendo la entidad Rol con id: {}.", id);
-            EntityMessenger<RolModel> entityMessenger = this.buscarPorIdConEliminadas(id);
-            if (entityMessenger.getStatusCode() == 202) {
-                return entityMessenger;
+            EntidadMensaje<RolModel> objeto = this.buscarPorIdConEliminadas(id);
+            if (objeto.getEstado() == 202) {
+                return objeto;
             }
-            if (entityMessenger.getObject().getEliminada() == null) {
-                String message = "La entidad Rol con id: " + id + ", no se encuentra eliminada, por lo tanto no puede ser destruida.";
-                log.info(message);
-                entityMessenger.setStatusCode(202);
-                entityMessenger.setMessage(message);
-                return entityMessenger;
+            if (objeto.getObjeto().getEliminada() == null) {
+                String mensaje = "La entidad Rol con id: " + id + ", no se encuentra eliminada, por lo tanto no puede ser destruida.";
+                log.info(mensaje);
+                objeto.setEstado(202);
+                objeto.setMensaje(mensaje);
+                return objeto;
             }
-            rolDAO.delete(entityMessenger.getObject());
-            String message = "La entidad fue destruida correctamente.";
-            entityMessenger.setMessage(message);
-            entityMessenger.setObject(null);
-            log.info(message);
-            return entityMessenger;
+            rolDAO.delete(objeto.getObjeto());
+            String mensaje = "La entidad fue destruida correctamente.";
+            objeto.setMensaje(mensaje);
+            objeto.setObjeto(null);
+            log.info(mensaje);
+            return objeto;
         } catch (Exception e) {
-            String message = "Ocurrió un error al intentar destruir la entidad Rol. Excepción: " + e + ".";
-            log.error(message);
-            return new EntityMessenger<RolModel>(null, null, message, 204);
+            String mensaje = "Ocurrió un error al intentar destruir la entidad Rol. Excepción: " + e + ".";
+            log.error(mensaje);
+            return new EntidadMensaje<RolModel>(null, null, mensaje, 204);
         }
     }
 }

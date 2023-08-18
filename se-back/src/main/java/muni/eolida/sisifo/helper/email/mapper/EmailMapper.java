@@ -1,13 +1,10 @@
 package muni.eolida.sisifo.helper.email.mapper;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.Helper;
 import muni.eolida.sisifo.helper.email.EmailModel;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 @Slf4j
 public class EmailMapper {
 
