@@ -1,10 +1,10 @@
 package muni.eolida.sisifo.service;
 
-import muni.eolida.sisifo.helper.EntidadMensaje;
-import muni.eolida.sisifo.helper.ServicioGenerico;
+import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.helper.GenericService;
 import muni.eolida.sisifo.mapper.creation.ArchivoCreation;
 import muni.eolida.sisifo.model.ArchivoModel;
 
-public interface ArchivoService extends ServicioGenerico<ArchivoCreation, ArchivoModel> {
-    EntidadMensaje<ArchivoModel> guardarArchivo(byte[] bytes);
+public interface ArchivoService extends GenericService<ArchivoCreation, ArchivoModel> {
+    EntityMessenger<ArchivoModel> guardarArchivo(byte[] bytes);
 }

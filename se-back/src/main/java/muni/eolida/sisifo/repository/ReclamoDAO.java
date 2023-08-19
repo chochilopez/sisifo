@@ -1,6 +1,6 @@
 package muni.eolida.sisifo.repository;
 
-import muni.eolida.sisifo.helper.RepositorioGenerico;
+import muni.eolida.sisifo.helper.GenericDTO;
 import muni.eolida.sisifo.model.ReclamoModel;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface ReclamoDAO extends RepositorioGenerico<ReclamoModel> {
+public interface ReclamoDAO extends GenericDTO<ReclamoModel> {
     List<ReclamoModel> findAllByCreadorId(Long id);
     List<ReclamoModel> findAllByCreadorIdAndEliminadaIsNull(Long id);
     List<ReclamoModel> findAllByBarrioId(Long id);

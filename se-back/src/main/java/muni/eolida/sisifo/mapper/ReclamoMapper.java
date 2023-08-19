@@ -1,7 +1,7 @@
 package muni.eolida.sisifo.mapper;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntidadMensaje;
+import muni.eolida.sisifo.helper.EntityMessenger;
 import muni.eolida.sisifo.mapper.creation.ReclamoCreation;
 import muni.eolida.sisifo.mapper.dto.*;
 import muni.eolida.sisifo.model.*;
@@ -41,29 +41,29 @@ public class ReclamoMapper {
             reclamoModel.setCoordinadaX(reclamoCreation.getCoordinadaX());
             reclamoModel.setCoordinadaY(reclamoCreation.getCoordinadaY());
             reclamoModel.setDescripcion(reclamoCreation.getDescripcion());
-            EntidadMensaje<BarrioModel> barrio = barrioService.buscarPorId(reclamoCreation.getCalle_id());
+            EntityMessenger<BarrioModel> barrio = barrioService.buscarPorId(reclamoCreation.getCalle_id());
             if (barrio.getEstado() == 200)
                 reclamoModel.setBarrio(barrio.getObjeto());
-            EntidadMensaje<CalleModel> calle = calleServiceImpl.buscarPorId(reclamoCreation.getCalle_id());
+            EntityMessenger<CalleModel> calle = calleServiceImpl.buscarPorId(reclamoCreation.getCalle_id());
             if (calle.getEstado() == 200)
                 reclamoModel.setCalle(calle.getObjeto());
-            EntidadMensaje<CalleModel> interseccion = calleServiceImpl.buscarPorId(reclamoCreation.getInterseccion_id());
+            EntityMessenger<CalleModel> interseccion = calleServiceImpl.buscarPorId(reclamoCreation.getInterseccion_id());
             if (interseccion.getEstado() == 200)
                 reclamoModel.setInterseccion(interseccion.getObjeto());
-            EntidadMensaje<CalleModel> entreCalle1 = calleServiceImpl.buscarPorId(reclamoCreation.getEntreCalle1_id());
+            EntityMessenger<CalleModel> entreCalle1 = calleServiceImpl.buscarPorId(reclamoCreation.getEntreCalle1_id());
             if (entreCalle1.getEstado() == 200)
                 reclamoModel.setEntreCalle1(entreCalle1.getObjeto());
-            EntidadMensaje<CalleModel> entreCalle2 = calleServiceImpl.buscarPorId(reclamoCreation.getEntreCalle2_id());
+            EntityMessenger<CalleModel> entreCalle2 = calleServiceImpl.buscarPorId(reclamoCreation.getEntreCalle2_id());
             if (entreCalle2.getEstado() == 200)
                 reclamoModel.setEntreCalle2(entreCalle2.getObjeto());
-            EntidadMensaje<TipoReclamoModel> tipoReclamo = tipoReclamoServiceImpl.buscarPorId(reclamoCreation.getTipoReclamo_id());
+            EntityMessenger<TipoReclamoModel> tipoReclamo = tipoReclamoServiceImpl.buscarPorId(reclamoCreation.getTipoReclamo_id());
             if (tipoReclamo.getEstado() == 200)
                 reclamoModel.setTipoReclamo(tipoReclamo.getObjeto());
-            EntidadMensaje<UsuarioModel> usuarioModelEntidadMensaje = usuarioServiceImpl.obtenerUsuario();
+            EntityMessenger<UsuarioModel> usuarioModelEntidadMensaje = usuarioServiceImpl.obtenerUsuario();
             reclamoModel.setPersona(usuarioModelEntidadMensaje.getObjeto());
             try {
                 if (reclamoCreation.getImagen() != null) {
-                    EntidadMensaje<ArchivoModel> imagen = archivoServiceImpl.guardarArchivo(reclamoCreation.getImagen());
+                    EntityMessenger<ArchivoModel> imagen = archivoServiceImpl.guardarArchivo(reclamoCreation.getImagen());
                     if (imagen.getEstado() == 200)
                         reclamoModel.setImagen(imagen.getObjeto());
                 }

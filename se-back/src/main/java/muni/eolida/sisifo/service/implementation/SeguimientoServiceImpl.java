@@ -1,8 +1,8 @@
 package muni.eolida.sisifo.service.implementation;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntidadMensaje;
-import muni.eolida.sisifo.helper.Ayudador;
+import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.helper.Helper;
 import muni.eolida.sisifo.mapper.SeguimientoMapper;
 import muni.eolida.sisifo.mapper.creation.SeguimientoCreation;
 import muni.eolida.sisifo.model.SeguimientoModel;
@@ -11,7 +11,6 @@ import muni.eolida.sisifo.service.SeguimientoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,122 +26,176 @@ public class SeguimientoServiceImpl implements SeguimientoService {
     private UsuarioServiceImpl usuarioService;
 
     @Override
-    public EntidadMensaje<SeguimientoModel> buscarTodasPorDescripcion(String descripcion) {
-        log.info("Buscando todas la entidades Seguimiento con descripcion: {}.", descripcion);
-        List<SeguimientoModel> listado = seguimientoDAO.findAllByDescripcionContainingIgnoreCaseAndEliminadaIsNull(descripcion);
-        if (listado.isEmpty()) {
-            String mensaje = "No se encontraron entidades Seguimiento con descripcion: " + descripcion + ".";
-            log.warn(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, null, mensaje, 202);
-        } else {
-            String mensaje = "Se encontraron " + listado.size() + " entidades Seguimiento.";
-            log.info(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, listado, mensaje, 200);
+    public EntityMessenger<SeguimientoModel> buscarTodasPorDescripcion(String descripcion) {
+        try {
+            log.info("Buscando todas la entidades Seguimiento con descripcion: {}.", descripcion);
+            List<SeguimientoModel> listado = seguimientoDAO.findAllByDescripcionContainingIgnoreCaseAndEliminadaIsNull(descripcion);
+            if (listado.isEmpty()) {
+                String mensaje = "No se encontraron entidades Seguimiento con descripcion: " + descripcion + ".";
+                log.warn(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 202);
+            } else {
+                String mensaje = "Se encontraron " + listado.size() + " entidades Seguimiento.";
+                log.info(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, listado, mensaje, 200);
+            }
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al realizar la busqueda.";
+            log.error(mensaje);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntidadMensaje<SeguimientoModel> buscarTodasPorDescripcionConEliminadas(String descripcion) {
-        log.info("Buscando todas la entidades Seguimiento con descripcion: {}, incluidas las eliminadas.", descripcion);
-        List<SeguimientoModel> listado = seguimientoDAO.findAllByDescripcionContainingIgnoreCase(descripcion);
-        if (listado.isEmpty()) {
-            String mensaje = "No se encontraron entidades Seguimiento con descripcion: " + descripcion + ", incluidas las eliminadas.";
-            log.warn(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, null, mensaje, 202);
-        } else {
-            String mensaje = "Se encontraron " + listado.size() + " entidades Seguimiento, incluidas las eliminadas.";
-            log.info(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, listado, mensaje, 200);
+    public EntityMessenger<SeguimientoModel> buscarTodasPorDescripcionConEliminadas(String descripcion) {
+        try {
+            log.info("Buscando todas la entidades Seguimiento con descripcion: {}, incluidas las eliminadas.", descripcion);
+            List<SeguimientoModel> listado = seguimientoDAO.findAllByDescripcionContainingIgnoreCase(descripcion);
+            if (listado.isEmpty()) {
+                String mensaje = "No se encontraron entidades Seguimiento con descripcion: " + descripcion + ", incluidas las eliminadas.";
+                log.warn(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 202);
+            } else {
+                String mensaje = "Se encontraron " + listado.size() + " entidades Seguimiento, incluidas las eliminadas.";
+                log.info(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, listado, mensaje, 200);
+            }
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al realizar la busqueda.";
+            log.error(mensaje);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntidadMensaje<SeguimientoModel> buscarTodasPorCreadaEntreFechas(LocalDateTime inicio, LocalDateTime fin) {
-        log.info("Buscando todas la entidades Seguimiento con fecha de creacion entre {} y {}.", inicio, fin);
-        List<SeguimientoModel> listado = seguimientoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(inicio, fin);
-        if (listado.isEmpty()) {
-            String mensaje = "No se encontraron entidades Seguimiento con fecha de creacion entre " + inicio + " y " + fin + ".";
-            log.warn(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, null, mensaje, 202);
-        } else {
-            String mensaje = "Se encontraron " + listado.size() + " entidades Seguimiento.";
-            log.info(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, listado, mensaje, 200);
+    public EntityMessenger<SeguimientoModel> buscarTodasPorCreadaEntreFechas(String inicio, String fin) {
+        try {
+            log.info("Buscando todas la entidades Seguimiento con fecha de creacion entre {} y {}.", inicio, fin);
+            List<SeguimientoModel> listado = seguimientoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(
+                    Helper.stringToLocalDateTime(inicio, null),
+                    Helper.stringToLocalDateTime(fin, null)
+            );
+            if (listado.isEmpty()) {
+                String mensaje = "No se encontraron entidades Seguimiento con fecha de creacion entre " + inicio + " y " + fin + ".";
+                log.warn(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 202);
+            } else {
+                String mensaje = "Se encontraron " + listado.size() + " entidades Seguimiento.";
+                log.info(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, listado, mensaje, 200);
+            }
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al realizar la busqueda.";
+            log.error(mensaje);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntidadMensaje<SeguimientoModel> buscarTodasPorCreadaEntreFechasConEliminadas(LocalDateTime inicio, LocalDateTime fin) {
-        log.info("Buscando todas la entidades Seguimiento con fecha de creacion entre {} y {}, incluidas las eliminadas.", inicio, fin);
-        List<SeguimientoModel> listado = seguimientoDAO.findAllByCreadaBetweenInicioAndFin(inicio, fin);
-        if (listado.isEmpty()) {
-            String mensaje = "No se encontraron entidades Seguimiento con fecha de creacion entre " + inicio + " y " + fin + ", incluidas las eliminadas.";
-            log.warn(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, null, mensaje, 202);
-        } else {
-            String mensaje = "Se encontraron " + listado.size() + " entidades Seguimiento, incluidas las eliminadas.";
-            log.info(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, listado, mensaje, 200);
+    public EntityMessenger<SeguimientoModel> buscarTodasPorCreadaEntreFechasConEliminadas(String inicio, String fin) {
+        try {
+            log.info("Buscando todas la entidades Seguimiento con fecha de creacion entre {} y {}, incluidas las eliminadas.", inicio, fin);
+            List<SeguimientoModel> listado = seguimientoDAO.findAllByCreadaBetweenInicioAndFin(
+                    Helper.stringToLocalDateTime(inicio, null),
+                    Helper.stringToLocalDateTime(fin, null)
+            );
+            if (listado.isEmpty()) {
+                String mensaje = "No se encontraron entidades Seguimiento con fecha de creacion entre " + inicio + " y " + fin + ", incluidas las eliminadas.";
+                log.warn(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 202);
+            } else {
+                String mensaje = "Se encontraron " + listado.size() + " entidades Seguimiento, incluidas las eliminadas.";
+                log.info(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, listado, mensaje, 200);
+            }
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al realizar la busqueda.";
+            log.error(mensaje);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntidadMensaje<SeguimientoModel> buscarPorId(Long id) {
-        log.info("Buscando la entidad Seguimiento con id: {}.", id);
-        Optional<SeguimientoModel> objeto = seguimientoDAO.findByIdAndEliminadaIsNull(id);
-        if (objeto.isEmpty()) {
-            String mensaje = "No se encontro una entidad Seguimiento con id: " + id + ".";
-            log.warn(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, null, mensaje, 202);
-        } else {
-            String mensaje = "Se encontro una entidad Seguimiento.";
-            log.info(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(objeto.get(), null, mensaje, 200);
+    public EntityMessenger<SeguimientoModel> buscarPorId(Long id) {
+        try {
+            log.info("Buscando la entidad Seguimiento con id: {}.", id);
+            Optional<SeguimientoModel> objeto = seguimientoDAO.findByIdAndEliminadaIsNull(id);
+            if (objeto.isEmpty()) {
+                String mensaje = "No se encontro una entidad Seguimiento con id: " + id + ".";
+                log.warn(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 202);
+            } else {
+                String mensaje = "Se encontro una entidad Seguimiento.";
+                log.info(mensaje);
+                return new EntityMessenger<SeguimientoModel>(objeto.get(), null, mensaje, 200);
+            }
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al realizar la busqueda.";
+            log.error(mensaje);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntidadMensaje<SeguimientoModel> buscarPorIdConEliminadas(Long id) {
-        log.info("Buscando la entidad Seguimiento con id: {}, incluidas las eliminadas.", id);
-        Optional<SeguimientoModel> objeto = seguimientoDAO.findById(id);
-        if (objeto.isEmpty()) {
-            String mensaje = "No se encontro una entidad Seguimiento con id: " + id + ", incluidas las eliminadas.";
-            log.warn(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, null, mensaje, 202);
-        } else {
-            String mensaje = "Se encontro una entidad Seguimiento, incluidas las eliminadas.";
-            log.info(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(objeto.get(), null, mensaje, 200);
+    public EntityMessenger<SeguimientoModel> buscarPorIdConEliminadas(Long id) {
+        try {
+            log.info("Buscando la entidad Seguimiento con id: {}, incluidas las eliminadas.", id);
+            Optional<SeguimientoModel> objeto = seguimientoDAO.findById(id);
+            if (objeto.isEmpty()) {
+                String mensaje = "No se encontro una entidad Seguimiento con id: " + id + ", incluidas las eliminadas.";
+                log.warn(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 202);
+            } else {
+                String mensaje = "Se encontro una entidad Seguimiento, incluidas las eliminadas.";
+                log.info(mensaje);
+                return new EntityMessenger<SeguimientoModel>(objeto.get(), null, mensaje, 200);
+            }
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al realizar la busqueda.";
+            log.error(mensaje);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntidadMensaje<SeguimientoModel> buscarTodas() {
-        log.info("Buscando todas las entidades Seguimiento.");
-        List<SeguimientoModel> listado = seguimientoDAO.findAllByEliminadaIsNull();
-        if (listado.isEmpty()) {
-            String mensaje = "No se encontraron entidades Seguimiento.";
-            log.warn(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, null, mensaje, 202);
-        } else {
-            String mensaje = "Se encontraron " + listado.size() + " entidades Seguimiento.";
-            log.info(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, listado, mensaje, 200);
+    public EntityMessenger<SeguimientoModel> buscarTodas() {
+        try {
+            log.info("Buscando todas las entidades Seguimiento.");
+            List<SeguimientoModel> listado = seguimientoDAO.findAllByEliminadaIsNull();
+            if (listado.isEmpty()) {
+                String mensaje = "No se encontraron entidades Seguimiento.";
+                log.warn(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 202);
+            } else {
+                String mensaje = "Se encontraron " + listado.size() + " entidades Seguimiento.";
+                log.info(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, listado, mensaje, 200);
+            }
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al realizar la busqueda.";
+            log.error(mensaje);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntidadMensaje<SeguimientoModel> buscarTodasConEliminadas() {
-        log.info("Buscando todas las entidades Seguimiento, incluidas las eliminadas.");
-        List<SeguimientoModel> listado = seguimientoDAO.findAll();
-        if (listado.isEmpty()) {
-            String mensaje = "No se encontrarón entidades Seguimiento, incluidas las eliminadas.";
-            log.warn(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, null, mensaje, 202);
-        } else {
-            String mensaje = "Se encontraron " + listado.size() + " entidades Seguimiento, incluidas las eliminadas.";
-            log.info(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, listado, mensaje, 200);
+    public EntityMessenger<SeguimientoModel> buscarTodasConEliminadas() {
+        try {
+            log.info("Buscando todas las entidades Seguimiento, incluidas las eliminadas.");
+            List<SeguimientoModel> listado = seguimientoDAO.findAll();
+            if (listado.isEmpty()) {
+                String mensaje = "No se encontrarón entidades Seguimiento, incluidas las eliminadas.";
+                log.warn(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 202);
+            } else {
+                String mensaje = "Se encontraron " + listado.size() + " entidades Seguimiento, incluidas las eliminadas.";
+                log.info(mensaje);
+                return new EntityMessenger<SeguimientoModel>(null, listado, mensaje, 200);
+            }
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al realizar la busqueda.";
+            log.error(mensaje);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
     }
 
@@ -161,88 +214,100 @@ public class SeguimientoServiceImpl implements SeguimientoService {
     }
 
     @Override
-    public EntidadMensaje<SeguimientoModel> insertar(SeguimientoCreation model) {
+    public EntityMessenger<SeguimientoModel> insertar(SeguimientoCreation model) {
         try {
             log.info("Insertando la entidad Seguimiento: {}.",  model);
             SeguimientoModel objeto = seguimientoDAO.save(seguimientoMapper.toEntity(model));
-            objeto.setCreada(Ayudador.getAhora(""));
+            objeto.setCreada(Helper.getNow(""));
             objeto.setCreador(usuarioService.obtenerUsuario().getObjeto());
             seguimientoDAO.save(objeto);
             String mensaje = "La entidad Seguimiento con id: " + objeto.getId() + ", fue insertada correctamente.";
             log.info(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(objeto, null, mensaje, 201);
+            return new EntityMessenger<SeguimientoModel>(objeto, null, mensaje, 201);
         } catch (Exception e) {
             String mensaje = "Ocurrió un error al intentar insertar la entidad Seguimiento. Excepción: " + e + ".";
             log.error(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, null, mensaje, 204);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntidadMensaje<SeguimientoModel> actualizar(SeguimientoModel model) {
+    public EntityMessenger<SeguimientoModel> actualizar(SeguimientoModel model) {
         try {
             log.info("Actualizando la entidad Seguimiento: {}.",  model);
             if (model.getId() != null) {
-                EntidadMensaje<SeguimientoModel> entidad = this.buscarPorId(model.getId());
+                EntityMessenger<SeguimientoModel> entidad = this.buscarPorId(model.getId());
                 if (entidad.getEstado() == 202)
                     return entidad;
             }
-            model.setModificada(Ayudador.getAhora(""));
+            model.setModificada(Helper.getNow(""));
             model.setModificador(usuarioService.obtenerUsuario().getObjeto());
             SeguimientoModel objeto = seguimientoDAO.save(model);
             String mensaje = "La entidad Seguimiento con id: " + objeto.getId() + ", fue actualizada correctamente.";
             log.info(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(objeto, null, mensaje, 201);
+            return new EntityMessenger<SeguimientoModel>(objeto, null, mensaje, 201);
         } catch (Exception e) {
             String mensaje = "Ocurrió un error al intentar actualizar la entidad Seguimiento. Excepción: " + e + ".";
             log.error(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, null, mensaje, 204);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public EntidadMensaje<SeguimientoModel> reciclar(Long id) {
-        log.info("Reciclando la entidad Seguimiento con id: {}.", id);
-        EntidadMensaje<SeguimientoModel> objeto = this.buscarPorIdConEliminadas(id);
-        if (objeto.getEstado() == 202) {
-            return objeto;
-        }
-        if (objeto.getObjeto().getEliminada() == null) {
-            String mensaje = "La entidad Seguimiento con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.";
-            log.warn(mensaje);
+    public EntityMessenger<SeguimientoModel> reciclar(Long id) {
+        try {
+            log.info("Reciclando la entidad Seguimiento con id: {}.", id);
+            EntityMessenger<SeguimientoModel> objeto = this.buscarPorIdConEliminadas(id);
+            if (objeto.getEstado() == 202) {
+                return objeto;
+            }
+            if (objeto.getObjeto().getEliminada() == null) {
+                String mensaje = "La entidad Seguimiento con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.";
+                log.warn(mensaje);
+                objeto.setMensaje(mensaje);
+                return objeto;
+            }
+            objeto.getObjeto().setEliminada(null);
+            objeto.getObjeto().setEliminador(null);
+            objeto.setObjeto(seguimientoDAO.save(objeto.getObjeto()));
+            String mensaje = "La entidad Seguimiento con id: " + id + ", fue reciclada correctamente.";
             objeto.setMensaje(mensaje);
+            log.info(mensaje);
             return objeto;
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al intentar reciclar la entidad.";
+            log.error(mensaje);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
-        objeto.getObjeto().setEliminada(null);
-        objeto.getObjeto().setEliminador(null);
-        objeto.setObjeto(seguimientoDAO.save(objeto.getObjeto()));
-        String mensaje = "La entidad Seguimiento con id: " + id + ", fue reciclada correctamente.";
-        objeto.setMensaje(mensaje);
-        log.info(mensaje);
-        return objeto;
     }
 
     @Override
-    public EntidadMensaje<SeguimientoModel> eliminar(Long id) {
-        log.info("Borrando la entidad Seguimiento con id: {}.", id);
-        EntidadMensaje<SeguimientoModel> objeto = this.buscarPorId(id);
-        if (objeto.getEstado() == 202) {
+    public EntityMessenger<SeguimientoModel> eliminar(Long id) {
+        try {
+            log.info("Borrando la entidad Seguimiento con id: {}.", id);
+            EntityMessenger<SeguimientoModel> objeto = this.buscarPorId(id);
+            if (objeto.getEstado() == 202) {
+                return objeto;
+            }
+            objeto.getObjeto().setEliminada(Helper.getNow(""));
+            objeto.getObjeto().setEliminador(usuarioService.obtenerUsuario().getObjeto());
+            objeto.setObjeto(seguimientoDAO.save(objeto.getObjeto()));
+            String mensaje = "La entidad Seguimiento con id: " + id + ", fue borrada correctamente.";
+            objeto.setMensaje(mensaje);
+            log.info(mensaje);
             return objeto;
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al intentar eliminar la entidad.";
+            log.error(mensaje);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
-        objeto.getObjeto().setEliminada(Ayudador.getAhora(""));
-        objeto.getObjeto().setEliminador(usuarioService.obtenerUsuario().getObjeto());
-        objeto.setObjeto(seguimientoDAO.save(objeto.getObjeto()));
-        String mensaje = "La entidad Seguimiento con id: " + id + ", fue borrada correctamente.";
-        objeto.setMensaje(mensaje);
-        log.info(mensaje);
-        return objeto;
     }
 
     @Override
-    public EntidadMensaje<SeguimientoModel> destruir(Long id) {
+    public EntityMessenger<SeguimientoModel> destruir(Long id) {
         try {
             log.info("Destruyendo la entidad Seguimiento con id: {}.", id);
-            EntidadMensaje<SeguimientoModel> objeto = this.buscarPorIdConEliminadas(id);
+            EntityMessenger<SeguimientoModel> objeto = this.buscarPorIdConEliminadas(id);
             if (objeto.getEstado() == 202) {
                 return objeto;
             }
@@ -262,7 +327,7 @@ public class SeguimientoServiceImpl implements SeguimientoService {
         } catch (Exception e) {
             String mensaje = "Ocurrió un error al intentar destruir la entidad Seguimiento. Excepción: " + e + ".";
             log.error(mensaje);
-            return new EntidadMensaje<SeguimientoModel>(null, null, mensaje, 204);
+            return new EntityMessenger<SeguimientoModel>(null, null, mensaje, 204);
         }
     }
 }

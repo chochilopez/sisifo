@@ -1,8 +1,8 @@
 package muni.eolida.sisifo.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntidadMensaje;
-import muni.eolida.sisifo.helper.Ayudador;
+import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.helper.Helper;
 import muni.eolida.sisifo.mapper.ArchivoMapper;
 import muni.eolida.sisifo.mapper.creation.ArchivoCreation;
 import muni.eolida.sisifo.mapper.dto.ArchivoDTO;
@@ -35,147 +35,147 @@ public class ArchivoController {
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<ArchivoDTO> saveLocalFile(@RequestParam("file") MultipartFile multipartFile) {
         try{
-            EntidadMensaje<ArchivoModel> objeto = archivoService.guardarArchivo(multipartFile.getBytes());
+            EntityMessenger<ArchivoModel> objeto = archivoService.guardarArchivo(multipartFile.getBytes());
             if (objeto.getEstado() == 202)
-                return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+                return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
             else if (objeto.getEstado() == 201)
-                return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
+                return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
             else
-                return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+                return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         } catch (Exception e){
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(e.getMessage())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(e.getMessage())).build();
         }
     }
 
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<ArchivoDTO> buscarPorId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntidadMensaje<ArchivoModel> objeto = archivoService.buscarPorId(id);
+        EntityMessenger<ArchivoModel> objeto = archivoService.buscarPorId(id);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<ArchivoDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntidadMensaje<ArchivoModel> objeto = archivoService.buscarPorIdConEliminadas(id);
+        EntityMessenger<ArchivoModel> objeto = archivoService.buscarPorIdConEliminadas(id);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
     @GetMapping(value = "/buscar-todas")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<ArchivoDTO>> buscarTodas() {
-        EntidadMensaje<ArchivoModel> listado = archivoService.buscarTodas();
+        EntityMessenger<ArchivoModel> listado = archivoService.buscarTodas();
         if (listado.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
         else if (listado.getEstado() == 200){
             ArrayList<ArchivoDTO> ArchivoDTOs = new ArrayList<>();
             for (ArchivoModel ArchivoModel:listado.getListado()) {
                 ArchivoDTOs.add(archivoMapper.toDto(ArchivoModel));
             }
-            return new ResponseEntity<>(ArchivoDTOs, Ayudador.httpHeaders(listado.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(ArchivoDTOs, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
         }
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
     }
 
     @GetMapping(value = "/buscar-todas-con-eliminadas")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<ArchivoDTO>> buscarTodasConEliminadas() {
-        EntidadMensaje<ArchivoModel> listado = archivoService.buscarTodasConEliminadas();
+        EntityMessenger<ArchivoModel> listado = archivoService.buscarTodasConEliminadas();
         if (listado.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
         else if (listado.getEstado() == 200){
             ArrayList<ArchivoDTO> ArchivoDTOs = new ArrayList<>();
             for (ArchivoModel ArchivoModel:listado.getListado()) {
                 ArchivoDTOs.add(archivoMapper.toDto(ArchivoModel));
             }
-            return new ResponseEntity<>(ArchivoDTOs, Ayudador.httpHeaders(listado.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(ArchivoDTOs, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
         }
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
     }
 
     @GetMapping(value = "/contar-todas")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<Long> contarTodas() {
         Long cantidad= archivoService.contarTodas();
-        return new ResponseEntity<>(cantidad, Ayudador.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
+        return new ResponseEntity<>(cantidad, Helper.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/contar-todas-con-eliminadas")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<Long> contarTodasConEliminadas() {
         Long cantidad= archivoService.contarTodasConEliminadas();
-        return new ResponseEntity<>(cantidad, Ayudador.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
+        return new ResponseEntity<>(cantidad, Helper.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
     }
 
     @PutMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<ArchivoDTO> insertar(@Valid @RequestBody ArchivoCreation archivoCreation) {
-        EntidadMensaje<ArchivoModel> objeto = archivoService.insertar(archivoCreation);
+        EntityMessenger<ArchivoModel> objeto = archivoService.insertar(archivoCreation);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)
-            return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
+            return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<ArchivoDTO> actualizar(@Valid @RequestBody ArchivoModel archivoModel) {
-        EntidadMensaje<ArchivoModel> objeto = archivoService.actualizar(archivoModel);
+        EntityMessenger<ArchivoModel> objeto = archivoService.actualizar(archivoModel);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)
-            return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
+            return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<ArchivoDTO> borrar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntidadMensaje<ArchivoModel> objeto = archivoService.eliminar(id);
+        EntityMessenger<ArchivoModel> objeto = archivoService.eliminar(id);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)
-            return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<ArchivoDTO> reciclar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntidadMensaje<ArchivoModel> objeto = archivoService.reciclar(id);
+        EntityMessenger<ArchivoModel> objeto = archivoService.reciclar(id);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(archivoMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<String> destruir(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntidadMensaje<ArchivoModel> objeto = archivoService.destruir(id);
+        EntityMessenger<ArchivoModel> objeto = archivoService.destruir(id);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(objeto.getMensaje(), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(objeto.getMensaje(), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 }

@@ -23,6 +23,6 @@ public class CalleModel extends AbstractAuditoriaModel {
     private String calle;
 
     // Bidireccional
-    @OneToMany(mappedBy = "calle", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "calle", cascade = CascadeType.PERSIST)
     private List<ReclamoModel> reclamos;
 }

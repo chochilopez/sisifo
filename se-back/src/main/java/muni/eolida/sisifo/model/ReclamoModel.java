@@ -56,7 +56,7 @@ public class ReclamoModel extends AbstractAuditoriaModel {
 	private CalleModel entreCalle2;
 
 	// Bidireccional
-	@OneToOne(mappedBy = "reclamo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "reclamo", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private ArchivoModel imagen;
 
 	// Bidireccional
@@ -70,6 +70,6 @@ public class ReclamoModel extends AbstractAuditoriaModel {
 	private TipoReclamoModel tipoReclamo;
 
 	// Bidireccional
-	@OneToOne(mappedBy = "reclamo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "reclamo", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private SeguimientoModel seguimiento;
 }

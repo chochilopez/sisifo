@@ -22,7 +22,7 @@ public class BarrioModel extends AbstractAuditoriaModel {
 	private Long id;
 	private String barrio;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "barrio_id")
 	private List<ReclamoModel> reclamos;
 }

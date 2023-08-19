@@ -23,7 +23,7 @@ public class AreaModel extends AbstractAuditoriaModel {
     private String area;
 
     // Bidireccional
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "area_id")
     private List<TipoReclamoModel> tiposReclamos;
 }

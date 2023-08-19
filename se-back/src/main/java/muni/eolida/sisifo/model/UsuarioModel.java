@@ -56,6 +56,6 @@ public class UsuarioModel extends AbstractAuditoriaModel {
 	private Set<RolModel> roles = new HashSet<>();
 
 	// Bidireccional
-	@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "persona", cascade = CascadeType.PERSIST)
 	private List<ReclamoModel> reclamos;
 }

@@ -22,7 +22,7 @@ public class SeguimientoModel extends AbstractAuditoriaModel {
 	private Long id;
 	private String descripcion;
 
-	@OneToMany(mappedBy = "seguimiento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "seguimiento", cascade = CascadeType.PERSIST)
 	private List<EstadoReclamoModel> estados;
 
 	// Bidireccional

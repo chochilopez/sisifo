@@ -2,8 +2,8 @@ package muni.eolida.sisifo.controller;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntidadMensaje;
-import muni.eolida.sisifo.helper.Ayudador;
+import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.helper.Helper;
 import muni.eolida.sisifo.helper.payload.response.JwtResponse;
 import muni.eolida.sisifo.mapper.UsuarioMapper;
 import muni.eolida.sisifo.mapper.creation.UsuarioCreation;
@@ -27,24 +27,24 @@ public class AutenticacionController {
 
 	@PostMapping("/ingresar")
 	public ResponseEntity<?> ingresar(@Valid @RequestBody LoginRequest loginRequest) {
-		EntidadMensaje<JwtResponse> objeto = autenticacionService.ingresarUsuario(loginRequest);
+		EntityMessenger<JwtResponse> objeto = autenticacionService.ingresarUsuario(loginRequest);
 		if (objeto.getEstado() == 202)
-			return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+			return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
 		else if (objeto.getEstado() == 200)
-			return new ResponseEntity<>(objeto.getObjeto(), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+			return new ResponseEntity<>(objeto.getObjeto(), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
 		else
-			return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+			return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
 	}
 
 	@PostMapping("/registrarse")
 	public ResponseEntity<?> registrarse(@Valid @RequestBody UsuarioCreation usuarioCreation) {
-		EntidadMensaje<UsuarioModel> objeto = autenticacionService.registrarUsuario(usuarioCreation);
+		EntityMessenger<UsuarioModel> objeto = autenticacionService.registrarUsuario(usuarioCreation);
 		if (objeto.getEstado() == 202)
-			return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+			return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
 		else if (objeto.getEstado() == 201)
-			return new ResponseEntity<>(usuarioMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+			return new ResponseEntity<>(usuarioMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
 		else
-			return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+			return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
 	}
 
 	@GetMapping(value="/confirmar-email/{id}/{token}")
@@ -52,12 +52,12 @@ public class AutenticacionController {
 			@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id,
 			@PathVariable(name = "token") @javax.validation.constraints.Size(min = 1, max = 20) String token
 	) {
-		EntidadMensaje<UsuarioModel> objeto = autenticacionService.validarToken(id, token);
+		EntityMessenger<UsuarioModel> objeto = autenticacionService.validarToken(id, token);
 		if (objeto.getEstado() == 202)
-			return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+			return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
 		else if (objeto.getEstado() == 201)
-			return new ResponseEntity<>(usuarioMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+			return new ResponseEntity<>(usuarioMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
 		else
-			return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+			return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
 	}
 }

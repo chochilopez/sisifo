@@ -23,7 +23,7 @@ public class TipoReclamoModel extends AbstractAuditoriaModel {
 	private String tipo;
 
 	// Bidireccional
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "reclamo_id")
 	private List<ReclamoModel> reclamos;
 

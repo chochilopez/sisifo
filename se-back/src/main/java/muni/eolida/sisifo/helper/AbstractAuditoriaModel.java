@@ -1,6 +1,5 @@
 package muni.eolida.sisifo.helper;
 
-import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -16,17 +15,17 @@ import java.time.LocalDateTime;
 @Setter
 public abstract class AbstractAuditoriaModel {
 
-    @Cascade(CascadeType.ALL)
+    @Cascade(CascadeType.SAVE_UPDATE)
     @ManyToOne()
     private UsuarioModel creador;
     private LocalDateTime creada;
 
-    @Cascade(CascadeType.ALL)
+    @Cascade(CascadeType.SAVE_UPDATE)
     @ManyToOne()
     private UsuarioModel eliminador;
     private LocalDateTime eliminada;
 
-    @Cascade(CascadeType.ALL)
+    @Cascade(CascadeType.SAVE_UPDATE)
     @ManyToOne()
     private UsuarioModel modificador;
     private LocalDateTime modificada;

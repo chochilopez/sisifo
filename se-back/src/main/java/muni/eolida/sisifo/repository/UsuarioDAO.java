@@ -1,13 +1,13 @@
 package muni.eolida.sisifo.repository;
 
-import muni.eolida.sisifo.helper.RepositorioGenerico;
+import muni.eolida.sisifo.helper.GenericDTO;
 import muni.eolida.sisifo.model.UsuarioModel;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UsuarioDAO extends RepositorioGenerico<UsuarioModel> {
+public interface UsuarioDAO extends GenericDTO<UsuarioModel> {
   Optional<UsuarioModel> findByUsernameContainingIgnoreCase(String username);
   Optional<UsuarioModel> findByUsernameContainingIgnoreCaseAndEliminadaIsNull(String username);
   Optional<UsuarioModel> findByUsernameContainingIgnoreCaseAndEliminadaIsNullAndHabilitadaIsTrue(String username);

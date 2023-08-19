@@ -1,13 +1,13 @@
 package muni.eolida.sisifo.repository;
 
-import muni.eolida.sisifo.helper.RepositorioGenerico;
+import muni.eolida.sisifo.helper.GenericDTO;
 import muni.eolida.sisifo.model.TipoReclamoModel;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface TipoReclamoDAO extends RepositorioGenerico<TipoReclamoModel> {
+public interface TipoReclamoDAO extends GenericDTO<TipoReclamoModel> {
     List<TipoReclamoModel> findAllByAreaId(Long id);
     List<TipoReclamoModel> findAllByAreaIdAndEliminadaIsNull(Long id);
     List<TipoReclamoModel> findAllByTipoIgnoreCaseContaining(String tipo);

@@ -1,8 +1,8 @@
 package muni.eolida.sisifo.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntidadMensaje;
-import muni.eolida.sisifo.helper.Ayudador;
+import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.helper.Helper;
 import muni.eolida.sisifo.mapper.AreaMapper;
 import muni.eolida.sisifo.mapper.creation.AreaCreation;
 import muni.eolida.sisifo.mapper.dto.AreaDTO;
@@ -30,168 +30,168 @@ public class AreaController {
     private AreaMapper areaMapper;
 
     @GetMapping(value = "/buscar-por-nombre/{area}")
-    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
+    @PreAuthorize("hasAuthority('EMPLEADO')")
     public ResponseEntity<List<AreaDTO>> buscarTodasPorArea(@PathVariable(name = "area") @javax.validation.constraints.Size(min = 3, max = 40) String area) {
-        EntidadMensaje<AreaModel> listado = areaService.buscarTodasPorArea(area);
+        EntityMessenger<AreaModel> listado = areaService.buscarTodasPorArea(area);
         if (listado.getEstado() == 202) {
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
         } else if (listado.getEstado() == 200) {
             ArrayList<AreaDTO> areaDTOS = new ArrayList<>();
             for (AreaModel areaModel : listado.getListado()) {
                 areaDTOS.add(areaMapper.toDto(areaModel));
             }
-            return new ResponseEntity<>(areaDTOS, Ayudador.httpHeaders(listado.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(areaDTOS, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
         } else {
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
         }
     }
 
     @GetMapping(value = "/buscar-por-nombre-con-eliminadas/{area}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<AreaDTO>> buscarTodasPorAreaConEliminadas(@PathVariable(name = "area") @javax.validation.constraints.Size(min = 3, max = 40) String area) {
-        EntidadMensaje<AreaModel> listado = areaService.buscarTodasPorAreaConEliminadas(area);
+        EntityMessenger<AreaModel> listado = areaService.buscarTodasPorAreaConEliminadas(area);
         if (listado.getEstado() == 202) {
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
         } else if (listado.getEstado() == 200) {
             ArrayList<AreaDTO> areaDTOS = new ArrayList<>();
             for (AreaModel areaModel : listado.getListado()) {
                 areaDTOS.add(areaMapper.toDto(areaModel));
             }
-            return new ResponseEntity<>(areaDTOS, Ayudador.httpHeaders(listado.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(areaDTOS, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
         } else {
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
         }
     }
 
     @GetMapping(value = "/buscar-por-id/{id}")
-    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
+    @PreAuthorize("hasAuthority('EMPLEADO')")
     public ResponseEntity<AreaDTO> buscarPorId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntidadMensaje<AreaModel> objeto = areaService.buscarPorId(id);
+        EntityMessenger<AreaModel> objeto = areaService.buscarPorId(id);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<AreaDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntidadMensaje<AreaModel> objeto = areaService.buscarPorIdConEliminadas(id);
+        EntityMessenger<AreaModel> objeto = areaService.buscarPorIdConEliminadas(id);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
     @GetMapping(value = "/buscar-todas")
-    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
+    @PreAuthorize("hasAuthority('EMPLEADO')")
     public ResponseEntity<List<AreaDTO>> buscarTodas() {
-        EntidadMensaje<AreaModel> listado = areaService.buscarTodas();
+        EntityMessenger<AreaModel> listado = areaService.buscarTodas();
         if (listado.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
         else if (listado.getEstado() == 200){
             ArrayList<AreaDTO> AreaDTOs = new ArrayList<>();
             for (AreaModel AreaModel:listado.getListado()) {
                 AreaDTOs.add(areaMapper.toDto(AreaModel));
             }
-            return new ResponseEntity<>(AreaDTOs, Ayudador.httpHeaders(listado.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(AreaDTOs, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
         }
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
     }
 
     @GetMapping(value = "/buscar-todas-con-eliminadas")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<AreaDTO>> buscarTodasConEliminadas() {
-        EntidadMensaje<AreaModel> listado = areaService.buscarTodasConEliminadas();
+        EntityMessenger<AreaModel> listado = areaService.buscarTodasConEliminadas();
         if (listado.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
         else if (listado.getEstado() == 200){
             ArrayList<AreaDTO> AreaDTOs = new ArrayList<>();
             for (AreaModel AreaModel:listado.getListado()) {
                 AreaDTOs.add(areaMapper.toDto(AreaModel));
             }
-            return new ResponseEntity<>(AreaDTOs, Ayudador.httpHeaders(listado.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(AreaDTOs, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
         }
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(listado.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
     }
 
     @GetMapping(value = "/contar-todas")
-    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
+    @PreAuthorize("hasAuthority('EMPLEADO')")
     public ResponseEntity<Long> contarTodas() {
         Long cantidad= areaService.contarTodas();
-        return new ResponseEntity<>(cantidad, Ayudador.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
+        return new ResponseEntity<>(cantidad, Helper.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/contar-todas-con-eliminadas")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<Long> contarTodasConEliminadas() {
         Long cantidad= areaService.contarTodasConEliminadas();
-        return new ResponseEntity<>(cantidad, Ayudador.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
+        return new ResponseEntity<>(cantidad, Helper.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
     }
 
     @PutMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<AreaDTO> insertar(@Valid @RequestBody AreaCreation areaCreation) {
-        EntidadMensaje<AreaModel> objeto = areaService.insertar(areaCreation);
+        EntityMessenger<AreaModel> objeto = areaService.insertar(areaCreation);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
+            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<AreaDTO> actualizar(@Valid @RequestBody AreaModel areaModel) {
-        EntidadMensaje<AreaModel> objeto = areaService.actualizar(areaModel);
+        EntityMessenger<AreaModel> objeto = areaService.actualizar(areaModel);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
+            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<AreaDTO> borrar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntidadMensaje<AreaModel> objeto = areaService.eliminar(id);
+        EntityMessenger<AreaModel> objeto = areaService.eliminar(id);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<AreaDTO> reciclar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntidadMensaje<AreaModel> objeto = areaService.reciclar(id);
+        EntityMessenger<AreaModel> objeto = areaService.reciclar(id);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<String> destruir(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
-        EntidadMensaje<AreaModel> objeto = areaService.destruir(id);
+        EntityMessenger<AreaModel> objeto = areaService.destruir(id);
         if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(objeto.getMensaje(), Ayudador.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
+            return new ResponseEntity<>(objeto.getMensaje(), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
-            return ResponseEntity.noContent().headers(Ayudador.httpHeaders(objeto.getMensaje())).build();
+            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 }

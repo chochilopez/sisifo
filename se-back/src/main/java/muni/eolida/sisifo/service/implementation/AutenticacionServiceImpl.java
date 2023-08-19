@@ -1,7 +1,7 @@
 package muni.eolida.sisifo.service.implementation;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntidadMensaje;
+import muni.eolida.sisifo.helper.EntityMessenger;
 import muni.eolida.sisifo.helper.email.EmailModel;
 import muni.eolida.sisifo.helper.email.mapper.EmailCreation;
 import muni.eolida.sisifo.helper.email.service.EmailServiceImpl;
@@ -57,21 +57,21 @@ public class AutenticacionServiceImpl implements AutenticacionService {
     private static final BytesKeyGenerator DEFAULT_TOKEN_GENERATOR = KeyGenerators.secureRandom(15);
 
     @Override
-    public EntidadMensaje<JwtResponse> ingresarUsuario(LoginRequest loginRequest) {
+    public EntityMessenger<JwtResponse> ingresarUsuario(LoginRequest loginRequest) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         } catch (DisabledException e) {
             String mensaje = "El usuario se encuentra deshabilitado.";
             log.info(mensaje);
-            return new EntidadMensaje<JwtResponse>(null, null, mensaje, 204);
+            return new EntityMessenger<JwtResponse>(null, null, mensaje, 204);
         } catch (BadCredentialsException e) {
             String mensaje = "El usuario no posee credenciales válidas.";
             log.info(mensaje);
-            return new EntidadMensaje<JwtResponse>(null, null, mensaje, 204);
+            return new EntityMessenger<JwtResponse>(null, null, mensaje, 204);
         } catch (UsernameNotFoundException e) {
             String mensaje = "El usuario no existe o la cuenta no se encuentra habilitada.";
             log.info(mensaje);
-            return new EntidadMensaje<JwtResponse>(null, null, mensaje, 202);
+            return new EntityMessenger<JwtResponse>(null, null, mensaje, 202);
         }
         UserDetails userdetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
         String token = jwtUtils.generateToken(userdetails);
@@ -88,51 +88,63 @@ public class AutenticacionServiceImpl implements AutenticacionService {
 
         String mensaje = "El usuario " + loginRequest.getUsername() + " se logueo correctamente.";
         log.info(mensaje);
-        return new EntidadMensaje<JwtResponse>(new JwtResponse(token, userdetails.getUsername(), auths), null, mensaje, 200);
+        return new EntityMessenger<JwtResponse>(new JwtResponse(token, userdetails.getUsername(), auths), null, mensaje, 200);
     }
 
     @Override
-    public EntidadMensaje<UsuarioModel> validarToken(Long id, String token) {
-        EntidadMensaje<UsuarioModel> usuario = usuarioService.buscarPorId(id);
-        if (usuario.getEstado() == 200) {
-            if (usuario.getObjeto().getToken().equals(token)) {
-                usuario.getObjeto().setHabilitada(true);
-                usuario = usuarioService.actualizar(usuario.getObjeto());
-                String mensaje = "La cuenta de usaurio: " + usuario.getObjeto().getUsername() + ", se habilitó correctamente.";
-                log.info(mensaje);
-                usuario.setMensaje(mensaje);
-                return usuario;
-            } else {
-                String mensaje = "Ocurrió un error al intentar habilitar la cuenta.";
-                log.warn(mensaje);
-                return new EntidadMensaje<UsuarioModel>(null, null, mensaje, 204);
+    public EntityMessenger<UsuarioModel> validarToken(Long id, String token) {
+        try {
+            EntityMessenger<UsuarioModel> usuario = usuarioService.buscarPorId(id);
+            if (usuario.getEstado() == 200) {
+                if (usuario.getObjeto().getToken().equals(token)) {
+                    usuario.getObjeto().setHabilitada(true);
+                    usuario = usuarioService.actualizar(usuario.getObjeto());
+                    String mensaje = "La cuenta de usaurio: " + usuario.getObjeto().getUsername() + ", se habilitó correctamente.";
+                    log.info(mensaje);
+                    usuario.setMensaje(mensaje);
+                    return usuario;
+                } else {
+                    String mensaje = "Ocurrió un error al intentar habilitar la cuenta.";
+                    log.warn(mensaje);
+                    return new EntityMessenger<UsuarioModel>(null, null, mensaje, 204);
+                }
             }
+            return usuario;
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al realizar la busqueda.";
+            log.error(mensaje);
+            return new EntityMessenger<UsuarioModel>(null, null, mensaje, 204);
         }
-        return usuario;
     }
 
     @Override
-    public EntidadMensaje<UsuarioModel> registrarUsuario(UsuarioCreation usuarioCreation) {
-        EntidadMensaje<UsuarioModel> usuario = usuarioService.insertar(usuarioCreation);
-        if (usuario.getEstado() == 201) {
-            usuario.getObjeto().setHabilitada(false);
-            String token = Base64.encodeBase64URLSafeString(DEFAULT_TOKEN_GENERATOR.generateKey());
-            usuario.getObjeto().setToken(token);
-            String body = path + usuario.getObjeto().getId() + "/" +  token;
-            EntidadMensaje<EmailModel> emailModelEntidadMensaje = emailService.enviarEmailSimple(new EmailCreation(
-                    "Confirmá tu dirección de email para continuar con tu reclamo.",
-                    this.sender,
-                    usuarioCreation.getUsername(),
-                    body
-            ));
-            usuario = usuarioService.darRol(usuario.getObjeto(), RolEnum.CONTRIBUYENTE);
-            if (emailModelEntidadMensaje.getEstado() == 201) {
-                String mensaje = "El usuario " + usuarioCreation.getUsername() + " fue creado correctamente. En envió el email de confirmación.";
-                log.info(mensaje);
-                return new EntidadMensaje<UsuarioModel>(usuario.getObjeto(), null, mensaje, 201);
+    public EntityMessenger<UsuarioModel> registrarUsuario(UsuarioCreation usuarioCreation) {
+        try {
+            EntityMessenger<UsuarioModel> usuario = usuarioService.insertar(usuarioCreation);
+            if (usuario.getEstado() == 201) {
+                usuario.getObjeto().setHabilitada(false);
+                String token = Base64.encodeBase64URLSafeString(DEFAULT_TOKEN_GENERATOR.generateKey());
+                usuario.getObjeto().setToken(token);
+                String body = path + usuario.getObjeto().getId() + "/" +  token;
+                EntityMessenger<EmailModel> emailModelEntidadMensaje = emailService.enviarEmailSimple(new EmailCreation(
+                        "Confirmá tu dirección de email para continuar con tu reclamo.",
+                        this.sender,
+                        usuarioCreation.getUsername(),
+                        body
+                ));
+                usuario = usuarioService.darRol(usuario.getObjeto(), "CONTRIBUYENTE");
+                if (emailModelEntidadMensaje.getEstado() == 201) {
+                    String mensaje = "El usuario " + usuarioCreation.getUsername() + " fue creado correctamente. En envió el email de confirmación.";
+                    log.info(mensaje);
+                    return new EntityMessenger<UsuarioModel>(usuario.getObjeto(), null, mensaje, 201);
+                }
             }
+            return usuario;
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al realizar la busqueda.";
+            log.error(mensaje);
+            return new EntityMessenger<UsuarioModel>(null, null, mensaje, 204);
         }
-        return usuario;
     }
 
 }
