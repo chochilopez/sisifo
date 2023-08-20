@@ -9,12 +9,12 @@ import muni.eolida.sisifo.helper.AbstractAuditoriaModel;
 
 import java.util.List;
 
-@Getter
 @Entity
+@EqualsAndHashCode
+@Getter
 @NoArgsConstructor
 @Setter
 @Table(name = "area")
-@EqualsAndHashCode
 public class AreaModel extends AbstractAuditoriaModel {
 
     @Id
@@ -22,8 +22,7 @@ public class AreaModel extends AbstractAuditoriaModel {
     private Long id;
     private String area;
 
-    // Bidireccional
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "area_id")
+    // Bidireccional primaria
+    @OneToMany(mappedBy = "area", cascade = CascadeType.MERGE)
     private List<TipoReclamoModel> tiposReclamos;
 }

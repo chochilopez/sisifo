@@ -8,12 +8,12 @@ import lombok.Setter;
 import muni.eolida.sisifo.helper.AbstractAuditoriaModel;
 import muni.eolida.sisifo.model.enums.RolEnum;
 
-@Getter
 @Entity
+@EqualsAndHashCode
+@Getter
 @NoArgsConstructor
 @Setter
 @Table(name = "rol")
-@EqualsAndHashCode
 public class RolModel extends AbstractAuditoriaModel {
 
     @Id

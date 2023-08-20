@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import muni.eolida.sisifo.helper.AbstractAuditoriaModel;
 
-@Getter
 @Entity
+@EqualsAndHashCode
+@Getter
 @NoArgsConstructor
 @Setter
 @Table(name = "archivo")
-@EqualsAndHashCode
 public class ArchivoModel extends AbstractAuditoriaModel {
 
     @Id
@@ -20,9 +20,4 @@ public class ArchivoModel extends AbstractAuditoriaModel {
     private Long id;
     private String path;
     private String nombre;
-
-    // Bidireccional
-    @JoinColumn(name = "reclamo_id")
-    @OneToOne(fetch = FetchType.LAZY)
-    private ReclamoModel reclamo;
 }

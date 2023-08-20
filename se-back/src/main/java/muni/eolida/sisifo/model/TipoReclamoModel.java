@@ -7,14 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import muni.eolida.sisifo.helper.AbstractAuditoriaModel;
 
-import java.util.List;
-
 @Entity
+@EqualsAndHashCode
 @Getter
 @NoArgsConstructor
 @Setter
 @Table(name = "tipo_reclamo")
-@EqualsAndHashCode
 public class TipoReclamoModel extends AbstractAuditoriaModel {
 
 	@Id
@@ -22,12 +20,7 @@ public class TipoReclamoModel extends AbstractAuditoriaModel {
 	private Long id;
 	private String tipo;
 
-	// Bidireccional
-	@OneToMany(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "reclamo_id")
-	private List<ReclamoModel> reclamos;
-
-	// Bidireccional
+	// Bidireccional secundario
 	@ManyToOne()
 	@JoinColumn(name = "area_id")
 	private AreaModel area;

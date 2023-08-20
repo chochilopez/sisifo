@@ -10,11 +10,11 @@ import muni.eolida.sisifo.helper.AbstractAuditoriaModel;
 import java.util.List;
 
 @Entity
+@EqualsAndHashCode
 @Getter
 @NoArgsConstructor
 @Setter
 @Table(name = "seguimiento")
-@EqualsAndHashCode
 public class SeguimientoModel extends AbstractAuditoriaModel {
 
 	@Id
@@ -22,11 +22,7 @@ public class SeguimientoModel extends AbstractAuditoriaModel {
 	private Long id;
 	private String descripcion;
 
-	@OneToMany(mappedBy = "seguimiento", cascade = CascadeType.PERSIST)
+	// Bidereccional primaria
+	@OneToMany(mappedBy = "seguimiento", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<EstadoReclamoModel> estados;
-
-	// Bidireccional
-	@JoinColumn(name = "reclamo_id")
-	@OneToOne(fetch = FetchType.LAZY)
-	private ReclamoModel reclamo;
 }

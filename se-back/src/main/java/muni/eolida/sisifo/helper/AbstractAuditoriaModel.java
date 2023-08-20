@@ -5,8 +5,6 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 import muni.eolida.sisifo.model.UsuarioModel;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import java.time.LocalDateTime;
 
@@ -14,19 +12,14 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Setter
 public abstract class AbstractAuditoriaModel {
-
-    @Cascade(CascadeType.SAVE_UPDATE)
-    @ManyToOne()
-    private UsuarioModel creador;
     private LocalDateTime creada;
-
-    @Cascade(CascadeType.SAVE_UPDATE)
-    @ManyToOne()
-    private UsuarioModel eliminador;
+    private LocalDateTime modificada;
     private LocalDateTime eliminada;
 
-    @Cascade(CascadeType.SAVE_UPDATE)
+    @ManyToOne()
+    private UsuarioModel creador;
     @ManyToOne()
     private UsuarioModel modificador;
-    private LocalDateTime modificada;
+    @ManyToOne()
+    private UsuarioModel eliminador;
 }
