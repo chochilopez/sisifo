@@ -1,12 +1,12 @@
-package muni.eolida.sisifo.helper.email.service;
+package muni.eolida.sisifo.util.email.service;
 
 import muni.eolida.sisifo.helper.EntityMessenger;
 import muni.eolida.sisifo.helper.Helper;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.email.repository.EmailDAO;
-import muni.eolida.sisifo.helper.email.EmailModel;
-import muni.eolida.sisifo.helper.email.mapper.EmailCreation;
-import muni.eolida.sisifo.helper.email.mapper.EmailMapper;
+import muni.eolida.sisifo.util.email.repository.EmailDAO;
+import muni.eolida.sisifo.util.email.EmailModel;
+import muni.eolida.sisifo.util.email.mapper.EmailCreation;
+import muni.eolida.sisifo.util.email.mapper.EmailMapper;
 import muni.eolida.sisifo.service.implementation.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

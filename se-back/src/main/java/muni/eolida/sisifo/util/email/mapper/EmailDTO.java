@@ -1,4 +1,4 @@
-package muni.eolida.sisifo.helper.email.mapper;
+package muni.eolida.sisifo.util.email.mapper;
 
 import lombok.Getter;
 import lombok.Setter;

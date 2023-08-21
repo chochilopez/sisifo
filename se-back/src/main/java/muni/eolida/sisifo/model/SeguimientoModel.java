@@ -9,6 +9,7 @@ import muni.eolida.sisifo.helper.AbstractAuditoriaModel;
 
 import java.util.List;
 
+//@Builder
 @Entity
 @EqualsAndHashCode
 @Getter

@@ -1,6 +1,6 @@
-package muni.eolida.sisifo.helper.email.repository;
+package muni.eolida.sisifo.util.email.repository;
 
-import muni.eolida.sisifo.helper.email.EmailModel;
+import muni.eolida.sisifo.util.email.EmailModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -8,6 +8,7 @@ import lombok.Setter;
 import muni.eolida.sisifo.helper.AbstractAuditoriaModel;
 import muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum;
 
+//@Builder
 @Entity
 @EqualsAndHashCode
 @Getter

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import muni.eolida.sisifo.helper.AbstractAuditoriaModel;
 
+//@Builder
 @Entity
 @EqualsAndHashCode
 @Getter

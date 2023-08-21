@@ -1,4 +1,4 @@
-package muni.eolida.sisifo.helper.email;
+package muni.eolida.sisifo.util.email;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

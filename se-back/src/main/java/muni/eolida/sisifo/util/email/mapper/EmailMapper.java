@@ -1,7 +1,7 @@
-package muni.eolida.sisifo.helper.email.mapper;
+package muni.eolida.sisifo.util.email.mapper;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.email.EmailModel;
+import muni.eolida.sisifo.util.email.EmailModel;
 import org.springframework.stereotype.Component;
 
 @Component

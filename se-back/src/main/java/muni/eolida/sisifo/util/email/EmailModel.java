@@ -1,4 +1,4 @@
-package muni.eolida.sisifo.helper.email;
+package muni.eolida.sisifo.util.email;
 
 import lombok.*;
 
@@ -7,6 +7,7 @@ import muni.eolida.sisifo.helper.AbstractAuditoriaModel;
 
 import java.time.LocalDateTime;
 
+//@Builder
 @Getter
 @Entity
 @NoArgsConstructor

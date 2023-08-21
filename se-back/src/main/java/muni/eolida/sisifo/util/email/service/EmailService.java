@@ -1,8 +1,8 @@
-package muni.eolida.sisifo.helper.email.service;
+package muni.eolida.sisifo.util.email.service;
 
 import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.email.EmailModel;
-import muni.eolida.sisifo.helper.email.mapper.EmailCreation;
+import muni.eolida.sisifo.util.email.EmailModel;
+import muni.eolida.sisifo.util.email.mapper.EmailCreation;
 
 public interface EmailService {
     EntityMessenger<EmailModel> buscarPorId(Long id);

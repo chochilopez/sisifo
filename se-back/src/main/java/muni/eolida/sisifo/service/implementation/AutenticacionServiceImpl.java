@@ -2,9 +2,9 @@ package muni.eolida.sisifo.service.implementation;
 
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.email.EmailModel;
-import muni.eolida.sisifo.helper.email.mapper.EmailCreation;
-import muni.eolida.sisifo.helper.email.service.EmailServiceImpl;
+import muni.eolida.sisifo.util.email.EmailModel;
+import muni.eolida.sisifo.util.email.mapper.EmailCreation;
+import muni.eolida.sisifo.util.email.service.EmailServiceImpl;
 import muni.eolida.sisifo.helper.payload.request.LoginRequest;
 import muni.eolida.sisifo.helper.payload.response.JwtResponse;
 import muni.eolida.sisifo.mapper.creation.UsuarioCreation;
