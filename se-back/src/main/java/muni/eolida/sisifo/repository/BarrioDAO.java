@@ -1,6 +1,5 @@
 package muni.eolida.sisifo.repository;
 
-import muni.eolida.sisifo.helper.GenericDTO;
 import muni.eolida.sisifo.model.BarrioModel;
 import org.springframework.stereotype.Repository;
 

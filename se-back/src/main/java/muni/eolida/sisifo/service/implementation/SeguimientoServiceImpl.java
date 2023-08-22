@@ -1,14 +1,14 @@
 package muni.eolida.sisifo.service.implementation;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.SeguimientoMapper;
 import muni.eolida.sisifo.mapper.creation.SeguimientoCreation;
 import muni.eolida.sisifo.model.SeguimientoModel;
 import muni.eolida.sisifo.repository.SeguimientoDAO;
 import muni.eolida.sisifo.service.SeguimientoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +16,11 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class SeguimientoServiceImpl implements SeguimientoService {
-
-    @Autowired
-    private SeguimientoDAO seguimientoDAO;
-    @Autowired
-    private SeguimientoMapper seguimientoMapper;
-    @Autowired
-    private UsuarioServiceImpl usuarioService;
+    private final SeguimientoDAO seguimientoDAO;
+    private final SeguimientoMapper seguimientoMapper;
+    private final UsuarioServiceImpl usuarioService;
 
     @Override
     public EntityMessenger<SeguimientoModel> buscarTodasPorDescripcion(String descripcion) {

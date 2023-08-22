@@ -1,8 +1,17 @@
 package muni.eolida.sisifo.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.ArchivoMapper;
 import muni.eolida.sisifo.mapper.creation.ArchivoCreation;
 import muni.eolida.sisifo.mapper.dto.ArchivoDTO;
@@ -24,16 +33,25 @@ import java.util.List;
 @RequestMapping(value = "/api/archivo")
 @RestController
 @Slf4j
+@RequiredArgsConstructor
+@Tag(name = "ENDPOINTS ARCHIVO", description = "Recursos referidos a las imagenes de los reclamos.")
 public class ArchivoController {
+    private final ArchivoServiceImpl archivoService;
+    private final ArchivoMapper archivoMapper;
 
-    @Autowired
-    private ArchivoServiceImpl archivoService;
-    @Autowired
-    private ArchivoMapper archivoMapper;
-
+    @Operation(
+            security = {@SecurityRequirement(name="Bearer")},
+            summary = "Guardar imagen.",
+            description = "Guarda una imagen, acepta MultipartFile, retorna el nombre generico de la imagen y el path para accesarla. Rol minimo para acceder al recurso: CONTRIBUYENTE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Archivo insertado correctamente, devuelve nombre y path."),
+            @ApiResponse(responseCode = "202", description = "Error al guardar el archivo. Devuelve codigo de estado y mensaje."),
+            @ApiResponse(responseCode = "204", description = "Excepcion al guardar el archivo. Devuelve codigo de estado y mensaje."),
+            @ApiResponse(responseCode = "401", description = "No autorizado.")
+    })
     @PutMapping(value = "/guardar",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
-    public ResponseEntity<ArchivoDTO> saveLocalFile(@RequestParam("file") MultipartFile multipartFile) {
+    public ResponseEntity<ArchivoDTO> saveLocalFile(@RequestParam("file") @Parameter(name = "id", description = "Product id", example = "1") MultipartFile multipartFile) {
         try{
             EntityMessenger<ArchivoModel> objeto = archivoService.guardarArchivo(multipartFile.getBytes());
             if (objeto.getEstado() == 202)
@@ -47,9 +65,28 @@ public class ArchivoController {
         }
     }
 
+    @Operation(summary = "Get the svg badge of the specified domain with expiration date and lastUpdate color.",
+            description = "Color scheme is: "
+                    + "<ul><li>green: domain is valid</li>"
+                    + "<li>red: domain is expired</li>"
+                    + "<li>yellow: domain is about to expire</li></ul>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Retrieve the badge.svg thanks to the redirect",
+                    content = @Content(mediaType = "image/svg+xml")),
+            @ApiResponse(responseCode = "303",
+                    description = "Redirect to https://img.shields.io/badge/{domaine-name}-{expiration-date}-{color}",
+                    content = @Content(mediaType = "image/svg+xml")),
+            @ApiResponse(responseCode = "400",
+                    description = "Bad request. Invalid extension",
+                    content = @Content(mediaType = MediaType.ALL_VALUE)),
+            @ApiResponse(responseCode = "404",
+                    description = "Domaine not found",
+                    content = @Content(mediaType = MediaType.ALL_VALUE))
+    })
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
-    public ResponseEntity<ArchivoDTO> buscarPorId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<ArchivoDTO> buscarPorId(@PathVariable(name = "id") Long id) {
         EntityMessenger<ArchivoModel> objeto = archivoService.buscarPorId(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -59,9 +96,10 @@ public class ArchivoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(hidden = true)
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<ArchivoDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<ArchivoDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") Long id) {
         EntityMessenger<ArchivoModel> objeto = archivoService.buscarPorIdConEliminadas(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -71,6 +109,7 @@ public class ArchivoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(hidden = true)
     @GetMapping(value = "/buscar-todas")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<ArchivoDTO>> buscarTodas() {
@@ -145,7 +184,7 @@ public class ArchivoController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<ArchivoDTO> borrar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<ArchivoDTO> borrar(@PathVariable(name = "id") Long id) {
         EntityMessenger<ArchivoModel> objeto = archivoService.eliminar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -157,7 +196,7 @@ public class ArchivoController {
 
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<ArchivoDTO> reciclar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<ArchivoDTO> reciclar(@PathVariable(name = "id") Long id) {
         EntityMessenger<ArchivoModel> objeto = archivoService.reciclar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -169,7 +208,7 @@ public class ArchivoController {
 
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<String> destruir(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {
         EntityMessenger<ArchivoModel> objeto = archivoService.destruir(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();

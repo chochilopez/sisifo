@@ -1,14 +1,14 @@
 package muni.eolida.sisifo.service.implementation;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.AreaMapper;
 import muni.eolida.sisifo.mapper.creation.AreaCreation;
 import muni.eolida.sisifo.model.AreaModel;
 import muni.eolida.sisifo.repository.AreaDAO;
 import muni.eolida.sisifo.service.AreaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +16,11 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class AreaServiceImpl implements AreaService {
-
-    @Autowired
-    private AreaDAO areaDAO;
-    @Autowired
-    private AreaMapper areaMapper;
-    @Autowired
-    private UsuarioServiceImpl usuarioService;
+    private final AreaDAO areaDAO;
+    private final AreaMapper areaMapper;
+    private final UsuarioServiceImpl usuarioService;
 
     @Override
     public EntityMessenger<AreaModel> buscarTodasPorArea(String area) {

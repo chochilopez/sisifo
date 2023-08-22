@@ -1,15 +1,15 @@
 package muni.eolida.sisifo.service.implementation;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.EstadoReclamoMapper;
 import muni.eolida.sisifo.mapper.creation.EstadoReclamoCreation;
 import muni.eolida.sisifo.model.EstadoReclamoModel;
 import muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum;
 import muni.eolida.sisifo.repository.EstadoReclamoDAO;
 import muni.eolida.sisifo.service.EstadoReclamoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,14 +17,11 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class EstadoReclamoServiceImpl implements EstadoReclamoService {
-
-    @Autowired
-    private EstadoReclamoDAO estadoReclamoDAO;
-    @Autowired
-    private EstadoReclamoMapper estadoReclamoMapper;
-    @Autowired
-    private UsuarioServiceImpl usuarioService;
+    private final EstadoReclamoDAO estadoReclamoDAO;
+    private final EstadoReclamoMapper estadoReclamoMapper;
+    private final UsuarioServiceImpl usuarioService;
 
     @Override
     public EntityMessenger<EstadoReclamoModel> buscarPorEstadoReclamo(String estado) {

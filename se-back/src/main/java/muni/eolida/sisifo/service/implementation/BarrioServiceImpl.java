@@ -1,14 +1,14 @@
 package muni.eolida.sisifo.service.implementation;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.BarrioMapper;
 import muni.eolida.sisifo.mapper.creation.BarrioCreation;
 import muni.eolida.sisifo.model.BarrioModel;
 import muni.eolida.sisifo.repository.BarrioDAO;
 import muni.eolida.sisifo.service.BarrioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +16,11 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class BarrioServiceImpl implements BarrioService {
-
-    @Autowired
-    private BarrioDAO barrioDAO;
-    @Autowired
-    private BarrioMapper barrioMapper;
-    @Autowired
-    private UsuarioServiceImpl usuarioService;
+    private final BarrioDAO barrioDAO;
+    private final BarrioMapper barrioMapper;
+    private final UsuarioServiceImpl usuarioService;
 
     @Override
     public EntityMessenger<BarrioModel> buscarTodasPorBarrio(String barrio) {

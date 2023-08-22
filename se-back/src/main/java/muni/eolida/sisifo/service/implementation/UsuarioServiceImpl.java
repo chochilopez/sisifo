@@ -1,15 +1,15 @@
 package muni.eolida.sisifo.service.implementation;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.UsuarioMapper;
 import muni.eolida.sisifo.mapper.creation.UsuarioCreation;
 import muni.eolida.sisifo.model.UsuarioModel;
 import muni.eolida.sisifo.model.RolModel;
 import muni.eolida.sisifo.repository.UsuarioDAO;
 import muni.eolida.sisifo.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -20,14 +20,11 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
-
-    @Autowired
-    private UsuarioDAO usuarioDAO;
-    @Autowired
-    private UsuarioMapper usuarioMapper;
-    @Autowired
-    private RolServiceImpl rolService;
+    private final UsuarioDAO usuarioDAO;
+    private final UsuarioMapper usuarioMapper;
+    private final RolServiceImpl rolService;
 
     @Override
     public EntityMessenger<UsuarioModel> buscarPorNombreDeUsuario(String nombreUsuario) {

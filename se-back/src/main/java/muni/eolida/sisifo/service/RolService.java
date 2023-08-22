@@ -1,7 +1,6 @@
 package muni.eolida.sisifo.service;
 
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.GenericService;
+import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.mapper.creation.RolCreation;
 import muni.eolida.sisifo.model.RolModel;
 

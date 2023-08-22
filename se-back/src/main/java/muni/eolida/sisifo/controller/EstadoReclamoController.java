@@ -1,8 +1,8 @@
 package muni.eolida.sisifo.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.EstadoReclamoMapper;
 import muni.eolida.sisifo.mapper.creation.EstadoReclamoCreation;
 import muni.eolida.sisifo.mapper.dto.EstadoReclamoDTO;
@@ -31,7 +31,7 @@ public class EstadoReclamoController {
 
     @GetMapping(value = "/buscar-por-estado-reclamo/{estadoReclamo}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<List<EstadoReclamoDTO>> buscarPorEstadoReclamo(@PathVariable(name = "estadoReclamo") @javax.validation.constraints.Size(min = 3, max = 40) String estadoReclamo) {
+    public ResponseEntity<List<EstadoReclamoDTO>> buscarPorEstadoReclamo(@PathVariable(name = "estadoReclamo")  String estadoReclamo) {
         EntityMessenger<EstadoReclamoModel> listado = estadoReclamoService.buscarPorEstadoReclamo(estadoReclamo);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -48,7 +48,7 @@ public class EstadoReclamoController {
 
     @GetMapping(value = "/buscar-por-estado-reclamo-con-eliminadas/{estadoReclamo}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<EstadoReclamoDTO>> buscarPorEstadoReclamoConEliminadas(@PathVariable(name = "estadoReclamo") @javax.validation.constraints.Size(min = 3, max = 40) String estadoReclamo) {
+    public ResponseEntity<List<EstadoReclamoDTO>> buscarPorEstadoReclamoConEliminadas(@PathVariable(name = "estadoReclamo")  String estadoReclamo) {
         EntityMessenger<EstadoReclamoModel> listado = estadoReclamoService.buscarPorEstadoReclamoConEliminadas(estadoReclamo);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -65,7 +65,7 @@ public class EstadoReclamoController {
 
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<EstadoReclamoDTO> buscarPorId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<EstadoReclamoDTO> buscarPorId(@PathVariable(name = "id") Long id) {
         EntityMessenger<EstadoReclamoModel> objeto = estadoReclamoService.buscarPorId(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -77,7 +77,7 @@ public class EstadoReclamoController {
 
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<EstadoReclamoDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<EstadoReclamoDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") Long id) {
         EntityMessenger<EstadoReclamoModel> objeto = estadoReclamoService.buscarPorIdConEliminadas(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -161,7 +161,7 @@ public class EstadoReclamoController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<EstadoReclamoDTO> borrar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<EstadoReclamoDTO> borrar(@PathVariable(name = "id") Long id) {
         EntityMessenger<EstadoReclamoModel> objeto = estadoReclamoService.eliminar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -173,7 +173,7 @@ public class EstadoReclamoController {
 
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<EstadoReclamoDTO> reciclar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<EstadoReclamoDTO> reciclar(@PathVariable(name = "id") Long id) {
         EntityMessenger<EstadoReclamoModel> objeto = estadoReclamoService.reciclar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -185,7 +185,7 @@ public class EstadoReclamoController {
 
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<String> destruir(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {
         EntityMessenger<EstadoReclamoModel> objeto = estadoReclamoService.destruir(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();

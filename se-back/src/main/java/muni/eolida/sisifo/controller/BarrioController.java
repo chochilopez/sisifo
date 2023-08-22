@@ -1,8 +1,8 @@
 package muni.eolida.sisifo.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.BarrioMapper;
 import muni.eolida.sisifo.mapper.creation.BarrioCreation;
 import muni.eolida.sisifo.mapper.dto.BarrioDTO;
@@ -31,7 +31,7 @@ public class BarrioController {
 
     @GetMapping(value = "/buscar-por-nombre/{barrio}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
-    public ResponseEntity<List<BarrioDTO>> buscarTodasPorBarrio(@PathVariable(name = "barrio") @javax.validation.constraints.Size(min = 3, max = 40) String barrio) {
+    public ResponseEntity<List<BarrioDTO>> buscarTodasPorBarrio(@PathVariable(name = "barrio")  String barrio) {
         EntityMessenger<BarrioModel> listado = barrioService.buscarTodasPorBarrio(barrio);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -48,7 +48,7 @@ public class BarrioController {
 
     @GetMapping(value = "/buscar-por-nombre-con-eliminadas/{barrio}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<BarrioDTO>> buscarTodasPorBarrioConEliminadas(@PathVariable(name = "barrio") @javax.validation.constraints.Size(min = 3, max = 40) String barrio) {
+    public ResponseEntity<List<BarrioDTO>> buscarTodasPorBarrioConEliminadas(@PathVariable(name = "barrio")  String barrio) {
         EntityMessenger<BarrioModel> listado = barrioService.buscarTodasPorBarrioConEliminadas(barrio);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -65,7 +65,7 @@ public class BarrioController {
 
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
-    public ResponseEntity<BarrioDTO> buscarPorId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<BarrioDTO> buscarPorId(@PathVariable(name = "id") Long id) {
         EntityMessenger<BarrioModel> objeto = barrioService.buscarPorId(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -77,7 +77,7 @@ public class BarrioController {
 
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<BarrioDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<BarrioDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") Long id) {
         EntityMessenger<BarrioModel> objeto = barrioService.buscarPorIdConEliminadas(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -161,7 +161,7 @@ public class BarrioController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<BarrioDTO> borrar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<BarrioDTO> borrar(@PathVariable(name = "id") Long id) {
         EntityMessenger<BarrioModel> objeto = barrioService.eliminar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -173,7 +173,7 @@ public class BarrioController {
 
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<BarrioDTO> reciclar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<BarrioDTO> reciclar(@PathVariable(name = "id") Long id) {
         EntityMessenger<BarrioModel> objeto = barrioService.reciclar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -185,7 +185,7 @@ public class BarrioController {
 
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<String> destruir(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {
         EntityMessenger<BarrioModel> objeto = barrioService.destruir(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();

@@ -1,6 +1,6 @@
 package muni.eolida.sisifo.util.email.service;
 
-import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.util.email.EmailModel;
 import muni.eolida.sisifo.util.email.mapper.EmailCreation;
 

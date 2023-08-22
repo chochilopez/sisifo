@@ -1,7 +1,8 @@
 package muni.eolida.sisifo.service.implementation;
 
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import lombok.RequiredArgsConstructor;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.ArchivoMapper;
 import muni.eolida.sisifo.mapper.creation.ArchivoCreation;
 import muni.eolida.sisifo.model.ArchivoModel;
@@ -9,7 +10,6 @@ import muni.eolida.sisifo.model.UsuarioModel;
 import muni.eolida.sisifo.repository.ArchivoDAO;
 import muni.eolida.sisifo.service.ArchivoService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +21,13 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ArchivoServiceImpl implements ArchivoService {
+    private final ArchivoDAO archivoDAO;
+    private final ArchivoMapper archivoMapper;
+    private final UsuarioServiceImpl usuarioService;
     @Value("${sisifo.app.resourcePath}")
     private String resourcePath;
-    @Autowired
-    private ArchivoDAO archivoDAO;
-    @Autowired
-    private ArchivoMapper archivoMapper;
-    @Autowired
-    private UsuarioServiceImpl usuarioService;
 
     @Override
     public EntityMessenger<ArchivoModel> guardarArchivo(byte[] bytes) {

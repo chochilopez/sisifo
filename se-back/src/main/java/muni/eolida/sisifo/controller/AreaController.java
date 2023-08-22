@@ -1,8 +1,8 @@
 package muni.eolida.sisifo.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.AreaMapper;
 import muni.eolida.sisifo.mapper.creation.AreaCreation;
 import muni.eolida.sisifo.mapper.dto.AreaDTO;
@@ -31,7 +31,7 @@ public class AreaController {
 
     @GetMapping(value = "/buscar-por-nombre/{area}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<List<AreaDTO>> buscarTodasPorArea(@PathVariable(name = "area") @javax.validation.constraints.Size(min = 3, max = 40) String area) {
+    public ResponseEntity<List<AreaDTO>> buscarTodasPorArea(@PathVariable(name = "area")  String area) {
         EntityMessenger<AreaModel> listado = areaService.buscarTodasPorArea(area);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -48,7 +48,7 @@ public class AreaController {
 
     @GetMapping(value = "/buscar-por-nombre-con-eliminadas/{area}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<AreaDTO>> buscarTodasPorAreaConEliminadas(@PathVariable(name = "area") @javax.validation.constraints.Size(min = 3, max = 40) String area) {
+    public ResponseEntity<List<AreaDTO>> buscarTodasPorAreaConEliminadas(@PathVariable(name = "area")  String area) {
         EntityMessenger<AreaModel> listado = areaService.buscarTodasPorAreaConEliminadas(area);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -65,7 +65,7 @@ public class AreaController {
 
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<AreaDTO> buscarPorId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<AreaDTO> buscarPorId(@PathVariable(name = "id") Long id) {
         EntityMessenger<AreaModel> objeto = areaService.buscarPorId(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -77,7 +77,7 @@ public class AreaController {
 
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<AreaDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<AreaDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") Long id) {
         EntityMessenger<AreaModel> objeto = areaService.buscarPorIdConEliminadas(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -161,7 +161,7 @@ public class AreaController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<AreaDTO> borrar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<AreaDTO> borrar(@PathVariable(name = "id") Long id) {
         EntityMessenger<AreaModel> objeto = areaService.eliminar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -173,7 +173,7 @@ public class AreaController {
 
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<AreaDTO> reciclar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<AreaDTO> reciclar(@PathVariable(name = "id") Long id) {
         EntityMessenger<AreaModel> objeto = areaService.reciclar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -185,7 +185,7 @@ public class AreaController {
 
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<String> destruir(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {
         EntityMessenger<AreaModel> objeto = areaService.destruir(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();

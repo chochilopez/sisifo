@@ -1,7 +1,7 @@
 package muni.eolida.sisifo.mapper;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.mapper.creation.ReclamoCreation;
 import muni.eolida.sisifo.mapper.dto.*;
 import muni.eolida.sisifo.model.*;

@@ -1,8 +1,8 @@
 package muni.eolida.sisifo.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.Helper;
-import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.mapper.SeguimientoMapper;
 import muni.eolida.sisifo.mapper.creation.SeguimientoCreation;
 import muni.eolida.sisifo.mapper.dto.SeguimientoDTO;
@@ -31,7 +31,7 @@ public class SeguimientoController {
 
     @GetMapping(value = "/buscar-todas-por-descripcion/{descripcion}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<List<SeguimientoDTO>> buscarTodasPorDescripcion(@PathVariable(name = "descripcion") @javax.validation.constraints.Size(min = 3, max = 40) String descripcion) {
+    public ResponseEntity<List<SeguimientoDTO>> buscarTodasPorDescripcion(@PathVariable(name = "descripcion")  String descripcion) {
         EntityMessenger<SeguimientoModel> listado = seguimientoService.buscarTodasPorDescripcion(descripcion);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -48,7 +48,7 @@ public class SeguimientoController {
 
     @GetMapping(value = "/buscar-todas-por-descripcion-con-eliminadas/{descripcion}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<SeguimientoDTO>> buscarTodasPorDescripcionConEliminadas(@PathVariable(name = "descripcion") @javax.validation.constraints.Size(min = 3, max = 40) String descripcion) {
+    public ResponseEntity<List<SeguimientoDTO>> buscarTodasPorDescripcionConEliminadas(@PathVariable(name = "descripcion")  String descripcion) {
         EntityMessenger<SeguimientoModel> listado = seguimientoService.buscarTodasPorDescripcionConEliminadas(descripcion);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -66,8 +66,8 @@ public class SeguimientoController {
     @GetMapping(value = "/buscar-todas-por-creada-entre-fechas/{inicio}/{fin}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
     public ResponseEntity<List<SeguimientoDTO>> buscarTodasPorCreadaEntreFechas(
-            @PathVariable(name = "inicio") @javax.validation.constraints.Size(min = 3, max = 40) String inicio,
-            @PathVariable(name = "fin") @javax.validation.constraints.Size(min = 3, max = 40) String fin){
+            @PathVariable(name = "inicio")  String inicio,
+            @PathVariable(name = "fin")  String fin){
         EntityMessenger<SeguimientoModel> listado = seguimientoService.buscarTodasPorCreadaEntreFechas(inicio, fin);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -85,8 +85,8 @@ public class SeguimientoController {
     @GetMapping(value = "/buscar-todas-por-creada-entre-fechas-con-eliminadas/{inicio}/{fin}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<SeguimientoDTO>> buscarTodasPorCreadaEntreFechasConEliminadas(
-            @PathVariable(name = "inicio") @javax.validation.constraints.Size(min = 3, max = 40) String inicio,
-            @PathVariable(name = "fin") @javax.validation.constraints.Size(min = 3, max = 40) String fin){
+            @PathVariable(name = "inicio")  String inicio,
+            @PathVariable(name = "fin")  String fin){
         EntityMessenger<SeguimientoModel> listado = seguimientoService.buscarTodasPorCreadaEntreFechasConEliminadas(inicio, fin);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -103,7 +103,7 @@ public class SeguimientoController {
 
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<SeguimientoDTO> buscarPorId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<SeguimientoDTO> buscarPorId(@PathVariable(name = "id") Long id) {
         EntityMessenger<SeguimientoModel> objeto = seguimientoService.buscarPorId(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -115,7 +115,7 @@ public class SeguimientoController {
 
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<SeguimientoDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<SeguimientoDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") Long id) {
         EntityMessenger<SeguimientoModel> objeto = seguimientoService.buscarPorIdConEliminadas(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -199,7 +199,7 @@ public class SeguimientoController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<SeguimientoDTO> borrar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<SeguimientoDTO> borrar(@PathVariable(name = "id") Long id) {
         EntityMessenger<SeguimientoModel> objeto = seguimientoService.eliminar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -211,7 +211,7 @@ public class SeguimientoController {
 
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<SeguimientoDTO> reciclar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<SeguimientoDTO> reciclar(@PathVariable(name = "id") Long id) {
         EntityMessenger<SeguimientoModel> objeto = seguimientoService.reciclar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -223,7 +223,7 @@ public class SeguimientoController {
 
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<String> destruir(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {
         EntityMessenger<SeguimientoModel> objeto = seguimientoService.destruir(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();

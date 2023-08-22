@@ -1,14 +1,14 @@
 package muni.eolida.sisifo.service.implementation;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.CalleMapper;
 import muni.eolida.sisifo.mapper.creation.CalleCreation;
 import muni.eolida.sisifo.model.CalleModel;
 import muni.eolida.sisifo.repository.CalleDAO;
 import muni.eolida.sisifo.service.CalleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +16,11 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CalleServiceImpl implements CalleService {
-
-    @Autowired
-    private CalleDAO calleDAO;
-    @Autowired
-    private CalleMapper calleMapper;
-    @Autowired
-    private UsuarioServiceImpl usuarioService;
+    private final CalleDAO calleDAO;
+    private final CalleMapper calleMapper;
+    private final UsuarioServiceImpl usuarioService;
 
     @Override
     public EntityMessenger<CalleModel> buscarTodasPorCalle(String calle) {

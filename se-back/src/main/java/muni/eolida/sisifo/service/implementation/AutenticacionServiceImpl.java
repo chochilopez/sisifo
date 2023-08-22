@@ -1,54 +1,50 @@
 package muni.eolida.sisifo.service.implementation;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.mapper.dto.AutenticacionRequestDTO;
+import muni.eolida.sisifo.mapper.dto.AutenticacionResponseDTO;
+import muni.eolida.sisifo.model.TokenModel;
+import muni.eolida.sisifo.model.enums.TipoToken;
+import muni.eolida.sisifo.repository.TokenDAO;
+import muni.eolida.sisifo.security.JwtService;
+import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.util.email.EmailModel;
 import muni.eolida.sisifo.util.email.mapper.EmailCreation;
 import muni.eolida.sisifo.util.email.service.EmailServiceImpl;
-import muni.eolida.sisifo.helper.payload.request.LoginRequest;
-import muni.eolida.sisifo.helper.payload.response.JwtResponse;
 import muni.eolida.sisifo.mapper.creation.UsuarioCreation;
 import muni.eolida.sisifo.model.UsuarioModel;
-import muni.eolida.sisifo.model.enums.RolEnum;
-import muni.eolida.sisifo.repository.UsuarioDAO;
-import muni.eolida.sisifo.security.jwt.JwtUtils;
-import muni.eolida.sisifo.security.services.UserDetailsServiceImpl;
 import org.apache.tomcat.util.codec.binary.Base64;
 import muni.eolida.sisifo.service.AutenticacionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.keygen.BytesKeyGenerator;
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.IOException;
+import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 @Slf4j
 public class AutenticacionServiceImpl implements AutenticacionService {
 
-    @Autowired
-    private UsuarioServiceImpl usuarioService;
-    @Autowired
-    private UsuarioDAO usuarioDAO;
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-    @Autowired
-    private JwtUtils jwtUtils;
-    @Autowired
-    private EmailServiceImpl emailService;
+    private final UsuarioServiceImpl usuarioService;
+    private final AuthenticationManager authenticationManager;
+    private final TokenDAO tokenDAO;
+    private final JwtService jwtService;
+    private final EmailServiceImpl emailService;
 
     @Value("${sisifo.app.mail.username}")
     private String sender;
@@ -57,38 +53,41 @@ public class AutenticacionServiceImpl implements AutenticacionService {
     private static final BytesKeyGenerator DEFAULT_TOKEN_GENERATOR = KeyGenerators.secureRandom(15);
 
     @Override
-    public EntityMessenger<JwtResponse> ingresarUsuario(LoginRequest loginRequest) {
+    public EntityMessenger<AutenticacionResponseDTO> ingresar(AutenticacionRequestDTO autenticacionRequestDTO) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(autenticacionRequestDTO.getUsername(), autenticacionRequestDTO.getPassword()));
+            EntityMessenger<UsuarioModel> usuarioModelEntityMessenger = usuarioService.buscarPorNombreDeUsuario(autenticacionRequestDTO.getUsername());
+            if (usuarioModelEntityMessenger.getEstado() == 200) {
+                String token = jwtService.generarToken(usuarioModelEntityMessenger.getObjeto());
+                String refresh = jwtService.generarRefreshToken(usuarioModelEntityMessenger.getObjeto());
+                this.revocarTokensUsuario(usuarioModelEntityMessenger.getObjeto());
+                this.guardarTokenUsuario(usuarioModelEntityMessenger.getObjeto(), token);
+                String mensaje = "El usuario " + autenticacionRequestDTO.getUsername() + " se logueo correctamente.";
+                log.info(mensaje);
+                return new EntityMessenger<AutenticacionResponseDTO>(
+                        AutenticacionResponseDTO.builder()
+                                .tokenAcceso(token)
+                                .tokenRefresco(refresh)
+                                .build(),
+                        null,
+                        mensaje,
+                        200
+                );
+            } else
+                return new EntityMessenger<>(null, null, usuarioModelEntityMessenger.getMensaje(), usuarioModelEntityMessenger.getEstado());
         } catch (DisabledException e) {
             String mensaje = "El usuario se encuentra deshabilitado.";
             log.info(mensaje);
-            return new EntityMessenger<JwtResponse>(null, null, mensaje, 204);
+            return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 204);
         } catch (BadCredentialsException e) {
             String mensaje = "El usuario no posee credenciales válidas.";
             log.info(mensaje);
-            return new EntityMessenger<JwtResponse>(null, null, mensaje, 204);
+            return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 204);
         } catch (UsernameNotFoundException e) {
             String mensaje = "El usuario no existe o la cuenta no se encuentra habilitada.";
             log.info(mensaje);
-            return new EntityMessenger<JwtResponse>(null, null, mensaje, 202);
+            return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 202);
         }
-        UserDetails userdetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
-        String token = jwtUtils.generateToken(userdetails);
-        Collection<? extends GrantedAuthority> authorities = userdetails.getAuthorities();
-        Set<String> auths=new HashSet<>();
-        if (authorities.contains(new SimpleGrantedAuthority(RolEnum.JEFE.name())))
-            auths.add("JEFE");
-        if (authorities.contains(new SimpleGrantedAuthority(RolEnum.CAPATAZ.name())))
-            auths.add("CAPATAZ");
-        if (authorities.contains(new SimpleGrantedAuthority(RolEnum.EMPLEADO.name())))
-            auths.add("EMPLEADO");
-        if (authorities.contains(new SimpleGrantedAuthority(RolEnum.CONTRIBUYENTE.name())))
-            auths.add("CONTRIBUYENTE");
-
-        String mensaje = "El usuario " + loginRequest.getUsername() + " se logueo correctamente.";
-        log.info(mensaje);
-        return new EntityMessenger<JwtResponse>(new JwtResponse(token, userdetails.getUsername(), auths), null, mensaje, 200);
     }
 
     @Override
@@ -118,14 +117,14 @@ public class AutenticacionServiceImpl implements AutenticacionService {
     }
 
     @Override
-    public EntityMessenger<UsuarioModel> registrarUsuario(UsuarioCreation usuarioCreation) {
+    public EntityMessenger<UsuarioModel> registrar(UsuarioCreation usuarioCreation) {
         try {
             EntityMessenger<UsuarioModel> usuario = usuarioService.insertar(usuarioCreation);
             if (usuario.getEstado() == 201) {
                 usuario.getObjeto().setHabilitada(false);
                 String token = Base64.encodeBase64URLSafeString(DEFAULT_TOKEN_GENERATOR.generateKey());
                 usuario.getObjeto().setToken(token);
-                String body = path + usuario.getObjeto().getId() + "/" +  token;
+                String body = path + usuario.getObjeto().getId() + "/" + token;
                 EntityMessenger<EmailModel> emailModelEntidadMensaje = emailService.enviarEmailSimple(new EmailCreation(
                         "Confirmá tu dirección de email para continuar con tu reclamo.",
                         this.sender,
@@ -147,4 +146,70 @@ public class AutenticacionServiceImpl implements AutenticacionService {
         }
     }
 
+    private void guardarTokenUsuario(UsuarioModel usuario, String jwt) {
+        TokenModel token = TokenModel.builder()
+                .usuario(usuario)
+                .token(jwt)
+                .tipoToken(TipoToken.BEARER)
+                .expirado(false)
+                .revocado(false)
+                .build();
+        tokenDAO.save(token);
+    }
+
+    private void revocarTokensUsuario(UsuarioModel user) {
+        List<TokenModel> validUserTokens = tokenDAO.findAllValidTokenByUser(user.getId());
+        if (validUserTokens.isEmpty())
+            return;
+        validUserTokens.forEach(token -> {
+            token.setExpirado(true);
+            token.setRevocado(true);
+        });
+        tokenDAO.saveAll(validUserTokens);
+    }
+
+    @Override
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        final String refreshToken;
+        final String userEmail;
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return;
+        }
+        refreshToken = authHeader.substring(7);
+        userEmail = jwtService.extraerUsuario(refreshToken);
+        if (userEmail != null) {
+            EntityMessenger<UsuarioModel> usuarioModelEntityMessenger = usuarioService.buscarPorNombreDeUsuario(userEmail);
+            if (usuarioModelEntityMessenger.getEstado() == 200) {
+                if (jwtService.esValidoToken(refreshToken, usuarioModelEntityMessenger.getObjeto())) {
+                    var accessToken = jwtService.generarToken(usuarioModelEntityMessenger.getObjeto());
+                    this.revocarTokensUsuario(usuarioModelEntityMessenger.getObjeto());
+                    this.guardarTokenUsuario(usuarioModelEntityMessenger.getObjeto(), accessToken);
+                    var authResponse = AutenticacionResponseDTO.builder()
+                            .tokenAcceso(accessToken)
+                            .tokenRefresco(refreshToken)
+                            .build();
+                    new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        final String authHeader = request.getHeader("Authorization");
+        final String jwt;
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return;
+        }
+        jwt = authHeader.substring(7);
+        var storedToken = tokenDAO.findByToken(jwt)
+                .orElse(null);
+        if (storedToken != null) {
+            storedToken.setExpirado(true);
+            storedToken.setRevocado(true);
+            tokenDAO.save(storedToken);
+            SecurityContextHolder.clearContext();
+        }
+    }
 }

@@ -1,14 +1,14 @@
 package muni.eolida.sisifo.service.implementation;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.TipoReclamoMapper;
 import muni.eolida.sisifo.mapper.creation.TipoReclamoCreation;
 import muni.eolida.sisifo.model.TipoReclamoModel;
 import muni.eolida.sisifo.repository.TipoReclamoDAO;
 import muni.eolida.sisifo.service.TipoReclamoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +16,11 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class TipoReclamoServiceImpl implements TipoReclamoService {
-
-    @Autowired
-    private TipoReclamoDAO tipoReclamoDAO;
-    @Autowired
-    private TipoReclamoMapper tipoReclamoMapper;
-    @Autowired
-    private UsuarioServiceImpl usuarioService;
+    private final TipoReclamoDAO tipoReclamoDAO;
+    private final TipoReclamoMapper tipoReclamoMapper;
+    private final UsuarioServiceImpl usuarioService;
 
     @Override
     public EntityMessenger<TipoReclamoModel> buscarTodasPorAreaId(Long id) {

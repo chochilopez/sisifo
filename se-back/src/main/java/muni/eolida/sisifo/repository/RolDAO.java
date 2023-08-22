@@ -1,6 +1,5 @@
 package muni.eolida.sisifo.repository;
 
-import muni.eolida.sisifo.helper.GenericDTO;
 import muni.eolida.sisifo.model.RolModel;
 import muni.eolida.sisifo.model.enums.RolEnum;
 import org.springframework.stereotype.Repository;

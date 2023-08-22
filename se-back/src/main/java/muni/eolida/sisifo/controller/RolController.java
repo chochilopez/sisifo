@@ -1,8 +1,8 @@
 package muni.eolida.sisifo.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.Helper;
-import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.mapper.RolMapper;
 import muni.eolida.sisifo.mapper.creation.RolCreation;
 import muni.eolida.sisifo.mapper.dto.RolDTO;
@@ -31,7 +31,7 @@ public class RolController {
 
     @GetMapping(value = "/buscar-por-rol/{rol}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<List<RolDTO>> buscarTodasPorRol(@PathVariable(name = "rol") @javax.validation.constraints.Size(min = 3, max = 40) String rol) {
+    public ResponseEntity<List<RolDTO>> buscarTodasPorRol(@PathVariable(name = "rol")  String rol) {
         EntityMessenger<RolModel> listado = rolService.buscarPorRol(rol);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -48,7 +48,7 @@ public class RolController {
 
     @GetMapping(value = "/buscar-por-rol-con-eliminadas/{rol}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<RolDTO>> buscarTodasPorRolConEliminadas(@PathVariable(name = "rol") @javax.validation.constraints.Size(min = 3, max = 40) String rol) {
+    public ResponseEntity<List<RolDTO>> buscarTodasPorRolConEliminadas(@PathVariable(name = "rol")  String rol) {
         EntityMessenger<RolModel> listado = rolService.buscarPorRolConEliminadas(rol);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -65,7 +65,7 @@ public class RolController {
 
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<RolDTO> buscarPorId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<RolDTO> buscarPorId(@PathVariable(name = "id") Long id) {
         EntityMessenger<RolModel> objeto = rolService.buscarPorId(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -77,7 +77,7 @@ public class RolController {
 
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<RolDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<RolDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") Long id) {
         EntityMessenger<RolModel> objeto = rolService.buscarPorIdConEliminadas(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -161,7 +161,7 @@ public class RolController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<RolDTO> borrar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<RolDTO> borrar(@PathVariable(name = "id") Long id) {
         EntityMessenger<RolModel> objeto = rolService.eliminar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -173,7 +173,7 @@ public class RolController {
 
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<RolDTO> reciclar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<RolDTO> reciclar(@PathVariable(name = "id") Long id) {
         EntityMessenger<RolModel> objeto = rolService.reciclar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -185,7 +185,7 @@ public class RolController {
 
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<String> destruir(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {
         EntityMessenger<RolModel> objeto = rolService.destruir(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();

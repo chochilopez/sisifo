@@ -3,7 +3,7 @@ package muni.eolida.sisifo.util.email;
 import lombok.*;
 
 import jakarta.persistence.*;
-import muni.eolida.sisifo.helper.AbstractAuditoriaModel;
+import muni.eolida.sisifo.model.AbstractAuditoriaModel;
 
 import java.time.LocalDateTime;
 

@@ -1,7 +1,7 @@
 package muni.eolida.sisifo.util.email.service;
 
-import muni.eolida.sisifo.helper.EntityMessenger;
-import muni.eolida.sisifo.helper.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.util.email.repository.EmailDAO;
 import muni.eolida.sisifo.util.email.EmailModel;

@@ -1,8 +1,8 @@
 package muni.eolida.sisifo.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.helper.Helper;
-import muni.eolida.sisifo.helper.EntityMessenger;
+import muni.eolida.sisifo.util.Helper;
+import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.mapper.ReclamoMapper;
 import muni.eolida.sisifo.mapper.creation.ReclamoCreation;
 import muni.eolida.sisifo.mapper.dto.ReclamoDTO;
@@ -48,7 +48,7 @@ public class ReclamoController {
 
     @GetMapping(value = "/buscar-todas-por-creador-id/{id}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorCreadorId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 40) Long id) {
+    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorCreadorId(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> listado = reclamoService.buscarTodasPorCreadorId(id);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -65,7 +65,7 @@ public class ReclamoController {
 
     @GetMapping(value = "/buscar-todas-por-creador-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorCreadorIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 40) Long id) {
+    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorCreadorIdConEliminadas(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> listado = reclamoService.buscarTodasPorCreadorIdConEliminadas(id);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -82,7 +82,7 @@ public class ReclamoController {
 
     @GetMapping(value = "/buscar-todas-por-tipo-reclamo-id/{id}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorTipoReclamoId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 40) Long id) {
+    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorTipoReclamoId(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> listado = reclamoService.buscarTodasPorTipoReclamoId(id);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -99,7 +99,7 @@ public class ReclamoController {
 
     @GetMapping(value = "/buscar-todas-por-tipo-reclamo-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorTipoReclamoIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 40) Long id) {
+    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorTipoReclamoIdConEliminadas(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> listado = reclamoService.buscarTodasPorTipoReclamoIdConEliminadas(id);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -116,7 +116,7 @@ public class ReclamoController {
 
     @GetMapping(value = "/buscar-todas-por-barrio-id/{id}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorBarrioId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 40) Long id) {
+    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorBarrioId(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> listado = reclamoService.buscarTodasPorBarrioId(id);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -133,7 +133,7 @@ public class ReclamoController {
 
     @GetMapping(value = "/buscar-todas-por-barrio-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorBarrioIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 40) Long id) {
+    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorBarrioIdConEliminadas(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> listado = reclamoService.buscarTodasPorBarrioIdConEliminadas(id);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -150,7 +150,7 @@ public class ReclamoController {
 
     @GetMapping(value = "/buscar-todas-por-calle-id/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorCalleId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 40) Long id) {
+    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorCalleId(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> listado = reclamoService.buscarTodasPorCalleId(id);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -167,7 +167,7 @@ public class ReclamoController {
 
     @GetMapping(value = "/buscar-todas-por-calle-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorCalleIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 40) Long id) {
+    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorCalleIdConEliminadas(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> listado = reclamoService.buscarTodasPorCalleIdConEliminadas(id);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -184,7 +184,7 @@ public class ReclamoController {
 
     @GetMapping(value = "/buscar-todas-por-descripcion/{descripcion}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorDescripcion(@PathVariable(name = "reclamo") @javax.validation.constraints.Size(min = 3, max = 100) String descripcion) {
+    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorDescripcion(@PathVariable(name = "reclamo")  String descripcion) {
         EntityMessenger<ReclamoModel> listado = reclamoService.buscarTodasPorDescripcion(descripcion);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -201,7 +201,7 @@ public class ReclamoController {
 
     @GetMapping(value = "/buscar-todas-por-descripcion-con-eliminadas/{descripcion}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorDescripcionConEliminadas(@PathVariable(name = "descripcion") @javax.validation.constraints.Size(min = 3, max = 100) String descripcion) {
+    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorDescripcionConEliminadas(@PathVariable(name = "descripcion")  String descripcion) {
         EntityMessenger<ReclamoModel> listado = reclamoService.buscarTodasPorDescripcionConEliminadas(descripcion);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -219,8 +219,8 @@ public class ReclamoController {
     @GetMapping(value = "/buscar-todas-por-creada-entre-fechas/{inicio}/{fin}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
     public ResponseEntity<List<ReclamoDTO>> buscarTodasPorCreadaEntreFechas(
-            @PathVariable(name = "inicio") @javax.validation.constraints.Size(min = 3, max = 40) String inicio,
-            @PathVariable(name = "fin") @javax.validation.constraints.Size(min = 3, max = 40) String fin){
+            @PathVariable(name = "inicio")  String inicio,
+            @PathVariable(name = "fin")  String fin){
         EntityMessenger<ReclamoModel> listado = reclamoService.buscarTodasPorCreadaEntreFechas(inicio, fin);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -238,8 +238,8 @@ public class ReclamoController {
     @GetMapping(value = "/buscar-todas-por-creada-entre-fechas-con-eliminadas/{inicio}/{fin}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<ReclamoDTO>> buscarTodasPorCreadaEntreFechasConEliminadas(
-            @PathVariable(name = "inicio") @javax.validation.constraints.Size(min = 3, max = 40) String inicio,
-            @PathVariable(name = "fin") @javax.validation.constraints.Size(min = 3, max = 40) String fin){
+            @PathVariable(name = "inicio")  String inicio,
+            @PathVariable(name = "fin")  String fin){
         EntityMessenger<ReclamoModel> listado = reclamoService.buscarTodasPorCreadaEntreFechasConEliminadas(inicio, fin);
         if (listado.getEstado() == 202) {
             return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
@@ -256,7 +256,7 @@ public class ReclamoController {
 
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<ReclamoDTO> buscarPorId(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<ReclamoDTO> buscarPorId(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> objeto = reclamoService.buscarPorId(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -268,7 +268,7 @@ public class ReclamoController {
 
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<ReclamoDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<ReclamoDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> objeto = reclamoService.buscarPorIdConEliminadas(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -352,7 +352,7 @@ public class ReclamoController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<ReclamoDTO> borrar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<ReclamoDTO> borrar(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> objeto = reclamoService.eliminar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -364,7 +364,7 @@ public class ReclamoController {
 
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<ReclamoDTO> reciclar(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<ReclamoDTO> reciclar(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> objeto = reclamoService.reciclar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -376,7 +376,7 @@ public class ReclamoController {
 
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<String> destruir(@PathVariable(name = "id") @javax.validation.constraints.Size(min = 1, max = 10) Long id) {
+    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {
         EntityMessenger<ReclamoModel> objeto = reclamoService.destruir(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
