@@ -2,6 +2,9 @@ package muni.eolida.sisifo.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,6 +13,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import muni.eolida.sisifo.mapper.dto.AutenticacionResponseDTO;
 import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.ArchivoMapper;
@@ -34,20 +38,42 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@Tag(name = "ENDPOINTS ARCHIVO", description = "Recursos referidos a las imagenes de los reclamos.")
+@Tag(name = "Endpoints ARCHIVO", description = "Recursos referidos a la consulta y persistencia de imagenes.")
 public class ArchivoController {
     private final ArchivoServiceImpl archivoService;
     private final ArchivoMapper archivoMapper;
 
     @Operation(
-            security = {@SecurityRequirement(name="Bearer")},
-            summary = "Guardar imagen.",
-            description = "Guarda una imagen, acepta MultipartFile, retorna el nombre generico de la imagen y el path para accesarla. Rol minimo para acceder al recurso: CONTRIBUYENTE")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Archivo insertado correctamente, devuelve nombre y path."),
-            @ApiResponse(responseCode = "202", description = "Error al guardar el archivo. Devuelve codigo de estado y mensaje."),
-            @ApiResponse(responseCode = "204", description = "Excepcion al guardar el archivo. Devuelve codigo de estado y mensaje."),
-            @ApiResponse(responseCode = "401", description = "No autorizado.")
+            summary = "Guardado de una nueva imagen.",
+            description = "Rol/Autoridad requerida: CONTRIBUYENTE<br><strong>De consumirse correctamente se almacena la nueva imagen.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Recurso consumido correctamente, se devuelve objeto JSON con el camino absoluto de la imagen creada.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = AutenticacionResponseDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo no se puedo alamcenar el archivo.",
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio un error al consumir el recurso.",
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.QUERY,
+                    description = "Mutltipart File."
+            )
     })
     @PutMapping(value = "/guardar",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")

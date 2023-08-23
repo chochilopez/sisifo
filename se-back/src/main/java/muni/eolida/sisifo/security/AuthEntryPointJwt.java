@@ -17,22 +17,22 @@ import java.util.Map;
 @Component
 @Slf4j
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
-  @Override
-  public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-      throws IOException, ServletException {
-    log.error("Error, no authorizado: {}", authException.getMessage());
+	@Override
+	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
+		  throws IOException, ServletException {
+		log.error("Error, no authorizado: {}", authException.getMessage());
 
-    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-    final Map<String, Object> body = new HashMap<>();
-    body.put("estado", HttpServletResponse.SC_UNAUTHORIZED);
-    body.put("error", "No autorizado");
-    body.put("mensaje", authException.getMessage());
-    body.put("path", request.getServletPath());
+		final Map<String, Object> body = new HashMap<>();
+		body.put("estado", HttpServletResponse.SC_UNAUTHORIZED);
+		body.put("error", "No autorizado");
+		body.put("mensaje", authException.getMessage());
+		body.put("path", request.getServletPath());
 
-    final ObjectMapper mapper = new ObjectMapper();
-    mapper.writeValue(response.getOutputStream(), body);
-  }
+		final ObjectMapper mapper = new ObjectMapper();
+		mapper.writeValue(response.getOutputStream(), body);
+	}
 
 }

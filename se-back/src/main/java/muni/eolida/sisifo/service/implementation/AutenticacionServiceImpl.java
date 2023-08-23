@@ -1,6 +1,5 @@
 package muni.eolida.sisifo.service.implementation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +20,12 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import muni.eolida.sisifo.service.AutenticacionService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.keygen.BytesKeyGenerator;
@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -169,47 +170,59 @@ public class AutenticacionServiceImpl implements AutenticacionService {
     }
 
     @Override
-    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        final String refreshToken;
-        final String userEmail;
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return;
-        }
-        refreshToken = authHeader.substring(7);
-        userEmail = jwtService.extraerUsuario(refreshToken);
-        if (userEmail != null) {
-            EntityMessenger<UsuarioModel> usuarioModelEntityMessenger = usuarioService.buscarPorNombreDeUsuario(userEmail);
-            if (usuarioModelEntityMessenger.getEstado() == 200) {
-                if (jwtService.esValidoToken(refreshToken, usuarioModelEntityMessenger.getObjeto())) {
-                    var accessToken = jwtService.generarToken(usuarioModelEntityMessenger.getObjeto());
-                    this.revocarTokensUsuario(usuarioModelEntityMessenger.getObjeto());
-                    this.guardarTokenUsuario(usuarioModelEntityMessenger.getObjeto(), accessToken);
-                    var authResponse = AutenticacionResponseDTO.builder()
-                            .tokenAcceso(accessToken)
-                            .tokenRefresco(refreshToken)
-                            .build();
-                    new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+    public EntityMessenger<AutenticacionResponseDTO> refreshToken(HttpServletRequest request, HttpServletResponse response){
+        try {
+            final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+            final String refreshToken;
+            final String userEmail;
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                refreshToken = authHeader.substring(7);
+                userEmail = jwtService.extraerUsuario(refreshToken);
+                if (userEmail != null) {
+                    EntityMessenger<UsuarioModel> usuarioModelEntityMessenger = usuarioService.buscarPorNombreDeUsuario(userEmail);
+                    if (usuarioModelEntityMessenger.getEstado() == 200) {
+                        if (jwtService.esValidoToken(refreshToken, usuarioModelEntityMessenger.getObjeto())) {
+                            var accessToken = jwtService.generarToken(usuarioModelEntityMessenger.getObjeto());
+                            this.revocarTokensUsuario(usuarioModelEntityMessenger.getObjeto());
+                            this.guardarTokenUsuario(usuarioModelEntityMessenger.getObjeto(), accessToken);
+                            return new EntityMessenger<AutenticacionResponseDTO>(new AutenticacionResponseDTO(accessToken, refreshToken), null, "Tokens emitidos correctamente", 200);
+                        }
+                    }
                 }
             }
+            return new EntityMessenger<AutenticacionResponseDTO>(null, null, "Ocurrio un error al validar el token de refresco", 202);
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al validar el token de refresco.";
+            log.error(mensaje);
+            return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 204);
         }
     }
 
     @Override
-    public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        final String authHeader = request.getHeader("Authorization");
-        final String jwt;
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return;
-        }
-        jwt = authHeader.substring(7);
-        var storedToken = tokenDAO.findByToken(jwt)
-                .orElse(null);
-        if (storedToken != null) {
-            storedToken.setExpirado(true);
-            storedToken.setRevocado(true);
-            tokenDAO.save(storedToken);
-            SecurityContextHolder.clearContext();
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        try {
+            final String authHeader = request.getHeader("Authorization");
+            final String jwt;
+            if (authHeader != null || authHeader.startsWith("Bearer ")) {
+                jwt = authHeader.substring(7);
+                Optional<TokenModel> storedToken = tokenDAO.findByToken(jwt);
+                if (storedToken.isPresent()) {
+                    storedToken.get().setExpirado(true);
+                    storedToken.get().setRevocado(true);
+                    tokenDAO.save(storedToken.get());
+                    SecurityContextHolder.clearContext();
+                    String mensaje = "El usuario ha salido correctamente del sistema.";
+                    log.info(mensaje);
+                    return new ResponseEntity<>(mensaje, HttpStatus.OK);
+                }
+            }
+            String mensaje = "El token se encuentra mal formado.";
+            log.info(mensaje);
+            return new ResponseEntity<>(mensaje, HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al intentar salir del sistema.";
+            log.error(mensaje);
+            return new ResponseEntity<>(mensaje, HttpStatus.NO_CONTENT);
         }
     }
 }

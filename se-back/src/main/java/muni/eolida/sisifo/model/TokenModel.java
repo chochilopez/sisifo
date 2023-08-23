@@ -1,17 +1,17 @@
 package muni.eolida.sisifo.model;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import muni.eolida.sisifo.model.enums.TipoToken;
 
 @AllArgsConstructor
 @Builder
 @Data
 @Entity
+@Hidden
 @NoArgsConstructor
+@Setter
 @Table(name = "token")
 public class TokenModel {
 	@Id

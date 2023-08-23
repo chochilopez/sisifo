@@ -1,15 +1,14 @@
 package muni.eolida.sisifo.model;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-//@Builder
-@Getter
+@AllArgsConstructor
+@Builder
+@Data
 @Entity
-@EqualsAndHashCode
+@Hidden
 @NoArgsConstructor
 @Setter
 @Table(name = "barrio")

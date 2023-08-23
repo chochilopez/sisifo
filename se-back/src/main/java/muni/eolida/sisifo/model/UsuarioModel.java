@@ -1,5 +1,6 @@
 package muni.eolida.sisifo.model;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,11 +13,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Data
-@Builder
-@NoArgsConstructor
+
 @AllArgsConstructor
+@Builder
+@Data
 @Entity
+@Hidden
+@NoArgsConstructor
+@Setter
 @Table(name = "usuario")
 public class UsuarioModel extends AbstractAuditoriaModel implements UserDetails {
 
