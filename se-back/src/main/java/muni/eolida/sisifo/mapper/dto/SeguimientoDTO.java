@@ -14,6 +14,6 @@ public class SeguimientoDTO implements Serializable {
     private String id;
     @Schema(description = "Descripcion del seguimiento, notas de los empleados.")
     private String descripcion;
-    @Schema(description = "Estados posibles de seguimiento de reclamo. INICIADO - EN_CURSO - RESUELTO - PASE_SECTOR - RECHAZADO.")
+    @Schema(type="Array", description = "Estados posibles de seguimiento de reclamo. INICIADO - EN_CURSO - RESUELTO - PASE_SECTOR - RECHAZADO.", example = "[]")
     private List<EstadoReclamoDTO> estados;
 }

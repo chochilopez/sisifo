@@ -9,8 +9,8 @@ import java.io.Serializable;
 @Schema(name = "Archivo", description = "Modelo de entidad que alamcena una imagen en el servidor.")
 @Setter
 public class AreaDTO implements Serializable {
-    @Schema(name = "Archivo", description = "Modelo de entidad que alamcena una imagen en el servidor.")
+    @Schema(description = "Identificador unico de la entidad.")
     private String id;
-    @Schema(name = "Archivo", description = "Modelo de entidad que alamcena una imagen en el servidor.")
+    @Schema(description = "Nombre del area que atiende el reclamo.")
     private String area;
 }

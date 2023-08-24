@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @Builder
@@ -23,5 +23,5 @@ public class AreaModel extends AbstractAuditoriaModel {
 
     // Bidireccional primaria
     @OneToMany(mappedBy = "area", cascade = CascadeType.MERGE)
-    private List<TipoReclamoModel> tiposReclamos;
+    private Set<TipoReclamoModel> tiposReclamos;
 }

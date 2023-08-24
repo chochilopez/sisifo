@@ -11,7 +11,7 @@ import java.util.List;
 @Schema(name = "Usuario", description = "Modelo de entidad de usuario para registro y datos personales.")
 @Setter
 public class UsuarioDTO implements Serializable {
-    @Schema(description = "Identificador unico.")
+    @Schema(description = "Identificador unico de la entidad.")
     private String id;
     @Schema(description = "Apellido y nombre de la persona.")
     private String nombre;
@@ -23,6 +23,6 @@ public class UsuarioDTO implements Serializable {
     private String telefono;
     @Schema(description = "Nombre de usuario en forma de direccion de correo.")
     private String username;
-    @Schema(description = "Listado de los roles de la persona, sus niveles de autoridad.")
+    @Schema(type="Array", description = "Listado de los roles de la persona, sus niveles de autoridad.", example = "[]")
     private List<RolDTO> roles = new ArrayList<>();
 }

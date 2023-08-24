@@ -15,9 +15,7 @@ import lombok.NoArgsConstructor;
 public class AutenticacionResponseDTO {
 
     @Schema(description = "Cadena de caracteres. Token de acceso a recursos protegidos.")
-    @JsonProperty("token_acceso")
     private String tokenAcceso;
     @Schema(description = "Cadena de caracteres. Token de refresco, se utiliza para obtener acceso una vez expirado el token.")
-    @JsonProperty("token_refresco")
     private String tokenRefresco;
 }

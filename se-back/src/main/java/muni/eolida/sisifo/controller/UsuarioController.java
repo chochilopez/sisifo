@@ -1,5 +1,8 @@
 package muni.eolida.sisifo.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.util.EntityMessenger;
@@ -8,7 +11,6 @@ import muni.eolida.sisifo.mapper.creation.UsuarioCreation;
 import muni.eolida.sisifo.mapper.dto.UsuarioDTO;
 import muni.eolida.sisifo.model.UsuarioModel;
 import muni.eolida.sisifo.service.implementation.UsuarioServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,14 +22,13 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/usuario")
+@RequiredArgsConstructor
 @RestController
 @Slf4j
+@Tag(name = "Endpoints USUARIO", description = "Recursos referidos a la consulta y persistencia de Usuarios.")
 public class UsuarioController {
-
-    @Autowired
-    private UsuarioServiceImpl usuarioService;
-    @Autowired
-    private UsuarioMapper usuarioMapper;
+    private final UsuarioServiceImpl usuarioService;
+    private final UsuarioMapper usuarioMapper;
 
     @GetMapping(value = "/buscar-por-nombre-usuario/{nombreUsuario}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
@@ -121,6 +122,7 @@ public class UsuarioController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
     }
 
+    @Operation(hidden = true)
     @GetMapping(value = "/contar-todas")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<Long> contarTodas() {
@@ -128,6 +130,7 @@ public class UsuarioController {
         return new ResponseEntity<>(cantidad, Helper.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
     }
 
+    @Operation(hidden = true)
     @GetMapping(value = "/contar-todas-con-eliminadas")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<Long> contarTodasConEliminadas() {
@@ -165,7 +168,7 @@ public class UsuarioController {
         EntityMessenger<UsuarioModel> objeto = usuarioService.eliminar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 201)
+        else if (objeto.getEstado() == 200)
             return new ResponseEntity<>(usuarioMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();

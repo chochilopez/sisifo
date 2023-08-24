@@ -10,10 +10,10 @@ import java.io.Serializable;
 @Schema(name = "Archivo", description = "Modelo de entidad que alamcena una imagen en el servidor.")
 @Setter
 public class ArchivoDTO implements Serializable {
-    @Schema(name = "Identificador unico.")
+    @Schema(description = "Identificador unico de la entidad.")
     private String id;
-    @Schema(name = "Direccion absoluta del recurso imagen.")
+    @Schema(description = "Direccion absoluta del recurso imagen.")
     private String path;
-    @Schema(name = "Nombre unico asignado automaticamente al recurso.")
+    @Schema(description = "Nombre unico asignado automaticamente al recurso.")
     private String nombre;
 }

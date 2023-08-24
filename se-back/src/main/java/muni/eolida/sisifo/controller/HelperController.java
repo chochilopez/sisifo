@@ -1,5 +1,7 @@
 package muni.eolida.sisifo.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
+import lombok.RequiredArgsConstructor;
 import muni.eolida.sisifo.mapper.creation.RolCreation;
 import muni.eolida.sisifo.mapper.creation.UsuarioCreation;
 import muni.eolida.sisifo.model.RolModel;
@@ -8,7 +10,6 @@ import muni.eolida.sisifo.model.enums.RolEnum;
 import muni.eolida.sisifo.service.implementation.RolServiceImpl;
 import muni.eolida.sisifo.service.implementation.UsuarioServiceImpl;
 import muni.eolida.sisifo.util.EntityMessenger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,14 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*")
+@Hidden
 @RequestMapping(value = "/api/ayuda")
+@RequiredArgsConstructor
 @RestController
 public class HelperController {
-
-    @Autowired
-    private UsuarioServiceImpl usuarioServiceImpl;
-    @Autowired
-    private RolServiceImpl rolService;
+    private final UsuarioServiceImpl usuarioServiceImpl;
+    private final RolServiceImpl rolService;
 
     @PutMapping(value = "/cargar-roles")
     public ResponseEntity<?> autoridades() {

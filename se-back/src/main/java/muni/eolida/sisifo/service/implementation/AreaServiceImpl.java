@@ -2,6 +2,8 @@ package muni.eolida.sisifo.service.implementation;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import muni.eolida.sisifo.model.TipoReclamoModel;
+import muni.eolida.sisifo.repository.TipoReclamoDAO;
 import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.AreaMapper;
@@ -19,8 +21,37 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AreaServiceImpl implements AreaService {
     private final AreaDAO areaDAO;
+    private final TipoReclamoDAO tipoReclamoDAO;
     private final AreaMapper areaMapper;
     private final UsuarioServiceImpl usuarioService;
+
+    @Override
+    public EntityMessenger<AreaModel> agregarTipoReclamoAArea(Long idArea, Long idTipoReclamo) {
+        try {
+            log.info("Agregando el TipoReclamo con id: {}, al Area con id: {}.", idArea, idTipoReclamo);
+            Optional<TipoReclamoModel> tipoReclamo = tipoReclamoDAO.findByIdAndEliminadaIsNull(idTipoReclamo);
+            Optional<AreaModel> area = areaDAO.findByIdAndEliminadaIsNull(idArea);
+            if (area.isEmpty() || tipoReclamo.isEmpty()) {
+                String mensaje = "El Area o el TipoReclamo no existen.";
+                log.warn(mensaje);
+                return new EntityMessenger<AreaModel>(null, null, mensaje, 202);
+            } else {
+                if (area.get().getTiposReclamos().contains(tipoReclamo.get())) {
+                    String mensaje = "El Area ya posee el TipoReclamo.";
+                    log.warn(mensaje);
+                    return new EntityMessenger<AreaModel>(null, null, mensaje, 202);
+                }
+                area.get().getTiposReclamos().add(tipoReclamo.get());
+                String mensaje = "Se agrego correctamente el TipoReclamo " + tipoReclamo.get().getTipo() + " al Area " + area.get().getArea() + ".";
+                log.info(mensaje);
+                return new EntityMessenger<AreaModel>(areaDAO.save(area.get()), null, mensaje, 200);
+            }
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al realizar la busqueda.";
+            log.error(mensaje);
+            return new EntityMessenger<AreaModel>(null, null, mensaje, 204);
+        }
+    }
 
     @Override
     public EntityMessenger<AreaModel> buscarTodasPorArea(String area) {

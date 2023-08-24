@@ -1,5 +1,8 @@
 package muni.eolida.sisifo.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.util.EntityMessenger;
@@ -8,7 +11,6 @@ import muni.eolida.sisifo.mapper.creation.TipoReclamoCreation;
 import muni.eolida.sisifo.mapper.dto.TipoReclamoDTO;
 import muni.eolida.sisifo.model.TipoReclamoModel;
 import muni.eolida.sisifo.service.implementation.TipoReclamoServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,17 +22,16 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/tipoReclamo")
+@RequiredArgsConstructor
 @RestController
 @Slf4j
+@Tag(name = "Endpoints TIPO RECLAMO", description = "Recursos referidos a la consulta y persistencia de Tipos de Reclamos.")
 public class TipoReclamoController {
-
-    @Autowired
-    private TipoReclamoServiceImpl tipoReclamoService;
-    @Autowired
-    private TipoReclamoMapper tipoReclamoMapper;
+    private final TipoReclamoServiceImpl tipoReclamoService;
+    private final TipoReclamoMapper tipoReclamoMapper;
 
     @GetMapping(value = "/buscar-todas-por-area-id/{id}")
-    @PreAuthorize("hasAuthority('EMPLEADO')")
+    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<TipoReclamoDTO>> buscarTodasPorAreaId(@PathVariable(name = "id")  Long id) {
         EntityMessenger<TipoReclamoModel> listado = tipoReclamoService.buscarTodasPorAreaId(id);
         if (listado.getEstado() == 202) {
@@ -64,7 +65,7 @@ public class TipoReclamoController {
     }
 
     @GetMapping(value = "/buscar-todas-por-tipo/{tipo}")
-    @PreAuthorize("hasAuthority('EMPLEADO')")
+    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<TipoReclamoDTO>> buscarTodasPorTipo(@PathVariable(name = "tipo")  String tipo) {
         EntityMessenger<TipoReclamoModel> listado = tipoReclamoService.buscarTodasPorTipo(tipo);
         if (listado.getEstado() == 202) {
@@ -98,7 +99,7 @@ public class TipoReclamoController {
     }
 
     @GetMapping(value = "/buscar-por-id/{id}")
-    @PreAuthorize("hasAuthority('EMPLEADO')")
+    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<TipoReclamoDTO> buscarPorId(@PathVariable(name = "id") Long id) {
         EntityMessenger<TipoReclamoModel> objeto = tipoReclamoService.buscarPorId(id);
         if (objeto.getEstado() == 202)
@@ -122,7 +123,7 @@ public class TipoReclamoController {
     }
 
     @GetMapping(value = "/buscar-todas")
-    @PreAuthorize("hasAuthority('EMPLEADO')")
+    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<TipoReclamoDTO>> buscarTodas() {
         EntityMessenger<TipoReclamoModel> listado = tipoReclamoService.buscarTodas();
         if (listado.getEstado() == 202)
@@ -155,6 +156,7 @@ public class TipoReclamoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
     }
 
+    @Operation(hidden = true)
     @GetMapping(value = "/contar-todas")
     @PreAuthorize("hasAuthority('EMPLEADO')")
     public ResponseEntity<Long> contarTodas() {
@@ -162,6 +164,7 @@ public class TipoReclamoController {
         return new ResponseEntity<>(cantidad, Helper.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
     }
 
+    @Operation(hidden = true)
     @GetMapping(value = "/contar-todas-con-eliminadas")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<Long> contarTodasConEliminadas() {
@@ -199,7 +202,7 @@ public class TipoReclamoController {
         EntityMessenger<TipoReclamoModel> objeto = tipoReclamoService.eliminar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 201)
+        else if (objeto.getEstado() == 200)
             return new ResponseEntity<>(tipoReclamoMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();

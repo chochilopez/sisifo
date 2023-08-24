@@ -1,824 +1,323 @@
-2023-08-23 08:59:54 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3262082 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 08:59:54 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 08:59:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 08:59:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 53 ms. Found 12 JPA repository interfaces.
-2023-08-23 08:59:55 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 08:59:55 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 08:59:55 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 08:59:55 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 08:59:55 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 964 ms
-2023-08-23 08:59:56 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 08:59:56 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 08:59:56 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 08:59:56 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 08:59:56 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 08:59:56 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 08:59:56 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3386ed8
-2023-08-23 08:59:56 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 08:59:56 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 08:59:56 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 08:59:57 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 08:59:57 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 08:59:57 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 08:59:58 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5e8f1db2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@64bb6ba7, org.springframework.security.web.context.SecurityContextHolderFilter@3b303b78, org.springframework.security.web.header.HeaderWriterFilter@13617139, org.springframework.security.web.authentication.logout.LogoutFilter@2f95ce11, muni.eolida.sisifo.security.JwtAuthenticationFilter@31887330, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@68e8bbab, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5dfaa2f0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@571360b2, org.springframework.security.web.session.SessionManagementFilter@210e4678, org.springframework.security.web.access.ExceptionTranslationFilter@4dfe5727, org.springframework.security.web.access.intercept.AuthorizationFilter@2453cbb7]
-2023-08-23 08:59:59 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 08:59:59 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.631 seconds (process running for 4.96)
-2023-08-23 09:00:04 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 09:00:04 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 09:00:04 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 09:00:04 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 452 ms
-2023-08-23 09:00:44 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 09:00:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 09:00:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 09:00:46 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3262684 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 09:00:46 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 09:00:47 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 09:00:47 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 12 JPA repository interfaces.
-2023-08-23 09:00:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 09:00:47 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 09:00:47 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 09:00:47 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 09:00:47 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 835 ms
-2023-08-23 09:00:47 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 09:00:47 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 09:00:47 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 09:00:48 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 09:00:48 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 09:00:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 09:00:48 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1fa9692b
-2023-08-23 09:00:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 09:00:48 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 09:00:48 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 09:00:49 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 09:00:49 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 09:00:49 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 09:00:50 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@64a0ee65, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3ce60feb, org.springframework.security.web.context.SecurityContextHolderFilter@1d306d27, org.springframework.security.web.header.HeaderWriterFilter@68e8bbab, org.springframework.security.web.authentication.logout.LogoutFilter@13482361, muni.eolida.sisifo.security.JwtAuthenticationFilter@4250b0c1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1cb4cad0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3152d449, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@61f2bf3a, org.springframework.security.web.session.SessionManagementFilter@35bfa7be, org.springframework.security.web.access.ExceptionTranslationFilter@3b303b78, org.springframework.security.web.access.intercept.AuthorizationFilter@75c5ab79]
-2023-08-23 09:00:50 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 09:00:50 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.159 seconds (process running for 4.476)
-2023-08-23 09:01:05 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 09:01:05 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 09:01:05 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 09:01:06 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 446 ms
-2023-08-23 10:31:43 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:31:43 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 10:31:43 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 10:31:45 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3274279 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 10:31:45 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 10:31:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 10:31:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45 ms. Found 12 JPA repository interfaces.
-2023-08-23 10:31:46 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 10:31:46 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 10:31:46 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 10:31:46 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 10:31:46 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 826 ms
-2023-08-23 10:31:46 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 10:31:46 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 10:31:46 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 10:31:46 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:31:46 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 10:31:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 10:31:46 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@727453a3
-2023-08-23 10:31:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 10:31:46 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 10:31:47 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:31:47 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 10:31:48 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:31:48 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 10:31:49 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@386b4f7e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4c131823, org.springframework.security.web.context.SecurityContextHolderFilter@34a48013, org.springframework.security.web.header.HeaderWriterFilter@2bcaec2e, org.springframework.security.web.authentication.logout.LogoutFilter@41bd8ec9, muni.eolida.sisifo.security.JwtAuthenticationFilter@3c3a767, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@210e4678, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4548bfc7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2453cbb7, org.springframework.security.web.session.SessionManagementFilter@2ee949d4, org.springframework.security.web.access.ExceptionTranslationFilter@67857a20, org.springframework.security.web.access.intercept.AuthorizationFilter@15ec3c0c]
-2023-08-23 10:31:49 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 10:31:49 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.129 seconds (process running for 4.4)
-2023-08-23 10:31:53 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 10:31:53 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 10:31:53 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 10:31:54 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 433 ms
-2023-08-23 10:33:14 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:33:14 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 10:33:14 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 10:33:17 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3274885 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 10:33:17 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 10:33:17 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 10:33:17 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 46 ms. Found 12 JPA repository interfaces.
-2023-08-23 10:33:18 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 10:33:18 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 10:33:18 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 10:33:18 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 10:33:18 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 796 ms
-2023-08-23 10:33:18 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 10:33:18 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 10:33:18 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 10:33:18 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:33:18 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 10:33:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 10:33:18 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@605eb072
-2023-08-23 10:33:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 10:33:18 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 10:33:18 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:33:19 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 10:33:19 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:33:19 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 10:33:20 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4a648b35, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@673a702a, org.springframework.security.web.context.SecurityContextHolderFilter@48682f91, org.springframework.security.web.header.HeaderWriterFilter@210e4678, org.springframework.security.web.authentication.logout.LogoutFilter@571360b2, muni.eolida.sisifo.security.JwtAuthenticationFilter@578ac0be, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@35bfa7be, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@482034fb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@75c5ab79, org.springframework.security.web.session.SessionManagementFilter@29f58b44, org.springframework.security.web.access.ExceptionTranslationFilter@34a48013, org.springframework.security.web.access.intercept.AuthorizationFilter@61799152]
-2023-08-23 10:33:21 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 10:33:21 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.03 seconds (process running for 4.314)
-2023-08-23 10:33:32 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 10:33:32 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 10:33:32 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 10:33:32 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 479 ms
-2023-08-23 10:33:44 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:33:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 10:33:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 10:34:15 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3275388 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 10:34:15 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 10:34:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 10:34:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 12 JPA repository interfaces.
-2023-08-23 10:34:16 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 10:34:16 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 10:34:16 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 10:34:16 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 10:34:16 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 855 ms
-2023-08-23 10:34:16 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 10:34:16 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 10:34:16 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 10:34:16 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:34:17 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 10:34:17 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 10:34:17 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@37986daf
-2023-08-23 10:34:17 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 10:34:17 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 10:34:17 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:34:17 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 10:34:18 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:34:18 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 10:34:19 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5c39da9e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@e38b953, org.springframework.security.web.context.SecurityContextHolderFilter@fcee97c, org.springframework.security.web.header.HeaderWriterFilter@34a48013, org.springframework.security.web.authentication.logout.LogoutFilter@5e8f1db2, muni.eolida.sisifo.security.JwtAuthenticationFilter@62682ece, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@48682f91, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4dc23273, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4a648b35, org.springframework.security.web.session.SessionManagementFilter@5eabcf77, org.springframework.security.web.access.ExceptionTranslationFilter@57e9cd2, org.springframework.security.web.access.intercept.AuthorizationFilter@13482361]
-2023-08-23 10:34:19 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 10:34:19 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.237 seconds (process running for 4.509)
-2023-08-23 10:34:23 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 10:34:23 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 10:34:23 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 10:34:24 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 438 ms
-2023-08-23 10:35:30 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:35:30 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 10:35:30 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 10:35:33 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3275890 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 10:35:33 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 10:35:33 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 10:35:33 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 12 JPA repository interfaces.
-2023-08-23 10:35:33 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 10:35:33 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 10:35:33 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 10:35:33 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 10:35:33 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 808 ms
-2023-08-23 10:35:34 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 10:35:34 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 10:35:34 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 10:35:34 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:35:34 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 10:35:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 10:35:34 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1fa9692b
-2023-08-23 10:35:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 10:35:34 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 10:35:34 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:35:35 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 10:35:35 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:35:35 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 10:35:36 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3e7c66b3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@502f6f6a, org.springframework.security.web.context.SecurityContextHolderFilter@482034fb, org.springframework.security.web.header.HeaderWriterFilter@3b303b78, org.springframework.security.web.authentication.logout.LogoutFilter@ab5954d, muni.eolida.sisifo.security.JwtAuthenticationFilter@578ac0be, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1d306d27, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@557abb68, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@64a0ee65, org.springframework.security.web.session.SessionManagementFilter@48682f91, org.springframework.security.web.access.ExceptionTranslationFilter@4548bfc7, org.springframework.security.web.access.intercept.AuthorizationFilter@4a648b35]
-2023-08-23 10:35:37 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 10:35:37 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.214 seconds (process running for 4.483)
-2023-08-23 10:35:43 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 10:35:43 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 10:35:43 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 10:35:44 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 429 ms
-2023-08-23 10:49:32 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:49:32 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 10:49:32 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 10:49:34 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3278329 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 10:49:34 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 10:49:35 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 10:49:35 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 12 JPA repository interfaces.
-2023-08-23 10:49:35 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 10:49:35 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 10:49:35 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 10:49:35 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 10:49:35 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 817 ms
-2023-08-23 10:49:35 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 10:49:35 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 10:49:35 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 10:49:35 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:49:35 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 10:49:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 10:49:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@605eb072
-2023-08-23 10:49:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 10:49:36 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 10:49:36 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:49:36 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 10:49:37 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:49:37 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 10:49:38 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@e38b953, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4a648b35, org.springframework.security.web.context.SecurityContextHolderFilter@f1e5f85, org.springframework.security.web.header.HeaderWriterFilter@50e7d8ba, org.springframework.security.web.authentication.logout.LogoutFilter@64bb6ba7, muni.eolida.sisifo.security.JwtAuthenticationFilter@578ac0be, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4dc23273, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@35bfa7be, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@673a702a, org.springframework.security.web.session.SessionManagementFilter@647468a7, org.springframework.security.web.access.ExceptionTranslationFilter@2298d741, org.springframework.security.web.access.intercept.AuthorizationFilter@47c06b1a]
-2023-08-23 10:49:38 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 10:49:38 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.358 seconds (process running for 4.642)
-2023-08-23 10:49:41 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 10:49:41 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 10:49:41 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 10:49:42 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 438 ms
-2023-08-23 10:50:51 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:50:51 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 10:50:51 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 10:50:53 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3278803 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 10:50:53 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 10:50:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 10:50:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 12 JPA repository interfaces.
-2023-08-23 10:50:54 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 10:50:54 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 10:50:54 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 10:50:54 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 10:50:54 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 820 ms
-2023-08-23 10:50:54 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 10:50:54 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 10:50:54 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 10:50:54 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:50:55 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 10:50:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 10:50:55 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@667a467f
-2023-08-23 10:50:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 10:50:55 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 10:50:55 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:50:55 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 10:50:56 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:50:56 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 10:50:57 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@502f6f6a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@64a0ee65, org.springframework.security.web.context.SecurityContextHolderFilter@41bd8ec9, org.springframework.security.web.header.HeaderWriterFilter@685e97e0, org.springframework.security.web.authentication.logout.LogoutFilter@466f7259, muni.eolida.sisifo.security.JwtAuthenticationFilter@4250b0c1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@557abb68, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1cb4cad0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3ce60feb, org.springframework.security.web.session.SessionManagementFilter@4dc23273, org.springframework.security.web.access.ExceptionTranslationFilter@557c0b65, org.springframework.security.web.access.intercept.AuthorizationFilter@673a702a]
-2023-08-23 10:50:58 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 10:50:58 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.395 seconds (process running for 4.662)
-2023-08-23 10:51:00 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 10:51:00 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 10:51:00 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 10:51:00 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 474 ms
-2023-08-23 10:51:31 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:51:31 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 10:51:31 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 10:51:34 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3279174 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 10:51:34 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 10:51:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 10:51:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 50 ms. Found 12 JPA repository interfaces.
-2023-08-23 10:51:34 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 10:51:34 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 10:51:34 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 10:51:34 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 10:51:34 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 817 ms
-2023-08-23 10:51:34 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 10:51:34 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 10:51:34 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 10:51:35 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:51:35 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 10:51:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 10:51:35 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@14df5253
-2023-08-23 10:51:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 10:51:35 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 10:51:35 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:51:35 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 10:51:36 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:51:36 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 10:51:37 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5c39da9e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@e38b953, org.springframework.security.web.context.SecurityContextHolderFilter@fcee97c, org.springframework.security.web.header.HeaderWriterFilter@34a48013, org.springframework.security.web.authentication.logout.LogoutFilter@5e8f1db2, muni.eolida.sisifo.security.JwtAuthenticationFilter@1488d1c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@48682f91, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4dc23273, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4a648b35, org.springframework.security.web.session.SessionManagementFilter@5eabcf77, org.springframework.security.web.access.ExceptionTranslationFilter@57e9cd2, org.springframework.security.web.access.intercept.AuthorizationFilter@13482361]
-2023-08-23 10:51:37 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 10:51:37 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.123 seconds (process running for 4.408)
-2023-08-23 10:51:40 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 10:51:40 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 10:51:40 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 10:51:40 [http-nio-9088-exec-10] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 444 ms
-2023-08-23 10:52:54 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:52:54 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 10:52:54 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 10:52:56 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3279648 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 10:52:56 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 10:52:57 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 10:52:57 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 12 JPA repository interfaces.
-2023-08-23 10:52:57 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 10:52:57 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 10:52:57 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 10:52:57 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 10:52:57 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 832 ms
-2023-08-23 10:52:57 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 10:52:57 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 10:52:57 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 10:52:57 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:52:57 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 10:52:57 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 10:52:58 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7a0f06ad
-2023-08-23 10:52:58 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 10:52:58 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 10:52:58 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:52:58 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 10:52:59 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:52:59 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 10:53:00 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4a648b35, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@673a702a, org.springframework.security.web.context.SecurityContextHolderFilter@48682f91, org.springframework.security.web.header.HeaderWriterFilter@210e4678, org.springframework.security.web.authentication.logout.LogoutFilter@571360b2, muni.eolida.sisifo.security.JwtAuthenticationFilter@578ac0be, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@35bfa7be, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@482034fb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@75c5ab79, org.springframework.security.web.session.SessionManagementFilter@29f58b44, org.springframework.security.web.access.ExceptionTranslationFilter@34a48013, org.springframework.security.web.access.intercept.AuthorizationFilter@61799152]
-2023-08-23 10:53:00 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 10:53:00 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.231 seconds (process running for 4.528)
-2023-08-23 10:53:03 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 10:53:03 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 10:53:03 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 10:53:04 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 456 ms
-2023-08-23 10:53:44 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:53:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 10:53:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 10:53:46 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3280150 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 10:53:46 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 10:53:47 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 10:53:47 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 12 JPA repository interfaces.
-2023-08-23 10:53:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 10:53:47 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 10:53:47 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 10:53:47 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 10:53:47 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 830 ms
-2023-08-23 10:53:47 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 10:53:47 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 10:53:47 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 10:53:47 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:53:48 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 10:53:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 10:53:48 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@37986daf
-2023-08-23 10:53:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 10:53:48 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 10:53:48 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:53:48 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 10:53:49 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:53:49 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 10:53:50 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@13482361, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@47c06b1a, org.springframework.security.web.context.SecurityContextHolderFilter@5eabcf77, org.springframework.security.web.header.HeaderWriterFilter@2ee949d4, org.springframework.security.web.authentication.logout.LogoutFilter@2453cbb7, muni.eolida.sisifo.security.JwtAuthenticationFilter@62682ece, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@29f58b44, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@fcee97c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@61799152, org.springframework.security.web.session.SessionManagementFilter@672ba9cc, org.springframework.security.web.access.ExceptionTranslationFilter@294aaa6, org.springframework.security.web.access.intercept.AuthorizationFilter@35ec3604]
-2023-08-23 10:53:50 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 10:53:50 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.169 seconds (process running for 4.446)
-2023-08-23 10:53:53 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 10:53:53 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 10:53:53 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 10:53:53 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 431 ms
-2023-08-23 10:55:30 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:55:30 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 10:55:30 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 10:55:32 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3280756 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 10:55:32 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 10:55:32 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 10:55:32 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 12 JPA repository interfaces.
-2023-08-23 10:55:33 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 10:55:33 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 10:55:33 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 10:55:33 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 10:55:33 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 830 ms
-2023-08-23 10:55:33 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 10:55:33 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 10:55:33 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 10:55:33 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:55:33 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 10:55:33 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 10:55:33 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@710afd47
-2023-08-23 10:55:33 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 10:55:33 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 10:55:33 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 10:55:34 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 10:55:34 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 10:55:35 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 10:55:36 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@64a0ee65, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3ce60feb, org.springframework.security.web.context.SecurityContextHolderFilter@1d306d27, org.springframework.security.web.header.HeaderWriterFilter@68e8bbab, org.springframework.security.web.authentication.logout.LogoutFilter@13482361, muni.eolida.sisifo.security.JwtAuthenticationFilter@7b5e5fa, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1cb4cad0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3152d449, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@61f2bf3a, org.springframework.security.web.session.SessionManagementFilter@35bfa7be, org.springframework.security.web.access.ExceptionTranslationFilter@3b303b78, org.springframework.security.web.access.intercept.AuthorizationFilter@75c5ab79]
-2023-08-23 10:55:36 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 10:55:36 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.184 seconds (process running for 4.464)
-2023-08-23 10:55:37 [http-nio-9088-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 10:55:37 [http-nio-9088-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 10:55:37 [http-nio-9088-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 10:55:37 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 466 ms
-2023-08-23 11:04:47 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:04:47 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 11:04:47 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 11:04:49 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3282344 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 11:04:49 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 11:04:50 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 11:04:50 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 12 JPA repository interfaces.
-2023-08-23 11:04:50 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 11:04:50 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 11:04:50 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 11:04:50 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 11:04:50 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 817 ms
-2023-08-23 11:04:50 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 11:04:50 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 11:04:50 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 11:04:50 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:04:50 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 11:04:50 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 11:04:51 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1fa9692b
-2023-08-23 11:04:51 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 11:04:51 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 11:04:51 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:04:51 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 11:04:52 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:04:52 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 11:04:53 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@e38b953, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4a648b35, org.springframework.security.web.context.SecurityContextHolderFilter@f1e5f85, org.springframework.security.web.header.HeaderWriterFilter@50e7d8ba, org.springframework.security.web.authentication.logout.LogoutFilter@64bb6ba7, muni.eolida.sisifo.security.JwtAuthenticationFilter@578ac0be, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4dc23273, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@35bfa7be, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@673a702a, org.springframework.security.web.session.SessionManagementFilter@647468a7, org.springframework.security.web.access.ExceptionTranslationFilter@2298d741, org.springframework.security.web.access.intercept.AuthorizationFilter@47c06b1a]
-2023-08-23 11:04:53 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 11:04:53 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.227 seconds (process running for 4.503)
-2023-08-23 11:04:58 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 11:04:58 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 11:04:58 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 11:04:59 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 459 ms
-2023-08-23 11:08:52 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:08:52 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 11:08:52 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 11:08:54 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3283518 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 11:08:54 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 11:08:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 11:08:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 12 JPA repository interfaces.
-2023-08-23 11:08:55 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 11:08:55 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 11:08:55 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 11:08:55 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 11:08:55 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 845 ms
-2023-08-23 11:08:55 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 11:08:55 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 11:08:55 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 11:08:55 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:08:56 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 11:08:56 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 11:08:56 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@710afd47
-2023-08-23 11:08:56 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 11:08:56 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 11:08:56 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:08:56 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 11:08:57 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:08:57 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 11:08:58 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@64a0ee65, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3ce60feb, org.springframework.security.web.context.SecurityContextHolderFilter@1d306d27, org.springframework.security.web.header.HeaderWriterFilter@68e8bbab, org.springframework.security.web.authentication.logout.LogoutFilter@13482361, muni.eolida.sisifo.security.JwtAuthenticationFilter@44d36b56, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1cb4cad0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3152d449, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@61f2bf3a, org.springframework.security.web.session.SessionManagementFilter@35bfa7be, org.springframework.security.web.access.ExceptionTranslationFilter@3b303b78, org.springframework.security.web.access.intercept.AuthorizationFilter@75c5ab79]
-2023-08-23 11:08:58 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 11:08:58 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.266 seconds (process running for 4.55)
-2023-08-23 11:08:59 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 11:08:59 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 11:08:59 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2023-08-23 11:09:00 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 464 ms
-2023-08-23 11:13:42 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:13:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 11:13:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 11:13:45 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3284609 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 11:13:45 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 11:13:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 11:13:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 12 JPA repository interfaces.
-2023-08-23 11:13:46 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 11:13:46 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 11:13:46 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 11:13:46 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 11:13:46 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 819 ms
-2023-08-23 11:13:46 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 11:13:46 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 11:13:46 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 11:13:46 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:13:46 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 11:13:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 11:13:46 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5432dca2
-2023-08-23 11:13:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 11:13:46 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 11:13:46 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:13:47 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 11:13:47 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:13:48 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 11:13:49 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4a0dd851, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@293dd4b3, org.springframework.security.web.context.SecurityContextHolderFilter@3152d449, org.springframework.security.web.header.HeaderWriterFilter@7bd6c35e, org.springframework.security.web.authentication.logout.LogoutFilter@5c39da9e, muni.eolida.sisifo.security.JwtAuthenticationFilter@b1e63b5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2f349170, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@15ec3c0c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@25a81f28, org.springframework.security.web.session.SessionManagementFilter@1d306d27, org.springframework.security.web.access.ExceptionTranslationFilter@5dfaa2f0, org.springframework.security.web.access.intercept.AuthorizationFilter@64a0ee65]
-2023-08-23 11:13:49 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 11:13:49 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.253 seconds (process running for 4.521)
-2023-08-23 11:13:51 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 11:13:51 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 11:13:51 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 11:13:52 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 423 ms
-2023-08-23 11:22:24 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:22:24 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 11:22:24 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 11:22:27 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3285968 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 11:22:27 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 11:22:27 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 11:22:27 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 12 JPA repository interfaces.
-2023-08-23 11:22:27 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 11:22:27 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 11:22:27 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 11:22:28 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 11:22:28 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 828 ms
-2023-08-23 11:22:28 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 11:22:28 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 11:22:28 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 11:22:28 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:22:28 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 11:22:28 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 11:22:28 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5432dca2
-2023-08-23 11:22:28 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 11:22:28 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 11:22:28 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:22:29 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 11:22:29 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:22:29 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 11:22:30 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4a0dd851, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@293dd4b3, org.springframework.security.web.context.SecurityContextHolderFilter@3152d449, org.springframework.security.web.header.HeaderWriterFilter@7bd6c35e, org.springframework.security.web.authentication.logout.LogoutFilter@5c39da9e, muni.eolida.sisifo.security.JwtAuthenticationFilter@b1e63b5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2f349170, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@15ec3c0c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@25a81f28, org.springframework.security.web.session.SessionManagementFilter@1d306d27, org.springframework.security.web.access.ExceptionTranslationFilter@5dfaa2f0, org.springframework.security.web.access.intercept.AuthorizationFilter@64a0ee65]
-2023-08-23 11:22:31 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 11:22:31 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.129 seconds (process running for 4.393)
-2023-08-23 11:22:38 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 11:22:38 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 11:22:38 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 11:22:38 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 471 ms
-2023-08-23 11:25:33 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:25:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 11:25:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 11:25:36 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3286721 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 11:25:36 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 11:25:36 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 11:25:36 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 12 JPA repository interfaces.
-2023-08-23 11:25:37 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 11:25:37 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 11:25:37 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 11:25:37 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 11:25:37 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 848 ms
-2023-08-23 11:25:37 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 11:25:37 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 11:25:37 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 11:25:37 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:25:37 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 11:25:37 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 11:25:37 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@43fd77d8
-2023-08-23 11:25:37 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 11:25:37 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 11:25:37 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:25:38 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 11:25:38 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:25:38 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 11:25:39 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3d94b49d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2fedaa2e, org.springframework.security.web.context.SecurityContextHolderFilter@4c131823, org.springframework.security.web.header.HeaderWriterFilter@48682f91, org.springframework.security.web.authentication.logout.LogoutFilter@64a0ee65, muni.eolida.sisifo.security.JwtAuthenticationFilter@6c427386, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@68fb6c1e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@a89dec0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4203190, org.springframework.security.web.session.SessionManagementFilter@323b5264, org.springframework.security.web.access.ExceptionTranslationFilter@fcee97c, org.springframework.security.web.access.intercept.AuthorizationFilter@753cfae3]
-2023-08-23 11:25:40 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 11:25:40 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.216 seconds (process running for 4.51)
-2023-08-23 11:25:46 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 11:25:46 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 11:25:46 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 11:25:47 [http-nio-9088-exec-10] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 434 ms
-2023-08-23 11:33:43 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:33:43 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 11:33:43 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 11:33:45 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3287930 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 11:33:45 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 11:33:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 11:33:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 43 ms. Found 12 JPA repository interfaces.
-2023-08-23 11:33:46 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 11:33:46 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 11:33:46 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 11:33:46 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 11:33:46 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 798 ms
-2023-08-23 11:33:46 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 11:33:46 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 11:33:46 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 11:33:46 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:33:46 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 11:33:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 11:33:46 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@43fd77d8
-2023-08-23 11:33:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 11:33:46 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 11:33:46 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:33:47 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 11:33:47 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:33:48 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 11:33:49 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@326320bb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@57573880, org.springframework.security.web.context.SecurityContextHolderFilter@335ff774, org.springframework.security.web.header.HeaderWriterFilter@fcee97c, org.springframework.security.web.authentication.logout.LogoutFilter@3e7c66b3, muni.eolida.sisifo.security.JwtAuthenticationFilter@25502b1c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4c131823, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2453cbb7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3d94b49d, org.springframework.security.web.session.SessionManagementFilter@2f349170, org.springframework.security.web.access.ExceptionTranslationFilter@647468a7, org.springframework.security.web.access.intercept.AuthorizationFilter@25a81f28]
-2023-08-23 11:33:49 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 11:33:49 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.153 seconds (process running for 4.432)
-2023-08-23 11:34:01 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 11:34:01 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 11:34:01 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2023-08-23 11:34:01 [http-nio-9088-exec-10] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 428 ms
-2023-08-23 11:34:43 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:34:43 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 11:34:43 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 11:34:45 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3288380 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 11:34:45 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 11:34:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 11:34:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 43 ms. Found 12 JPA repository interfaces.
-2023-08-23 11:34:46 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 11:34:46 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 11:34:46 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 11:34:46 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 11:34:46 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 826 ms
-2023-08-23 11:34:46 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 11:34:46 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 11:34:46 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 11:34:46 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:34:46 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 11:34:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 11:34:46 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@55c03e4
-2023-08-23 11:34:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 11:34:46 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 11:34:46 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:34:47 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 11:34:47 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:34:48 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 11:34:49 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@13482361, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@47c06b1a, org.springframework.security.web.context.SecurityContextHolderFilter@5eabcf77, org.springframework.security.web.header.HeaderWriterFilter@2ee949d4, org.springframework.security.web.authentication.logout.LogoutFilter@2453cbb7, muni.eolida.sisifo.security.JwtAuthenticationFilter@51158fb1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@29f58b44, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@fcee97c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@61799152, org.springframework.security.web.session.SessionManagementFilter@672ba9cc, org.springframework.security.web.access.ExceptionTranslationFilter@294aaa6, org.springframework.security.web.access.intercept.AuthorizationFilter@35ec3604]
-2023-08-23 11:34:49 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 11:34:49 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.192 seconds (process running for 4.459)
-2023-08-23 11:34:51 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 11:34:51 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 11:34:51 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 11:34:52 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 467 ms
-2023-08-23 11:36:09 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:36:09 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 11:36:09 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 11:36:11 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3288986 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 11:36:11 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 11:36:11 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 11:36:11 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 43 ms. Found 12 JPA repository interfaces.
-2023-08-23 11:36:12 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 11:36:12 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 11:36:12 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 11:36:12 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 11:36:12 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 821 ms
-2023-08-23 11:36:12 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 11:36:12 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 11:36:12 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 11:36:12 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:36:12 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 11:36:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 11:36:12 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@710afd47
-2023-08-23 11:36:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 11:36:12 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 11:36:12 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:36:13 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 11:36:13 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:36:14 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 11:36:15 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3ce60feb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@61f2bf3a, org.springframework.security.web.context.SecurityContextHolderFilter@557abb68, org.springframework.security.web.header.HeaderWriterFilter@5dfaa2f0, org.springframework.security.web.authentication.logout.LogoutFilter@47c06b1a, muni.eolida.sisifo.security.JwtAuthenticationFilter@6ce1cc03, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3152d449, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2f95ce11, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4a0dd851, org.springframework.security.web.session.SessionManagementFilter@482034fb, org.springframework.security.web.access.ExceptionTranslationFilter@685e97e0, org.springframework.security.web.access.intercept.AuthorizationFilter@3e7c66b3]
-2023-08-23 11:36:15 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 11:36:15 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.221 seconds (process running for 4.474)
-2023-08-23 11:36:19 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 11:36:19 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 11:36:19 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 11:36:20 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 444 ms
-2023-08-23 11:37:29 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:37:29 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 11:37:29 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 11:37:31 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3289417 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 11:37:31 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 11:37:32 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 11:37:32 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 46 ms. Found 12 JPA repository interfaces.
-2023-08-23 11:37:32 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 11:37:32 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 11:37:32 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 11:37:32 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 11:37:32 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 824 ms
-2023-08-23 11:37:32 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 11:37:32 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 11:37:32 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 11:37:32 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:37:33 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 11:37:33 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 11:37:33 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@704c3bdf
-2023-08-23 11:37:33 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 11:37:33 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 11:37:33 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:37:33 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 11:37:34 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:37:34 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 11:37:35 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@13482361, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@47c06b1a, org.springframework.security.web.context.SecurityContextHolderFilter@5eabcf77, org.springframework.security.web.header.HeaderWriterFilter@2ee949d4, org.springframework.security.web.authentication.logout.LogoutFilter@2453cbb7, muni.eolida.sisifo.security.JwtAuthenticationFilter@51158fb1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@29f58b44, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@fcee97c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@61799152, org.springframework.security.web.session.SessionManagementFilter@672ba9cc, org.springframework.security.web.access.ExceptionTranslationFilter@294aaa6, org.springframework.security.web.access.intercept.AuthorizationFilter@35ec3604]
-2023-08-23 11:37:35 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 11:37:35 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.217 seconds (process running for 4.498)
-2023-08-23 11:37:54 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:37:54 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 11:37:54 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 11:37:56 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3289814 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 11:37:56 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 11:37:56 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 11:37:57 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45 ms. Found 12 JPA repository interfaces.
-2023-08-23 11:37:57 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 11:37:57 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 11:37:57 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 11:37:57 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 11:37:57 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 835 ms
-2023-08-23 11:37:57 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 11:37:57 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 11:37:57 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 11:37:57 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:37:57 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 11:37:57 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 11:37:57 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@c82d925
-2023-08-23 11:37:57 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 11:37:57 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 11:37:58 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 11:37:58 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 11:37:59 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 11:37:59 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 11:38:00 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@47c06b1a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@61799152, org.springframework.security.web.context.SecurityContextHolderFilter@647468a7, org.springframework.security.web.header.HeaderWriterFilter@57e9cd2, org.springframework.security.web.authentication.logout.LogoutFilter@68fb6c1e, muni.eolida.sisifo.security.JwtAuthenticationFilter@b21cbbf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@fcee97c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@f1e5f85, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5c39da9e, org.springframework.security.web.session.SessionManagementFilter@7bd6c35e, org.springframework.security.web.access.ExceptionTranslationFilter@1f612968, org.springframework.security.web.access.intercept.AuthorizationFilter@ab5954d]
-2023-08-23 11:38:00 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 11:38:00 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.18 seconds (process running for 4.46)
-2023-08-23 11:38:03 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 11:38:03 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 11:38:03 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 11:38:03 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 414 ms
-2023-08-23 12:39:27 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 12:39:27 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 12:39:27 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 12:39:31 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3298679 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 12:39:31 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 12:39:32 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 12:39:32 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 58 ms. Found 12 JPA repository interfaces.
-2023-08-23 12:39:32 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 12:39:32 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 12:39:32 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 12:39:32 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 12:39:32 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1078 ms
-2023-08-23 12:39:32 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 12:39:32 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 12:39:32 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 12:39:33 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 12:39:33 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 12:39:33 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 12:39:33 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1fa9692b
-2023-08-23 12:39:33 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 12:39:33 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 12:39:33 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 12:39:34 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 12:39:34 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 12:39:34 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 12:39:35 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4a0dd851, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@293dd4b3, org.springframework.security.web.context.SecurityContextHolderFilter@fcee97c, org.springframework.security.web.header.HeaderWriterFilter@34a48013, org.springframework.security.web.authentication.logout.LogoutFilter@5c39da9e, muni.eolida.sisifo.security.JwtAuthenticationFilter@b21cbbf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@48682f91, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4dc23273, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@25a81f28, org.springframework.security.web.session.SessionManagementFilter@5eabcf77, org.springframework.security.web.access.ExceptionTranslationFilter@57e9cd2, org.springframework.security.web.access.intercept.AuthorizationFilter@64a0ee65]
-2023-08-23 12:39:36 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 12:39:36 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.698 seconds (process running for 5.133)
-2023-08-23 12:49:35 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 12:49:35 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 12:49:35 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 12:49:37 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3300337 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 12:49:37 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 12:49:38 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 12:49:38 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 12 JPA repository interfaces.
-2023-08-23 12:49:38 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 12:49:38 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 12:49:38 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 12:49:38 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 12:49:38 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 844 ms
-2023-08-23 12:49:38 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 12:49:38 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 12:49:38 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 12:49:38 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 12:49:39 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 12:49:39 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 12:49:39 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@14df5253
-2023-08-23 12:49:39 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 12:49:39 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 12:49:39 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 12:49:40 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 12:49:40 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 12:49:40 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 12:49:41 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@51577fc8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@753cfae3, org.springframework.security.web.context.SecurityContextHolderFilter@4dc23273, org.springframework.security.web.header.HeaderWriterFilter@4548bfc7, org.springframework.security.web.authentication.logout.LogoutFilter@673a702a, muni.eolida.sisifo.security.JwtAuthenticationFilter@578ac0be, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@482034fb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@41bd8ec9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@326320bb, org.springframework.security.web.session.SessionManagementFilter@fcee97c, org.springframework.security.web.access.ExceptionTranslationFilter@50e7d8ba, org.springframework.security.web.access.intercept.AuthorizationFilter@4a0dd851]
-2023-08-23 12:49:42 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 12:49:42 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.512 seconds (process running for 4.778)
-2023-08-23 12:49:58 [http-nio-9088-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 12:49:58 [http-nio-9088-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 12:49:58 [http-nio-9088-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2023-08-23 12:49:59 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 528 ms
-2023-08-23 12:51:17 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 12:51:17 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 12:51:17 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 12:51:19 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3300898 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 12:51:19 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 12:51:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 12:51:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 12 JPA repository interfaces.
-2023-08-23 12:51:20 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 12:51:20 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 12:51:20 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 12:51:20 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 12:51:20 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 834 ms
-2023-08-23 12:51:20 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 12:51:20 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 12:51:20 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 12:51:20 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 12:51:20 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 12:51:20 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 12:51:21 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@704c3bdf
-2023-08-23 12:51:21 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 12:51:21 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 12:51:21 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 12:51:21 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 12:51:22 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 12:51:22 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 12:51:23 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3e7c66b3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@502f6f6a, org.springframework.security.web.context.SecurityContextHolderFilter@7bd6c35e, org.springframework.security.web.header.HeaderWriterFilter@294aaa6, org.springframework.security.web.authentication.logout.LogoutFilter@ab5954d, muni.eolida.sisifo.security.JwtAuthenticationFilter@7c0ecdbf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5eabcf77, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@647468a7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@64a0ee65, org.springframework.security.web.session.SessionManagementFilter@68e8bbab, org.springframework.security.web.access.ExceptionTranslationFilter@79690a0a, org.springframework.security.web.access.intercept.AuthorizationFilter@4a648b35]
-2023-08-23 12:51:23 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 12:51:23 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.268 seconds (process running for 4.549)
-2023-08-23 12:51:25 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 12:51:25 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 12:51:25 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2023-08-23 12:51:26 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 477 ms
-2023-08-23 12:52:58 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 12:52:58 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 12:52:58 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2023-08-23 12:53:00 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3301565 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
-2023-08-23 12:53:00 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
-2023-08-23 12:53:01 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-23 12:53:01 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 12 JPA repository interfaces.
-2023-08-23 12:53:01 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
-2023-08-23 12:53:01 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2023-08-23 12:53:01 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
-2023-08-23 12:53:01 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2023-08-23 12:53:01 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 825 ms
-2023-08-23 12:53:01 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-23 12:53:01 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
-2023-08-23 12:53:01 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
-2023-08-23 12:53:01 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 12:53:02 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-08-23 12:53:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2023-08-23 12:53:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@c82d925
-2023-08-23 12:53:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2023-08-23 12:53:02 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-08-23 12:53:02 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
-2023-08-23 12:53:02 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-23 12:53:03 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 12:53:03 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-08-23 12:53:04 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4a0dd851, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@293dd4b3, org.springframework.security.web.context.SecurityContextHolderFilter@fcee97c, org.springframework.security.web.header.HeaderWriterFilter@34a48013, org.springframework.security.web.authentication.logout.LogoutFilter@5c39da9e, muni.eolida.sisifo.security.JwtAuthenticationFilter@7c0ecdbf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@48682f91, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4dc23273, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@25a81f28, org.springframework.security.web.session.SessionManagementFilter@5eabcf77, org.springframework.security.web.access.ExceptionTranslationFilter@57e9cd2, org.springframework.security.web.access.intercept.AuthorizationFilter@64a0ee65]
-2023-08-23 12:53:04 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
-2023-08-23 12:53:04 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.085 seconds (process running for 4.362)
-2023-08-23 13:03:11 [http-nio-9088-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-23 13:03:11 [http-nio-9088-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2023-08-23 13:03:11 [http-nio-9088-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2023-08-23 13:03:12 [http-nio-9088-exec-10] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 489 ms
-2023-08-23 13:05:35 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-23 13:05:35 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2023-08-23 13:05:35 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-24 07:42:54 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3407058 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-24 07:42:54 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-24 07:42:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-24 07:42:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 12 JPA repository interfaces.
+2023-08-24 07:42:55 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-24 07:42:55 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-24 07:42:55 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-24 07:42:55 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-24 07:42:55 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 818 ms
+2023-08-24 07:42:55 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-24 07:42:55 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-24 07:42:55 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-24 07:42:55 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 07:42:55 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-24 07:42:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-24 07:42:56 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@11180750
+2023-08-24 07:42:56 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-24 07:42:56 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-24 07:42:56 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 07:42:56 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-24 07:42:57 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 07:42:57 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-24 07:42:58 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5317a7ef, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6fa48ee4, org.springframework.security.web.context.SecurityContextHolderFilter@466f7259, org.springframework.security.web.header.HeaderWriterFilter@2f349170, org.springframework.security.web.authentication.logout.LogoutFilter@2360ebe2, muni.eolida.sisifo.security.JwtAuthenticationFilter@2e93f91d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@47c06b1a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@61799152, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@a422390, org.springframework.security.web.session.SessionManagementFilter@13a8cb4e, org.springframework.security.web.access.ExceptionTranslationFilter@3152d449, org.springframework.security.web.access.intercept.AuthorizationFilter@70a984c5]
+2023-08-24 07:42:58 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-24 07:42:58 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.2 seconds (process running for 4.489)
+2023-08-24 07:42:59 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-24 07:42:59 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-08-24 07:42:59 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-08-24 07:42:59 [http-nio-9088-exec-1] ERROR m.e.s.security.AuthEntryPointJwt - Error, no authorizado: Full authentication is required to access this resource
+2023-08-24 07:43:00 [http-nio-9088-exec-2] ERROR m.e.s.security.AuthEntryPointJwt - Error, no authorizado: Full authentication is required to access this resource
+2023-08-24 07:43:05 [http-nio-9088-exec-3] ERROR m.e.s.security.AuthEntryPointJwt - Error, no authorizado: Full authentication is required to access this resource
+2023-08-24 07:43:07 [http-nio-9088-exec-1] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 423 ms
+2023-08-24 07:54:28 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 07:54:28 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-24 07:54:28 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-24 07:54:31 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3408649 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-24 07:54:31 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-24 07:54:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-24 07:54:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 12 JPA repository interfaces.
+2023-08-24 07:54:31 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-24 07:54:31 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-24 07:54:31 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-24 07:54:31 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-24 07:54:31 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 851 ms
+2023-08-24 07:54:32 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-24 07:54:32 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-24 07:54:32 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-24 07:54:32 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 07:54:32 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-24 07:54:32 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-24 07:54:32 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@710afd47
+2023-08-24 07:54:32 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-24 07:54:32 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-24 07:54:32 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 07:54:33 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-24 07:54:33 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 07:54:33 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-24 07:54:34 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4a0dd851, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@293dd4b3, org.springframework.security.web.context.SecurityContextHolderFilter@fcee97c, org.springframework.security.web.header.HeaderWriterFilter@34a48013, org.springframework.security.web.authentication.logout.LogoutFilter@5c39da9e, muni.eolida.sisifo.security.JwtAuthenticationFilter@578ac0be, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@48682f91, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4dc23273, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@25a81f28, org.springframework.security.web.session.SessionManagementFilter@5eabcf77, org.springframework.security.web.access.ExceptionTranslationFilter@57e9cd2, org.springframework.security.web.access.intercept.AuthorizationFilter@64a0ee65]
+2023-08-24 07:54:35 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-24 07:54:35 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.205 seconds (process running for 4.48)
+2023-08-24 07:54:37 [http-nio-9088-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-24 07:54:37 [http-nio-9088-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-08-24 07:54:37 [http-nio-9088-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-08-24 07:54:38 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 434 ms
+2023-08-24 07:56:40 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 07:56:40 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-24 07:56:40 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-24 07:56:43 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3409160 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-24 07:56:43 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-24 07:56:43 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-24 07:56:43 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 12 JPA repository interfaces.
+2023-08-24 07:56:44 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-24 07:56:44 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-24 07:56:44 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-24 07:56:44 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-24 07:56:44 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 814 ms
+2023-08-24 07:56:44 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-24 07:56:44 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-24 07:56:44 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-24 07:56:44 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 07:56:44 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-24 07:56:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-24 07:56:44 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@55c03e4
+2023-08-24 07:56:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-24 07:56:44 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-24 07:56:44 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 07:56:45 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-24 07:56:45 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 07:56:46 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-24 07:56:47 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3e7c66b3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@502f6f6a, org.springframework.security.web.context.SecurityContextHolderFilter@7bd6c35e, org.springframework.security.web.header.HeaderWriterFilter@294aaa6, org.springframework.security.web.authentication.logout.LogoutFilter@ab5954d, muni.eolida.sisifo.security.JwtAuthenticationFilter@2226fd2b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5eabcf77, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@647468a7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@64a0ee65, org.springframework.security.web.session.SessionManagementFilter@68e8bbab, org.springframework.security.web.access.ExceptionTranslationFilter@79690a0a, org.springframework.security.web.access.intercept.AuthorizationFilter@4a648b35]
+2023-08-24 07:56:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-24 07:56:47 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.225 seconds (process running for 4.516)
+2023-08-24 07:56:51 [http-nio-9088-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-24 07:56:51 [http-nio-9088-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-08-24 07:56:51 [http-nio-9088-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-08-24 07:56:52 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 426 ms
+2023-08-24 08:29:43 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 08:29:43 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-24 08:29:43 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-24 08:29:46 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3412264 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-24 08:29:46 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-24 08:29:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-24 08:29:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 46 ms. Found 12 JPA repository interfaces.
+2023-08-24 08:29:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-24 08:29:47 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-24 08:29:47 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-24 08:29:47 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-24 08:29:47 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 851 ms
+2023-08-24 08:29:47 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-24 08:29:47 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-24 08:29:47 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-24 08:29:47 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 08:29:47 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-24 08:29:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-24 08:29:47 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@11cadb32
+2023-08-24 08:29:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-24 08:29:47 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-24 08:29:47 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 08:29:48 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-24 08:29:48 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 08:29:49 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-24 08:29:50 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@13a8cb4e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@35ec3604, org.springframework.security.web.context.SecurityContextHolderFilter@57e9cd2, org.springframework.security.web.header.HeaderWriterFilter@67857a20, org.springframework.security.web.authentication.logout.LogoutFilter@323b5264, muni.eolida.sisifo.security.JwtAuthenticationFilter@ee7a538, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@34a48013, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@50e7d8ba, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@ab5954d, org.springframework.security.web.session.SessionManagementFilter@294aaa6, org.springframework.security.web.access.ExceptionTranslationFilter@2b57dc2, org.springframework.security.web.access.intercept.AuthorizationFilter@5e8f1db2]
+2023-08-24 08:29:50 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-24 08:29:50 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.272 seconds (process running for 4.549)
+2023-08-24 08:29:56 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-24 08:29:56 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-08-24 08:29:56 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-08-24 08:29:56 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 494 ms
+2023-08-24 09:05:30 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 09:05:30 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-24 09:05:30 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-24 09:05:33 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3415644 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-24 09:05:33 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-24 09:05:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-24 09:05:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 46 ms. Found 12 JPA repository interfaces.
+2023-08-24 09:05:34 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-24 09:05:34 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-24 09:05:34 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-24 09:05:34 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-24 09:05:34 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 838 ms
+2023-08-24 09:05:34 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-24 09:05:34 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-24 09:05:34 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-24 09:05:34 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 09:05:34 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-24 09:05:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-24 09:05:35 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@667a467f
+2023-08-24 09:05:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-24 09:05:35 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-24 09:05:35 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 09:05:35 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-24 09:05:36 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 09:05:36 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-24 09:05:37 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@293dd4b3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@25a81f28, org.springframework.security.web.context.SecurityContextHolderFilter@f1e5f85, org.springframework.security.web.header.HeaderWriterFilter@50e7d8ba, org.springframework.security.web.authentication.logout.LogoutFilter@e38b953, muni.eolida.sisifo.security.JwtAuthenticationFilter@24caa80, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4dc23273, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@35bfa7be, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@51577fc8, org.springframework.security.web.session.SessionManagementFilter@647468a7, org.springframework.security.web.access.ExceptionTranslationFilter@2298d741, org.springframework.security.web.access.intercept.AuthorizationFilter@3ce60feb]
+2023-08-24 09:05:37 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-24 09:05:37 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.228 seconds (process running for 4.516)
+2023-08-24 09:05:39 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-24 09:05:39 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-08-24 09:05:39 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-08-24 09:05:40 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 470 ms
+2023-08-24 09:27:23 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 09:27:23 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-24 09:27:23 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-24 09:50:13 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3421062 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-24 09:50:13 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-24 09:50:14 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-24 09:50:14 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 12 JPA repository interfaces.
+2023-08-24 09:50:14 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-24 09:50:14 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-24 09:50:14 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-24 09:50:14 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-24 09:50:14 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 855 ms
+2023-08-24 09:50:14 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-24 09:50:14 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-24 09:50:14 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-24 09:50:14 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 09:50:14 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-24 09:50:14 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-24 09:50:15 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@324e8baa
+2023-08-24 09:50:15 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-24 09:50:15 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-24 09:50:15 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 09:50:15 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-24 09:50:16 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 09:50:16 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-24 09:50:17 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@673a702a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@75c5ab79, org.springframework.security.web.context.SecurityContextHolderFilter@5dfaa2f0, org.springframework.security.web.header.HeaderWriterFilter@79690a0a, org.springframework.security.web.authentication.logout.LogoutFilter@13a8cb4e, muni.eolida.sisifo.security.JwtAuthenticationFilter@44d36b56, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7bd6c35e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@564e0a6c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3e7c66b3, org.springframework.security.web.session.SessionManagementFilter@3b303b78, org.springframework.security.web.access.ExceptionTranslationFilter@3c0becae, org.springframework.security.web.access.intercept.AuthorizationFilter@5c39da9e]
+2023-08-24 09:50:17 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-24 09:50:17 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.244 seconds (process running for 4.533)
+2023-08-24 09:50:20 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-24 09:50:20 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-08-24 09:50:20 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-08-24 09:50:20 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 501 ms
+2023-08-24 09:50:40 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 09:50:40 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-24 09:50:40 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-24 09:50:42 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3421529 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-24 09:50:42 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-24 09:50:42 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-24 09:50:42 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 49 ms. Found 12 JPA repository interfaces.
+2023-08-24 09:50:43 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-24 09:50:43 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-24 09:50:43 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-24 09:50:43 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-24 09:50:43 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 858 ms
+2023-08-24 09:50:43 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-24 09:50:43 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-24 09:50:43 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-24 09:50:43 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 09:50:43 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-24 09:50:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-24 09:50:43 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@15be68b
+2023-08-24 09:50:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-24 09:50:43 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-24 09:50:43 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 09:50:44 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-24 09:50:44 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 09:50:44 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-24 09:50:46 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6add8aac, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@72f5fb36, org.springframework.security.web.context.SecurityContextHolderFilter@3152d449, org.springframework.security.web.header.HeaderWriterFilter@7bd6c35e, org.springframework.security.web.authentication.logout.LogoutFilter@4a0dd851, muni.eolida.sisifo.security.JwtAuthenticationFilter@2086f336, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2f349170, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@15ec3c0c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@300b839c, org.springframework.security.web.session.SessionManagementFilter@1d306d27, org.springframework.security.web.access.ExceptionTranslationFilter@5dfaa2f0, org.springframework.security.web.access.intercept.AuthorizationFilter@3d94b49d]
+2023-08-24 09:50:46 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-24 09:50:46 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.202 seconds (process running for 4.491)
+2023-08-24 09:50:48 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-24 09:50:48 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-08-24 09:50:48 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-08-24 09:50:49 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 517 ms
+2023-08-24 11:03:52 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 11:03:52 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-24 11:03:52 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-24 11:03:56 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3429249 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-24 11:03:56 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-24 11:03:56 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-24 11:03:56 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 49 ms. Found 12 JPA repository interfaces.
+2023-08-24 11:03:57 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-24 11:03:57 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-24 11:03:57 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-24 11:03:57 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-24 11:03:57 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 993 ms
+2023-08-24 11:03:57 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-24 11:03:57 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-24 11:03:57 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-24 11:03:57 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 11:03:57 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-24 11:03:57 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-24 11:03:58 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@11180750
+2023-08-24 11:03:58 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-24 11:03:58 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-24 11:03:58 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 11:03:58 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-24 11:03:59 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 11:03:59 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-24 11:04:00 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@300b839c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@352288bc, org.springframework.security.web.context.SecurityContextHolderFilter@2f349170, org.springframework.security.web.header.HeaderWriterFilter@5eabcf77, org.springframework.security.web.authentication.logout.LogoutFilter@25a81f28, muni.eolida.sisifo.security.JwtAuthenticationFilter@4778c085, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@323b5264, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@335ff774, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@33acec5e, org.springframework.security.web.session.SessionManagementFilter@1cb4cad0, org.springframework.security.web.access.ExceptionTranslationFilter@7bd6c35e, org.springframework.security.web.access.intercept.AuthorizationFilter@4203190]
+2023-08-24 11:04:00 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-24 11:04:00 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.753 seconds (process running for 5.157)
+2023-08-24 11:08:41 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-24 11:08:41 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-08-24 11:08:41 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-08-24 11:08:42 [http-nio-9088-exec-10] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 462 ms
+2023-08-24 11:09:50 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 11:09:50 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-24 11:09:50 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-24 11:09:54 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3430373 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-24 11:09:54 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-24 11:09:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-24 11:09:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45 ms. Found 12 JPA repository interfaces.
+2023-08-24 11:09:55 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-24 11:09:55 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-24 11:09:55 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-24 11:09:55 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-24 11:09:55 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 835 ms
+2023-08-24 11:09:55 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-24 11:09:55 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-24 11:09:55 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-24 11:09:55 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 11:09:55 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-24 11:09:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-24 11:09:55 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7283877
+2023-08-24 11:09:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-24 11:09:55 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-24 11:09:55 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 11:09:56 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-24 11:09:56 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 11:09:57 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-24 11:09:58 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@326320bb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@57573880, org.springframework.security.web.context.SecurityContextHolderFilter@482034fb, org.springframework.security.web.header.HeaderWriterFilter@3b303b78, org.springframework.security.web.authentication.logout.LogoutFilter@3e7c66b3, muni.eolida.sisifo.security.JwtAuthenticationFilter@2086f336, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1d306d27, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@557abb68, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3d94b49d, org.springframework.security.web.session.SessionManagementFilter@48682f91, org.springframework.security.web.access.ExceptionTranslationFilter@4548bfc7, org.springframework.security.web.access.intercept.AuthorizationFilter@25a81f28]
+2023-08-24 11:09:58 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-24 11:09:58 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.371 seconds (process running for 4.647)
+2023-08-24 11:10:02 [http-nio-9088-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-24 11:10:02 [http-nio-9088-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-08-24 11:10:02 [http-nio-9088-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-08-24 11:10:03 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 488 ms
+2023-08-24 12:03:27 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 12:03:27 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-24 12:03:27 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-24 12:03:30 [main] INFO  m.eolida.sisifo.SisifoApplication - Starting SisifoApplication using Java 20.0.1 with PID 3436374 (/home/repara/GIT/sisifo/se-back/target/classes started by repara in /home/repara/GIT/sisifo/se-back)
+2023-08-24 12:03:30 [main] INFO  m.eolida.sisifo.SisifoApplication - The following 1 profile is active: "devRepara"
+2023-08-24 12:03:30 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-24 12:03:30 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 52 ms. Found 12 JPA repository interfaces.
+2023-08-24 12:03:30 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9088 (http)
+2023-08-24 12:03:30 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-24 12:03:30 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-24 12:03:31 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-08-24 12:03:31 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 851 ms
+2023-08-24 12:03:31 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-24 12:03:31 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-24 12:03:31 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-08-24 12:03:31 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 12:03:31 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-24 12:03:31 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-24 12:03:31 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1805ec96
+2023-08-24 12:03:31 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-24 12:03:31 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-08-24 12:03:31 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-08-24 12:03:32 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-24 12:03:32 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 12:03:33 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-08-24 12:03:34 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@e38b953, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4a648b35, org.springframework.security.web.context.SecurityContextHolderFilter@685e97e0, org.springframework.security.web.header.HeaderWriterFilter@3c0becae, org.springframework.security.web.authentication.logout.LogoutFilter@64bb6ba7, muni.eolida.sisifo.security.JwtAuthenticationFilter@14b0b7f9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5dfaa2f0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@672ba9cc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@673a702a, org.springframework.security.web.session.SessionManagementFilter@4548bfc7, org.springframework.security.web.access.ExceptionTranslationFilter@3129792a, org.springframework.security.web.access.intercept.AuthorizationFilter@47c06b1a]
+2023-08-24 12:03:34 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9088 (http) with context path ''
+2023-08-24 12:03:34 [main] INFO  m.eolida.sisifo.SisifoApplication - Started SisifoApplication in 4.609 seconds (process running for 4.906)
+2023-08-24 12:04:38 [http-nio-9088-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-24 12:04:38 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-08-24 12:04:38 [http-nio-9088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-08-24 12:04:39 [http-nio-9088-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 494 ms
+2023-08-24 13:10:06 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-24 13:10:06 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-24 13:10:06 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

@@ -1,5 +1,8 @@
 package muni.eolida.sisifo.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.util.EntityMessenger;
@@ -8,7 +11,6 @@ import muni.eolida.sisifo.mapper.creation.RolCreation;
 import muni.eolida.sisifo.mapper.dto.RolDTO;
 import muni.eolida.sisifo.model.RolModel;
 import muni.eolida.sisifo.service.implementation.RolServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,14 +22,13 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/rol")
+@RequiredArgsConstructor
 @RestController
 @Slf4j
+@Tag(name = "Endpoints ROL", description = "Recursos referidos a la consulta y persistencia de Roles o autoridades.")
 public class RolController {
-
-    @Autowired
-    private RolServiceImpl rolService;
-    @Autowired
-    private RolMapper rolMapper;
+    private final RolServiceImpl rolService;
+    private final RolMapper rolMapper;
 
     @GetMapping(value = "/buscar-por-rol/{rol}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
@@ -121,6 +122,7 @@ public class RolController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
     }
 
+    @Operation(hidden = true)
     @GetMapping(value = "/contar-todas")
     @PreAuthorize("hasAuthority('EMPLEADO')")
     public ResponseEntity<Long> contarTodas() {
@@ -128,6 +130,7 @@ public class RolController {
         return new ResponseEntity<>(cantidad, Helper.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
     }
 
+    @Operation(hidden = true)
     @GetMapping(value = "/contar-todas-con-eliminadas")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<Long> contarTodasConEliminadas() {
@@ -165,7 +168,7 @@ public class RolController {
         EntityMessenger<RolModel> objeto = rolService.eliminar(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 201)
+        else if (objeto.getEstado() == 200)
             return new ResponseEntity<>(rolMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
         else
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
