@@ -1,6 +1,15 @@
 package muni.eolida.sisifo.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +39,41 @@ public class SeguimientoController {
     private final SeguimientoServiceImpl seguimientoService;
     private final SeguimientoMapper seguimientoMapper;
 
+    @Operation(
+            summary = "Buscar entidades por descripcion.",
+            description = "Rol/Autoridad requerida: EMPLEADO<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SeguimientoDTO.class)))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "String."
+            )
+    })
     @GetMapping(value = "/buscar-todas-por-descripcion/{descripcion}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
     public ResponseEntity<List<SeguimientoDTO>> buscarTodasPorDescripcion(@PathVariable(name = "descripcion")  String descripcion) {
@@ -47,6 +91,41 @@ public class SeguimientoController {
         }
     }
 
+    @Operation(
+            summary = "Buscar entidades por descripcion, incluidas las eliminadas.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SeguimientoDTO.class)))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "String."
+            )
+    })
     @GetMapping(value = "/buscar-todas-por-descripcion-con-eliminadas/{descripcion}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<SeguimientoDTO>> buscarTodasPorDescripcionConEliminadas(@PathVariable(name = "descripcion")  String descripcion) {
@@ -64,6 +143,39 @@ public class SeguimientoController {
         }
     }
 
+    @Operation(
+            summary = "Buscar entidades entre periodo de fechas.",
+            description = "Rol/Autoridad requerida: EMPLEADO<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SeguimientoDTO.class)))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(name = "inicio", in = ParameterIn.PATH, description = "LocalDateTime.", example = "2017-01-13T17:09:42.411"),
+            @Parameter(name = "fin", in = ParameterIn.PATH, description = "LocalDateTime.", example = "2023-12-22T17:09:42.411"),
+    })
     @GetMapping(value = "/buscar-todas-por-creada-entre-fechas/{inicio}/{fin}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
     public ResponseEntity<List<SeguimientoDTO>> buscarTodasPorCreadaEntreFechas(
@@ -83,6 +195,39 @@ public class SeguimientoController {
         }
     }
 
+    @Operation(
+            summary = "Buscar entidades entre periodo de fechas, incluidas las eliminadas.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SeguimientoDTO.class)))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(name = "inicio", in = ParameterIn.PATH, description = "LocalDateTime.", example = "2017-01-13T17:09:42.411"),
+            @Parameter(name = "fin", in = ParameterIn.PATH, description = "LocalDateTime.", example = "2023-12-22T17:09:42.411"),
+    })
     @GetMapping(value = "/buscar-todas-por-creada-entre-fechas-con-eliminadas/{inicio}/{fin}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<SeguimientoDTO>> buscarTodasPorCreadaEntreFechasConEliminadas(
@@ -102,6 +247,41 @@ public class SeguimientoController {
         }
     }
 
+    @Operation(
+            summary = "Buscar entidad por ID.",
+            description = "Rol/Autoridad requerida: EMPLEADO<br><strong>De consumirse correctamente se devuelve la entidad correspondiente al id.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve objeto JSON.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = SeguimientoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "Numerico."
+            )
+    })
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
     public ResponseEntity<SeguimientoDTO> buscarPorId(@PathVariable(name = "id") Long id) {
@@ -114,6 +294,41 @@ public class SeguimientoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Buscar entidad por ID, incluidas las eliminadas.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve la entidad.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve objeto JSON.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = SeguimientoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "Numerico."
+            )
+    })
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<SeguimientoDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") Long id) {
@@ -126,6 +341,35 @@ public class SeguimientoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Buscar todas las entidades.",
+            description = "Rol/Autoridad requerida: EMPLEADO<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SeguimientoDTO.class)))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
     @GetMapping(value = "/buscar-todas")
     @PreAuthorize("hasAuthority('EMPLEADO')")
     public ResponseEntity<List<SeguimientoDTO>> buscarTodas() {
@@ -143,6 +387,35 @@ public class SeguimientoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Buscar todas las entidades, incluidas las eliminadas.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SeguimientoDTO.class)))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
     @GetMapping(value = "/buscar-todas-con-eliminadas")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<SeguimientoDTO>> buscarTodasConEliminadas() {
@@ -176,6 +449,44 @@ public class SeguimientoController {
         return new ResponseEntity<>(cantidad, Helper.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
     }
 
+    @Operation(
+            summary = "Persisitir una nueva entidad.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se persiste la nueva entidad.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Recurso consumido correctamente, se devuelve el nuevo objeto JSON.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = SeguimientoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.QUERY,
+                    description = "Objeto JSON conteniendo la descripcion del Seguimiento.",
+                    example = "<br>{<br>" +
+                            "&nbsp;&nbsp;&nbsp;&nbsp;\"descripcion\": \"Luminaria reparada.\",<br>" +
+                            "<br>}"
+            )
+    })
     @PutMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<SeguimientoDTO> insertar(@Valid @RequestBody SeguimientoCreation seguimientoCreation) {
@@ -188,6 +499,46 @@ public class SeguimientoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Modificar una entidad.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se persiste los cambios en la entidad.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Recurso consumido correctamente, se devuelve el objeto JSON modificado.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = SeguimientoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.QUERY,
+                    description = "Objeto JSON conteniendo: id, descripcion y estados del Seguimiento.",
+                    example = "<br>{<br>" +
+                            "&nbsp;&nbsp;&nbsp;&nbsp;\"id\": \"2\",<br>" +
+                            "&nbsp;&nbsp;&nbsp;&nbsp;\"descripcion\": \"Luminaraia reparada.\",<br>" +
+                            "&nbsp;&nbsp;&nbsp;&nbsp;\"estados\": \"[]\",<br>" +
+                            "<br>}"
+            )
+    })
     @PostMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<SeguimientoDTO> actualizar(@Valid @RequestBody SeguimientoModel seguimientoModel) {
@@ -200,6 +551,40 @@ public class SeguimientoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Eliminar una entidad.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se marca la entidad como eliminada.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se marca la entidad como eliminada.",
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "Numerico."
+            )
+    })
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<SeguimientoDTO> borrar(@PathVariable(name = "id") Long id) {
@@ -212,6 +597,41 @@ public class SeguimientoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Restaura una entidad marcada como eliminada..",
+            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser reciclada primero debe estar eliminada. De consumirse correctamente se devuelve la entidad reciclada.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve objeto JSON.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = SeguimientoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "Numerico."
+            )
+    })
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<SeguimientoDTO> reciclar(@PathVariable(name = "id") Long id) {
@@ -224,6 +644,40 @@ public class SeguimientoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Destruye una entidad marcada como eliminada.",
+            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser destruida primero debe estar eliminada. De consumirse correctamente destruye totalmente el recurso.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, Objeto destruido.",
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "Numerico."
+            )
+    })
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {

@@ -1,6 +1,15 @@
 package muni.eolida.sisifo.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +39,41 @@ public class TipoReclamoController {
     private final TipoReclamoServiceImpl tipoReclamoService;
     private final TipoReclamoMapper tipoReclamoMapper;
 
+    @Operation(
+            summary = "Buscar entidades por id de area.",
+            description = "Rol/Autoridad requerida: CONTRIBUYENTE<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TipoReclamoDTO.class)))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "Numerico."
+            )
+    })
     @GetMapping(value = "/buscar-todas-por-area-id/{id}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<TipoReclamoDTO>> buscarTodasPorAreaId(@PathVariable(name = "id")  Long id) {
@@ -47,6 +91,41 @@ public class TipoReclamoController {
         }
     }
 
+    @Operation(
+            summary = "Buscar entidades por id de area, incluidas las eliminadas.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve la entidad.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve objeto JSON.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TipoReclamoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "Numerico."
+            )
+    })
     @GetMapping(value = "/buscar-todas-por-area-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<TipoReclamoDTO>> buscarTodasPorAreaIdConEliminadas(@PathVariable(name = "id")  Long id) {
@@ -64,6 +143,41 @@ public class TipoReclamoController {
         }
     }
 
+    @Operation(
+            summary = "Buscar entidades por tipo.",
+            description = "Rol/Autoridad requerida: CONTRIBUYENTE<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TipoReclamoDTO.class)))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "String."
+            )
+    })
     @GetMapping(value = "/buscar-todas-por-tipo/{tipo}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<TipoReclamoDTO>> buscarTodasPorTipo(@PathVariable(name = "tipo")  String tipo) {
@@ -81,6 +195,41 @@ public class TipoReclamoController {
         }
     }
 
+    @Operation(
+            summary = "Buscar entidades por id tipo, incluidas las eliminadas.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve la entidad.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve objeto JSON.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TipoReclamoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "String."
+            )
+    })
     @GetMapping(value = "/buscar-todas-por-tipo-con-eliminadas/{tipo}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<TipoReclamoDTO>> buscarTodasPorTipoConEliminadas(@PathVariable(name = "tipo")  String tipo) {
@@ -98,6 +247,41 @@ public class TipoReclamoController {
         }
     }
 
+    @Operation(
+            summary = "Buscar entidad por ID.",
+            description = "Rol/Autoridad requerida: CONTRIBUYENTE<br><strong>De consumirse correctamente se devuelve la entidad correspondiente al id.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve objeto JSON.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TipoReclamoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "Numerico."
+            )
+    })
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<TipoReclamoDTO> buscarPorId(@PathVariable(name = "id") Long id) {
@@ -110,6 +294,41 @@ public class TipoReclamoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Buscar entidad por ID, incluidas las eliminadas.",
+            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se devuelve la entidad.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve objeto JSON.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TipoReclamoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "Numerico."
+            )
+    })
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<TipoReclamoDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") Long id) {
@@ -122,6 +341,35 @@ public class TipoReclamoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Buscar todas las entidades.",
+            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TipoReclamoDTO.class)))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
     @GetMapping(value = "/buscar-todas")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<TipoReclamoDTO>> buscarTodas() {
@@ -139,6 +387,35 @@ public class TipoReclamoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Buscar todas las entidades, incluidas las eliminadas.",
+            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TipoReclamoDTO.class)))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
     @GetMapping(value = "/buscar-todas-con-eliminadas")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<TipoReclamoDTO>> buscarTodasConEliminadas() {
@@ -172,6 +449,42 @@ public class TipoReclamoController {
         return new ResponseEntity<>(cantidad, Helper.httpHeaders(String.valueOf(cantidad)), HttpStatus.OK);
     }
 
+    @Operation(
+            summary = "Persisitir una nueva entidad.",
+            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se persiste la nueva entidad.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Recurso consumido correctamente, se devuelve el nuevo objeto JSON.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TipoReclamoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.QUERY,
+                    description = "Objeto JSON conteniendo el tipo del Tipo de Reclamo.",
+                    example = "<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;\"tipo\": \"Luminarias\"<br>}"
+            )
+    })
     @PutMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<TipoReclamoDTO> insertar(@Valid @RequestBody TipoReclamoCreation tipoReclamoCreation) {
@@ -184,6 +497,45 @@ public class TipoReclamoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Modificar una entidad.",
+            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se persiste los cambios en la entidad.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Recurso consumido correctamente, se devuelve el objeto JSON modificado.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TipoReclamoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.QUERY,
+                    description = "Objeto JSON conteniendo el id, el tipo el area del Tipo de Reclamo.",
+                    example = "<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;\"id\": \"12\",<br>" +
+                            "&nbsp;&nbsp;&nbsp;&nbsp;\"tipo\": \"Luminarias\",<br>" +
+                            "&nbsp;&nbsp;&nbsp;&nbsp;\"area\": \"{}\"<br>" +
+                            "<br>}"
+            )
+    })
     @PostMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<TipoReclamoDTO> actualizar(@Valid @RequestBody TipoReclamoModel tipoReclamoModel) {
@@ -196,6 +548,40 @@ public class TipoReclamoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Eliminar una entidad.",
+            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se marca la entidad como eliminada.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se marca la entidad como eliminada.",
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "Numerico."
+            )
+    })
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<TipoReclamoDTO> borrar(@PathVariable(name = "id") Long id) {
@@ -208,6 +594,41 @@ public class TipoReclamoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Restaura una entidad marcada como eliminada..",
+            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser reciclada primero debe estar eliminada. De consumirse correctamente se devuelve la entidad reciclada.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve objeto JSON.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TipoReclamoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "Numerico."
+            )
+    })
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<TipoReclamoDTO> reciclar(@PathVariable(name = "id") Long id) {
@@ -220,6 +641,40 @@ public class TipoReclamoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
+    @Operation(
+            summary = "Destruye una entidad marcada como eliminada.",
+            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser destruida primero debe estar eliminada. De consumirse correctamente destruye totalmente el recurso.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, Objeto destruido.",
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "Numerico."
+            )
+    })
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {

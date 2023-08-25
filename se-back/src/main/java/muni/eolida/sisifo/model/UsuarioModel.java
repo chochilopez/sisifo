@@ -36,11 +36,10 @@ public class UsuarioModel extends AbstractAuditoriaModel implements UserDetails 
 	private String password;
 	private String token;
 
-	// Bidireccional primaria
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<TokenModel> tokens;
 
-	@ManyToMany()
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinTable(  name = "rol_usuario", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
 	private Set<RolModel> roles = new HashSet<>();
 

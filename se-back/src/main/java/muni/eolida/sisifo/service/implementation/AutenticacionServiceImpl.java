@@ -79,15 +79,19 @@ public class AutenticacionServiceImpl implements AutenticacionService {
         } catch (DisabledException e) {
             String mensaje = "El usuario se encuentra deshabilitado.";
             log.info(mensaje);
-            return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 204);
+            return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 202);
         } catch (BadCredentialsException e) {
             String mensaje = "El usuario no posee credenciales válidas.";
             log.info(mensaje);
-            return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 204);
+            return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 202);
         } catch (UsernameNotFoundException e) {
             String mensaje = "El usuario no existe o la cuenta no se encuentra habilitada.";
             log.info(mensaje);
             return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 202);
+        } catch (Exception e) {
+            String mensaje = "Hubo un problema al otorgale permisos al usuario.";
+            log.error(mensaje);
+            return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 204);
         }
     }
 

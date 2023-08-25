@@ -17,7 +17,7 @@ public class TokenModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long id;
-	@Column(unique = true)
+	@Column(unique = true, columnDefinition = "TEXT")
 	public String token;
 
 	@Enumerated(EnumType.STRING)

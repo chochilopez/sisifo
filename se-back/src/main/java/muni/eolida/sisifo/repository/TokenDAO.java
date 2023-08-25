@@ -8,11 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TokenDAO extends JpaRepository<TokenModel, Long> {
-	@Query(value = """
-            select t from token t inner join User u\s
-            on t.user.id = u.id\s
-            where u.id = :id and (t.expired = false or t.revoked = false)\s
-            """, nativeQuery = true)
+	@Query(value = "select t from TokenModel t inner join UsuarioModel u on t.usuario.id = u.id where u.id = :id and (t.expirado = false or t.revocado = false)")
 	List<TokenModel> findAllValidTokenByUser(Long id);
 
 	Optional<TokenModel> findByToken(String token);

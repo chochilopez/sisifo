@@ -19,6 +19,7 @@ public class ReclamoModel extends AbstractAuditoriaModel {
 	private Long id;
 	private String coordinadaX;
 	private String coordinadaY;
+	@Column(columnDefinition = "TEXT")
 	private String descripcion;
 	private String altura;
 

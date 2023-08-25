@@ -53,15 +53,18 @@ public class AreaController {
             @ApiResponse(
                     responseCode = "202",
                     description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "204",
                     description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
             ),
             @ApiResponse(
                     responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
             )
     })
@@ -95,15 +98,18 @@ public class AreaController {
             @ApiResponse(
                     responseCode = "202",
                     description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "204",
                     description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
             ),
             @ApiResponse(
                     responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
             )
     })
@@ -144,15 +150,18 @@ public class AreaController {
             @ApiResponse(
                     responseCode = "202",
                     description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "204",
                     description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
             ),
             @ApiResponse(
                     responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
             )
     })
@@ -193,15 +202,18 @@ public class AreaController {
             @ApiResponse(
                     responseCode = "202",
                     description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "204",
                     description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
             ),
             @ApiResponse(
                     responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
             )
     })
@@ -237,15 +249,18 @@ public class AreaController {
             @ApiResponse(
                     responseCode = "202",
                     description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "204",
                     description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
             ),
             @ApiResponse(
                     responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
             )
     })
@@ -281,15 +296,18 @@ public class AreaController {
             @ApiResponse(
                     responseCode = "202",
                     description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "204",
                     description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
             ),
             @ApiResponse(
                     responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
             )
     })
@@ -324,15 +342,18 @@ public class AreaController {
             @ApiResponse(
                     responseCode = "202",
                     description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "204",
                     description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
             ),
             @ApiResponse(
                     responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
             )
     })
@@ -383,15 +404,18 @@ public class AreaController {
             @ApiResponse(
                     responseCode = "202",
                     description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "204",
                     description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
             ),
             @ApiResponse(
                     responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
             )
     })
@@ -428,15 +452,18 @@ public class AreaController {
             @ApiResponse(
                     responseCode = "202",
                     description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "204",
                     description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
             ),
             @ApiResponse(
                     responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
             )
     })
@@ -474,15 +501,18 @@ public class AreaController {
             @ApiResponse(
                     responseCode = "202",
                     description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "204",
                     description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
             ),
             @ApiResponse(
                     responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
             )
     })
@@ -518,15 +548,18 @@ public class AreaController {
             @ApiResponse(
                     responseCode = "202",
                     description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "204",
                     description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
             ),
             @ApiResponse(
                     responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
             )
     })
@@ -561,15 +594,18 @@ public class AreaController {
             @ApiResponse(
                     responseCode = "202",
                     description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "204",
                     description = "Ocurrio una excepcion al consumir el recurso.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
             ),
             @ApiResponse(
                     responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
                     description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
             )
     })
