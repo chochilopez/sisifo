@@ -27,6 +27,32 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final RolServiceImpl rolService;
 
     @Override
+    public EntityMessenger<UsuarioModel> buscarPorNombreDeUsuarioHabilitados(String nombreUsuario) {
+        try {
+            log.info("Buscando entre las entidades habilitadas al Usuario con nombre de usuario: {}.", nombreUsuario);
+            Optional<UsuarioModel> objeto = usuarioDAO.findByUsernameContainingIgnoreCaseAndHabilitadaIsTrueAndEliminadaIsNull(nombreUsuario);
+            if (objeto.isEmpty()) {
+                String mensaje = "No se encontro una entidad habilitada Usuario con nombre de usuario: " + nombreUsuario + ".";
+                log.warn(mensaje);
+                return new EntityMessenger<UsuarioModel>(null, null, mensaje, 202);
+            } else {
+                String mensaje = "Se encontro una entidad Usuario habilitada.";
+                log.info(mensaje);
+                return new EntityMessenger<UsuarioModel>(objeto.get(), null, mensaje, 200);
+            }
+        } catch (Exception e) {
+            String mensaje = "Ocurrio un error al realizar la busqueda.";
+            log.error(mensaje);
+            return new EntityMessenger<UsuarioModel>(null, null, mensaje, 204);
+        }
+    }
+
+    @Override
+    public Boolean existeUsuarioPorNombreDeUsuario(String username) {
+        return usuarioDAO.existsByUsernameContainingIgnoreCase(username);
+    }
+
+    @Override
     public EntityMessenger<UsuarioModel> buscarPorNombreDeUsuario(String nombreUsuario) {
         try {
             log.info("Buscando la entidad Usuario con nombre de usuario: {}.", nombreUsuario);

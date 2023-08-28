@@ -9,4 +9,6 @@ public interface UsuarioService extends GenericService<UsuarioCreation, UsuarioM
     EntityMessenger<UsuarioModel> buscarPorNombreDeUsuarioConEliminadas(String nombreUsuario);
     EntityMessenger<UsuarioModel> darRol(UsuarioModel usuarioModel, String rolEnum);
     EntityMessenger<UsuarioModel> obtenerUsuario();
+    EntityMessenger<UsuarioModel> buscarPorNombreDeUsuarioHabilitados(String nombreUsuario);
+    Boolean existeUsuarioPorNombreDeUsuario(String username);
 }

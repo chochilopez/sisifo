@@ -76,7 +76,7 @@ public class ArchivoController {
     })
     @PutMapping(value = "/guardar",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
-    public ResponseEntity<ArchivoDTO> saveLocalFile(@RequestParam("file") @Parameter(name = "id", description = "Product id", example = "1") MultipartFile multipartFile) {
+    public ResponseEntity<ArchivoDTO> saveLocalFile(@RequestParam("file") MultipartFile multipartFile) {
         try{
             EntityMessenger<ArchivoModel> objeto = archivoService.guardarArchivo(multipartFile.getBytes());
             if (objeto.getEstado() == 202)
@@ -395,7 +395,7 @@ public class ArchivoController {
             )
     })
     @PostMapping(value = "/reciclar/{id}")
-    @PreAuthorize("hasAuthority('JEFE')")
+    @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<ArchivoDTO> reciclar(@PathVariable(name = "id") Long id) {
         EntityMessenger<ArchivoModel> objeto = archivoService.reciclar(id);
         if (objeto.getEstado() == 202)
@@ -406,40 +406,41 @@ public class ArchivoController {
             return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
     }
 
-    @Operation(
-            summary = "Destruye una entidad marcada como eliminada.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser destruida primero debe estar eliminada. De consumirse correctamente destruye totalmente el recurso.</strong>"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Recurso consumido correctamente, Entidad eliminado.",
-                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
-            ),
-            @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
-            )
-    })
-    @Parameters({
-            @Parameter(
-                    in = ParameterIn.PATH,
-                    description = "Numerico."
-            )
-    })
+//    @Operation(
+//            summary = "Destruye una entidad marcada como eliminada.",
+//            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser destruida primero debe estar eliminada. De consumirse correctamente destruye totalmente el recurso.</strong>"
+//    )
+//    @ApiResponses({
+//            @ApiResponse(
+//                    responseCode = "200",
+//                    description = "Recurso consumido correctamente, Entidad eliminado.",
+//                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "202",
+//                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "204",
+//                    description = "Ocurrio una excepcion al consumir el recurso.",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "401",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+//            )
+//    })
+//    @Parameters({
+//            @Parameter(
+//                    in = ParameterIn.PATH,
+//                    description = "Numerico."
+//            )
+//    })
+    @Operation(hidden = true)
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {

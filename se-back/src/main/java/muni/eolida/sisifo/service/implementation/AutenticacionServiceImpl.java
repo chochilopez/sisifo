@@ -59,38 +59,45 @@ public class AutenticacionServiceImpl implements AutenticacionService {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(autenticacionRequestDTO.getUsername(), autenticacionRequestDTO.getPassword()));
             EntityMessenger<UsuarioModel> usuarioModelEntityMessenger = usuarioService.buscarPorNombreDeUsuario(autenticacionRequestDTO.getUsername());
             if (usuarioModelEntityMessenger.getEstado() == 200) {
-                String token = jwtService.generarToken(usuarioModelEntityMessenger.getObjeto());
-                String refresh = jwtService.generarRefreshToken(usuarioModelEntityMessenger.getObjeto());
-                this.revocarTokensUsuario(usuarioModelEntityMessenger.getObjeto());
-                this.guardarTokenUsuario(usuarioModelEntityMessenger.getObjeto(), token);
-                String mensaje = "El usuario " + autenticacionRequestDTO.getUsername() + " se logueo correctamente.";
-                log.info(mensaje);
-                return new EntityMessenger<AutenticacionResponseDTO>(
-                        AutenticacionResponseDTO.builder()
-                                .tokenAcceso(token)
-                                .tokenRefresco(refresh)
-                                .build(),
-                        null,
-                        mensaje,
-                        200
-                );
-            } else
+                if (usuarioModelEntityMessenger.getObjeto().getHabilitada()) {
+                    String token = jwtService.generarToken(usuarioModelEntityMessenger.getObjeto());
+                    String refresh = jwtService.generarRefreshToken(usuarioModelEntityMessenger.getObjeto());
+                    this.revocarTokensUsuario(usuarioModelEntityMessenger.getObjeto());
+                    this.guardarTokenUsuario(usuarioModelEntityMessenger.getObjeto(), token);
+                    String mensaje = "El usuario " + autenticacionRequestDTO.getUsername() + " se logueo correctamente.";
+                    log.info(mensaje);
+                    return new EntityMessenger<AutenticacionResponseDTO>(
+                            AutenticacionResponseDTO.builder()
+                                    .tokenAcceso(token)
+                                    .tokenRefresco(refresh)
+                                    .build(),
+                            null,
+                            mensaje,
+                            200
+                    );
+                } else {
+                    String mensaje = "El usuario no se encuentra habilitado, debe confirmar el email.";
+                    log.warn(mensaje);
+                    return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 202);
+                }
+            } else {
                 return new EntityMessenger<>(null, null, usuarioModelEntityMessenger.getMensaje(), usuarioModelEntityMessenger.getEstado());
+            }
         } catch (DisabledException e) {
             String mensaje = "El usuario se encuentra deshabilitado.";
-            log.info(mensaje);
+            log.warn(mensaje);
             return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 202);
         } catch (BadCredentialsException e) {
             String mensaje = "El usuario no posee credenciales válidas.";
-            log.info(mensaje);
+            log.warn(mensaje);
             return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 202);
         } catch (UsernameNotFoundException e) {
             String mensaje = "El usuario no existe o la cuenta no se encuentra habilitada.";
-            log.info(mensaje);
+            log.warn(mensaje);
             return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 202);
         } catch (Exception e) {
             String mensaje = "Hubo un problema al otorgale permisos al usuario.";
-            log.error(mensaje);
+            log.warn(mensaje);
             return new EntityMessenger<AutenticacionResponseDTO>(null, null, mensaje, 204);
         }
     }
@@ -124,26 +131,32 @@ public class AutenticacionServiceImpl implements AutenticacionService {
     @Override
     public EntityMessenger<UsuarioModel> registrar(UsuarioCreation usuarioCreation) {
         try {
-            EntityMessenger<UsuarioModel> usuario = usuarioService.insertar(usuarioCreation);
-            if (usuario.getEstado() == 201) {
-                usuario.getObjeto().setHabilitada(false);
-                String token = Base64.encodeBase64URLSafeString(DEFAULT_TOKEN_GENERATOR.generateKey());
-                usuario.getObjeto().setToken(token);
-                String body = path + usuario.getObjeto().getId() + "/" + token;
-                EntityMessenger<EmailModel> emailModelEntidadMensaje = emailService.enviarEmailSimple(new EmailCreation(
-                        "Confirmá tu dirección de email para continuar con tu reclamo.",
-                        this.sender,
-                        usuarioCreation.getUsername(),
-                        body
-                ));
-                usuario = usuarioService.darRol(usuario.getObjeto(), "CONTRIBUYENTE");
-                if (emailModelEntidadMensaje.getEstado() == 201) {
-                    String mensaje = "El usuario " + usuarioCreation.getUsername() + " fue creado correctamente. En envió el email de confirmación.";
-                    log.info(mensaje);
-                    return new EntityMessenger<UsuarioModel>(usuario.getObjeto(), null, mensaje, 201);
+            if (!usuarioService.existeUsuarioPorNombreDeUsuario(usuarioCreation.getUsername())) {
+                EntityMessenger<UsuarioModel> usuario = usuarioService.insertar(usuarioCreation);
+                if (usuario.getEstado() == 201) {
+                    usuario.getObjeto().setHabilitada(false);
+                    String token = Base64.encodeBase64URLSafeString(DEFAULT_TOKEN_GENERATOR.generateKey());
+                    usuario.getObjeto().setToken(token);
+                    String body = path + usuario.getObjeto().getId() + "/" + token;
+                    EntityMessenger<EmailModel> emailModelEntidadMensaje = emailService.enviarEmailSimple(new EmailCreation(
+                            "Confirmá tu dirección de email para continuar con tu reclamo.",
+                            this.sender,
+                            usuarioCreation.getUsername(),
+                            body
+                    ));
+                    usuario = usuarioService.darRol(usuario.getObjeto(), "CONTRIBUYENTE");
+                    if (emailModelEntidadMensaje.getEstado() == 201) {
+                        String mensaje = "El usuario " + usuarioCreation.getUsername() + " fue creado correctamente. En envió el email de confirmación.";
+                        log.info(mensaje);
+                        return new EntityMessenger<UsuarioModel>(usuario.getObjeto(), null, mensaje, 201);
+                    }
                 }
+                return usuario;
+            } else {
+                String mensaje = "El nombre de usuario ya esta en uso.";
+                log.warn(mensaje);
+                return new EntityMessenger<UsuarioModel>(null, null, mensaje, 202);
             }
-            return usuario;
         } catch (Exception e) {
             String mensaje = "Ocurrio un error al realizar la busqueda.";
             log.error(mensaje);

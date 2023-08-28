@@ -3,14 +3,12 @@ package muni.eolida.sisifo.model;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.*;
+import muni.eolida.sisifo.model.enums.RolEnum;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -36,7 +34,7 @@ public class UsuarioModel extends AbstractAuditoriaModel implements UserDetails 
 	private String password;
 	private String token;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<TokenModel> tokens;
 
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
@@ -48,6 +46,14 @@ public class UsuarioModel extends AbstractAuditoriaModel implements UserDetails 
 		return this.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getRol().name()))
 				.collect(Collectors.toList());
+	}
+
+	public List<RolEnum> getListadoRoles() {
+		List<RolEnum> roles = new ArrayList<>();
+		for (RolModel rol:this.roles) {
+			roles.add(rol.getRol());
+		}
+		return roles;
 	}
 
 	@Override

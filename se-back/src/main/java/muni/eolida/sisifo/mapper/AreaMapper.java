@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.creation.AreaCreation;
 import muni.eolida.sisifo.mapper.dto.AreaDTO;
 import muni.eolida.sisifo.model.AreaModel;
+import muni.eolida.sisifo.util.Helper;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,6 +14,11 @@ public class AreaMapper {
     public AreaModel toEntity(AreaCreation areaCreation) {
         try {
             AreaModel areaModel = new AreaModel();
+
+            if (Helper.getLong(areaCreation.getId()) != null)
+
+                //TODO seguir con los cambios en postman, seguir modificando todos los mappers y serviocios para que acepten creatio en los update
+                aSDASD
 
             areaModel.setArea(areaCreation.getArea());
 

@@ -76,19 +76,19 @@ public class HelperController {
             usuarioServiceImpl.darRol(user1.getObjeto(), "CONTRIBUYENTE");
         }
         if (user2.getEstado() == 201) {
-            usuarioServiceImpl.darRol(user1.getObjeto(), "CONTRIBUYENTE");
+            usuarioServiceImpl.darRol(user2.getObjeto(), "CONTRIBUYENTE");
             usuarioServiceImpl.darRol(user2.getObjeto(), "EMPLEADO");
         }
         if (user3.getEstado() == 201) {
-            usuarioServiceImpl.darRol(user1.getObjeto(), "CONTRIBUYENTE");
-            usuarioServiceImpl.darRol(user2.getObjeto(), "EMPLEADO");
-            usuarioServiceImpl.darRol(user2.getObjeto(), "CAPATAZ");
+            usuarioServiceImpl.darRol(user3.getObjeto(), "CONTRIBUYENTE");
+            usuarioServiceImpl.darRol(user3.getObjeto(), "EMPLEADO");
+            usuarioServiceImpl.darRol(user3.getObjeto(), "CAPATAZ");
         }
         if (user4.getEstado() == 201) {
-            usuarioServiceImpl.darRol(user1.getObjeto(), "CONTRIBUYENTE");
-            usuarioServiceImpl.darRol(user2.getObjeto(), "EMPLEADO");
-            usuarioServiceImpl.darRol(user2.getObjeto(), "CAPATAZ");
-            usuarioServiceImpl.darRol(user2.getObjeto(), "JEFE");
+            usuarioServiceImpl.darRol(user4.getObjeto(), "CONTRIBUYENTE");
+            usuarioServiceImpl.darRol(user4.getObjeto(), "EMPLEADO");
+            usuarioServiceImpl.darRol(user4.getObjeto(), "CAPATAZ");
+            usuarioServiceImpl.darRol(user4.getObjeto(), "JEFE");
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(user1.getMensaje() + "\n" + user2.getMensaje() + "\n" + user3.getMensaje() + "\n" + user4.getMensaje());

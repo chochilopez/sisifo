@@ -32,9 +32,9 @@ public class ArchivoServiceImpl implements ArchivoService {
     @Override
     public EntityMessenger<ArchivoModel> guardarArchivo(byte[] bytes) {
         try {
-            EntityMessenger<UsuarioModel> usuario = usuarioService.obtenerUsuario();
-            String uuid = java.util.UUID.randomUUID().toString();
-            log.info("Gurdando el archivo " + usuario.getObjeto().getNombre() + "/" + uuid + ".");
+            String usuario = usuarioService.obtenerUsuario().getObjeto().getNombre().trim();
+            String uuid = java.util.UUID.randomUUID().toString() + ".jpg";
+            log.info("Gurdando el archivo " + usuario + "/" + uuid + ".");
             Path path = Paths.get(resourcePath + "/" + usuario);
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
