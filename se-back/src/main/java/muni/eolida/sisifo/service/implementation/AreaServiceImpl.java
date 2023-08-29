@@ -194,10 +194,11 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public EntityMessenger<AreaModel> insertar(AreaCreation model) {
+    public EntityMessenger<AreaModel> insertar(AreaCreation creation) {
         try {
-            log.info("Insertando la entidad Area: {}.",  model);
-            AreaModel objeto = areaDAO.save(areaMapper.toEntity(model));
+            log.info("Insertando la entidad Area: {}.",  creation);
+            creation.setId(null);
+            AreaModel objeto = areaDAO.save(areaMapper.toEntity(creation));
             objeto.setCreada(Helper.getNow(""));
             objeto.setCreador(usuarioService.obtenerUsuario().getObjeto());
             areaDAO.save(objeto);
@@ -212,20 +213,15 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public EntityMessenger<AreaModel> actualizar(AreaModel model) {
+    public EntityMessenger<AreaModel> actualizar(AreaCreation creation) {
         try {
-            log.info("Actualizando la entidad Area: {}.",  model);
-            if (model.getId() != null) {
-                EntityMessenger<AreaModel> entidad = this.buscarPorId(model.getId());
-                if (entidad.getEstado() == 202)
-                    return entidad;
-            }
-            model.setModificada(Helper.getNow(""));
-            model.setModificador(usuarioService.obtenerUsuario().getObjeto());
-            AreaModel objeto = areaDAO.save(model);
-            String mensaje = "La entidad Area con id: " + objeto.getId() + ", fue actualizada correctamente.";
+            log.info("Actualizando la entidad Area: {}.",  creation);
+            AreaModel entidad = areaMapper.toEntity(creation);
+            entidad.setModificada(Helper.getNow(""));
+            entidad.setModificador(usuarioService.obtenerUsuario().getObjeto());
+            String mensaje = "La entidad Area con id: " + creation.getId() + ", fue actualizada correctamente.";
             log.info(mensaje);
-            return new EntityMessenger<AreaModel>(objeto, null, mensaje, 201);
+            return new EntityMessenger<AreaModel>(areaDAO.save(entidad), null, mensaje, 201);
         } catch (Exception e) {
             String mensaje = "Ocurrió un error al intentar actualizar la entidad Area. Excepción: " + e + ".";
             log.error(mensaje);

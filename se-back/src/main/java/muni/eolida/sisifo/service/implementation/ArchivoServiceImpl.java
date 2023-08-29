@@ -6,7 +6,6 @@ import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.ArchivoMapper;
 import muni.eolida.sisifo.mapper.creation.ArchivoCreation;
 import muni.eolida.sisifo.model.ArchivoModel;
-import muni.eolida.sisifo.model.UsuarioModel;
 import muni.eolida.sisifo.repository.ArchivoDAO;
 import muni.eolida.sisifo.service.ArchivoService;
 import lombok.extern.slf4j.Slf4j;
@@ -159,10 +158,11 @@ public class ArchivoServiceImpl implements ArchivoService {
     }
 
     @Override
-    public EntityMessenger<ArchivoModel> insertar(ArchivoCreation model) {
+    public EntityMessenger<ArchivoModel> insertar(ArchivoCreation creation) {
         try {
-            log.info("Insertando la entidad Archivo: {}.",  model);
-            ArchivoModel archivoModel = archivoDAO.save(archivoMapper.toEntity(model));
+            log.info("Insertando la entidad Archivo: {}.",  creation);
+            creation.setId(null);
+            ArchivoModel archivoModel = archivoDAO.save(archivoMapper.toEntity(creation));
             archivoModel.setCreada(Helper.getNow(""));
             archivoModel.setCreador(usuarioService.obtenerUsuario().getObjeto());
             archivoDAO.save(archivoModel);
@@ -177,20 +177,15 @@ public class ArchivoServiceImpl implements ArchivoService {
     }
 
     @Override
-    public EntityMessenger<ArchivoModel> actualizar(ArchivoModel model) {
+    public EntityMessenger<ArchivoModel> actualizar(ArchivoCreation creation) {
         try {
-            log.info("Actualizando la entidad Archivo: {}.",  model);
-            if (model.getId() != null) {
-                EntityMessenger<ArchivoModel> entidad = this.buscarPorId(model.getId());
-                if (entidad.getEstado() == 202)
-                    return entidad;
-            }
-            model.setModificada(Helper.getNow(""));
-            model.setModificador(usuarioService.obtenerUsuario().getObjeto());
-            ArchivoModel archivoModel = archivoDAO.save(model);
-            String mensaje = "La entidad Archivo con id: " + archivoModel.getId() + ", fue actualizada correctamente.";
+            log.info("Actualizando la entidad Archivo: {}.",  creation);
+            ArchivoModel entidad = archivoMapper.toEntity(creation);
+            entidad.setModificada(Helper.getNow(""));
+            entidad.setModificador(usuarioService.obtenerUsuario().getObjeto());
+            String mensaje = "La entidad Archivo con id: " + creation.getId() + ", fue actualizada correctamente.";
             log.info(mensaje);
-            return new EntityMessenger<ArchivoModel>(archivoModel, null, mensaje, 201);
+            return new EntityMessenger<ArchivoModel>(archivoDAO.save(entidad), null, mensaje, 201);
         } catch (Exception e) {
             String mensaje = "Ocurrió un error al intentar actualizar la entidad Archivo. Excepción: " + e + ".";
             log.error(mensaje);

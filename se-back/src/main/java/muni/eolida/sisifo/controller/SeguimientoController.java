@@ -541,8 +541,8 @@ public class SeguimientoController {
     })
     @PostMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<SeguimientoDTO> actualizar(@Valid @RequestBody SeguimientoModel seguimientoModel) {
-        EntityMessenger<SeguimientoModel> objeto = seguimientoService.actualizar(seguimientoModel);
+    public ResponseEntity<SeguimientoDTO> actualizar(@Valid @RequestBody SeguimientoCreation creation) {
+        EntityMessenger<SeguimientoModel> objeto = seguimientoService.actualizar(creation);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)

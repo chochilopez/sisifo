@@ -211,10 +211,11 @@ public class SeguimientoServiceImpl implements SeguimientoService {
     }
 
     @Override
-    public EntityMessenger<SeguimientoModel> insertar(SeguimientoCreation model) {
+    public EntityMessenger<SeguimientoModel> insertar(SeguimientoCreation creation) {
         try {
-            log.info("Insertando la entidad Seguimiento: {}.",  model);
-            SeguimientoModel objeto = seguimientoDAO.save(seguimientoMapper.toEntity(model));
+            log.info("Insertando la entidad Seguimiento: {}.",  creation);
+            creation.setId(null);
+            SeguimientoModel objeto = seguimientoDAO.save(seguimientoMapper.toEntity(creation));
             objeto.setCreada(Helper.getNow(""));
             objeto.setCreador(usuarioService.obtenerUsuario().getObjeto());
             seguimientoDAO.save(objeto);
@@ -229,20 +230,15 @@ public class SeguimientoServiceImpl implements SeguimientoService {
     }
 
     @Override
-    public EntityMessenger<SeguimientoModel> actualizar(SeguimientoModel model) {
+    public EntityMessenger<SeguimientoModel> actualizar(SeguimientoCreation creation) {
         try {
-            log.info("Actualizando la entidad Seguimiento: {}.",  model);
-            if (model.getId() != null) {
-                EntityMessenger<SeguimientoModel> entidad = this.buscarPorId(model.getId());
-                if (entidad.getEstado() == 202)
-                    return entidad;
-            }
-            model.setModificada(Helper.getNow(""));
-            model.setModificador(usuarioService.obtenerUsuario().getObjeto());
-            SeguimientoModel objeto = seguimientoDAO.save(model);
-            String mensaje = "La entidad Seguimiento con id: " + objeto.getId() + ", fue actualizada correctamente.";
+            log.info("Actualizando la entidad Seguimiento: {}.",  creation);
+            SeguimientoModel entidad = seguimientoMapper.toEntity(creation);
+            entidad.setModificada(Helper.getNow(""));
+            entidad.setModificador(usuarioService.obtenerUsuario().getObjeto());
+            String mensaje = "La entidad Seguimiento con id: " + creation.getId() + ", fue actualizada correctamente.";
             log.info(mensaje);
-            return new EntityMessenger<SeguimientoModel>(objeto, null, mensaje, 201);
+            return new EntityMessenger<SeguimientoModel>(seguimientoDAO.save(entidad), null, mensaje, 201);
         } catch (Exception e) {
             String mensaje = "Ocurrió un error al intentar actualizar la entidad Seguimiento. Excepción: " + e + ".";
             log.error(mensaje);

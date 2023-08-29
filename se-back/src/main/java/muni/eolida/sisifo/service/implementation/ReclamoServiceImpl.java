@@ -399,10 +399,11 @@ public class ReclamoServiceImpl implements ReclamoService {
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> insertar(ReclamoCreation model) {
+    public EntityMessenger<ReclamoModel> insertar(ReclamoCreation creation) {
         try {
-            log.info("Insertando la entidad Reclamo: {}.",  model);
-            ReclamoModel objeto = reclamoDAO.save(reclamoMapper.toEntity(model));
+            log.info("Insertando la entidad Reclamo: {}.",  creation);
+            creation.setId(null);
+            ReclamoModel objeto = reclamoDAO.save(reclamoMapper.toEntity(creation));
             objeto.setCreada(Helper.getNow(""));
             objeto.setCreador(usuarioService.obtenerUsuario().getObjeto());
             reclamoDAO.save(objeto);
@@ -417,20 +418,15 @@ public class ReclamoServiceImpl implements ReclamoService {
     }
 
     @Override
-    public EntityMessenger<ReclamoModel> actualizar(ReclamoModel model) {
+    public EntityMessenger<ReclamoModel> actualizar(ReclamoCreation creation) {
         try {
-            log.info("Actualizando la entidad Reclamo: {}.",  model);
-            if (model.getId() != null) {
-                EntityMessenger<ReclamoModel> entidad = this.buscarPorId(model.getId());
-                if (entidad.getEstado() == 202)
-                    return entidad;
-            }
-            model.setModificada(Helper.getNow(""));
-            model.setModificador(usuarioService.obtenerUsuario().getObjeto());
-            ReclamoModel objeto = reclamoDAO.save(model);
-            String mensaje = "La entidad Reclamo con id: " + objeto.getId() + ", fue actualizada correctamente.";
+            log.info("Actualizando la entidad Reclamo: {}.",  creation);
+            ReclamoModel entidad = reclamoMapper.toEntity(creation);
+            entidad.setModificada(Helper.getNow(""));
+            entidad.setModificador(usuarioService.obtenerUsuario().getObjeto());
+            String mensaje = "La entidad Reclamo con id: " + creation.getId() + ", fue actualizada correctamente.";
             log.info(mensaje);
-            return new EntityMessenger<ReclamoModel>(objeto, null, mensaje, 201);
+            return new EntityMessenger<ReclamoModel>(reclamoDAO.save(entidad), null, mensaje, 201);
         } catch (Exception e) {
             String mensaje = "Ocurrió un error al intentar actualizar la entidad Reclamo. Excepción: " + e + ".";
             log.error(mensaje);

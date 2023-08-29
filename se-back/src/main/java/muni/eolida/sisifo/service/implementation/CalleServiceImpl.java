@@ -163,10 +163,11 @@ public class CalleServiceImpl implements CalleService {
     }
 
     @Override
-    public EntityMessenger<CalleModel> insertar(CalleCreation model) {
+    public EntityMessenger<CalleModel> insertar(CalleCreation creation) {
         try {
-            log.info("Insertando la entidad Calle: {}.",  model);
-            CalleModel objeto = calleDAO.save(calleMapper.toEntity(model));
+            log.info("Insertando la entidad Calle: {}.",  creation);
+            creation.setId(null);
+            CalleModel objeto = calleDAO.save(calleMapper.toEntity(creation));
             objeto.setCreada(Helper.getNow(""));
             objeto.setCreador(usuarioService.obtenerUsuario().getObjeto());
             calleDAO.save(objeto);
@@ -181,20 +182,15 @@ public class CalleServiceImpl implements CalleService {
     }
 
     @Override
-    public EntityMessenger<CalleModel> actualizar(CalleModel model) {
+    public EntityMessenger<CalleModel> actualizar(CalleCreation creation) {
         try {
-            log.info("Actualizando la entidad Calle: {}.",  model);
-            if (model.getId() != null) {
-                EntityMessenger<CalleModel> entidad = this.buscarPorId(model.getId());
-                if (entidad.getEstado() == 202)
-                    return entidad;
-            }
-            model.setModificada(Helper.getNow(""));
-            model.setModificador(usuarioService.obtenerUsuario().getObjeto());
-            CalleModel objeto = calleDAO.save(model);
-            String mensaje = "La entidad Calle con id: " + objeto.getId() + ", fue actualizada correctamente.";
+            log.info("Actualizando la entidad Calle: {}.",  creation);
+            CalleModel entidad = calleMapper.toEntity(creation);
+            entidad.setModificada(Helper.getNow(""));
+            entidad.setModificador(usuarioService.obtenerUsuario().getObjeto());
+            String mensaje = "La entidad Calle con id: " + creation.getId() + ", fue actualizada correctamente.";
             log.info(mensaje);
-            return new EntityMessenger<CalleModel>(objeto, null, mensaje, 201);
+            return new EntityMessenger<CalleModel>(calleDAO.save(entidad), null, mensaje, 201);
         } catch (Exception e) {
             String mensaje = "Ocurrió un error al intentar actualizar la entidad Calle. Excepción: " + e + ".";
             log.error(mensaje);

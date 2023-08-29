@@ -1026,8 +1026,8 @@ public class ReclamoController {
     })
     @PostMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<ReclamoDTO> actualizar(@Valid @RequestBody ReclamoModel reclamoModel) {
-        EntityMessenger<ReclamoModel> objeto = reclamoService.actualizar(reclamoModel);
+    public ResponseEntity<ReclamoDTO> actualizar(@Valid @RequestBody ReclamoCreation creation) {
+        EntityMessenger<ReclamoModel> objeto = reclamoService.actualizar(creation);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)

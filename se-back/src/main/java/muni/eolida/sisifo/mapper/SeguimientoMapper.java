@@ -1,5 +1,6 @@
 package muni.eolida.sisifo.mapper;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.creation.SeguimientoCreation;
 import muni.eolida.sisifo.mapper.dto.EstadoReclamoDTO;
@@ -7,29 +8,45 @@ import muni.eolida.sisifo.mapper.dto.SeguimientoDTO;
 import muni.eolida.sisifo.model.EstadoReclamoModel;
 import muni.eolida.sisifo.model.SeguimientoModel;
 import muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum;
-import muni.eolida.sisifo.service.implementation.EstadoReclamoServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import muni.eolida.sisifo.repository.EstadoReclamoDAO;
+import muni.eolida.sisifo.repository.SeguimientoDAO;
+import muni.eolida.sisifo.util.Helper;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Component
+@RequiredArgsConstructor
 @Slf4j
 public class SeguimientoMapper {
-    @Autowired
-    private EstadoReclamoServiceImpl estadoReclamoService;
-    @Autowired
-    private EstadoReclamoMapper estadoReclamoMapper;
+    private final EstadoReclamoMapper estadoReclamoMapper;
+    private final EstadoReclamoDAO estadoReclamoDAO;
+    private final SeguimientoDAO seguimientoDAO;
 
     public SeguimientoModel toEntity(SeguimientoCreation seguimientoCreation) {
         try {
             SeguimientoModel seguimientoModel = new SeguimientoModel();
 
+            if (Helper.getLong(seguimientoCreation.getId()) != null) {
+                seguimientoModel = seguimientoDAO.findByIdAndEliminadaIsNull(Helper.getLong(seguimientoCreation.getId())).get();
+            }
             seguimientoModel.setDescripcion(seguimientoCreation.getDescripcion());
-            List<EstadoReclamoModel> estados = new ArrayList<>();
-            estados.add(estadoReclamoService.buscarPorEstadoReclamo("INICIADO").getObjeto());
-            seguimientoModel.setEstados(estados);
+
+            List<EstadoReclamoModel> estadoReclamos = new ArrayList<>();
+            if (seguimientoCreation.getEstados_id() != null) {
+                for (String estadoReclamoId:seguimientoCreation.getEstados_id()) {
+                    if (Helper.getLong(estadoReclamoId) != null) {
+                        Optional<EstadoReclamoModel> estadoReclamo = estadoReclamoDAO.findByIdAndEliminadaIsNull(Helper.getLong(estadoReclamoId));
+                        if (estadoReclamo.isPresent()) {
+                            estadoReclamos.add(estadoReclamo.get());
+                        }
+                    }
+                }
+                seguimientoModel.setEstados(estadoReclamos);
+            } else {
+                estadoReclamos.add(estadoReclamoDAO.findByEstadoAndEliminadaIsNull(TipoEstadoReclamoEnum.INICIADO).get());
+            }
+            seguimientoModel.setEstados(estadoReclamos);
 
             return seguimientoModel;
         } catch (Exception e) {

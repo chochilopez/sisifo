@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Hidden
 @Setter
-public class BarrioCreation {
+public class BarrioCreation extends AbsAuditoriaCreation {
+    private String id;
     private String barrio;
 }

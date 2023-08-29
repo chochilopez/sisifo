@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Hidden
 @Setter
-public class ArchivoCreation {
-    private Long id;
+public class ArchivoCreation extends AbsAuditoriaCreation {
+    private String id;
     private String path;
     private String nombre;
 }

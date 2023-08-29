@@ -432,8 +432,8 @@ public class RolController {
     })
     @PostMapping
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<RolDTO> actualizar(@Valid @RequestBody RolModel rolModel) {
-        EntityMessenger<RolModel> objeto = rolService.actualizar(rolModel);
+    public ResponseEntity<RolDTO> actualizar(@Valid @RequestBody RolCreation creation) {
+        EntityMessenger<RolModel> objeto = rolService.actualizar(creation);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)

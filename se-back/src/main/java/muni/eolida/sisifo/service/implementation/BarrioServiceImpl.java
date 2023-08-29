@@ -163,10 +163,11 @@ public class BarrioServiceImpl implements BarrioService {
     }
 
     @Override
-    public EntityMessenger<BarrioModel> insertar(BarrioCreation model) {
+    public EntityMessenger<BarrioModel> insertar(BarrioCreation creation) {
         try {
-            log.info("Insertando la entidad Barrio: {}.",  model);
-            BarrioModel objeto = barrioDAO.save(barrioMapper.toEntity(model));
+            log.info("Insertando la entidad Barrio: {}.",  creation);
+            creation.setId(null);
+            BarrioModel objeto = barrioDAO.save(barrioMapper.toEntity(creation));
             objeto.setCreada(Helper.getNow(""));
             objeto.setCreador(usuarioService.obtenerUsuario().getObjeto());
             barrioDAO.save(objeto);
@@ -181,20 +182,15 @@ public class BarrioServiceImpl implements BarrioService {
     }
 
     @Override
-    public EntityMessenger<BarrioModel> actualizar(BarrioModel model) {
+    public EntityMessenger<BarrioModel> actualizar(BarrioCreation creation) {
         try {
-            log.info("Actualizando la entidad Barrio: {}.",  model);
-            if (model.getId() != null) {
-                EntityMessenger<BarrioModel> entidad = this.buscarPorId(model.getId());
-                if (entidad.getEstado() == 202)
-                    return entidad;
-            }
-            model.setModificada(Helper.getNow(""));
-            model.setModificador(usuarioService.obtenerUsuario().getObjeto());
-            BarrioModel objeto = barrioDAO.save(model);
-            String mensaje = "La entidad Barrio con id: " + objeto.getId() + ", fue actualizada correctamente.";
+            log.info("Actualizando la entidad Barrio: {}.",  creation);
+            BarrioModel entidad = barrioMapper.toEntity(creation);
+            entidad.setModificada(Helper.getNow(""));
+            entidad.setModificador(usuarioService.obtenerUsuario().getObjeto());
+            String mensaje = "La entidad Barrio con id: " + creation.getId() + ", fue actualizada correctamente.";
             log.info(mensaje);
-            return new EntityMessenger<BarrioModel>(objeto, null, mensaje, 201);
+            return new EntityMessenger<BarrioModel>(barrioDAO.save(entidad), null, mensaje, 201);
         } catch (Exception e) {
             String mensaje = "Ocurrió un error al intentar actualizar la entidad Barrio. Excepción: " + e + ".";
             log.error(mensaje);

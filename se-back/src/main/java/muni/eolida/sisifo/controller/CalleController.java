@@ -432,8 +432,8 @@ public class CalleController {
     })
     @PostMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<CalleDTO> actualizar(@Valid @RequestBody CalleModel calleModel) {
-        EntityMessenger<CalleModel> objeto = calleService.actualizar(calleModel);
+    public ResponseEntity<CalleDTO> actualizar(@Valid @RequestBody CalleCreation calleCreation) {
+        EntityMessenger<CalleModel> objeto = calleService.actualizar(calleCreation);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)

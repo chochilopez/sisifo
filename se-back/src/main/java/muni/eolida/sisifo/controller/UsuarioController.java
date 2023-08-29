@@ -450,8 +450,8 @@ public class UsuarioController {
     })
     @PostMapping
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<UsuarioDTO> actualizar(@Valid @RequestBody UsuarioModel usuarioModel) {
-        EntityMessenger<UsuarioModel> objeto = usuarioService.actualizar(usuarioModel);
+    public ResponseEntity<UsuarioDTO> actualizar(@Valid @RequestBody UsuarioCreation creation) {
+        EntityMessenger<UsuarioModel> objeto = usuarioService.actualizar(creation);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)

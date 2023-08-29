@@ -163,10 +163,11 @@ public class RolServiceImpl implements RolService {
     }
 
     @Override
-    public EntityMessenger<RolModel> insertar(RolCreation model) {
+    public EntityMessenger<RolModel> insertar(RolCreation creation) {
         try {
-            log.info("Insertando la entidad Rol: {}.",  model);
-            RolModel objeto = rolDAO.save(rolMapper.toEntity(model));
+            log.info("Insertando la entidad Rol: {}.",  creation);
+            creation.setId(null);
+            RolModel objeto = rolDAO.save(rolMapper.toEntity(creation));
             objeto.setCreada(Helper.getNow(""));
             rolDAO.save(objeto);
             String mensaje = "La entidad Rol con id: " + objeto.getId() + ", fue insertada correctamente.";
@@ -180,19 +181,14 @@ public class RolServiceImpl implements RolService {
     }
 
     @Override
-    public EntityMessenger<RolModel> actualizar(RolModel model) {
+    public EntityMessenger<RolModel> actualizar(RolCreation creation) {
         try {
-            log.info("Actualizando la entidad Rol: {}.",  model);
-            if (model.getId() != null) {
-                EntityMessenger<RolModel> entidad = this.buscarPorId(model.getId());
-                if (entidad.getEstado() == 202)
-                    return entidad;
-            }
-            model.setModificada(Helper.getNow(""));
-            RolModel objeto = rolDAO.save(model);
-            String mensaje = "La entidad Rol con id: " + objeto.getId() + ", fue actualizada correctamente.";
+            log.info("Actualizando la entidad Rol: {}.",  creation);
+            RolModel entidad = rolMapper.toEntity(creation);
+            entidad.setModificada(Helper.getNow(""));
+            String mensaje = "La entidad Rol con id: " + creation.getId() + ", fue actualizada correctamente.";
             log.info(mensaje);
-            return new EntityMessenger<RolModel>(objeto, null, mensaje, 201);
+            return new EntityMessenger<RolModel>(rolDAO.save(entidad), null, mensaje, 201);
         } catch (Exception e) {
             String mensaje = "Ocurrió un error al intentar actualizar la entidad Rol. Excepción: " + e + ".";
             log.error(mensaje);

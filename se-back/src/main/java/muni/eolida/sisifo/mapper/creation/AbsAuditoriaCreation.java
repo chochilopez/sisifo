@@ -1,4 +1,4 @@
-package gloit.ixionida.neso.util.mapper.creation;
+package muni.eolida.sisifo.mapper.creation;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;

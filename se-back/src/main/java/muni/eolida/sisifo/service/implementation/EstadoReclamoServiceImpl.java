@@ -165,10 +165,11 @@ public class EstadoReclamoServiceImpl implements EstadoReclamoService {
     }
 
     @Override
-    public EntityMessenger<EstadoReclamoModel> insertar(EstadoReclamoCreation model) {
+    public EntityMessenger<EstadoReclamoModel> insertar(EstadoReclamoCreation creation) {
         try {
-            log.info("Insertando la entidad EstadoReclamo: {}.",  model);
-            EstadoReclamoModel objeto = estadoReclamoDAO.save(estadoReclamoMapper.toEntity(model));
+            log.info("Insertando la entidad EstadoReclamo: {}.",  creation);
+            creation.setId(null);
+            EstadoReclamoModel objeto = estadoReclamoDAO.save(estadoReclamoMapper.toEntity(creation));
             objeto.setCreada(Helper.getNow(""));
             objeto.setCreador(usuarioService.obtenerUsuario().getObjeto());
             estadoReclamoDAO.save(objeto);
@@ -183,20 +184,15 @@ public class EstadoReclamoServiceImpl implements EstadoReclamoService {
     }
 
     @Override
-    public EntityMessenger<EstadoReclamoModel> actualizar(EstadoReclamoModel model) {
+    public EntityMessenger<EstadoReclamoModel> actualizar(EstadoReclamoCreation creation) {
         try {
-            log.info("Actualizando la entidad EstadoReclamo: {}.",  model);
-            if (model.getId() != null) {
-                EntityMessenger<EstadoReclamoModel> entidad = this.buscarPorId(model.getId());
-                if (entidad.getEstado() == 202)
-                    return entidad;
-            }
-            model.setModificada(Helper.getNow(""));
-            model.setModificador(usuarioService.obtenerUsuario().getObjeto());
-            EstadoReclamoModel objeto = estadoReclamoDAO.save(model);
-            String mensaje = "La entidad EstadoReclamo con id: " + objeto.getId() + ", fue actualizada correctamente.";
+            log.info("Actualizando la entidad EstadoReclamo: {}.",  creation);
+            EstadoReclamoModel entidad = estadoReclamoMapper.toEntity(creation);
+            entidad.setModificada(Helper.getNow(""));
+            entidad.setModificador(usuarioService.obtenerUsuario().getObjeto());
+            String mensaje = "La entidad EstadoReclamo con id: " + creation.getId() + ", fue actualizada correctamente.";
             log.info(mensaje);
-            return new EntityMessenger<EstadoReclamoModel>(objeto, null, mensaje, 201);
+            return new EntityMessenger<EstadoReclamoModel>(estadoReclamoDAO.save(entidad), null, mensaje, 201);
         } catch (Exception e) {
             String mensaje = "Ocurrió un error al intentar actualizar la entidad EstadoReclamo. Excepción: " + e + ".";
             log.error(mensaje);

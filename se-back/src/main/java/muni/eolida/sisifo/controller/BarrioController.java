@@ -432,8 +432,8 @@ public class BarrioController {
     })
     @PostMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<BarrioDTO> actualizar(@Valid @RequestBody BarrioModel barrioModel) {
-        EntityMessenger<BarrioModel> objeto = barrioService.actualizar(barrioModel);
+    public ResponseEntity<BarrioDTO> actualizar(@Valid @RequestBody BarrioCreation creation) {
+        EntityMessenger<BarrioModel> objeto = barrioService.actualizar(creation);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)

@@ -478,8 +478,8 @@ public class AreaController {
     })
     @PostMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<AreaDTO> actualizar(@Valid @RequestBody AreaModel areaModel) {
-        EntityMessenger<AreaModel> objeto = areaService.actualizar(areaModel);
+    public ResponseEntity<AreaDTO> actualizar(@Valid @RequestBody AreaCreation creation) {
+        EntityMessenger<AreaModel> objeto = areaService.actualizar(creation);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)

@@ -4,7 +4,7 @@ import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.mapper.creation.ReclamoCreation;
 import muni.eolida.sisifo.model.ReclamoModel;
 
-public interface ReclamoService extends GenericService<ReclamoCreation, ReclamoModel> {
+public interface ReclamoService extends GenericService<ReclamoModel, ReclamoCreation> {
     EntityMessenger<ReclamoModel> buscarMisReclamos();
     EntityMessenger<ReclamoModel> buscarTodasPorCreadorId(Long id);
     EntityMessenger<ReclamoModel> buscarTodasPorCreadorIdConEliminadas(Long id);

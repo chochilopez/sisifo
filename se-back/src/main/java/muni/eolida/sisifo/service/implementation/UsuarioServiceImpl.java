@@ -109,10 +109,9 @@ public class UsuarioServiceImpl implements UsuarioService {
                 usuarioModel.setRoles(roles);
             }
             usuarioModel.getRoles().add(objeto.getObjeto());
-            this.actualizar(usuarioModel);
             String mensaje = "El rol " + rolEnum + " fue añadido correctamente al usuario " + usuarioModel.getUsername() + ".";
             log.info(mensaje);
-            return new EntityMessenger<UsuarioModel>(usuarioModel, null, mensaje, 200);
+            return new EntityMessenger<UsuarioModel>(usuarioDAO.save(usuarioModel), null, mensaje, 200);
         } catch (Exception e) {
             String mensaje = "Ocurrio un error al realizar la busqueda.";
             log.error(mensaje);
@@ -234,10 +233,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public EntityMessenger<UsuarioModel> insertar(UsuarioCreation model) {
+    public EntityMessenger<UsuarioModel> insertar(UsuarioCreation creation) {
         try {
-            log.info("Insertando la entidad Usuario: {}.",  model);
-            UsuarioModel objeto = usuarioDAO.save(usuarioMapper.toEntity(model));
+            log.info("Insertando la entidad Usuario: {}.",  creation);
+            creation.setId(null);
+            UsuarioModel objeto = usuarioDAO.save(usuarioMapper.toEntity(creation));
             objeto.setCreada(Helper.getNow(""));
             objeto.setCreador(this.obtenerUsuario().getObjeto());
             usuarioDAO.save(objeto);
@@ -252,22 +252,17 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public EntityMessenger<UsuarioModel> actualizar(UsuarioModel model) {
+    public EntityMessenger<UsuarioModel> actualizar(UsuarioCreation creation) {
         try {
-            log.info("Actualizando la entidad Usuario: {}.",  model);
-            if (model.getId() != null) {
-                EntityMessenger<UsuarioModel> entidad = this.buscarPorId(model.getId());
-                if (entidad.getEstado() == 202)
-                    return entidad;
-            }
-            model.setModificada(Helper.getNow(""));
-            model.setModificador(this.obtenerUsuario().getObjeto());
-            UsuarioModel objeto = usuarioDAO.save(model);
-            String mensaje = "La entidad Usuario con id: " + objeto.getId() + ", fue actualizada correctamente.";
+            log.info("Actualizando la entidad Usuario: {}.",  creation);
+            UsuarioModel entidad = usuarioMapper.toEntity(creation);
+            entidad.setModificada(Helper.getNow(""));
+            entidad.setModificador(this.obtenerUsuario().getObjeto());
+            String mensaje = "La entidad Area con id: " + creation.getId() + ", fue actualizada correctamente.";
             log.info(mensaje);
-            return new EntityMessenger<UsuarioModel>(objeto, null, mensaje, 201);
+            return new EntityMessenger<UsuarioModel>(usuarioDAO.save(entidad), null, mensaje, 201);
         } catch (Exception e) {
-            String mensaje = "Ocurrió un error al intentar actualizar la entidad Usuario. Excepción: " + e + ".";
+            String mensaje = "Ocurrió un error al intentar actualizar la entidad Area. Excepción: " + e + ".";
             log.error(mensaje);
             return new EntityMessenger<UsuarioModel>(null, null, mensaje, 204);
         }

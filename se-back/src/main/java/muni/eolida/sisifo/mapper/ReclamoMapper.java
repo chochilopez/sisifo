@@ -1,75 +1,80 @@
 package muni.eolida.sisifo.mapper;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.util.EntityMessenger;
+import muni.eolida.sisifo.repository.*;
 import muni.eolida.sisifo.mapper.creation.ReclamoCreation;
 import muni.eolida.sisifo.mapper.dto.*;
 import muni.eolida.sisifo.model.*;
-import muni.eolida.sisifo.service.implementation.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import muni.eolida.sisifo.util.Helper;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
+@RequiredArgsConstructor
 @Slf4j
 public class ReclamoMapper {
-    @Autowired
-    private CalleServiceImpl calleServiceImpl;
-    @Autowired
-    private ArchivoServiceImpl archivoServiceImpl;
-    @Autowired
-    private UsuarioServiceImpl usuarioServiceImpl;
-    @Autowired
-    private TipoReclamoServiceImpl tipoReclamoServiceImpl;
-    @Autowired
-    private CalleMapper calleMapper;
-    @Autowired
-    private UsuarioMapper usuarioMapper;
-    private TipoReclamoMapper tipoReclamoMapper;
-    @Autowired
-    private BarrioServiceImpl barrioService;
-    @Autowired
-    private BarrioMapper barrioMapper;
-    @Autowired
-    private ArchivoMapper archivoMapper;
-    @Autowired
-    private SeguimientoMapper seguimientoMapper;
+    private final CalleDAO calleDAO;
+    private final UsuarioDAO usuarioDAO;
+    private final TipoReclamoDAO tipoReclamoDAO;
+    private final BarrioDAO barrioDAO;
+    private final CalleMapper calleMapper;
+    private final UsuarioMapper usuarioMapper;
+    private final TipoReclamoMapper tipoReclamoMapper;
+    private final BarrioMapper barrioMapper;
+    private final ArchivoMapper archivoMapper;
+    private final SeguimientoMapper seguimientoMapper;
+    private final ReclamoDAO reclamoDAO;
 
     public ReclamoModel toEntity(ReclamoCreation reclamoCreation) {
         try {
             ReclamoModel reclamoModel = new ReclamoModel();
+
+            if (Helper.getLong(reclamoCreation.getId()) != null) {
+                reclamoModel = reclamoDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getId())).get();
+            }
             reclamoModel.setAltura(reclamoCreation.getAltura());
             reclamoModel.setCoordinadaX(reclamoCreation.getCoordinadaX());
             reclamoModel.setCoordinadaY(reclamoCreation.getCoordinadaY());
             reclamoModel.setDescripcion(reclamoCreation.getDescripcion());
-            EntityMessenger<BarrioModel> barrio = barrioService.buscarPorId(reclamoCreation.getCalle_id());
-            if (barrio.getEstado() == 200)
-                reclamoModel.setBarrio(barrio.getObjeto());
-            EntityMessenger<CalleModel> calle = calleServiceImpl.buscarPorId(reclamoCreation.getCalle_id());
-            if (calle.getEstado() == 200)
-                reclamoModel.setCalle(calle.getObjeto());
-            EntityMessenger<CalleModel> interseccion = calleServiceImpl.buscarPorId(reclamoCreation.getInterseccion_id());
-            if (interseccion.getEstado() == 200)
-                reclamoModel.setInterseccion(interseccion.getObjeto());
-            EntityMessenger<CalleModel> entreCalle1 = calleServiceImpl.buscarPorId(reclamoCreation.getEntreCalle1_id());
-            if (entreCalle1.getEstado() == 200)
-                reclamoModel.setEntreCalle1(entreCalle1.getObjeto());
-            EntityMessenger<CalleModel> entreCalle2 = calleServiceImpl.buscarPorId(reclamoCreation.getEntreCalle2_id());
-            if (entreCalle2.getEstado() == 200)
-                reclamoModel.setEntreCalle2(entreCalle2.getObjeto());
-            EntityMessenger<TipoReclamoModel> tipoReclamo = tipoReclamoServiceImpl.buscarPorId(reclamoCreation.getTipoReclamo_id());
-            if (tipoReclamo.getEstado() == 200)
-                reclamoModel.setTipoReclamo(tipoReclamo.getObjeto());
-            EntityMessenger<UsuarioModel> usuarioModelEntidadMensaje = usuarioServiceImpl.obtenerUsuario();
-            reclamoModel.setPersona(usuarioModelEntidadMensaje.getObjeto());
-            try {
-                if (reclamoCreation.getImagen() != null) {
-                    EntityMessenger<ArchivoModel> imagen = archivoServiceImpl.guardarArchivo(reclamoCreation.getImagen());
-                    if (imagen.getEstado() == 200)
-                        reclamoModel.setImagen(imagen.getObjeto());
+            if (Helper.getLong(reclamoCreation.getBarrio_id()) != null) {
+                Optional<BarrioModel> barrio = barrioDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getBarrio_id()));
+                if (barrio.isPresent()) {
+                    reclamoModel.setBarrio(barrio.get());
                 }
-            } catch (Exception e) {
-                log.error("An error ocurred while trying to save the image: " + e);
             }
+            if (Helper.getLong(reclamoCreation.getCalle_id()) != null) {
+                Optional<CalleModel> calle = calleDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getCalle_id()));
+                if (calle.isPresent()) {
+                    reclamoModel.setCalle(calle.get());
+                }
+            }
+            if (Helper.getLong(reclamoCreation.getInterseccion_id()) != null) {
+                Optional<CalleModel> interseccion = calleDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getInterseccion_id()));
+                if (interseccion.isPresent()) {
+                    reclamoModel.setInterseccion(interseccion.get());
+                }
+            }
+            if (Helper.getLong(reclamoCreation.getEntreCalle1_id()) != null) {
+                Optional<CalleModel> entreCalle1 = calleDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getEntreCalle1_id()));
+                if (entreCalle1.isPresent()) {
+                    reclamoModel.setEntreCalle1(entreCalle1.get());
+                }
+            }
+            if (Helper.getLong(reclamoCreation.getEntreCalle2_id()) != null) {
+                Optional<CalleModel> entreCalle2 = calleDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getEntreCalle2_id()));
+                if (entreCalle2.isPresent()) {
+                    reclamoModel.setEntreCalle2(entreCalle2.get());
+                }
+            }
+            if (Helper.getLong(reclamoCreation.getTipoReclamo_id()) != null) {
+                Optional<TipoReclamoModel> tipoReclamo = tipoReclamoDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getTipoReclamo_id()));
+                if (tipoReclamo.isPresent()) {
+                    reclamoModel.setTipoReclamo(tipoReclamo.get());
+                }
+            }
+            reclamoModel.setPersona(usuarioDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getPersona_id())).get());
 
             return reclamoModel;
         } catch (Exception e) {

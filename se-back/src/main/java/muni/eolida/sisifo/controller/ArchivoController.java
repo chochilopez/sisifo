@@ -305,8 +305,8 @@ public class ArchivoController {
     @Operation(hidden = true)
     @PostMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<ArchivoDTO> actualizar(@Valid @RequestBody ArchivoModel archivoModel) {
-        EntityMessenger<ArchivoModel> objeto = archivoService.actualizar(archivoModel);
+    public ResponseEntity<ArchivoDTO> actualizar(@Valid @RequestBody ArchivoCreation creation) {
+        EntityMessenger<ArchivoModel> objeto = archivoService.actualizar(creation);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)

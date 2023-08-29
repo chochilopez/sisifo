@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Hidden
 @Setter
-public class EstadoReclamoCreation {
+public class EstadoReclamoCreation extends AbsAuditoriaCreation {
+    private String id;
     private String estado;
 }

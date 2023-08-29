@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Hidden
 @Setter
-public class AreaCreation {
+public class AreaCreation extends AbsAuditoriaCreation {
     private String id;
     private String area;
     private List<String> tiposReclamos_id;

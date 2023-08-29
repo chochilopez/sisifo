@@ -538,8 +538,8 @@ public class TipoReclamoController {
     })
     @PostMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<TipoReclamoDTO> actualizar(@Valid @RequestBody TipoReclamoModel tipoReclamoModel) {
-        EntityMessenger<TipoReclamoModel> objeto = tipoReclamoService.actualizar(tipoReclamoModel);
+    public ResponseEntity<TipoReclamoDTO> actualizar(@Valid @RequestBody TipoReclamoCreation creation) {
+        EntityMessenger<TipoReclamoModel> objeto = tipoReclamoService.actualizar(creation);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
         else if (objeto.getEstado() == 201)

@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Hidden
 @Setter
-public class CalleCreation {
+public class CalleCreation extends AbsAuditoriaCreation {
+    private String id;
     private String calle;
 }

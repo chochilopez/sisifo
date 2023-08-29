@@ -8,6 +8,7 @@ import lombok.Setter;
 @Hidden
 @Setter
 public class RolCreation {
+    private String id;
     private String rol;
 
     public RolCreation(String rol) {

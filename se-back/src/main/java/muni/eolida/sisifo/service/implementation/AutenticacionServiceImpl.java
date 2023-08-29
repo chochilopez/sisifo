@@ -9,6 +9,7 @@ import muni.eolida.sisifo.mapper.dto.AutenticacionResponseDTO;
 import muni.eolida.sisifo.model.TokenModel;
 import muni.eolida.sisifo.model.enums.TipoToken;
 import muni.eolida.sisifo.repository.TokenDAO;
+import muni.eolida.sisifo.repository.UsuarioDAO;
 import muni.eolida.sisifo.security.JwtService;
 import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.util.email.EmailModel;
@@ -42,10 +43,12 @@ import java.util.Optional;
 public class AutenticacionServiceImpl implements AutenticacionService {
 
     private final UsuarioServiceImpl usuarioService;
+
     private final AuthenticationManager authenticationManager;
     private final TokenDAO tokenDAO;
     private final JwtService jwtService;
     private final EmailServiceImpl emailService;
+    private final UsuarioDAO usuarioDAO;
 
     @Value("${sisifo.app.mail.username}")
     private String sender;
@@ -109,11 +112,9 @@ public class AutenticacionServiceImpl implements AutenticacionService {
             if (usuario.getEstado() == 200) {
                 if (usuario.getObjeto().getToken().equals(token)) {
                     usuario.getObjeto().setHabilitada(true);
-                    usuario = usuarioService.actualizar(usuario.getObjeto());
                     String mensaje = "La cuenta de usaurio: " + usuario.getObjeto().getUsername() + ", se habilitó correctamente.";
                     log.info(mensaje);
-                    usuario.setMensaje(mensaje);
-                    return usuario;
+                    return new EntityMessenger<UsuarioModel>(usuarioDAO.save(usuario.getObjeto()), null, mensaje, 200);
                 } else {
                     String mensaje = "Ocurrió un error al intentar habilitar la cuenta.";
                     log.warn(mensaje);
