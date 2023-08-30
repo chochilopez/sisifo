@@ -24,5 +24,5 @@ public class UsuarioDTO implements Serializable {
     @Schema(description = "Nombre de usuario en forma de direccion de correo.")
     private String username;
     @Schema(type="Array", description = "Listado de los roles de la persona, sus niveles de autoridad.", example = "[]")
-    private List<RolDTO> roles = new ArrayList<>();
+    private List<String> roles = new ArrayList<>();
 }

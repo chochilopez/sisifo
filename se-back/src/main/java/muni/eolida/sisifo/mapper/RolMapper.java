@@ -10,8 +10,6 @@ import muni.eolida.sisifo.repository.RolDAO;
 import muni.eolida.sisifo.util.Helper;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 @RequiredArgsConstructor
 @Slf4j

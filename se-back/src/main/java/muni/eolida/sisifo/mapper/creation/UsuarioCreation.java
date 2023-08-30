@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -15,15 +16,11 @@ public class UsuarioCreation extends AbsAuditoriaCreation {
     private String dni;
     private String direccion;
     private String telefono;
+    private String habilitada;
     private String username;
     private String password;
+    private String token;
+    private List<String> tokens_id;
+    private List<String> roles_id;
 
-    public UsuarioCreation(String nombre, String dni, String direccion, String telefono, String username, String password) {
-        this.nombre = nombre;
-        this.dni = dni;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.username = username;
-        this.password = password;
-    }
 }

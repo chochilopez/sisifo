@@ -29,34 +29,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain ) throws ServletException, IOException {
-        try {
-            if (request.getServletPath().contains("/api/auth") || request.getServletPath().contains("/v3/api-docs") || request.getServletPath().contains("/swagger-ui")) {
-                filterChain.doFilter(request, response);
-                return;
+        String jwtToken = extractJwtFromRequest(request);
+        Boolean isTokenValid = tokenDAO.findByToken(jwtToken).map(t -> !t.isExpirado() && !t.isRevocado()).orElse(false);
+        if (StringUtils.hasText(jwtToken) && isTokenValid) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(jwtService.extraerUsuario(jwtToken));
+            if (jwtService.esValidoToken(jwtToken, userDetails)) {
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
             }
-            String jwtToken = extractJwtFromRequest(request);
-            var isTokenValid = tokenDAO.findByToken(jwtToken)
-                    .map(t -> !t.isExpirado() && !t.isRevocado())
-                    .orElse(false);
-            if (StringUtils.hasText(jwtToken) && isTokenValid) {
-                UserDetails userDetails = new User(jwtService.getUsernameFromToken(jwtToken), "", jwtService.getRolesFromToken(jwtToken));
-                if (jwtService.esValidoToken(jwtToken, userDetails)) {
-                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                            userDetails, null, userDetails.getAuthorities());
-                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authToken);
-                }
-            }
-            filterChain.doFilter(request, response);
-        } catch (Exception e) {
-            logger.error("Error al obtener la autenticacion del Usuario: {}", e);
         }
+        filterChain.doFilter(request, response);
     }
 
     private String extractJwtFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7, bearerToken.length());
+        String authorizationHeader = request.getHeader("Authorization");
+        if (StringUtils.hasText(authorizationHeader) && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.replace("Bearer ", "");
         }
         return null;
     }

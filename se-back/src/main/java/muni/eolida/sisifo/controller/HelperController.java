@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @Hidden
 @RequestMapping(value = "/api/ayuda")
@@ -26,71 +30,72 @@ public class HelperController {
     private final UsuarioServiceImpl usuarioServiceImpl;
     private final RolServiceImpl rolService;
 
-    @PutMapping(value = "/cargar-roles")
+    @PutMapping(value = "/cargar-autoridades")
     public ResponseEntity<?> autoridades() {
-        EntityMessenger<RolModel> rol1 = rolService.insertar(new RolCreation(RolEnum.CONTRIBUYENTE.name()));
-        EntityMessenger<RolModel> rol2 = rolService.insertar(new RolCreation(RolEnum.EMPLEADO.name()));
-        EntityMessenger<RolModel> rol3 = rolService.insertar(new RolCreation(RolEnum.CAPATAZ.name()));
-        EntityMessenger<RolModel> rol4 = rolService.insertar(new RolCreation(RolEnum.JEFE.name()));
+        try {
+            EntityMessenger<RolModel> rol1 = rolService.insertar(new RolCreation(RolEnum.CONTRIBUYENTE.name()));
+            EntityMessenger<RolModel> rol2 = rolService.insertar(new RolCreation(RolEnum.EMPLEADO.name()));
+            EntityMessenger<RolModel> rol3 = rolService.insertar(new RolCreation(RolEnum.CAPATAZ.name()));
+            EntityMessenger<RolModel> rol4 = rolService.insertar(new RolCreation(RolEnum.JEFE.name()));
+
+            EntityMessenger<UsuarioModel> user1 = usuarioServiceImpl.insertar(new UsuarioCreation(
+                    null,
+                    "contribuyente",
+                    "12123123",
+                    "Su Casa 1234",
+                    "111 111 111",
+                    "true",
+                    "contribuyente@email.com.ar",
+                    "contraseña",
+                    null,
+                    null,
+                    List.of("1")
+            ));
+            EntityMessenger<UsuarioModel> user2 = usuarioServiceImpl.insertar(new UsuarioCreation(
+                    null,
+                    "empleado",
+                    "45456456",
+                    "Su trabajo 2345",
+                    "222 222 222",
+                    "true",
+                    "empleado@municrespo.gob.ar",
+                    "contraseña",
+                    null,
+                    null,
+                    List.of("1", "2")
+            ));
+            EntityMessenger<UsuarioModel> user3 = usuarioServiceImpl.insertar(new UsuarioCreation(
+                    null,
+                    "capataz",
+                    "78789789",
+                    "Su oficina 3456",
+                    "333 333 333",
+                    "true",
+                    "capataz@municrespo.gob.ar",
+                    "contraseña",
+                    null,
+                    null,
+                    List.of("1","2","3")
+            ));
+            EntityMessenger<UsuarioModel> user4 = usuarioServiceImpl.insertar(new UsuarioCreation(
+                    null,
+                    "jefe",
+                    "00000000",
+                    "Controlando 4567",
+                    "444 444 444",
+                    "true",
+                    "jefe@municrespo.gob.ar",
+                    "contraseña",
+                    null,
+                    null,
+                    List.of("1","2","3","4")
+            ));
 
 
-        return ResponseEntity.status(HttpStatus.OK).body(rol1.getMensaje() + "\n" + rol2.getMensaje() + "\n" + rol3.getMensaje() + "\n" + rol4.getMensaje());
-    }
-
-    @PutMapping(value = "/cargar-usuarios")
-    public ResponseEntity<?> usuarios() {
-        EntityMessenger<UsuarioModel> user1 = usuarioServiceImpl.insertar(new UsuarioCreation(
-                "contribuyente",
-                "12123123",
-                "Su Casa 1234",
-                "111 111 111",
-                "contribuyente@email.com.ar",
-                "contraseña"
-        ));
-        EntityMessenger<UsuarioModel> user2 = usuarioServiceImpl.insertar(new UsuarioCreation(
-                "empleado",
-                "45456456",
-                "Su trabajo 2345",
-                "222 222 222",
-                "empleado@municrespo.gob.ar",
-                "contraseña"
-        ));
-        EntityMessenger<UsuarioModel> user3 = usuarioServiceImpl.insertar(new UsuarioCreation(
-                "capataz",
-                "78789789",
-                "Su oficina 3456",
-                "333 333 333",
-                "capataz@municrespo.gob.ar",
-                "contraseña"
-        ));
-        EntityMessenger<UsuarioModel> user4 = usuarioServiceImpl.insertar(new UsuarioCreation(
-                "jefe",
-                "00000000",
-                "Controlando 4567",
-                "444 444 444",
-                "jefe@municrespo.gob.ar",
-                "contraseña"
-        ));
-
-        if (user1.getEstado() == 201) {
-            usuarioServiceImpl.darRol(user1.getObjeto(), "CONTRIBUYENTE");
+            return ResponseEntity.status(HttpStatus.OK).body(rol1.getMensaje() + "\n" + rol2.getMensaje() + "\n" + rol3.getMensaje() + "\n" + rol4.getMensaje() + "\n" +
+                    user1.getMensaje() + "\n" + user2.getMensaje() + "\n" + user3.getMensaje() + "\n" + user4.getMensaje());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-        if (user2.getEstado() == 201) {
-            usuarioServiceImpl.darRol(user2.getObjeto(), "CONTRIBUYENTE");
-            usuarioServiceImpl.darRol(user2.getObjeto(), "EMPLEADO");
-        }
-        if (user3.getEstado() == 201) {
-            usuarioServiceImpl.darRol(user3.getObjeto(), "CONTRIBUYENTE");
-            usuarioServiceImpl.darRol(user3.getObjeto(), "EMPLEADO");
-            usuarioServiceImpl.darRol(user3.getObjeto(), "CAPATAZ");
-        }
-        if (user4.getEstado() == 201) {
-            usuarioServiceImpl.darRol(user4.getObjeto(), "CONTRIBUYENTE");
-            usuarioServiceImpl.darRol(user4.getObjeto(), "EMPLEADO");
-            usuarioServiceImpl.darRol(user4.getObjeto(), "CAPATAZ");
-            usuarioServiceImpl.darRol(user4.getObjeto(), "JEFE");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(user1.getMensaje() + "\n" + user2.getMensaje() + "\n" + user3.getMensaje() + "\n" + user4.getMensaje());
     }
 }

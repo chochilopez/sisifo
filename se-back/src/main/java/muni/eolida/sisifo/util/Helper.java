@@ -99,6 +99,16 @@ public class Helper {
         }
     }
 
+    public static Boolean getBoolean(String bool){
+        try {
+            if (bool.isEmpty())
+                return null;
+            return Boolean.getBoolean(bool);
+        }catch(Exception e) {
+            return null;
+        }
+    }
+
     public static Boolean isNullString (String aString) {
         return aString == null;
     }

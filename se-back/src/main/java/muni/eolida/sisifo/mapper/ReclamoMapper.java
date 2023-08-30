@@ -26,6 +26,7 @@ public class ReclamoMapper {
     private final ArchivoMapper archivoMapper;
     private final SeguimientoMapper seguimientoMapper;
     private final ReclamoDAO reclamoDAO;
+    private final ArchivoDAO archivoDAO;
 
     public ReclamoModel toEntity(ReclamoCreation reclamoCreation) {
         try {
@@ -34,20 +35,26 @@ public class ReclamoMapper {
             if (Helper.getLong(reclamoCreation.getId()) != null) {
                 reclamoModel = reclamoDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getId())).get();
             }
-            reclamoModel.setAltura(reclamoCreation.getAltura());
             reclamoModel.setCoordinadaX(reclamoCreation.getCoordinadaX());
             reclamoModel.setCoordinadaY(reclamoCreation.getCoordinadaY());
             reclamoModel.setDescripcion(reclamoCreation.getDescripcion());
-            if (Helper.getLong(reclamoCreation.getBarrio_id()) != null) {
-                Optional<BarrioModel> barrio = barrioDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getBarrio_id()));
-                if (barrio.isPresent()) {
-                    reclamoModel.setBarrio(barrio.get());
+            reclamoModel.setAltura(reclamoCreation.getAltura());
+            if (Helper.getLong(reclamoCreation.getImagen_id()) != null) {
+                Optional<ArchivoModel> imagen = archivoDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getImagen_id()));
+                if (imagen.isPresent()) {
+                    reclamoModel.setImagen(imagen.get());
                 }
             }
             if (Helper.getLong(reclamoCreation.getCalle_id()) != null) {
                 Optional<CalleModel> calle = calleDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getCalle_id()));
                 if (calle.isPresent()) {
                     reclamoModel.setCalle(calle.get());
+                }
+            }
+            if (Helper.getLong(reclamoCreation.getBarrio_id()) != null) {
+                Optional<BarrioModel> barrio = barrioDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getBarrio_id()));
+                if (barrio.isPresent()) {
+                    reclamoModel.setBarrio(barrio.get());
                 }
             }
             if (Helper.getLong(reclamoCreation.getInterseccion_id()) != null) {
@@ -74,7 +81,35 @@ public class ReclamoMapper {
                     reclamoModel.setTipoReclamo(tipoReclamo.get());
                 }
             }
+            if (Helper.getLong(reclamoCreation.getPersona_id()) != null) {
+                Optional<UsuarioModel> usuario = usuarioDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getPersona_id()));
+                if (usuario.isPresent()) {
+                    reclamoModel.setPersona(usuario.get());
+                }
+            }
             reclamoModel.setPersona(usuarioDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getPersona_id())).get());
+
+            if (Helper.getLong(reclamoCreation.getCreador_id()) != null) {
+                Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(reclamoCreation.getCreador_id()));
+                if (user.isPresent())
+                    reclamoModel.setCreador(user.get());
+            }
+            if (!Helper.isEmptyString(reclamoCreation.getCreada()))
+                reclamoModel.setCreada(Helper.stringToLocalDateTime(reclamoCreation.getCreada(), ""));
+            if (Helper.getLong(reclamoCreation.getModificador_id()) != null) {
+                Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(reclamoCreation.getModificador_id()));
+                if (user.isPresent())
+                    reclamoModel.setModificador(user.get());
+            }
+            if (!Helper.isEmptyString(reclamoCreation.getModificada()))
+                reclamoModel.setModificada(Helper.stringToLocalDateTime(reclamoCreation.getModificada(), ""));
+            if (Helper.getLong(reclamoCreation.getEliminador_id()) != null) {
+                Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(reclamoCreation.getEliminador_id()));
+                if (user.isPresent())
+                    reclamoModel.setEliminador(user.get());
+            }
+            if (!Helper.isEmptyString(reclamoCreation.getEliminada()))
+                reclamoModel.setEliminada(Helper.stringToLocalDateTime(reclamoCreation.getEliminada(), ""));
 
             return reclamoModel;
         } catch (Exception e) {
@@ -88,14 +123,19 @@ public class ReclamoMapper {
             ReclamoDTO dto = new ReclamoDTO();
 
             dto.setId(reclamoModel.getId().toString());
-            dto.setAltura(reclamoModel.getAltura());
             dto.setCoordinadaX(reclamoModel.getCoordinadaX());
             dto.setCoordinadaY(reclamoModel.getCoordinadaY());
             dto.setDescripcion(reclamoModel.getDescripcion());
-            if (reclamoModel.getBarrio() != null)
-                dto.setBarrio(barrioMapper.toDto(reclamoModel.getBarrio()));
+            dto.setAltura(reclamoModel.getAltura());
+
+            if (reclamoModel.getImagen() != null)
+                dto.setImagen(archivoMapper.toDto(reclamoModel.getImagen()));
+            if (reclamoModel.getSeguimiento() != null)
+                dto.setSeguimiento(seguimientoMapper.toDto(reclamoModel.getSeguimiento()));
             if (reclamoModel.getCalle() != null)
                 dto.setCalle(calleMapper.toDto(reclamoModel.getCalle()));
+            if (reclamoModel.getBarrio() != null)
+                dto.setBarrio(barrioMapper.toDto(reclamoModel.getBarrio()));
             if (reclamoModel.getInterseccion() != null)
                 dto.setInterseccion(calleMapper.toDto(reclamoModel.getInterseccion()));
             if (reclamoModel.getEntreCalle1() != null)
@@ -106,10 +146,6 @@ public class ReclamoMapper {
                 dto.setPersona(usuarioMapper.toDto(reclamoModel.getPersona()));
             if (reclamoModel.getTipoReclamo() != null)
                 dto.setTipoReclamo(tipoReclamoMapper.toDto(reclamoModel.getTipoReclamo()));
-            if (reclamoModel.getImagen() != null)
-                dto.setImagen(archivoMapper.toDto(reclamoModel.getImagen()));
-            if (reclamoModel.getSeguimiento() != null)
-                dto.setSeguimiento(seguimientoMapper.toDto(reclamoModel.getSeguimiento()));
 
             return dto;
         } catch (Exception e) {

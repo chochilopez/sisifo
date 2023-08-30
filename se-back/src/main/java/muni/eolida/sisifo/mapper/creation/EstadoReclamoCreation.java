@@ -10,4 +10,5 @@ import lombok.Setter;
 public class EstadoReclamoCreation extends AbsAuditoriaCreation {
     private String id;
     private String estado;
+    private String seguimiento_id;
 }

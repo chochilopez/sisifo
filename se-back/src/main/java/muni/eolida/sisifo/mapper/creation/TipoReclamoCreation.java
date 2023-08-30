@@ -10,4 +10,5 @@ import lombok.Setter;
 public class TipoReclamoCreation extends AbsAuditoriaCreation {
     private String id;
     private String tipo;
+    private String area_id;
 }
