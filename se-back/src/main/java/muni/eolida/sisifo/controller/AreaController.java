@@ -11,6 +11,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.util.EntityMessenger;
@@ -20,9 +23,11 @@ import muni.eolida.sisifo.mapper.creation.AreaCreation;
 import muni.eolida.sisifo.mapper.dto.AreaDTO;
 import muni.eolida.sisifo.model.AreaModel;
 import muni.eolida.sisifo.service.implementation.AreaServiceImpl;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,6 +39,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @Slf4j
+@Validated
 @Tag(name = "Endpoints AREA", description = "Recursos referidos a la consulta y persistencia de Areas Municipales.")
 public class AreaController {
     private final AreaServiceImpl areaService;
@@ -74,7 +80,7 @@ public class AreaController {
     })
     @GetMapping(value = "/agregar-tipo-reclamo-a-area/{idArea}/{idTipoReclamo}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<AreaDTO> agregarTipoReclamoAArea(@PathVariable(name = "idArea") Long idArea, @PathVariable(name = "idTipoReclamo") Long idTipoReclamo) {
+    public ResponseEntity<AreaDTO> agregarTipoReclamoAArea(@PathVariable("idArea") @Positive Long idArea, @PathVariable(name = "idTipoReclamo") Long idTipoReclamo) {
         EntityMessenger<AreaModel> objeto = areaService.agregarTipoReclamoAArea(idArea, idTipoReclamo);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
@@ -225,7 +231,7 @@ public class AreaController {
     })
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
-    public ResponseEntity<AreaDTO> buscarPorId(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<AreaDTO> buscarPorId(@PathVariable(name = "id") @Range(min = 1, max = 9999) Long id) {
         EntityMessenger<AreaModel> objeto = areaService.buscarPorId(id);
         if (objeto.getEstado() == 202)
             return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();

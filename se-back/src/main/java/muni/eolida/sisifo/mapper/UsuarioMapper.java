@@ -41,11 +41,11 @@ public class UsuarioMapper {
                 usuarioModel.setHabilitada(false);
             usuarioModel.setUsername(usuarioCreation.getUsername());
             usuarioModel.setPassword(bcryptEncoder.encode(usuarioCreation.getPassword()));
-            if (!usuarioCreation.getToken().isEmpty())
+            if (usuarioCreation.getToken() != null)
                 usuarioModel.setToken(usuarioCreation.getToken());
 
             List<TokenModel> tokens = new ArrayList<>();
-            if (!usuarioCreation.getTokens_id().isEmpty()) {
+            if (usuarioCreation.getTokens_id() != null) {
                 for (String tokenId:usuarioCreation.getTokens_id()) {
                     if (Helper.getLong(tokenId) != null) {
                         Optional<TokenModel> token = tokenDAO.findById(Helper.getLong(tokenId));

@@ -1,6 +1,8 @@
 package muni.eolida.sisifo.security;
 
 import lombok.RequiredArgsConstructor;
+import muni.eolida.sisifo.util.exception.CustomAccessDeniedHandler;
+import muni.eolida.sisifo.util.exception.CustomAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;

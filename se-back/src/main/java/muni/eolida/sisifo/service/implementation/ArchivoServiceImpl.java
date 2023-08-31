@@ -9,6 +9,7 @@ import muni.eolida.sisifo.model.ArchivoModel;
 import muni.eolida.sisifo.repository.ArchivoDAO;
 import muni.eolida.sisifo.service.ArchivoService;
 import lombok.extern.slf4j.Slf4j;
+import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -61,23 +62,11 @@ public class ArchivoServiceImpl implements ArchivoService {
 
     @Override
     public EntityMessenger<ArchivoModel> buscarPorId(Long id) {
-        try {
-            log.info("Buscando la entidad Archivo con id: {}.", id);
-            Optional<ArchivoModel> objeto = archivoDAO.findByIdAndEliminadaIsNull(id);
-            if (objeto.isEmpty()) {
-                String mensaje = "No se encontro una entidad Archivo con id: " + id + ".";
-                log.warn(mensaje);
-                return new EntityMessenger<ArchivoModel>(null, null, mensaje, 202);
-            } else {
-                String mensaje = "Se encontro una entidad Archivo.";
-                log.info(mensaje);
-                return new EntityMessenger<ArchivoModel>(objeto.get(), null, mensaje, 200);
-            }
-        } catch (Exception e) {
-            String mensaje = "Ocurrio un error al realizar la busqueda.";
-            log.error(mensaje);
-            return new EntityMessenger<ArchivoModel>(null, null, mensaje, 204);
-        }
+        log.info("Buscando la entidad Archivo con id: {}.", id);
+        ArchivoModel archivoModel = archivoDAO.findByIdAndEliminadaIsNull(id).orElseThrow(()-> new CustomDataNotFoundException("No se encontro la entidad con id " + id));
+        String mensaje = "Se encontro una entidad Archivo.";
+        log.info(mensaje);
+        return new EntityMessenger<ArchivoModel>(archivoModel, null, mensaje, 200);
     }
 
     @Override

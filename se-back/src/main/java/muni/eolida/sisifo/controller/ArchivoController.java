@@ -24,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -76,7 +77,7 @@ public class ArchivoController {
     })
     @PutMapping(value = "/guardar",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
-    public ResponseEntity<ArchivoDTO> saveLocalFile(@RequestParam("file") MultipartFile multipartFile) {
+    public ResponseEntity<ArchivoDTO> saveLocalFile(@Validated MultipartFile multipartFile) {
         try{
             EntityMessenger<ArchivoModel> objeto = archivoService.guardarArchivo(multipartFile.getBytes());
             if (objeto.getEstado() == 202)
