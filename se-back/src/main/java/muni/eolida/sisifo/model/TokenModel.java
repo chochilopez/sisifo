@@ -6,9 +6,9 @@ import lombok.*;
 import muni.eolida.sisifo.model.enums.TipoToken;
 
 @AllArgsConstructor
-@Builder
-@Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
+@Getter
 @Hidden
 @NoArgsConstructor
 @Setter

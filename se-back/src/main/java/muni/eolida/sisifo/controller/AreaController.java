@@ -11,12 +11,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.AreaMapper;
 import muni.eolida.sisifo.mapper.creation.AreaCreation;
@@ -41,7 +38,7 @@ import java.util.List;
 @Slf4j
 @Validated
 @Tag(name = "Endpoints AREA", description = "Recursos referidos a la consulta y persistencia de Areas Municipales.")
-public class AreaController {
+public class AreaController extends BaseController {
     private final AreaServiceImpl areaService;
     private final AreaMapper areaMapper;
 
@@ -57,21 +54,32 @@ public class AreaController {
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
                     content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @Parameters({
@@ -81,13 +89,8 @@ public class AreaController {
     @GetMapping(value = "/agregar-tipo-reclamo-a-area/{idArea}/{idTipoReclamo}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<AreaDTO> agregarTipoReclamoAArea(@PathVariable("idArea") @Positive Long idArea, @PathVariable(name = "idTipoReclamo") Long idTipoReclamo) {
-        EntityMessenger<AreaModel> objeto = areaService.agregarTipoReclamoAArea(idArea, idTipoReclamo);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        AreaModel objeto = areaService.agregarTipoReclamoAArea(idArea, idTipoReclamo);
+        return new ResponseEntity<>(areaMapper.toDto(objeto), Helper.httpHeaders("Se agrego correctamente el TipoReclamo con id: " + idTipoReclamo + ", al Area con id: " + idArea + "."), HttpStatus.OK);
     }
 
     @Operation(
@@ -102,21 +105,32 @@ public class AreaController {
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
                     content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @Parameters({
@@ -128,18 +142,12 @@ public class AreaController {
     @GetMapping(value = "/buscar-por-nombre/{area}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<AreaDTO>> buscarTodasPorArea(@PathVariable(name = "area")  String area) {
-        EntityMessenger<AreaModel> listado = areaService.buscarTodasPorArea(area);
-        if (listado.getEstado() == 202) {
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        } else if (listado.getEstado() == 200) {
-            ArrayList<AreaDTO> areaDTOS = new ArrayList<>();
-            for (AreaModel areaModel : listado.getListado()) {
-                areaDTOS.add(areaMapper.toDto(areaModel));
-            }
-            return new ResponseEntity<>(areaDTOS, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
-        } else {
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
+        List<AreaModel> listado = areaService.buscarTodasPorArea(area);
+        ArrayList<AreaDTO> areaDTOS = new ArrayList<>();
+        for (AreaModel areaModel : listado) {
+            areaDTOS.add(areaMapper.toDto(areaModel));
         }
+        return new ResponseEntity<>(areaDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades."), HttpStatus.OK);
     }
 
     @Operation(
@@ -154,21 +162,32 @@ public class AreaController {
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
                     content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @Parameters({
@@ -180,18 +199,12 @@ public class AreaController {
     @GetMapping(value = "/buscar-por-nombre-con-eliminadas/{area}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<AreaDTO>> buscarTodasPorAreaConEliminadas(@PathVariable(name = "area")  String area) {
-        EntityMessenger<AreaModel> listado = areaService.buscarTodasPorAreaConEliminadas(area);
-        if (listado.getEstado() == 202) {
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        } else if (listado.getEstado() == 200) {
-            ArrayList<AreaDTO> areaDTOS = new ArrayList<>();
-            for (AreaModel areaModel : listado.getListado()) {
-                areaDTOS.add(areaMapper.toDto(areaModel));
-            }
-            return new ResponseEntity<>(areaDTOS, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
-        } else {
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
+        List<AreaModel> listado = areaService.buscarTodasPorAreaConEliminadas(area);
+        ArrayList<AreaDTO> areaDTOS = new ArrayList<>();
+        for (AreaModel areaModel : listado) {
+            areaDTOS.add(areaMapper.toDto(areaModel));
         }
+        return new ResponseEntity<>(areaDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades, incluidas las eliminadas."), HttpStatus.OK);
     }
 
     @Operation(
@@ -206,21 +219,32 @@ public class AreaController {
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
                     content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @Parameters({
@@ -232,13 +256,8 @@ public class AreaController {
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<AreaDTO> buscarPorId(@PathVariable(name = "id") @Range(min = 1, max = 9999) Long id) {
-        EntityMessenger<AreaModel> objeto = areaService.buscarPorId(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        AreaModel objeto = areaService.buscarPorId(id);
+        return new ResponseEntity<>(areaMapper.toDto(objeto), Helper.httpHeaders("Se encontro una entidad con id :" + id + "."), HttpStatus.OK);
     }
 
     @Operation(
@@ -253,21 +272,32 @@ public class AreaController {
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
                     content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @Parameters({
@@ -279,13 +309,8 @@ public class AreaController {
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<AreaDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") Long id) {
-        EntityMessenger<AreaModel> objeto = areaService.buscarPorIdConEliminadas(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        AreaModel objeto = areaService.buscarPorIdConEliminadas(id);
+        return new ResponseEntity<>(areaMapper.toDto(objeto), Helper.httpHeaders("Se encontro una entidad con id :" + id + ", incluidas las eliminadas."), HttpStatus.OK);
     }
 
     @Operation(
@@ -300,38 +325,43 @@ public class AreaController {
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
                     content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @GetMapping(value = "/buscar-todas")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<AreaDTO>> buscarTodas() {
-        EntityMessenger<AreaModel> listado = areaService.buscarTodas();
-        if (listado.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        else if (listado.getEstado() == 200){
-            ArrayList<AreaDTO> AreaDTOs = new ArrayList<>();
-            for (AreaModel AreaModel:listado.getListado()) {
-                AreaDTOs.add(areaMapper.toDto(AreaModel));
-            }
-            return new ResponseEntity<>(AreaDTOs, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
+        List<AreaModel> listado = areaService.buscarTodas();
+        ArrayList<AreaDTO> areaDTOS = new ArrayList<>();
+        for (AreaModel areaModel : listado) {
+            areaDTOS.add(areaMapper.toDto(areaModel));
         }
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
+        return new ResponseEntity<>(areaDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades."), HttpStatus.OK);
     }
 
     @Operation(
@@ -346,38 +376,43 @@ public class AreaController {
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
                     content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @GetMapping(value = "/buscar-todas-con-eliminadas")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<AreaDTO>> buscarTodasConEliminadas() {
-        EntityMessenger<AreaModel> listado = areaService.buscarTodasConEliminadas();
-        if (listado.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        else if (listado.getEstado() == 200){
-            ArrayList<AreaDTO> AreaDTOs = new ArrayList<>();
-            for (AreaModel AreaModel:listado.getListado()) {
-                AreaDTOs.add(areaMapper.toDto(AreaModel));
-            }
-            return new ResponseEntity<>(AreaDTOs, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
+        List<AreaModel> listado = areaService.buscarTodasConEliminadas();
+        ArrayList<AreaDTO> areaDTOS = new ArrayList<>();
+        for (AreaModel areaModel : listado) {
+            areaDTOS.add(areaMapper.toDto(areaModel));
         }
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
+        return new ResponseEntity<>(areaDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades, incluidas las eliminadas."), HttpStatus.OK);
     }
 
     @Operation(hidden = true)
@@ -408,21 +443,32 @@ public class AreaController {
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
                     content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @Parameters({
@@ -434,64 +480,9 @@ public class AreaController {
     })
     @PutMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<AreaDTO> insertar(@Valid @RequestBody AreaCreation areaCreation) {
-        EntityMessenger<AreaModel> objeto = areaService.insertar(areaCreation);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 201)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-    }
-
-    @Operation(
-            summary = "Modificar una entidad.",
-            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se persiste los cambios en la entidad.</strong>"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "201",
-                    description = "Recurso consumido correctamente, se devuelve el objeto JSON modificado.",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = AreaDTO.class))},
-                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
-            ),
-            @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
-            )
-    })
-    @Parameters({
-            @Parameter(
-                    in = ParameterIn.QUERY,
-                    description = "Objeto JSON conteniendo el nombre del Area.",
-                    example = "<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;\"id\": \"2\",<br>" +
-                            "&nbsp;&nbsp;&nbsp;&nbsp;\"area\": \"Transito\"<br>" +
-                            "&nbsp;&nbsp;&nbsp;&nbsp;\"tiposReclamos\": \"[]\"<br>}"
-            )
-    })
-    @PostMapping
-    @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<AreaDTO> actualizar(@Valid @RequestBody AreaCreation creation) {
-        EntityMessenger<AreaModel> objeto = areaService.actualizar(creation);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 201)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+    public ResponseEntity<AreaDTO> guardar(@Valid @RequestBody AreaCreation areaCreation) {
+        AreaModel objeto = areaService.guardar(areaCreation);
+        return new ResponseEntity<>(areaMapper.toDto(objeto), Helper.httpHeaders("Se persistio correctamente la entidad."), HttpStatus.CREATED);
     }
 
     @Operation(
@@ -505,21 +496,32 @@ public class AreaController {
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
                     content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @Parameters({
@@ -531,13 +533,8 @@ public class AreaController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<AreaDTO> borrar(@PathVariable(name = "id") Long id) {
-        EntityMessenger<AreaModel> objeto = areaService.eliminar(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        AreaModel objeto = areaService.eliminar(id);
+        return new ResponseEntity<>(areaMapper.toDto(objeto), Helper.httpHeaders("Se elimino correctamente la entidad con id: " + id + "."), HttpStatus.OK);
     }
 
     @Operation(
@@ -552,21 +549,32 @@ public class AreaController {
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
                     content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @Parameters({
@@ -578,18 +586,13 @@ public class AreaController {
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<AreaDTO> reciclar(@PathVariable(name = "id") Long id) {
-        EntityMessenger<AreaModel> objeto = areaService.reciclar(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(areaMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        AreaModel objeto = areaService.reciclar(id);
+        return new ResponseEntity<>(areaMapper.toDto(objeto), Helper.httpHeaders("Se reciclo correctamente la entidad con id: " + id + "."), HttpStatus.OK);
     }
 
     @Operation(
             summary = "Destruye una entidad marcada como eliminada.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser destruida primero debe estar eliminada. De consumirse correctamente destruye totalmente el recurso.</strong>"
+            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser destruida primero debe estar eliminada. De consumirse correctamente devuelve TRUE o FALSE.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -598,21 +601,32 @@ public class AreaController {
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
-                    responseCode = "202",
-                    description = "Recurso consumido correctamente, sin embargo ocurrio un error.",
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
                     content = { @Content(mediaType = "", schema = @Schema())},
                     headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Ocurrio una excepcion al consumir el recurso.",
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre la excepcion.")}
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
             ),
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @Parameters({
@@ -623,13 +637,8 @@ public class AreaController {
     })
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {
-        EntityMessenger<AreaModel> objeto = areaService.destruir(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(objeto.getMensaje(), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+    public ResponseEntity<Boolean> destruir(@PathVariable(name = "id") Long id) {
+        Boolean eliminada = areaService.destruir(id);
+        return new ResponseEntity<>(eliminada, Helper.httpHeaders("Se destruyo correctamente la entidad con id: " + id + "."), HttpStatus.OK);
     }
 }

@@ -7,9 +7,9 @@ import lombok.*;
 import java.util.Set;
 
 @AllArgsConstructor
-@Builder
-@Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
+@Getter
 @Hidden
 @NoArgsConstructor
 @Setter

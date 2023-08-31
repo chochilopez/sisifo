@@ -1,16 +1,16 @@
 package muni.eolida.sisifo.util.email.service;
 
-import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.util.email.EmailModel;
 import muni.eolida.sisifo.util.email.mapper.EmailCreation;
 
-public interface EmailService {
-    EntityMessenger<EmailModel> buscarPorId(Long id);
-    EntityMessenger<EmailModel> buscarTodas();
-    Long contarTodas();
-    EntityMessenger<EmailModel> insertar(EmailCreation e);
-    EntityMessenger<EmailModel> actualizar(EmailModel t);
-    EntityMessenger<EmailModel> destruir(Long id);
+import java.util.List;
 
-    EntityMessenger<EmailModel> enviarEmailSimple(EmailCreation emailCreation);
+public interface EmailService {
+    EmailModel buscarPorId(Long id);
+    List<EmailModel> buscarTodas();
+    Long contarTodas();
+    EmailModel guardar(EmailCreation e);
+    Boolean destruir(Long id);
+
+    EmailModel enviarEmailSimple(EmailCreation emailCreation);
 }

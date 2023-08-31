@@ -1,11 +1,12 @@
 package muni.eolida.sisifo.service;
 
-import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.mapper.creation.AreaCreation;
 import muni.eolida.sisifo.model.AreaModel;
 
+import java.util.List;
+
 public interface AreaService extends GenericService<AreaModel, AreaCreation> {
-    EntityMessenger<AreaModel> buscarTodasPorArea (String area);
-    EntityMessenger<AreaModel> buscarTodasPorAreaConEliminadas (String area);
-    EntityMessenger<AreaModel> agregarTipoReclamoAArea (Long idArea, Long idTipoReclamo);
+    List<AreaModel> buscarTodasPorArea (String area);
+    List<AreaModel> buscarTodasPorAreaConEliminadas (String area);
+    AreaModel agregarTipoReclamoAArea (Long idArea, Long idTipoReclamo);
 }

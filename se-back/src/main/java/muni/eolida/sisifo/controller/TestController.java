@@ -30,7 +30,12 @@ public class TestController {
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @GetMapping(value = "/contribuyente")
@@ -49,7 +54,12 @@ public class TestController {
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @GetMapping(value = "/empleado")
@@ -68,7 +78,12 @@ public class TestController {
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @GetMapping(value = "/capataz")
@@ -87,7 +102,12 @@ public class TestController {
             @ApiResponse(
                     responseCode = "401",
                     content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee (o expiraron) autoridades necesarias para acceder al recurso o el token esta mal formado."
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
             )
     })
     @GetMapping(value = "/jefe")

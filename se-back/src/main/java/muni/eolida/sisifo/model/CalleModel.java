@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @AllArgsConstructor
-@Builder
-@Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
+@Getter
 @Hidden
 @NoArgsConstructor
 @Setter

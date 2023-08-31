@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping(value = "/api/ayuda")
 @RequiredArgsConstructor
 @RestController
-public class HelperController {
+public class HelperController extends BaseController {
     private final UsuarioServiceImpl usuarioServiceImpl;
     private final RolServiceImpl rolService;
 

@@ -1,12 +1,13 @@
 package muni.eolida.sisifo.service;
 
-import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.mapper.creation.TipoReclamoCreation;
 import muni.eolida.sisifo.model.TipoReclamoModel;
 
+import java.util.List;
+
 public interface TipoReclamoService extends GenericService<TipoReclamoModel, TipoReclamoCreation> {
-    EntityMessenger<TipoReclamoModel> buscarTodasPorAreaId(Long id);
-    EntityMessenger<TipoReclamoModel> buscarTodasPorAreaIdConEliminadas(Long id);
-    EntityMessenger<TipoReclamoModel> buscarTodasPorTipo(String tipo);
-    EntityMessenger<TipoReclamoModel> buscarTodasPorTipoConEliminadas(String tipo);
+    List<TipoReclamoModel> buscarTodasPorAreaId(Long id);
+    List<TipoReclamoModel> buscarTodasPorAreaIdConEliminadas(Long id);
+    List<TipoReclamoModel> buscarTodasPorTipo(String tipo);
+    List<TipoReclamoModel> buscarTodasPorTipoConEliminadas(String tipo);
 }

@@ -2,17 +2,15 @@ package muni.eolida.sisifo.service.implementation;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.util.EntityMessenger;
-import muni.eolida.sisifo.util.Helper;
-import muni.eolida.sisifo.mapper.TipoReclamoMapper;
 import muni.eolida.sisifo.mapper.creation.TipoReclamoCreation;
 import muni.eolida.sisifo.model.TipoReclamoModel;
+import muni.eolida.sisifo.util.Helper;
+import muni.eolida.sisifo.mapper.TipoReclamoMapper;
 import muni.eolida.sisifo.repository.TipoReclamoDAO;
 import muni.eolida.sisifo.service.TipoReclamoService;
+import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -23,171 +21,73 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
     private final UsuarioServiceImpl usuarioService;
 
     @Override
-    public EntityMessenger<TipoReclamoModel> buscarTodasPorAreaId(Long id) {
-        try {
-            log.info("Buscando todas la entidades TipoReclamo con id de Area: {}.", id);
-            List<TipoReclamoModel> listado = tipoReclamoDAO.findAllByAreaIdAndEliminadaIsNull(id);
-            if (listado.isEmpty()) {
-                String mensaje = "No se encontraron entidades TipoReclamo con id de Area: " + id + ".";
-                log.warn(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 202);
-            } else {
-                String mensaje = "Se encontraron " + listado.size() + " entidades TipoReclamo.";
-                log.info(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, listado, mensaje, 200);
-            }
-        } catch (Exception e) {
-            String mensaje = "Ocurrio un error al realizar la busqueda.";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
-        }
+    public List<TipoReclamoModel> buscarTodasPorAreaId(Long id) {
+        log.info("Buscando todas las entidades TipoReclamo con id de Area: {}.", id);
+        List<TipoReclamoModel> listado = tipoReclamoDAO.findAllByAreaIdAndEliminadaIsNull(id);
+        if (listado.isEmpty())
+            throw new CustomDataNotFoundException("No se encontraron entidades TipoReclamo con id de Area: " + id + ".");
+        return listado;
     }
 
     @Override
-    public EntityMessenger<TipoReclamoModel> buscarTodasPorAreaIdConEliminadas(Long id) {
-        try {
-            log.info("Buscando todas la entidades TipoReclamo con id de Area: {}, incluidas las eliminadas.", id);
-            List<TipoReclamoModel> listado = tipoReclamoDAO.findAllByAreaId(id);
-            if (listado.isEmpty()) {
-                String mensaje = "No se encontraron entidades TipoReclamo con id de Area: " + id + ", incluidas las eliminadas.";
-                log.warn(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 202);
-            } else {
-                String mensaje = "Se encontraron " + listado.size() + " entidades TipoReclamo, incluidas las eliminadas.";
-                log.info(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, listado, mensaje, 200);
-            }
-        } catch (Exception e) {
-            String mensaje = "Ocurrio un error al realizar la busqueda.";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
-        }
+    public List<TipoReclamoModel> buscarTodasPorAreaIdConEliminadas(Long id) {
+        log.info("Buscando todas las entidades TipoReclamo con id de Area: {}, incluidas las eliminadas.", id);
+        List<TipoReclamoModel> listado = tipoReclamoDAO.findAllByAreaId(id);
+        if (listado.isEmpty())
+            throw new CustomDataNotFoundException("No se encontraron entidades TipoReclamo con id de Area: " + id + ", incluidas las eliminadas.");
+        return listado;
     }
 
     @Override
-    public EntityMessenger<TipoReclamoModel> buscarTodasPorTipo(String tipo) {
-        try {
-            log.info("Buscando todas la entidades TipoReclamo con tipo: {}.", tipo);
-            List<TipoReclamoModel> listado = tipoReclamoDAO.findAllByTipoIgnoreCaseContainingAndEliminadaIsNull(tipo);
-            if (listado.isEmpty()) {
-                String mensaje = "No se encontraron entidades TipoReclamo con tipo: " + tipo + ".";
-                log.warn(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 202);
-            } else {
-                String mensaje = "Se encontraron " + listado.size() + " entidades TipoReclamo.";
-                log.info(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, listado, mensaje, 200);
-            }
-        } catch (Exception e) {
-            String mensaje = "Ocurrio un error al realizar la busqueda.";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
-        }
+    public List<TipoReclamoModel> buscarTodasPorTipo(String tipo) {
+        log.info("Buscando todas las entidades TipoReclamo con tipo: {}.", tipo);
+        List<TipoReclamoModel> listado = tipoReclamoDAO.findAllByTipoIgnoreCaseContainingAndEliminadaIsNull(tipo);
+        if (listado.isEmpty())
+            throw new CustomDataNotFoundException("No se encontraron entidades TipoReclamo con tipo: " + tipo + ".");
+        return listado;
     }
 
     @Override
-    public EntityMessenger<TipoReclamoModel> buscarTodasPorTipoConEliminadas(String tipo) {
-        try {
-            log.info("Buscando todas la entidades TipoReclamo con tipo: {}, incluidas las eliminadas.", tipo);
-            List<TipoReclamoModel> listado = tipoReclamoDAO.findAllByTipoIgnoreCaseContaining(tipo);
-            if (listado.isEmpty()) {
-                String mensaje = "No se encontraron entidades TipoReclamo con tipo: " + tipo + ", incluidas las eliminadas.";
-                log.warn(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 202);
-            } else {
-                String mensaje = "Se encontraron " + listado.size() + " entidades TipoReclamo, incluidas las eliminadas.";
-                log.info(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, listado, mensaje, 200);
-            }
-        } catch (Exception e) {
-            String mensaje = "Ocurrio un error al realizar la busqueda.";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
-        }
+    public List<TipoReclamoModel> buscarTodasPorTipoConEliminadas(String tipo) {
+        log.info("Buscando todas las entidades TipoReclamo con tipo: {}, incluidas las eliminadas.", tipo);
+        List<TipoReclamoModel> listado = tipoReclamoDAO.findAllByTipoIgnoreCaseContaining(tipo);
+        if (listado.isEmpty())
+            throw new CustomDataNotFoundException("No se encontraron entidades TipoReclamo con tipo: " + tipo + ", incluidas las eliminadas.");
+        return listado;
     }
 
     @Override
-    public EntityMessenger<TipoReclamoModel> buscarPorId(Long id) {
-        try {
-            log.info("Buscando la entidad TipoReclamo con id: {}.", id);
-            Optional<TipoReclamoModel> objeto = tipoReclamoDAO.findByIdAndEliminadaIsNull(id);
-            if (objeto.isEmpty()) {
-                String mensaje = "No se encontro una entidad TipoReclamo con id: " + id + ".";
-                log.warn(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 202);
-            } else {
-                String mensaje = "Se encontro una entidad TipoReclamo.";
-                log.info(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(objeto.get(), null, mensaje, 200);
-            }
-        } catch (Exception e) {
-            String mensaje = "Ocurrio un error al realizar la busqueda.";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
-        }
+    public TipoReclamoModel buscarPorId(Long id) {
+        log.info("Buscando la entidad TipoReclamo con id: {}.", id);
+        TipoReclamoModel tipoReclamoModel = tipoReclamoDAO.findByIdAndEliminadaIsNull(id).orElseThrow(()-> new CustomDataNotFoundException("No se encontro la entidad TipoReclamo con id: " + id + "."));
+        log.info("Se encontro una entidad TipoReclamo con id: {}.", id);
+        return tipoReclamoModel;
     }
 
     @Override
-    public EntityMessenger<TipoReclamoModel> buscarPorIdConEliminadas(Long id) {
-        try {
-            log.info("Buscando la entidad TipoReclamo con id: {}, incluidas las eliminadas.", id);
-            Optional<TipoReclamoModel> objeto = tipoReclamoDAO.findById(id);
-            if (objeto.isEmpty()) {
-                String mensaje = "No se encontro una entidad TipoReclamo con id: " + id + ", incluidas las eliminadas.";
-                log.warn(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 202);
-            } else {
-                String mensaje = "Se encontro una entidad TipoReclamo, incluidas las eliminadas.";
-                log.info(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(objeto.get(), null, mensaje, 200);
-            }
-        } catch (Exception e) {
-            String mensaje = "Ocurrio un error al realizar la busqueda.";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
-        }
+    public TipoReclamoModel buscarPorIdConEliminadas(Long id) {
+        log.info("Buscando la entidad TipoReclamo con id: {}, incluidas las eliminadas.", id);
+        TipoReclamoModel tipoReclamoModel = tipoReclamoDAO.findById(id).orElseThrow(()-> new CustomDataNotFoundException("No se encontro la entidad TipoReclamo con id: " + id +", incluidas las eliminadas."));
+        log.info("Se encontro una entidad TipoReclamo con id: {}, incluidas las eliminadas.", id);
+        return tipoReclamoModel;
     }
 
     @Override
-    public EntityMessenger<TipoReclamoModel> buscarTodas() {
-        try {
-            log.info("Buscando todas las entidades TipoReclamo.");
-            List<TipoReclamoModel> listado = tipoReclamoDAO.findAllByEliminadaIsNull();
-            if (listado.isEmpty()) {
-                String mensaje = "No se encontraron entidades TipoReclamo.";
-                log.warn(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 202);
-            } else {
-                String mensaje = "Se encontraron " + listado.size() + " entidades TipoReclamo.";
-                log.info(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, listado, mensaje, 200);
-            }
-        } catch (Exception e) {
-            String mensaje = "Ocurrio un error al realizar la busqueda.";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
-        }
+    public List<TipoReclamoModel> buscarTodas() {
+        log.info("Buscando todas las entidades TipoReclamo.");
+        List<TipoReclamoModel> listado = tipoReclamoDAO.findAllByEliminadaIsNull();
+        if (listado.isEmpty())
+            throw new CustomDataNotFoundException("No se encontraron entidades TipoReclamo.");
+        return listado;
     }
 
     @Override
-    public EntityMessenger<TipoReclamoModel> buscarTodasConEliminadas() {
-        try {
-            log.info("Buscando todas las entidades TipoReclamo, incluidas las eliminadas.");
-            List<TipoReclamoModel> listado = tipoReclamoDAO.findAll();
-            if (listado.isEmpty()) {
-                String mensaje = "No se encontrarón entidades TipoReclamo, incluidas las eliminadas.";
-                log.warn(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 202);
-            } else {
-                String mensaje = "Se encontraron " + listado.size() + " entidades TipoReclamo, incluidas las eliminadas.";
-                log.info(mensaje);
-                return new EntityMessenger<TipoReclamoModel>(null, listado, mensaje, 200);
-            }
-        } catch (Exception e) {
-            String mensaje = "Ocurrio un error al realizar la busqueda.";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
-        }
+    public List<TipoReclamoModel> buscarTodasConEliminadas() {
+        log.info("Buscando todas las entidades TipoReclamo, incluidas las eliminadas.");
+        List<TipoReclamoModel> listado = tipoReclamoDAO.findAll();
+        if (listado.isEmpty())
+            throw new CustomDataNotFoundException("No se encontraron entidades TipoReclamo, incluidas las eliminadas.");
+        return listado;
     }
 
     @Override
@@ -205,116 +105,55 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
     }
 
     @Override
-    public EntityMessenger<TipoReclamoModel> insertar(TipoReclamoCreation creation) {
-        try {
-            log.info("Insertando la entidad TipoReclamo: {}.",  creation);
-            creation.setId(null);
-            TipoReclamoModel objeto = tipoReclamoDAO.save(tipoReclamoMapper.toEntity(creation));
-            objeto.setCreada(Helper.getNow(""));
-            objeto.setCreador(usuarioService.obtenerUsuario().getObjeto());
-            tipoReclamoDAO.save(objeto);
-            String mensaje = "La entidad TipoReclamo con id: " + objeto.getId() + ", fue insertada correctamente.";
-            log.info(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(objeto, null, mensaje, 201);
-        } catch (Exception e) {
-            String mensaje = "Ocurrió un error al intentar insertar la entidad TipoReclamo. Excepción: " + e + ".";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
+    public TipoReclamoModel guardar(TipoReclamoCreation creation) {
+        log.info("Insertando la entidad TipoReclamo: {}.",  creation);
+        TipoReclamoModel tipoReclamoModel = tipoReclamoDAO.save(tipoReclamoMapper.toEntity(creation));
+        if (creation.getId() != null) {
+            tipoReclamoModel.setCreada(Helper.getNow(""));
+            tipoReclamoModel.setCreador(usuarioService.obtenerUsuario());
+            log.info("Se persistio correctamente la nueva entidad.");
+        } else {
+            tipoReclamoModel.setModificada(Helper.getNow(""));
+            tipoReclamoModel.setModificador(usuarioService.obtenerUsuario());
+            log.info("Se persistio correctamente la entidad.");
         }
+        return tipoReclamoDAO.save(tipoReclamoModel);
     }
 
     @Override
-    public EntityMessenger<TipoReclamoModel> actualizar(TipoReclamoCreation creation) {
-        try {
-            log.info("Actualizando la entidad TipoReclamo: {}.",  creation);
-            TipoReclamoModel entidad = tipoReclamoMapper.toEntity(creation);
-            entidad.setModificada(Helper.getNow(""));
-            entidad.setModificador(usuarioService.obtenerUsuario().getObjeto());
-            String mensaje = "La entidad TipoReclamo con id: " + creation.getId() + ", fue actualizada correctamente.";
-            log.info(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(tipoReclamoDAO.save(entidad), null, mensaje, 201);
-        } catch (Exception e) {
-            String mensaje = "Ocurrió un error al intentar actualizar la entidad TipoReclamo. Excepción: " + e + ".";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
-        }
+    public TipoReclamoModel eliminar(Long id) {
+        log.info("Eliminando la entidad TipoReclamo con id: {}.", id);
+        TipoReclamoModel objeto = this.buscarPorId(id);
+        objeto.setEliminada(Helper.getNow(""));
+        objeto.setEliminador(usuarioService.obtenerUsuario());
+        log.info("La entidad TipoReclamo con id: {}, fue eliminada correctamente.", id);
+        return tipoReclamoDAO.save(objeto);
     }
 
     @Override
-    public EntityMessenger<TipoReclamoModel> reciclar(Long id) {
-        try {
-            log.info("Reciclando la entidad TipoReclamo con id: {}.", id);
-            EntityMessenger<TipoReclamoModel> objeto = this.buscarPorIdConEliminadas(id);
-            if (objeto.getEstado() == 202) {
-                return objeto;
-            }
-            if (objeto.getObjeto().getEliminada() == null) {
-                String mensaje = "La entidad TipoReclamo con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.";
-                log.warn(mensaje);
-                objeto.setMensaje(mensaje);
-                return objeto;
-            }
-            objeto.getObjeto().setEliminada(null);
-            objeto.getObjeto().setEliminador(null);
-            objeto.setObjeto(tipoReclamoDAO.save(objeto.getObjeto()));
-            String mensaje = "La entidad TipoReclamo con id: " + id + ", fue reciclada correctamente.";
-            objeto.setMensaje(mensaje);
-            log.info(mensaje);
-            return objeto;
-        } catch (Exception e) {
-            String mensaje = "Ocurrio un error al intentar reciclar la entidad.";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
+    public TipoReclamoModel reciclar(Long id) {
+        log.info("Reciclando la entidad TipoReclamo con id: {}.", id);
+        TipoReclamoModel objeto = this.buscarPorIdConEliminadas(id);
+        if (objeto.getEliminada() == null) {
+            log.warn("La entidad TipoReclamo con id: {}, no se encuentra eliminada, por lo tanto no es necesario reciclarla.", id);
+            return null;
         }
+        objeto.setEliminada(null);
+        objeto.setEliminador(null);
+        log.info("La entidad TipoReclamo con id: {}, fue reciclada correctamente.", id);
+        return tipoReclamoDAO.save(objeto);
     }
 
     @Override
-    public EntityMessenger<TipoReclamoModel> eliminar(Long id) {
-        try {
-            log.info("Borrando la entidad TipoReclamo con id: {}.", id);
-            EntityMessenger<TipoReclamoModel> objeto = this.buscarPorId(id);
-            if (objeto.getEstado() == 202) {
-                return objeto;
-            }
-            objeto.getObjeto().setEliminada(Helper.getNow(""));
-            objeto.getObjeto().setEliminador(usuarioService.obtenerUsuario().getObjeto());
-            objeto.setObjeto(tipoReclamoDAO.save(objeto.getObjeto()));
-            String mensaje = "La entidad TipoReclamo con id: " + id + ", fue borrada correctamente.";
-            objeto.setMensaje(mensaje);
-            log.info(mensaje);
-            return objeto;
-        } catch (Exception e) {
-            String mensaje = "Ocurrio un error al intentar eliminar la entidad.";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
+    public Boolean destruir(Long id) {
+        log.info("Destruyendo la entidad TipoReclamo con id: {}.", id);
+        TipoReclamoModel objeto = this.buscarPorIdConEliminadas(id);
+        if (objeto.getEliminada() == null) {
+            log.warn("La entidad TipoReclamo con id: {}, no se encuentra eliminada, por lo tanto no puede ser destruida.", id);
+            return false;
         }
-    }
-
-    @Override
-    public EntityMessenger<TipoReclamoModel> destruir(Long id) {
-        try {
-            log.info("Destruyendo la entidad TipoReclamo con id: {}.", id);
-            EntityMessenger<TipoReclamoModel> objeto = this.buscarPorIdConEliminadas(id);
-            if (objeto.getEstado() == 202) {
-                return objeto;
-            }
-            if (objeto.getObjeto().getEliminada() == null) {
-                String mensaje = "La entidad TipoReclamo con id: " + id + ", no se encuentra eliminada, por lo tanto no puede ser destruida.";
-                log.info(mensaje);
-                objeto.setEstado(202);
-                objeto.setMensaje(mensaje);
-                return objeto;
-            }
-            tipoReclamoDAO.delete(objeto.getObjeto());
-            String mensaje = "La entidad fue destruida correctamente.";
-            objeto.setMensaje(mensaje);
-            objeto.setObjeto(null);
-            log.info(mensaje);
-            return objeto;
-        } catch (Exception e) {
-            String mensaje = "Ocurrió un error al intentar destruir la entidad TipoReclamo. Excepción: " + e + ".";
-            log.error(mensaje);
-            return new EntityMessenger<TipoReclamoModel>(null, null, mensaje, 204);
-        }
+        tipoReclamoDAO.delete(objeto);
+        log.info("La entidad fue destruida.");
+        return true;
     }
 }

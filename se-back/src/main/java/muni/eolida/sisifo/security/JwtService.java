@@ -38,10 +38,6 @@ public class JwtService {
         return construirToken(userDetails, jwtExpiration);
     }
 
-    public String generarRefreshToken(UsuarioModel userDetails) {
-        return construirToken(userDetails, refreshExpiration);
-    }
-
     private String construirToken(UsuarioModel userDetails, long expiration) {
 		Map<String, Object> claims = new HashMap<>();
 		Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities();
@@ -68,7 +64,7 @@ public class JwtService {
 		try {
 			final String username = extraerUsuario(token);
 			return (username.equals(userDetails.getUsername())) && !esExpiradoToken(token);
-		} catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+		} catch (MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
 			throw new BadCredentialsException("INVALID_CREDENTIALS", ex);
 		} catch (ExpiredJwtException ex) {
 			throw ex;

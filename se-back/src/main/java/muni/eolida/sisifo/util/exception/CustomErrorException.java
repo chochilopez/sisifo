@@ -15,29 +15,17 @@ public class CustomErrorException extends RuntimeException {
         super();
     }
 
-    public CustomErrorException(
-            String message
-    ) {
+    public CustomErrorException(String message) {
         super(message);
     }
 
-    public CustomErrorException(
-            HttpStatus status,
-            String message
-    ) {
+    public CustomErrorException(HttpStatus status, String message) {
         this(message);
         this.status = status;
     }
 
-    public CustomErrorException(
-            HttpStatus status,
-            String message,
-            Object data
-    ) {
-        this(
-                status,
-                message
-        );
+    public CustomErrorException(HttpStatus status, String message, Object data) {
+        this(status, message);
         this.data = data;
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class DemoController {
+public class DemoController extends BaseController {
     @GetMapping("test-custom-data-not-found-exception")
     public ResponseEntity<Void> test1() {
         try {

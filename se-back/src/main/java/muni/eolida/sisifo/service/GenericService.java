@@ -1,18 +1,18 @@
 package muni.eolida.sisifo.service;
 
 
-import muni.eolida.sisifo.util.EntityMessenger;
+import java.io.IOException;
+import java.util.List;
 
 public interface GenericService<M, C> {
-    EntityMessenger<M> buscarPorId(Long id);
-    EntityMessenger<M> buscarPorIdConEliminadas(Long id);
-    EntityMessenger<M> buscarTodas();
-    EntityMessenger<M> buscarTodasConEliminadas();
+    M buscarPorId(Long id);
+    M buscarPorIdConEliminadas(Long id);
+    List<M> buscarTodas();
+    List<M> buscarTodasConEliminadas();
     Long contarTodas();
     Long contarTodasConEliminadas();
-    EntityMessenger<M> insertar(C c);
-    EntityMessenger<M> actualizar(C c);
-    EntityMessenger<M> reciclar(Long id);
-    EntityMessenger<M> eliminar(Long id);
-    EntityMessenger<M> destruir(Long id);
+    M guardar(C c);
+    M reciclar(Long id);
+    M eliminar(Long id);
+    Boolean destruir(Long id) throws IOException;
 }

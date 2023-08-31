@@ -25,9 +25,14 @@ import muni.eolida.sisifo.mapper.UsuarioMapper;
 import muni.eolida.sisifo.mapper.creation.UsuarioCreation;
 import muni.eolida.sisifo.model.UsuarioModel;
 import muni.eolida.sisifo.service.implementation.AutenticacionServiceImpl;
+import muni.eolida.sisifo.util.exception.CustomTokenMismatchException;
+import muni.eolida.sisifo.util.exception.CustomUserAlreadyCreatedException;
+import muni.eolida.sisifo.util.exception.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/autenticacion")
@@ -35,9 +40,25 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequiredArgsConstructor
 @Tag(name = "Endpoints AUTENTICACION", description = "Recursos referidos al registro y acceso de usuarios.")
-public class AutenticacionController {
+public class AutenticacionController extends BaseController {
 	private final AutenticacionServiceImpl autenticacionService;
 	private final UsuarioMapper usuarioMapper;
+
+	@ExceptionHandler(CustomTokenMismatchException.class)
+	public ResponseEntity<ErrorDTO> handleTokenMismatchException(Exception e) {
+		HttpStatus status = HttpStatus.CONFLICT; // 409
+		String mensaje = "Error en la comparar los tokens. " + e.getMessage();
+
+		return new ResponseEntity<>(new ErrorDTO(status, mensaje), status);
+	}
+
+	@ExceptionHandler(CustomUserAlreadyCreatedException.class)
+	public ResponseEntity<ErrorDTO> handleUserAlreadyCreatedException(Exception e) {
+		HttpStatus status = HttpStatus.CONFLICT; // 409
+		String mensaje = "El usuario ingresado ya existe. " + e.getMessage();
+
+		return new ResponseEntity<>(new ErrorDTO(status, mensaje), status);
+	}
 
 	@Operation(
 			summary = "Ingreso del usuario con su nombre de usuario y contraseña.",
