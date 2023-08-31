@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.dto.AutenticacionRequestDTO;
 import muni.eolida.sisifo.mapper.dto.AutenticacionResponseDTO;
+import muni.eolida.sisifo.model.RolModel;
 import muni.eolida.sisifo.model.TokenModel;
 import muni.eolida.sisifo.repository.TokenDAO;
 import muni.eolida.sisifo.repository.UsuarioDAO;
@@ -28,6 +29,7 @@ import org.springframework.security.crypto.keygen.BytesKeyGenerator;
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,12 +43,12 @@ public class AutenticacionServiceImpl implements AutenticacionService {
     private final AuthenticationManager authenticationManager;
     private final TokenDAO tokenDAO;
     private final JwtService jwtService;
-    private final EmailServiceImpl emailService;
+//    private final EmailServiceImpl emailService;
     private final UsuarioDAO usuarioDAO;
     private final TokenServiceImpl tokenService;
 
-    @Value("${sisifo.app.mail.username}")
-    private String sender;
+//    @Value("${sisifo.app.mail.username}")
+//    private String sender;
     @Value("${sisifo.app.mail.path}")
     private String path;
     private static final BytesKeyGenerator DEFAULT_TOKEN_GENERATOR = KeyGenerators.secureRandom(15);
@@ -58,11 +60,14 @@ public class AutenticacionServiceImpl implements AutenticacionService {
         if (!usuario.getHabilitada())
             throw new CustomDataNotFoundException("El usuario: " + autenticacionRequestDTO.getUsername() + " no se encuentra habilitado, debe confirmar su email");
         String token = jwtService.generarToken(usuario);
-        String refresh = jwtService.generarRefreshToken(usuario);
         tokenService.revocarTokensUsuario(usuario);
         tokenService.guardarTokenUsuario(usuario, token);
         log.info("El usuario {} se logueo correctamente.", autenticacionRequestDTO.getUsername());
-        return new AutenticacionResponseDTO(token, refresh);
+        List<String> listado = new ArrayList<>();
+        for (RolModel rol:usuario.getRoles()) {
+            listado.add(rol.getRol().toString());
+        }
+        return new AutenticacionResponseDTO(token, listado);
     }
 
     @Override
@@ -85,13 +90,13 @@ public class AutenticacionServiceImpl implements AutenticacionService {
         usuario.setHabilitada(false);
         String token = Base64.encodeBase64URLSafeString(DEFAULT_TOKEN_GENERATOR.generateKey());
         usuario.setToken(token);
-        String body = path + usuario.getId() + "/" + token;
-        EmailModel emailModel = emailService.enviarEmailSimple(new EmailCreation(
-                "Confirmá tu dirección de email para continuar con tu reclamo.",
-                this.sender,
-                usuarioCreation.getUsername(),
-                body
-        ));
+//        String body = path + usuario.getId() + "/" + token;
+//        EmailModel emailModel = emailService.enviarEmailSimple(new EmailCreation(
+//                "Confirmá tu dirección de email para continuar con tu reclamo.",
+//                this.sender,
+//                usuarioCreation.getUsername(),
+//                body
+//        ));
         return usuarioService.darRol(usuario, "CONTRIBUYENTE");
     }
 

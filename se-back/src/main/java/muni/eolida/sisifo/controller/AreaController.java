@@ -139,15 +139,15 @@ public class AreaController extends BaseController {
                     description = "String."
             )
     })
-    @GetMapping(value = "/buscar-por-nombre/{area}")
+    @GetMapping(value = "/buscar-todas-por-nombre/{area}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<AreaDTO>> buscarTodasPorArea(@PathVariable(name = "area")  String area) {
         List<AreaModel> listado = areaService.buscarTodasPorArea(area);
-        ArrayList<AreaDTO> areaDTOS = new ArrayList<>();
+        ArrayList<AreaDTO> areas = new ArrayList<>();
         for (AreaModel areaModel : listado) {
-            areaDTOS.add(areaMapper.toDto(areaModel));
+            areas.add(areaMapper.toDto(areaModel));
         }
-        return new ResponseEntity<>(areaDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades."), HttpStatus.OK);
+        return new ResponseEntity<>(areas, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades."), HttpStatus.OK);
     }
 
     @Operation(
@@ -196,7 +196,7 @@ public class AreaController extends BaseController {
                     description = "String."
             )
     })
-    @GetMapping(value = "/buscar-por-nombre-con-eliminadas/{area}")
+    @GetMapping(value = "/buscar-todas-por-nombre-con-eliminadas/{area}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<AreaDTO>> buscarTodasPorAreaConEliminadas(@PathVariable(name = "area")  String area) {
         List<AreaModel> listado = areaService.buscarTodasPorAreaConEliminadas(area);
@@ -432,13 +432,13 @@ public class AreaController extends BaseController {
     }
 
     @Operation(
-            summary = "Persisitir una nueva entidad.",
-            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se persiste la nueva entidad.</strong>"
+            summary = "Persisitir una entidad.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se persiste la entidad.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
                     responseCode = "201",
-                    description = "Recurso consumido correctamente, se devuelve el nuevo objeto JSON.",
+                    description = "Recurso consumido correctamente, se devuelve el objeto JSON.",
                     content = { @Content(mediaType = "application/json", schema = @Schema(implementation = AreaDTO.class))},
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
@@ -590,55 +590,58 @@ public class AreaController extends BaseController {
         return new ResponseEntity<>(areaMapper.toDto(objeto), Helper.httpHeaders("Se reciclo correctamente la entidad con id: " + id + "."), HttpStatus.OK);
     }
 
-    @Operation(
-            summary = "Destruye una entidad marcada como eliminada.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser destruida primero debe estar eliminada. De consumirse correctamente devuelve TRUE o FALSE.</strong>"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Recurso consumido correctamente, Objeto destruido.",
-                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Los datos ingresados no poseen el formato correcto.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "No se encontro el recurso buscado.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "409",
-                    description = "Error en la conversion de parametros ingresados.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "Debe autenticarse para acceder al recurso."
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee las autoridades necesarias para acceder al recurso."
-            )
-    })
-    @Parameters({
-            @Parameter(
-                    in = ParameterIn.PATH,
-                    description = "Numerico."
-            )
-    })
+//    @Operation(
+//            summary = "Destruye una entidad marcada como eliminada.",
+//            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser destruida primero debe estar eliminada. De consumirse correctamente devuelve TRUE o FALSE.</strong>"
+//    )
+//    @ApiResponses({
+//            @ApiResponse(
+//                    responseCode = "200",
+//                    description = "Recurso consumido correctamente, Objeto destruido.",
+//                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "400",
+//                    description = "Los datos ingresados no poseen el formato correcto.",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "404",
+//                    description = "No se encontro el recurso buscado.",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "409",
+//                    description = "Error en la conversion de parametros ingresados.",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "401",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    description = "Debe autenticarse para acceder al recurso."
+//            ),
+//            @ApiResponse(
+//                    responseCode = "403",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    description = "No se posee las autoridades necesarias para acceder al recurso."
+//            )
+//    })
+//    @Parameters({
+//            @Parameter(
+//                    in = ParameterIn.PATH,
+//                    description = "Numerico."
+//            )
+//    })
+    @Operation(hidden = true)
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<Boolean> destruir(@PathVariable(name = "id") Long id) {
         Boolean eliminada = areaService.destruir(id);
-        return new ResponseEntity<>(eliminada, Helper.httpHeaders("Se destruyo correctamente la entidad con id: " + id + "."), HttpStatus.OK);
+        return new ResponseEntity<>(eliminada, Helper.httpHeaders(
+                eliminada ? "Se destruyo correctamente la entidad con id: " + id + "." : "No se pudo destruir la entidad con id: " + id + "."
+        ), HttpStatus.OK);
     }
 }

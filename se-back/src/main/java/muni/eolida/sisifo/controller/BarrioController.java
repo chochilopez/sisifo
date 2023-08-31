@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.BarrioMapper;
 import muni.eolida.sisifo.mapper.creation.BarrioCreation;
@@ -85,21 +84,15 @@ public class BarrioController extends BaseController {
                     description = "String."
             )
     })
-    @GetMapping(value = "/buscar-por-nombre/{barrio}")
+    @GetMapping(value = "/buscar-todas-por-nombre/{barrio}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<BarrioDTO>> buscarTodasPorBarrio(@PathVariable(name = "barrio")  String barrio) {
-        EntityMessenger<BarrioModel> listado = barrioService.buscarTodasPorBarrio(barrio);
-        if (listado.getEstado() == 202) {
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        } else if (listado.getEstado() == 200) {
-            ArrayList<BarrioDTO> barrioDTOS = new ArrayList<>();
-            for (BarrioModel barrioModel : listado.getListado()) {
-                barrioDTOS.add(barrioMapper.toDto(barrioModel));
-            }
-            return new ResponseEntity<>(barrioDTOS, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
-        } else {
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
+        List<BarrioModel> listado = barrioService.buscarTodasPorBarrio(barrio);
+        ArrayList<BarrioDTO> barrioDTOS = new ArrayList<>();
+        for (BarrioModel barrioModel : listado) {
+            barrioDTOS.add(barrioMapper.toDto(barrioModel));
         }
+        return new ResponseEntity<>(barrioDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades."), HttpStatus.OK);
     }
 
     @Operation(
@@ -148,21 +141,15 @@ public class BarrioController extends BaseController {
                     description = "String."
             )
     })
-    @GetMapping(value = "/buscar-por-nombre-con-eliminadas/{barrio}")
+    @GetMapping(value = "/buscar-todas-por-nombre-con-eliminadas/{barrio}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<BarrioDTO>> buscarTodasPorBarrioConEliminadas(@PathVariable(name = "barrio")  String barrio) {
-        EntityMessenger<BarrioModel> listado = barrioService.buscarTodasPorBarrioConEliminadas(barrio);
-        if (listado.getEstado() == 202) {
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        } else if (listado.getEstado() == 200) {
-            ArrayList<BarrioDTO> barrioDTOS = new ArrayList<>();
-            for (BarrioModel barrioModel : listado.getListado()) {
-                barrioDTOS.add(barrioMapper.toDto(barrioModel));
-            }
-            return new ResponseEntity<>(barrioDTOS, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
-        } else {
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
+        List<BarrioModel> listado = barrioService.buscarTodasPorBarrioConEliminadas(barrio);
+        ArrayList<BarrioDTO> barrioDTOS = new ArrayList<>();
+        for (BarrioModel barrioModel : listado) {
+            barrioDTOS.add(barrioMapper.toDto(barrioModel));
         }
+        return new ResponseEntity<>(barrioDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades, incluidas las eliminadas."), HttpStatus.OK);
     }
 
     @Operation(
@@ -214,13 +201,8 @@ public class BarrioController extends BaseController {
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<BarrioDTO> buscarPorId(@PathVariable(name = "id") Long id) {
-        EntityMessenger<BarrioModel> objeto = barrioService.buscarPorId(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(barrioMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        BarrioModel objeto = barrioService.buscarPorId(id);
+        return new ResponseEntity<>(barrioMapper.toDto(objeto), Helper.httpHeaders("Se encontro una entidad con id :" + id + "."), HttpStatus.OK);
     }
 
     @Operation(
@@ -272,13 +254,8 @@ public class BarrioController extends BaseController {
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<BarrioDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") Long id) {
-        EntityMessenger<BarrioModel> objeto = barrioService.buscarPorIdConEliminadas(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(barrioMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        BarrioModel objeto = barrioService.buscarPorIdConEliminadas(id);
+        return new ResponseEntity<>(barrioMapper.toDto(objeto), Helper.httpHeaders("Se encontro una entidad con id :" + id + ", incluidas las borradas."), HttpStatus.OK);
     }
 
     @Operation(
@@ -324,18 +301,12 @@ public class BarrioController extends BaseController {
     @GetMapping(value = "/buscar-todas")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
     public ResponseEntity<List<BarrioDTO>> buscarTodas() {
-        EntityMessenger<BarrioModel> listado = barrioService.buscarTodas();
-        if (listado.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        else if (listado.getEstado() == 200){
-            ArrayList<BarrioDTO> BarrioDTOs = new ArrayList<>();
-            for (BarrioModel BarrioModel:listado.getListado()) {
-                BarrioDTOs.add(barrioMapper.toDto(BarrioModel));
-            }
-            return new ResponseEntity<>(BarrioDTOs, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
+        List<BarrioModel> listado = barrioService.buscarTodas();
+        ArrayList<BarrioDTO> barrios = new ArrayList<>();
+        for (BarrioModel BarrioModel:listado) {
+            barrios.add(barrioMapper.toDto(BarrioModel));
         }
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
+        return new ResponseEntity<>(barrios, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades."), HttpStatus.OK);
     }
 
     @Operation(
@@ -381,18 +352,12 @@ public class BarrioController extends BaseController {
     @GetMapping(value = "/buscar-todas-con-eliminadas")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<List<BarrioDTO>> buscarTodasConEliminadas() {
-        EntityMessenger<BarrioModel> listado = barrioService.buscarTodasConEliminadas();
-        if (listado.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        else if (listado.getEstado() == 200){
-            ArrayList<BarrioDTO> BarrioDTOs = new ArrayList<>();
-            for (BarrioModel BarrioModel:listado.getListado()) {
-                BarrioDTOs.add(barrioMapper.toDto(BarrioModel));
-            }
-            return new ResponseEntity<>(BarrioDTOs, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
+        List<BarrioModel> listado = barrioService.buscarTodasConEliminadas();
+        ArrayList<BarrioDTO> BarrioDTOs = new ArrayList<>();
+        for (BarrioModel BarrioModel:listado) {
+            BarrioDTOs.add(barrioMapper.toDto(BarrioModel));
         }
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
+        return new ResponseEntity<>(BarrioDTOs, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades, incluidas las eliminadas."), HttpStatus.OK);
     }
 
     @Operation(hidden = true)
@@ -412,13 +377,13 @@ public class BarrioController extends BaseController {
     }
 
     @Operation(
-            summary = "Persisitir una nueva entidad.",
-            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se persiste la nueva entidad.</strong>"
+            summary = "Persisitir una entidad.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se persiste la entidad.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
                     responseCode = "201",
-                    description = "Recurso consumido correctamente, se devuelve el nuevo objeto JSON.",
+                    description = "Recurso consumido correctamente, se devuelve el objeto JSON.",
                     content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BarrioDTO.class))},
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
@@ -460,74 +425,9 @@ public class BarrioController extends BaseController {
     })
     @PutMapping
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<BarrioDTO> insertar(@Valid @RequestBody BarrioCreation barrioCreation) {
-        EntityMessenger<BarrioModel> objeto = barrioService.insertar(barrioCreation);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 201)
-            return new ResponseEntity<>(barrioMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-    }
-
-    @Operation(
-            summary = "Modificar una entidad.",
-            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se persiste los cambios en la entidad.</strong>"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "201",
-                    description = "Recurso consumido correctamente, se devuelve el objeto JSON modificado.",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BarrioDTO.class))},
-                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Los datos ingresados no poseen el formato correcto.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "No se encontro el recurso buscado.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "409",
-                    description = "Error en la conversion de parametros ingresados.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "Debe autenticarse para acceder al recurso."
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee las autoridades necesarias para acceder al recurso."
-            )
-    })
-    @Parameters({
-            @Parameter(
-                    in = ParameterIn.QUERY,
-                    description = "Objeto JSON conteniendo el id y el nombre del Barrio.",
-                    example = "<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;\"id\": \"2\",<br>" +
-                            "&nbsp;&nbsp;&nbsp;&nbsp;\"barrio\": \"Virgen del Guadalupe\"<br>}"
-            )
-    })
-    @PostMapping
-    @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<BarrioDTO> actualizar(@Valid @RequestBody BarrioCreation creation) {
-        EntityMessenger<BarrioModel> objeto = barrioService.actualizar(creation);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 201)
-            return new ResponseEntity<>(barrioMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+    public ResponseEntity<BarrioDTO> guardar(@Valid @RequestBody BarrioCreation barrioCreation) {
+        BarrioModel objeto = barrioService.guardar(barrioCreation);
+        return new ResponseEntity<>(barrioMapper.toDto(objeto), Helper.httpHeaders("Se persistio correctamente la entidad."), HttpStatus.CREATED);
     }
 
     @Operation(
@@ -578,13 +478,8 @@ public class BarrioController extends BaseController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<BarrioDTO> borrar(@PathVariable(name = "id") Long id) {
-        EntityMessenger<BarrioModel> objeto = barrioService.eliminar(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(barrioMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        BarrioModel objeto = barrioService.eliminar(id);
+        return new ResponseEntity<>(barrioMapper.toDto(objeto), Helper.httpHeaders("Se elimino correctamente la entidad con id: " + id + "."), HttpStatus.OK);
     }
 
     @Operation(
@@ -636,69 +531,62 @@ public class BarrioController extends BaseController {
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<BarrioDTO> reciclar(@PathVariable(name = "id") Long id) {
-        EntityMessenger<BarrioModel> objeto = barrioService.reciclar(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(barrioMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        BarrioModel objeto = barrioService.reciclar(id);
+        return new ResponseEntity<>(barrioMapper.toDto(objeto), Helper.httpHeaders("Se reciclo correctamente la entidad con id: " + id + "."), HttpStatus.OK);
     }
 
-    @Operation(
-            summary = "Destruye una entidad marcada como eliminada.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser destruida primero debe estar eliminada. De consumirse correctamente destruye totalmente el recurso.</strong>"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Recurso consumido correctamente, Objeto destruido.",
-                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Los datos ingresados no poseen el formato correcto.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "No se encontro el recurso buscado.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "409",
-                    description = "Error en la conversion de parametros ingresados.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "Debe autenticarse para acceder al recurso."
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee las autoridades necesarias para acceder al recurso."
-            )
-    })
-    @Parameters({
-            @Parameter(
-                    in = ParameterIn.PATH,
-                    description = "Numerico."
-            )
-    })
+//    @Operation(
+//            summary = "Destruye una entidad marcada como eliminada.",
+//            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser destruida primero debe estar eliminada. De consumirse correctamente destruye totalmente el recurso.</strong>"
+//    )
+//    @ApiResponses({
+//            @ApiResponse(
+//                    responseCode = "200",
+//                    description = "Recurso consumido correctamente, Objeto destruido.",
+//                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "400",
+//                    description = "Los datos ingresados no poseen el formato correcto.",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "404",
+//                    description = "No se encontro el recurso buscado.",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "409",
+//                    description = "Error en la conversion de parametros ingresados.",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "401",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    description = "Debe autenticarse para acceder al recurso."
+//            ),
+//            @ApiResponse(
+//                    responseCode = "403",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    description = "No se posee las autoridades necesarias para acceder al recurso."
+//            )
+//    })
+//    @Parameters({
+//            @Parameter(
+//                    in = ParameterIn.PATH,
+//                    description = "Numerico."
+//            )
+//    })
+    @Operation(hidden = true)
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {
-        EntityMessenger<BarrioModel> objeto = barrioService.destruir(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(objeto.getMensaje(), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+    public ResponseEntity<Boolean> destruir(@PathVariable(name = "id") Long id) {
+        Boolean eliminada = barrioService.destruir(id);
+        return new ResponseEntity<>(eliminada, Helper.httpHeaders(
+                eliminada ? "Se destruyo correctamente la entidad con id: " + id + "." : "No se pudo destruir la entidad con id: " + id + "."
+        ), HttpStatus.OK);
     }
 }

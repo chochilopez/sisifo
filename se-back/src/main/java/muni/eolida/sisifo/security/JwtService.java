@@ -22,8 +22,6 @@ public class JwtService {
     private String secretKey;
     @Value("${sisifo.app.jwtExpiration}")
     private long jwtExpiration;
-    @Value("${sisifo.app.refresh}")
-    private long refreshExpiration;
 
     public String extraerUsuario(String token) {
         return extraerClaims(token, Claims::getSubject);

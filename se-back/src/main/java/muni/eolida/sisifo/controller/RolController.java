@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.dto.RolDTO;
 import muni.eolida.sisifo.util.Helper;
-import muni.eolida.sisifo.util.EntityMessenger;
 import muni.eolida.sisifo.mapper.RolMapper;
 import muni.eolida.sisifo.mapper.creation.RolCreation;
 import muni.eolida.sisifo.model.RolModel;
@@ -47,7 +46,7 @@ public class RolController extends BaseController {
             @ApiResponse(
                     responseCode = "200",
                     description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
-                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RolDTO.class)))},
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = RolDTO.class))},
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
@@ -87,19 +86,9 @@ public class RolController extends BaseController {
     })
     @GetMapping(value = "/buscar-por-rol/{rol}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<List<RolDTO>> buscarTodasPorRol(@PathVariable(name = "rol")  String rol) {
-        EntityMessenger<RolModel> listado = rolService.buscarPorRol(rol);
-        if (listado.getEstado() == 202) {
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        } else if (listado.getEstado() == 200) {
-            ArrayList<RolDTO> rolDTOS = new ArrayList<>();
-            for (RolModel rolModel : listado.getListado()) {
-                rolDTOS.add(rolMapper.toDto(rolModel));
-            }
-            return new ResponseEntity<>(rolDTOS, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
-        } else {
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        }
+    public ResponseEntity<RolDTO> buscarTodasPorRol(@PathVariable(name = "rol")  String rol) {
+        RolModel objeto = rolService.buscarPorRol(rol);
+        return new ResponseEntity<>(rolMapper.toDto(objeto), Helper.httpHeaders("Se encontro una entidad con rol :" + rol + "."), HttpStatus.OK);
     }
 
     @Operation(
@@ -110,7 +99,7 @@ public class RolController extends BaseController {
             @ApiResponse(
                     responseCode = "200",
                     description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
-                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RolDTO.class)))},
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = RolDTO.class))},
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
@@ -148,21 +137,11 @@ public class RolController extends BaseController {
                     description = "String."
             )
     })
-    @GetMapping(value = "/buscar-por-rol-con-eliminadas/{rol}")
+    @GetMapping(value = "/buscar-todas-por-rol-con-eliminadas/{rol}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<List<RolDTO>> buscarTodasPorRolConEliminadas(@PathVariable(name = "rol")  String rol) {
-        EntityMessenger<RolModel> listado = rolService.buscarPorRolConEliminadas(rol);
-        if (listado.getEstado() == 202) {
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        } else if (listado.getEstado() == 200) {
-            ArrayList<RolDTO> rolDTOS = new ArrayList<>();
-            for (RolModel rolModel : listado.getListado()) {
-                rolDTOS.add(rolMapper.toDto(rolModel));
-            }
-            return new ResponseEntity<>(rolDTOS, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
-        } else {
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        }
+    public ResponseEntity<RolDTO> buscarTodasPorRolConEliminadas(@PathVariable(name = "rol")  String rol) {
+        RolModel objeto = rolService.buscarPorRolConEliminadas(rol);
+        return new ResponseEntity<>(rolMapper.toDto(objeto), Helper.httpHeaders("Se encontro una entidad con rol :" + rol + ", incluidas las eliminadas."), HttpStatus.OK);
     }
 
     @Operation(
@@ -214,13 +193,8 @@ public class RolController extends BaseController {
     @GetMapping(value = "/buscar-por-id/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<RolDTO> buscarPorId(@PathVariable(name = "id") Long id) {
-        EntityMessenger<RolModel> objeto = rolService.buscarPorId(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(rolMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        RolModel objeto = rolService.buscarPorId(id);
+        return new ResponseEntity<>(rolMapper.toDto(objeto), Helper.httpHeaders("Se encontro una entidad con id :" + id + "."), HttpStatus.OK);
     }
 
     @Operation(
@@ -272,13 +246,8 @@ public class RolController extends BaseController {
     @GetMapping(value = "/buscar-por-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<RolDTO> buscarPorIdConEliminadas(@PathVariable(name = "id") Long id) {
-        EntityMessenger<RolModel> objeto = rolService.buscarPorIdConEliminadas(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(rolMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        RolModel objeto = rolService.buscarPorIdConEliminadas(id);
+        return new ResponseEntity<>(rolMapper.toDto(objeto), Helper.httpHeaders("Se encontro una entidad con id :" + id + ", incluidas las eliminadas."), HttpStatus.OK);
     }
 
     @Operation(
@@ -324,18 +293,12 @@ public class RolController extends BaseController {
     @GetMapping(value = "/buscar-todas")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<List<RolDTO>> buscarTodas() {
-        EntityMessenger<RolModel> listado = rolService.buscarTodas();
-        if (listado.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        else if (listado.getEstado() == 200){
-            ArrayList<RolDTO> RolDTOs = new ArrayList<>();
-            for (RolModel RolModel:listado.getListado()) {
-                RolDTOs.add(rolMapper.toDto(RolModel));
-            }
-            return new ResponseEntity<>(RolDTOs, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
+        List<RolModel> listado = rolService.buscarTodas();
+        ArrayList<RolDTO> roles = new ArrayList<>();
+        for (RolModel rol:listado) {
+            roles.add(rolMapper.toDto(rol));
         }
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
+        return new ResponseEntity<>(roles, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades."), HttpStatus.OK);
     }
 
     @Operation(
@@ -381,18 +344,12 @@ public class RolController extends BaseController {
     @GetMapping(value = "/buscar-todas-con-eliminadas")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<List<RolDTO>> buscarTodasConEliminadas() {
-        EntityMessenger<RolModel> listado = rolService.buscarTodasConEliminadas();
-        if (listado.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(listado.getMensaje())).build();
-        else if (listado.getEstado() == 200){
-            ArrayList<RolDTO> RolDTOs = new ArrayList<>();
-            for (RolModel RolModel:listado.getListado()) {
-                RolDTOs.add(rolMapper.toDto(RolModel));
-            }
-            return new ResponseEntity<>(RolDTOs, Helper.httpHeaders(listado.getMensaje()), HttpStatus.OK);
+        List<RolModel> listado = rolService.buscarTodasConEliminadas();
+        ArrayList<RolDTO> roles = new ArrayList<>();
+        for (RolModel rol:listado) {
+            roles.add(rolMapper.toDto(rol));
         }
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(listado.getMensaje())).build();
+        return new ResponseEntity<>(roles, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades, incluidas las eliminadas."), HttpStatus.OK);
     }
 
     @Operation(hidden = true)
@@ -412,13 +369,13 @@ public class RolController extends BaseController {
     }
 
     @Operation(
-            summary = "Persisitir una nueva entidad.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se persiste la nueva entidad.</strong>"
+            summary = "Persisitir una entidad.",
+            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se persiste la entidad.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
                     responseCode = "201",
-                    description = "Recurso consumido correctamente, se devuelve el nuevo objeto JSON.",
+                    description = "Recurso consumido correctamente, se devuelve el objeto JSON.",
                     content = { @Content(mediaType = "application/json", schema = @Schema(implementation = RolDTO.class))},
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
@@ -460,74 +417,9 @@ public class RolController extends BaseController {
     })
     @PutMapping
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<RolDTO> insertar(@Valid @RequestBody RolCreation rolCreation) {
-        EntityMessenger<RolModel> objeto = rolService.insertar(rolCreation);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 201)
-            return new ResponseEntity<>(rolMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-    }
-
-    @Operation(
-            summary = "Modificar una entidad.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se persiste los cambios en la entidad.</strong>"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "201",
-                    description = "Recurso consumido correctamente, se devuelve el objeto JSON modificado.",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = RolDTO.class))},
-                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Los datos ingresados no poseen el formato correcto.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "No se encontro el recurso buscado.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "409",
-                    description = "Error en la conversion de parametros ingresados.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "Debe autenticarse para acceder al recurso."
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee las autoridades necesarias para acceder al recurso."
-            )
-    })
-    @Parameters({
-            @Parameter(
-                    in = ParameterIn.QUERY,
-                    description = "Objeto JSON conteniendo el id y nombre del Rol.",
-                    example = "<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;\"id\": \"12\",<br>" +
-                            "&nbsp;&nbsp;&nbsp;&nbsp;\"barrio\": \"SUPER_ADMIN\"<br>}"
-            )
-    })
-    @PostMapping
-    @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<RolDTO> actualizar(@Valid @RequestBody RolCreation creation) {
-        EntityMessenger<RolModel> objeto = rolService.actualizar(creation);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 201)
-            return new ResponseEntity<>(rolMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.CREATED);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+    public ResponseEntity<RolDTO> guardar(@Valid @RequestBody RolCreation rolCreation) {
+        RolModel objeto = rolService.guardar(rolCreation);
+        return new ResponseEntity<>(rolMapper.toDto(objeto), Helper.httpHeaders("Se persistio correctamente la entidad."), HttpStatus.CREATED);
     }
 
     @Operation(
@@ -578,13 +470,8 @@ public class RolController extends BaseController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<RolDTO> borrar(@PathVariable(name = "id") Long id) {
-        EntityMessenger<RolModel> objeto = rolService.eliminar(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(rolMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        RolModel objeto = rolService.eliminar(id);
+        return new ResponseEntity<>(rolMapper.toDto(objeto), Helper.httpHeaders("Se elimino correctamente la entidad con id: " + id + "."), HttpStatus.OK);
     }
 
     @Operation(
@@ -636,69 +523,62 @@ public class RolController extends BaseController {
     @PostMapping(value = "/reciclar/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<RolDTO> reciclar(@PathVariable(name = "id") Long id) {
-        EntityMessenger<RolModel> objeto = rolService.reciclar(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(rolMapper.toDto(objeto.getObjeto()), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+        RolModel objeto = rolService.reciclar(id);
+        return new ResponseEntity<>(rolMapper.toDto(objeto), Helper.httpHeaders("Se reciclo correctamente la entidad con id: " + id + "."), HttpStatus.OK);
     }
 
-    @Operation(
-            summary = "Destruye una entidad marcada como eliminada.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser destruida primero debe estar eliminada. De consumirse correctamente destruye totalmente el recurso.</strong>"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Recurso consumido correctamente, Objeto destruido.",
-                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Los datos ingresados no poseen el formato correcto.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "No se encontro el recurso buscado.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "409",
-                    description = "Error en la conversion de parametros ingresados.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "Debe autenticarse para acceder al recurso."
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee las autoridades necesarias para acceder al recurso."
-            )
-    })
-    @Parameters({
-            @Parameter(
-                    in = ParameterIn.PATH,
-                    description = "Numerico."
-            )
-    })
+//    @Operation(
+//            summary = "Destruye una entidad marcada como eliminada.",
+//            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser destruida primero debe estar eliminada. De consumirse correctamente devuelve TRUE o FALSE.</strong>"
+//    )
+//    @ApiResponses({
+//            @ApiResponse(
+//                    responseCode = "200",
+//                    description = "Recurso consumido correctamente, Objeto destruido.",
+//                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "400",
+//                    description = "Los datos ingresados no poseen el formato correcto.",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "404",
+//                    description = "No se encontro el recurso buscado.",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "409",
+//                    description = "Error en la conversion de parametros ingresados.",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+//            ),
+//            @ApiResponse(
+//                    responseCode = "401",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    description = "Debe autenticarse para acceder al recurso."
+//            ),
+//            @ApiResponse(
+//                    responseCode = "403",
+//                    content = { @Content(mediaType = "", schema = @Schema())},
+//                    description = "No se posee las autoridades necesarias para acceder al recurso."
+//            )
+//    })
+//    @Parameters({
+//            @Parameter(
+//                    in = ParameterIn.PATH,
+//                    description = "Numerico."
+//            )
+//    })
+    @Operation(hidden = true)
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) {
-        EntityMessenger<RolModel> objeto = rolService.destruir(id);
-        if (objeto.getEstado() == 202)
-            return ResponseEntity.accepted().headers(Helper.httpHeaders(objeto.getMensaje())).build();
-        else if (objeto.getEstado() == 200)
-            return new ResponseEntity<>(objeto.getMensaje(), Helper.httpHeaders(objeto.getMensaje()), HttpStatus.OK);
-        else
-            return ResponseEntity.noContent().headers(Helper.httpHeaders(objeto.getMensaje())).build();
+    public ResponseEntity<Boolean> destruir(@PathVariable(name = "id") Long id) {
+        Boolean eliminada = rolService.destruir(id);
+        return new ResponseEntity<>(eliminada, Helper.httpHeaders(
+                eliminada ? "Se destruyo correctamente la entidad con id: " + id + "." : "No se pudo destruir la entidad con id: " + id + "."
+        ), HttpStatus.OK);
     }
 }

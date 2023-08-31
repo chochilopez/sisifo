@@ -9,16 +9,12 @@ import muni.eolida.sisifo.model.UsuarioModel;
 import muni.eolida.sisifo.model.enums.RolEnum;
 import muni.eolida.sisifo.service.implementation.RolServiceImpl;
 import muni.eolida.sisifo.service.implementation.UsuarioServiceImpl;
-import muni.eolida.sisifo.util.EntityMessenger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -32,13 +28,12 @@ public class HelperController extends BaseController {
 
     @PutMapping(value = "/cargar-autoridades")
     public ResponseEntity<?> autoridades() {
-        try {
-            EntityMessenger<RolModel> rol1 = rolService.insertar(new RolCreation(RolEnum.CONTRIBUYENTE.name()));
-            EntityMessenger<RolModel> rol2 = rolService.insertar(new RolCreation(RolEnum.EMPLEADO.name()));
-            EntityMessenger<RolModel> rol3 = rolService.insertar(new RolCreation(RolEnum.CAPATAZ.name()));
-            EntityMessenger<RolModel> rol4 = rolService.insertar(new RolCreation(RolEnum.JEFE.name()));
+            RolModel rol1 = rolService.guardar(new RolCreation(RolEnum.CONTRIBUYENTE.name()));
+            RolModel rol2 = rolService.guardar(new RolCreation(RolEnum.EMPLEADO.name()));
+            RolModel rol3 = rolService.guardar(new RolCreation(RolEnum.CAPATAZ.name()));
+            RolModel rol4 = rolService.guardar(new RolCreation(RolEnum.JEFE.name()));
 
-            EntityMessenger<UsuarioModel> user1 = usuarioServiceImpl.insertar(new UsuarioCreation(
+            UsuarioModel user1 = usuarioServiceImpl.guardar(new UsuarioCreation(
                     null,
                     "contribuyente",
                     "12123123",
@@ -51,7 +46,7 @@ public class HelperController extends BaseController {
                     null,
                     List.of("1")
             ));
-            EntityMessenger<UsuarioModel> user2 = usuarioServiceImpl.insertar(new UsuarioCreation(
+            UsuarioModel user2 = usuarioServiceImpl.guardar(new UsuarioCreation(
                     null,
                     "empleado",
                     "45456456",
@@ -64,7 +59,7 @@ public class HelperController extends BaseController {
                     null,
                     List.of("1", "2")
             ));
-            EntityMessenger<UsuarioModel> user3 = usuarioServiceImpl.insertar(new UsuarioCreation(
+            UsuarioModel user3 = usuarioServiceImpl.guardar(new UsuarioCreation(
                     null,
                     "capataz",
                     "78789789",
@@ -77,7 +72,7 @@ public class HelperController extends BaseController {
                     null,
                     List.of("1","2","3")
             ));
-            EntityMessenger<UsuarioModel> user4 = usuarioServiceImpl.insertar(new UsuarioCreation(
+            UsuarioModel user4 = usuarioServiceImpl.guardar(new UsuarioCreation(
                     null,
                     "jefe",
                     "00000000",
@@ -92,10 +87,6 @@ public class HelperController extends BaseController {
             ));
 
 
-            return ResponseEntity.status(HttpStatus.OK).body(rol1.getMensaje() + "\n" + rol2.getMensaje() + "\n" + rol3.getMensaje() + "\n" + rol4.getMensaje() + "\n" +
-                    user1.getMensaje() + "\n" + user2.getMensaje() + "\n" + user3.getMensaje() + "\n" + user4.getMensaje());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+            return ResponseEntity.status(HttpStatus.OK).body("Autoridades y usuarios de testeo creados");
     }
 }
