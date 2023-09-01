@@ -11,20 +11,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import muni.eolida.sisifo.mapper.dto.AreaDTO;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.TipoReclamoMapper;
 import muni.eolida.sisifo.mapper.creation.TipoReclamoCreation;
 import muni.eolida.sisifo.mapper.dto.TipoReclamoDTO;
 import muni.eolida.sisifo.model.TipoReclamoModel;
 import muni.eolida.sisifo.service.implementation.TipoReclamoServiceImpl;
+import muni.eolida.sisifo.util.exception.CustomAlreadyExistantAreaException;
+import muni.eolida.sisifo.util.exception.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,72 +43,23 @@ public class TipoReclamoController {
     private final TipoReclamoServiceImpl tipoReclamoService;
     private final TipoReclamoMapper tipoReclamoMapper;
 
-    @Operation(
-            summary = "Buscar entidades por id de area.",
-            description = "Rol/Autoridad requerida: CONTRIBUYENTE<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
-                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TipoReclamoDTO.class)))},
-                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Los datos ingresados no poseen el formato correcto.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "No se encontro el recurso buscado.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "409",
-                    description = "Error en la conversion de parametros ingresados.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "Debe autenticarse para acceder al recurso."
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee las autoridades necesarias para acceder al recurso."
-            )
-    })
-    @Parameters({
-            @Parameter(
-                    in = ParameterIn.PATH,
-                    description = "Numerico."
-            )
-    })
-    @GetMapping(value = "/buscar-todas-todas-por-area-id/{id}")
-    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
-    public ResponseEntity<List<TipoReclamoDTO>> buscarTodasPorAreaId(@PathVariable(name = "id")  Long id) {
-        List<TipoReclamoModel> listado = tipoReclamoService.buscarTodasPorAreaId(id);
-        ArrayList<TipoReclamoDTO> tipoReclamoDTOS = new ArrayList<>();
-        for (TipoReclamoModel tipoReclamoModel : listado) {
-            tipoReclamoDTOS.add(tipoReclamoMapper.toDto(tipoReclamoModel));
-        }
-        return new ResponseEntity<>(tipoReclamoDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades."), HttpStatus.OK);
+    @ExceptionHandler(CustomAlreadyExistantAreaException.class)
+    public ResponseEntity<ErrorDTO> handleCustomAlreadyExistantAreaException(CustomAlreadyExistantAreaException e) {
+        HttpStatus status = HttpStatus.CONFLICT; // 409
+        String mensaje = "El tipo de reclamo ya esta conectado al area. " + e.getMessage();
+
+        return new ResponseEntity<>(new ErrorDTO(status, mensaje), status);
     }
 
     @Operation(
-            summary = "Buscar entidades por id de area, incluidas las eliminadas.",
-            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve la entidad.</strong>"
+            summary = "Agregar TipoReclamo a Area.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se agrega el TipoReclamo al Area.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
-                    description = "Recurso consumido correctamente, se devuelve objeto JSON.",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TipoReclamoDTO.class))},
+                    description = "Recurso consumido correctamente, se devuelve objeto JSON modificado.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = AreaDTO.class))},
                     headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
             ),
             @ApiResponse(
@@ -136,20 +92,14 @@ public class TipoReclamoController {
             )
     })
     @Parameters({
-            @Parameter(
-                    in = ParameterIn.PATH,
-                    description = "Numerico."
-            )
+            @Parameter(name = "idArea", in = ParameterIn.PATH, description = "Numerico."),
+            @Parameter(name = "idTipoReclamo", in = ParameterIn.PATH, description = "Numerico.")
     })
-    @GetMapping(value = "/buscar-todas-por-area-id-con-eliminadas/{id}")
+    @GetMapping(value = "/agregar-tipo-reclamo-a-area/{idTipoReclamo}/{idArea}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<TipoReclamoDTO>> buscarTodasPorAreaIdConEliminadas(@PathVariable(name = "id")  Long id) {
-        List<TipoReclamoModel> listado = tipoReclamoService.buscarTodasPorAreaIdConEliminadas(id);
-        ArrayList<TipoReclamoDTO> tipoReclamoDTOS = new ArrayList<>();
-        for (TipoReclamoModel tipoReclamoModel : listado) {
-            tipoReclamoDTOS.add(tipoReclamoMapper.toDto(tipoReclamoModel));
-        }
-        return new ResponseEntity<>(tipoReclamoDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades, incluidas las eliminadas."), HttpStatus.OK);
+    public ResponseEntity<TipoReclamoDTO> agregarTipoReclamoAArea(@PathVariable("idArea") @Positive Long idArea, @PathVariable(name = "idTipoReclamo")@Positive Long idTipoReclamo) {
+        TipoReclamoModel objeto = tipoReclamoService.agregarTipoReclamoAArea(idTipoReclamo, idArea);
+        return new ResponseEntity<>(tipoReclamoMapper.toDto(objeto), Helper.httpHeaders("Se agrego correctamente el TipoReclamo con id: " + idTipoReclamo + ", al Area con id: " + idArea + "."), HttpStatus.OK);
     }
 
     @Operation(
@@ -697,10 +647,9 @@ public class TipoReclamoController {
     @Operation(hidden = true)
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<Boolean> destruir(@PathVariable(name = "id") Long id) {
-        Boolean eliminada = tipoReclamoService.destruir(id);
-        return new ResponseEntity<>(eliminada, Helper.httpHeaders(
-                eliminada ? "Se destruyo correctamente la entidad con id: " + id + "." : "No se pudo destruir la entidad con id: " + id + "."
-        ), HttpStatus.OK);
+    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) throws IOException {
+        tipoReclamoService.destruir(id);
+        String mensaje = "Se destruyo correctamente la entidad con id: " + id + ".";
+        return new ResponseEntity<>(mensaje, Helper.httpHeaders(mensaje), HttpStatus.OK);
     }
 }

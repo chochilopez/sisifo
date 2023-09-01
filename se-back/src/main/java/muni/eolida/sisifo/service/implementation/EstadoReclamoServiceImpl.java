@@ -10,6 +10,7 @@ import muni.eolida.sisifo.mapper.EstadoReclamoMapper;
 import muni.eolida.sisifo.repository.EstadoReclamoDAO;
 import muni.eolida.sisifo.service.EstadoReclamoService;
 import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
+import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -94,27 +95,13 @@ public class EstadoReclamoServiceImpl implements EstadoReclamoService {
         if (creation.getId() != null) {
             estadoReclamoModel.setCreada(Helper.getNow(""));
             estadoReclamoModel.setCreador(usuarioService.obtenerUsuario());
-            log.info("Se persistion correctamente la nueva entidad.");
+            log.info("Se persistio correctamente la nueva entidad.");
         } else {
             estadoReclamoModel.setModificada(Helper.getNow(""));
             estadoReclamoModel.setModificador(usuarioService.obtenerUsuario());
-            log.info("Se persistion correctamente la entidad.");
+            log.info("Se persistio correctamente la entidad.");
         }
         return estadoReclamoDAO.save(estadoReclamoModel);
-    }
-
-    @Override
-    public EstadoReclamoModel reciclar(Long id) {
-        log.info("Reciclando la entidad EstadoReclamo con id: {}.", id);
-        EstadoReclamoModel objeto = this.buscarPorIdConEliminadas(id);
-        if (objeto.getEliminada() == null) {
-            log.warn("La entidad EstadoReclamo con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.");
-            return null;
-        }
-        objeto.setEliminada(null);
-        objeto.setEliminador(null);
-        log.info("La entidad EstadoReclamo con id: " + id + ", fue reciclada correctamente.");
-        return estadoReclamoDAO.save(objeto);
     }
 
     @Override
@@ -128,15 +115,28 @@ public class EstadoReclamoServiceImpl implements EstadoReclamoService {
     }
 
     @Override
-    public Boolean destruir(Long id) {
+    public EstadoReclamoModel reciclar(Long id) {
+        log.info("Reciclando la entidad EstadoReclamo con id: {}.", id);
+        EstadoReclamoModel objeto = this.buscarPorIdConEliminadas(id);
+        if (objeto.getEliminada() == null) {
+            log.warn("La entidad EstadoReclamo con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.");
+            throw new CustomObjectNotDeletedException("No se puede reciclar la entidad.");
+        }
+        objeto.setEliminada(null);
+        objeto.setEliminador(null);
+        log.info("La entidad EstadoReclamo con id: " + id + ", fue reciclada correctamente.");
+        return estadoReclamoDAO.save(objeto);
+    }
+
+    @Override
+    public void destruir(Long id) {
         log.info("Destruyendo la entidad EstadoReclamo con id: {}.", id);
         EstadoReclamoModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad EstadoReclamo con id: " + id + ", no se encuentra eliminada, por lo tanto no puede ser destruida.");
-            return false;
+            throw new CustomObjectNotDeletedException("No se puede destruir la entidad.");
         }
         estadoReclamoDAO.delete(objeto);
         log.info("La entidad fue destruida.");
-        return true;
     }
 }

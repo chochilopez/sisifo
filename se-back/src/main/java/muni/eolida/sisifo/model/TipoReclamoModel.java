@@ -18,8 +18,6 @@ public class TipoReclamoModel extends AbstractAuditoriaModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String tipo;
-
-	// Bidireccional secundario
 	@ManyToOne()
 	@JoinColumn(name = "area_id")
 	private AreaModel area;

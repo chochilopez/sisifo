@@ -8,8 +8,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (7,'De Las Achiras'),
 	 (8,'Chubut'),
 	 (9,'Alemanes Del Volga'),
-	 (10,'Santa Cruz');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (10,'Santa Cruz'),
 	 (11,'De Los Jazmines'),
 	 (12,'Salta'),
 	 (13,'De Los Malvones'),
@@ -19,8 +18,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (17,'De Las Fresias'),
 	 (18,'La Rioja'),
 	 (19,'De Los Lirios'),
-	 (20,'De Las Dalias');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (20,'De Las Dalias'),
 	 (21,'De Los Gladiolos'),
 	 (22,'Victoria'),
 	 (23,'De Las Violetas'),
@@ -30,8 +28,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (27,'San Juan'),
 	 (28,'9 De Julio'),
 	 (29,'San Luis'),
-	 (30,'San Arnoldo Janssen');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (30,'San Arnoldo Janssen'),
 	 (31,'Concordia'),
 	 (32,'Conscripto Jorge Benito Jacob'),
 	 (33,'Mendoza'),
@@ -41,8 +38,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (37,'Gualeguaychú'),
 	 (38,'Córdoba'),
 	 (39,'Democracia'),
-	 (40,'Santiago Del Estero');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (40,'Santiago Del Estero'),
 	 (41,'Fraternidad'),
 	 (42,'Catamarca'),
 	 (43,'1ro De Mayo'),
@@ -52,8 +48,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (47,'Formosa'),
 	 (48,'Neuquén'),
 	 (49,'Chaco'),
-	 (50,'Blas Parera');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (50,'Blas Parera'),
 	 (51,'Corrientes'),
 	 (52,'Vicente López Y Planes'),
 	 (53,'Santa Fe'),
@@ -63,8 +58,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (57,'América'),
 	 (58,'French'),
 	 (59,'Falucho'),
-	 (60,'Pasaje Racedo');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (60,'Pasaje Racedo'),
 	 (61,'Vieytes'),
 	 (62,'Los Chajaes'),
 	 (63,'Alberdi'),
@@ -74,8 +68,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (67,'San Martín'),
 	 (68,'Sarmiento'),
 	 (69,'Laurencena'),
-	 (70,'Pasaje Echagüe');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (70,'Pasaje Echagüe'),
 	 (71,'Urquiza'),
 	 (72,'Av. Manuel Belgrano'),
 	 (73,'Av. Humberto Alfredo Seri'),
@@ -85,8 +78,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (77,'Av. 3 De Febrero'),
 	 (78,'Tratado Del Pilar'),
 	 (79,'Dr.  Crisóstomo Soñéz'),
-	 (80,'Av. Independencia');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (80,'Av. Independencia'),
 	 (81,'Alem'),
 	 (82,'Bartolomé Mitre'),
 	 (83,'Coronel Juan Pringles'),
@@ -96,8 +88,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (87,'Juan Lavalle'),
 	 (88,'Cepeda'),
 	 (89,'Valentín Alsina'),
-	 (90,'Martín Fierro');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (90,'Martín Fierro'),
 	 (91,'General Paz'),
 	 (92,'José Hernández'),
 	 (93,'Los Reseros'),
@@ -107,8 +98,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (97,'San Lorenzo'),
 	 (98,'Los Polvorines'),
 	 (99,'Presidente Juan Domingo Perón'),
-	 (100,'Los Ombues');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (100,'Los Ombues'),
 	 (101,'Yapeyú'),
 	 (102,'Maipú'),
 	 (103,'Los Andes'),
@@ -118,8 +108,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (107,'República Oriental del Uruguay'),
 	 (108,'Perito Moreno'),
 	 (109,'Almafuerte'),
-	 (110,'Las Heras');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (110,'Las Heras'),
 	 (111,'Ameghino'),
 	 (112,'Sargento Juan B. Cabral'),
 	 (113,'Rafael Obligado'),
@@ -129,8 +118,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (117,'Ensenada'),
 	 (118,'Intendente Jorge Heinze'),
 	 (119,'Los Sauces'),
-	 (120,'Las Higuerillas');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (120,'Las Higuerillas'),
 	 (121,'España'),
 	 (122,'Rosario Vera Peñaloza'),
 	 (123,'Félix Oriol'),
@@ -140,8 +128,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (127,'Juan XXIII'),
 	 (128,'Chacabuco'),
 	 (129,'Dr. Minguillón'),
-	 (130,'Los Benteveos');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (130,'Los Benteveos'),
 	 (131,'Los Horneros'),
 	 (132,'Los Zorzales'),
 	 (133,'Las Calandrias'),
@@ -151,8 +138,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (137,'Gobernador Lucio Uranga'),
 	 (138,'Los Gorriones'),
 	 (139,'Los Picaflores'),
-	 (140,'Las Torcazas');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (140,'Las Torcazas'),
 	 (141,'Ana Minguillón'),
 	 (142,'Los Lapachos'),
 	 (143,'Manuel Santillán'),
@@ -162,8 +148,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (147,'Doctor Santiago Stieben'),
 	 (148,'Presidente Raúl R. Alfonsin'),
 	 (149,'Felipe Mors'),
-	 (150,'República Argentina');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (150,'República Argentina'),
 	 (151,'Los Ceibos'),
 	 (152,'25 De Mayo'),
 	 (153,'Los Laureles'),
@@ -173,8 +158,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (157,'Liniers'),
 	 (158,'Luis Sandrini'),
 	 (159,'Carlos Gardel'),
-	 (160,'Benito Quinquela Martín');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (160,'Benito Quinquela Martín'),
 	 (161,'Juan L. Ortiz'),
 	 (162,'Astor Piazzola'),
 	 (163,'Alfonsina Storni'),
@@ -184,8 +168,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (167,'Luis Federico Leloir'),
 	 (168,'Jorge Cafrune'),
 	 (169,'Los Plátanos'),
-	 (170,'José Linares Cardozo');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (170,'José Linares Cardozo'),
 	 (171,'Los Aromos'),
 	 (172,'Los Paraisos'),
 	 (173,'Los Robles'),
@@ -195,8 +178,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (177,'Alicia Moreau de Justo'),
 	 (178,'Los Tilos'),
 	 (179,'Lucie Martin'),
-	 (180,'Las Toronjas');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (180,'Las Toronjas'),
 	 (181,'Calle Pública 189'),
 	 (182,'Los Eucaliptus'),
 	 (183,'Brigadier General Juan Manuel de Rosas'),
@@ -206,8 +188,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (187,'Los Naranjos'),
 	 (188,'Bicentenario de la Independencia'),
 	 (189,'Los Castaños'),
-	 (190,'Matilde Isabel González');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (190,'Matilde Isabel González'),
 	 (191,'Los Faisanes'),
 	 (192,'Intendente Hamad Hamdan'),
 	 (193,'Dr. Alfonso Forns'),
@@ -217,8 +198,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (197,'Prueba 1'),
 	 (198,'Lote Interno'),
 	 (199,'Hamdan'),
-	 (200,'prueba');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (200,'prueba'),
 	 (201,'Ejido Crespo'),
 	 (202,'Ruta 12'),
 	 (203,'Parque Industrial'),
@@ -228,8 +208,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (207,'Aldea San Juan'),
 	 (208,'Padre Enrique Becher'),
 	 (209,'Dr. Ramón Carrillo'),
-	 (210,'Dr. René Favaloro');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (210,'Dr. René Favaloro'),
 	 (211,'Calle Secundaria'),
 	 (212,'Marcos Laferrara'),
 	 (213,'Hermanos Henkel'),
@@ -239,8 +218,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (217,'Rosario del Tala'),
 	 (218,'Capitan Danilo Bolzan'),
 	 (219,'Maria Esther de Miguel'),
-	 (220,'Luz Vieira Mendez');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (220,'Luz Vieira Mendez'),
 	 (221,'Gloria Montoya'),
 	 (222,'Rosa Rotman de Seri'),
 	 (223,'Teresa Ratto'),
@@ -250,8 +228,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (227,'Gualeguay'),
 	 (228,'Juan Valdemarin'),
 	 (229,'Chajarí'),
-	 (231,'Parque Nac. Pre Delta');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (231,'Parque Nac. Pre Delta'),
 	 (232,'Vice Comodoro Juan Falconier'),
 	 (233,'Aldea Santa Rosa'),
 	 (234,'Aldea San Rafael'),
@@ -261,8 +238,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (238,'Calle Publica 236'),
 	 (239,'Calle Publica 238'),
 	 (240,'Los Chanás'),
-	 (241,'Los Wichis');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (241,'Los Wichis'),
 	 (242,'Susana Kemerer de Regner'),
 	 (243,'Parque Nac. Nahuel Huapi'),
 	 (244,'Parque Nac. Iguazu'),
@@ -272,8 +248,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (248,'Santiago Eichhorn'),
 	 (249,'Alejandro Mohor'),
 	 (250,'Aurelio Feller'),
-	 (251,'Marcelo Fontana');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (251,'Marcelo Fontana'),
 	 (252,'Micieslao Trembecki'),
 	 (253,'Bellamin Pach'),
 	 (254,'Calle Publica 233'),
@@ -283,8 +258,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (258,'Alfredo Martinez Howard'),
 	 (259,'Arturo Jauretche'),
 	 (260,'Maria Elena Walsh'),
-	 (261,'José Gervasio Artigas');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (261,'José Gervasio Artigas'),
 	 (262,'Juana Azurduy'),
 	 (263,'Lola Mora'),
 	 (264,'Maria Segovia'),
@@ -294,8 +268,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (268,'Los Querandíes'),
 	 (269,'Los Guaraníes'),
 	 (270,'Los Mocovíes'),
-	 (271,'Los Charrúas');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (271,'Los Charrúas'),
 	 (272,'Los Tobas'),
 	 (273,'Puerto Argentino'),
 	 (274,'Parque Nac. El Palmar'),
@@ -305,8 +278,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (278,'Roberto Negro Fontanarrosa'),
 	 (279,'Pastor Ricardo F. Huck'),
 	 (280,'Calle Publica 262'),
-	 (281,'Calle Publica 264');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (281,'Calle Publica 264'),
 	 (282,'Juan José Castelli'),
 	 (283,'Juan José Paso'),
 	 (284,'Publica'),
@@ -316,8 +288,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (288,'Los Diaguitas'),
 	 (289,'Los Tehuelches'),
 	 (290,'Los Quechuas'),
-	 (291,'Los Araucanos');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (291,'Los Araucanos'),
 	 (292,'Los Mapuches'),
 	 (293,'Gustavo Cerati'),
 	 (294,'Facundo Cabral'),
@@ -327,8 +298,7 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (298,'Calle Publica 281'),
 	 (299,'Camino Vecinal'),
 	 (300,'Calle Publica 278'),
-	 (301,'Calle Publica 285');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (301,'Calle Publica 285'),
 	 (302,'Calle Publica 287'),
 	 (303,'Calle Publica 289'),
 	 (304,'Calle Publica 291'),
@@ -338,7 +308,6 @@ INSERT INTO eolida.calle (id,calle) VALUES
 	 (308,'Dr. Martin Lutero'),
 	 (309,'Igualdad'),
 	 (310,'Justicia'),
-	 (311,'Cooperación');
-INSERT INTO eolida.calle (id,calle) VALUES
+	 (311,'Cooperación'),
 	 (312,'Solidaridad'),
 	 (313,'Hermandad');

@@ -10,6 +10,7 @@ import muni.eolida.sisifo.model.RolModel;
 import muni.eolida.sisifo.repository.UsuarioDAO;
 import muni.eolida.sisifo.service.UsuarioService;
 import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
+import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -70,11 +71,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioModel obtenerUsuario() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null)
-            return this.buscarPorNombreDeUsuario(authentication.getName());
-        else
-            return this.buscarPorNombreDeUsuario("admin@municrespo.gob.ar");
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null)
+                return this.buscarPorNombreDeUsuario(authentication.getName());
+            else
+                return this.buscarPorNombreDeUsuario("admin@municrespo.gob.ar");
+        } catch (CustomDataNotFoundException exception) {
+            return null;
+        }
     }
 
     @Override
@@ -133,27 +138,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (creation.getId() != null) {
             usuarioModel.setCreada(Helper.getNow(""));
             usuarioModel.setCreador(this.obtenerUsuario());
-            log.info("Se persistion correctamente la nueva entidad.");
+            log.info("Se persistio correctamente la nueva entidad.");
         } else {
             usuarioModel.setModificada(Helper.getNow(""));
             usuarioModel.setModificador(this.obtenerUsuario());
-            log.info("Se persistion correctamente la entidad.");
+            log.info("Se persistio correctamente la entidad.");
         }
         return usuarioDAO.save(usuarioModel);
-    }
-
-    @Override
-    public UsuarioModel reciclar(Long id) {
-        log.info("Reciclando la entidad Usuario con id: {}.", id);
-        UsuarioModel objeto = this.buscarPorIdConEliminadas(id);
-        if (objeto.getEliminada() == null) {
-            log.warn("La entidad Usuario con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.");
-            return null;
-        }
-        objeto.setEliminada(null);
-        objeto.setEliminador(null);
-        log.info("La entidad Usuario con id: " + id + ", fue reciclada correctamente.");
-        return usuarioDAO.save(objeto);
     }
 
     @Override
@@ -167,15 +158,28 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Boolean destruir(Long id) {
+    public UsuarioModel reciclar(Long id) {
+        log.info("Reciclando la entidad Usuario con id: {}.", id);
+        UsuarioModel objeto = this.buscarPorIdConEliminadas(id);
+        if (objeto.getEliminada() == null) {
+            log.warn("La entidad Usuario con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.");
+            throw new CustomObjectNotDeletedException("No se puede reciclar la entidad.");
+        }
+        objeto.setEliminada(null);
+        objeto.setEliminador(null);
+        log.info("La entidad Usuario con id: " + id + ", fue reciclada correctamente.");
+        return usuarioDAO.save(objeto);
+    }
+
+    @Override
+    public void destruir(Long id) {
         log.info("Destruyendo la entidad Usuario con id: {}.", id);
         UsuarioModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Usuario con id: " + id + ", no se encuentra eliminada, por lo tanto no puede ser destruida.");
-            return false;
+            throw new CustomObjectNotDeletedException("No se puede destruir la entidad.");
         }
         usuarioDAO.delete(objeto);
         log.info("La entidad fue destruida y el usuario " + objeto + " fue eliminado correctamente.");
-        return true;
     }
 }

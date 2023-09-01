@@ -71,7 +71,7 @@ public class EmailServiceImpl implements EmailService {
         EmailModel emailModel = emailDAO.save(emailMapper.toEntity(creation));
         emailModel.setCreada(Helper.getNow(""));
         emailModel.setCreador(usuarioService.obtenerUsuario());
-        log.info("Se persistion correctamente la nueva entidad.");
+        log.info("Se persistio correctamente la nueva entidad.");
         return emailDAO.save(emailModel);
     }
 

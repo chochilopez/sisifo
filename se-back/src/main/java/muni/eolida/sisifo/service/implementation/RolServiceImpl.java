@@ -10,6 +10,7 @@ import muni.eolida.sisifo.mapper.RolMapper;
 import muni.eolida.sisifo.repository.RolDAO;
 import muni.eolida.sisifo.service.RolService;
 import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
+import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -94,26 +95,12 @@ public class RolServiceImpl implements RolService {
         RolModel rolModel = rolDAO.save(rolMapper.toEntity(creation));
         if (creation.getId() != null) {
             rolModel.setCreada(Helper.getNow(""));
-            log.info("Se persistion correctamente la nueva entidad.");
+            log.info("Se persistio correctamente la nueva entidad.");
         } else {
             rolModel.setModificada(Helper.getNow(""));
-            log.info("Se persistion correctamente la entidad.");
+            log.info("Se persistio correctamente la entidad.");
         }
         return rolDAO.save(rolModel);
-    }
-
-    @Override
-    public RolModel reciclar(Long id) {
-        log.info("Reciclando la entidad Rol con id: {}.", id);
-        RolModel objeto = this.buscarPorIdConEliminadas(id);
-        if (objeto.getEliminada() == null) {
-            log.warn("La entidad Rol con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.");
-            return null;
-        }
-        objeto.setEliminada(null);
-        objeto.setEliminador(null);
-        log.info("La entidad Rol con id: " + id + ", fue reciclada correctamente.");
-        return rolDAO.save(objeto);
     }
 
     @Override
@@ -126,15 +113,28 @@ public class RolServiceImpl implements RolService {
     }
 
     @Override
-    public Boolean destruir(Long id) {
+    public RolModel reciclar(Long id) {
+        log.info("Reciclando la entidad Rol con id: {}.", id);
+        RolModel objeto = this.buscarPorIdConEliminadas(id);
+        if (objeto.getEliminada() == null) {
+            log.warn("La entidad Rol con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.");
+            throw new CustomObjectNotDeletedException("No se puede reciclar la entidad.");
+        }
+        objeto.setEliminada(null);
+        objeto.setEliminador(null);
+        log.info("La entidad Rol con id: " + id + ", fue reciclada correctamente.");
+        return rolDAO.save(objeto);
+    }
+
+    @Override
+    public void destruir(Long id) {
         log.info("Destruyendo la entidad Rol con id: {}.", id);
         RolModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Rol con id: " + id + ", no se encuentra eliminada, por lo tanto no puede ser destruida.");
-            return false;
+            throw new CustomObjectNotDeletedException("No se puede destruir la entidad.");
         }
         rolDAO.delete(objeto);
         log.info("La entidad fue destruida y el rol " + objeto + " fue eliminado correctamente.");
-        return true;
     }
 }

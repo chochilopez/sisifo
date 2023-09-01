@@ -10,6 +10,7 @@ import muni.eolida.sisifo.mapper.SeguimientoMapper;
 import muni.eolida.sisifo.repository.SeguimientoDAO;
 import muni.eolida.sisifo.service.SeguimientoService;
 import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
+import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -143,7 +144,7 @@ public class SeguimientoServiceImpl implements SeguimientoService {
         SeguimientoModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Seguimiento con id: {}, no se encuentra eliminada, por lo tanto no es necesario reciclarla.", id);
-            return null;
+            throw new CustomObjectNotDeletedException("No se puede reciclar la entidad.");
         }
         objeto.setEliminada(null);
         objeto.setEliminador(null);
@@ -152,15 +153,14 @@ public class SeguimientoServiceImpl implements SeguimientoService {
     }
 
     @Override
-    public Boolean destruir(Long id) {
+    public void destruir(Long id) {
         log.info("Destruyendo la entidad Seguimiento con id: {}.", id);
         SeguimientoModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Seguimiento con id: {}, no se encuentra eliminada, por lo tanto no puede ser destruida.", id);
-            return false;
+            throw new CustomObjectNotDeletedException("No se puede destruir la entidad.");
         }
         seguimientoDAO.delete(objeto);
         log.info("La entidad fue destruida.");
-        return true;
     }
 }

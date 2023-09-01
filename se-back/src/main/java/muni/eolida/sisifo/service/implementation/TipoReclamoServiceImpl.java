@@ -3,12 +3,16 @@ package muni.eolida.sisifo.service.implementation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.creation.TipoReclamoCreation;
+import muni.eolida.sisifo.model.AreaModel;
 import muni.eolida.sisifo.model.TipoReclamoModel;
+import muni.eolida.sisifo.repository.AreaDAO;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.TipoReclamoMapper;
 import muni.eolida.sisifo.repository.TipoReclamoDAO;
 import muni.eolida.sisifo.service.TipoReclamoService;
+import muni.eolida.sisifo.util.exception.CustomAlreadyExistantAreaException;
 import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
+import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -19,6 +23,23 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
     private final TipoReclamoDAO tipoReclamoDAO;
     private final TipoReclamoMapper tipoReclamoMapper;
     private final UsuarioServiceImpl usuarioService;
+    private final AreaDAO areaDAO;
+
+    @Override
+    public TipoReclamoModel agregarTipoReclamoAArea(Long idTipoReclamo, Long idArea) {
+        log.info("Agregando el TipoReclamo con id: {}, al Area con id: {}.", idTipoReclamo, idArea);
+        TipoReclamoModel tipoReclamo = tipoReclamoDAO.findByIdAndEliminadaIsNull(idTipoReclamo).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad TipoReclamo con id: " + idTipoReclamo + "."));
+        AreaModel area = areaDAO.findByIdAndEliminadaIsNull(idArea).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad Area con id: " + idArea + "."));
+        if (tipoReclamo.getArea() != null) {
+            if (tipoReclamo.getArea().equals(area)) {
+                log.warn("El Area ya posee el TipoReclamo.");
+                throw new CustomAlreadyExistantAreaException("El Area " + area.getArea() + " ya atiende reclamos de " + tipoReclamo.getTipo() + ".");
+            }
+        }
+        tipoReclamo.setArea(area);
+        log.info("Se agrego correctamente el TipoReclamo: {} al Area: {}.", tipoReclamo.getTipo(), area.getArea());
+        return tipoReclamoDAO.save(tipoReclamo);
+    }
 
     @Override
     public List<TipoReclamoModel> buscarTodasPorAreaId(Long id) {
@@ -136,7 +157,7 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
         TipoReclamoModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad TipoReclamo con id: {}, no se encuentra eliminada, por lo tanto no es necesario reciclarla.", id);
-            return null;
+            throw new CustomObjectNotDeletedException("No se puede reciclar la entidad.");
         }
         objeto.setEliminada(null);
         objeto.setEliminador(null);
@@ -145,15 +166,14 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
     }
 
     @Override
-    public Boolean destruir(Long id) {
+    public void destruir(Long id) {
         log.info("Destruyendo la entidad TipoReclamo con id: {}.", id);
         TipoReclamoModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad TipoReclamo con id: {}, no se encuentra eliminada, por lo tanto no puede ser destruida.", id);
-            return false;
+            throw new CustomObjectNotDeletedException("No se puede destruir la entidad.");
         }
         tipoReclamoDAO.delete(objeto);
         log.info("La entidad fue destruida.");
-        return true;
     }
 }

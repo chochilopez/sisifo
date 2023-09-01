@@ -9,6 +9,7 @@ import muni.eolida.sisifo.repository.ArchivoDAO;
 import muni.eolida.sisifo.service.ArchivoService;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
+import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -128,7 +129,7 @@ public class ArchivoServiceImpl implements ArchivoService {
             ArchivoModel objeto = this.buscarPorIdConEliminadas(id);
             if (objeto.getEliminada() == null) {
                 log.warn("La entidad Archivo con id: {}, no se encuentra eliminada, por lo tanto no es necesario reciclarla.", id);
-                return null;
+                throw new CustomObjectNotDeletedException("No se puede reciclar la entidad.");
             }
             objeto.setEliminada(null);
             objeto.setEliminador(null);
@@ -137,17 +138,16 @@ public class ArchivoServiceImpl implements ArchivoService {
     }
 
     @Override
-    public Boolean destruir(Long id) throws IOException {
+    public void destruir(Long id) throws IOException {
         log.info("Destruyendo la entidad Archivo con id: {}.", id);
         ArchivoModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Archivo con id: {}, no se encuentra eliminada, por lo tanto no puede ser destruida.", id);
-            return false;
+            throw new CustomObjectNotDeletedException("No se puede destruir la entidad.");
         }
-        Path fileToDeletePath = Paths.get(resourcePath + objeto.getPath() + objeto.getNombre());
+        Path fileToDeletePath = Paths.get(objeto.getPath() + "/" + objeto.getNombre());
         Files.delete(fileToDeletePath);
         archivoDAO.delete(objeto);
         log.info("La entidad fue destruida y el archivo {} fue eliminado correctamente.", id);
-        return true;
     }
 }

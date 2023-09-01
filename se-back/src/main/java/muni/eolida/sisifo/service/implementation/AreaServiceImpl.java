@@ -4,13 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.creation.AreaCreation;
 import muni.eolida.sisifo.model.AreaModel;
-import muni.eolida.sisifo.model.TipoReclamoModel;
-import muni.eolida.sisifo.repository.TipoReclamoDAO;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.AreaMapper;
 import muni.eolida.sisifo.repository.AreaDAO;
 import muni.eolida.sisifo.service.AreaService;
 import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
+import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -19,23 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AreaServiceImpl implements AreaService {
     private final AreaDAO areaDAO;
-    private final TipoReclamoDAO tipoReclamoDAO;
     private final AreaMapper areaMapper;
     private final UsuarioServiceImpl usuarioService;
-
-    @Override
-    public AreaModel agregarTipoReclamoAArea(Long idArea, Long idTipoReclamo) {
-        log.info("Agregando el TipoReclamo con id: {}, al Area con id: {}.", idArea, idTipoReclamo);
-        TipoReclamoModel tipoReclamo = tipoReclamoDAO.findByIdAndEliminadaIsNull(idTipoReclamo).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad TipoReclamo con id: " + idTipoReclamo + "."));
-        AreaModel area = areaDAO.findByIdAndEliminadaIsNull(idArea).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad Area con id: " + idArea + "."));
-        if (area.getTiposReclamos().contains(tipoReclamo)) {
-            log.warn("El Area ya posee el TipoReclamo.");
-            return null;
-        }
-        area.getTiposReclamos().add(tipoReclamo);
-            log.info("Se agrego correctamente el TipoReclamo: {} al Area: {}.", tipoReclamo.getTipo(), area.getArea());
-            return areaDAO.save(area);
-    }
 
     @Override
     public List<AreaModel> buscarTodasPorArea(String area) {
@@ -135,7 +119,7 @@ public class AreaServiceImpl implements AreaService {
         AreaModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Area con id: {}, no se encuentra eliminada, por lo tanto no es necesario reciclarla.", id);
-            return null;
+            throw new CustomObjectNotDeletedException("No se puede reciclar la entidad.");
         }
         objeto.setEliminada(null);
         objeto.setEliminador(null);
@@ -144,15 +128,14 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public Boolean destruir(Long id) {
+    public void destruir(Long id) {
         log.info("Destruyendo la entidad Area con id: {}.", id);
         AreaModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Area con id: {}, no se encuentra eliminada, por lo tanto no puede ser destruida.", id);
-            return false;
+            throw new CustomObjectNotDeletedException("No se puede destruir la entidad.");
         }
         areaDAO.delete(objeto);
         log.info("La entidad fue destruida.");
-        return true;
     }
 }

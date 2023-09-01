@@ -9,6 +9,7 @@ import muni.eolida.sisifo.mapper.BarrioMapper;
 import muni.eolida.sisifo.repository.BarrioDAO;
 import muni.eolida.sisifo.service.BarrioService;
 import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
+import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -94,11 +95,11 @@ public class BarrioServiceImpl implements BarrioService {
         if (creation.getId() != null) {
             barrioModel.setCreada(Helper.getNow(""));
             barrioModel.setCreador(usuarioService.obtenerUsuario());
-            log.info("Se persistion correctamente la nueva entidad.");
+            log.info("Se persistio correctamente la nueva entidad.");
         } else {
             barrioModel.setModificada(Helper.getNow(""));
             barrioModel.setModificador(usuarioService.obtenerUsuario());
-            log.info("Se persistion correctamente la entidad.");
+            log.info("Se persistio correctamente la entidad.");
         }
         return barrioDAO.save(barrioModel);
     }
@@ -119,7 +120,7 @@ public class BarrioServiceImpl implements BarrioService {
         BarrioModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Barrio con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.");
-            return null;
+            throw new CustomObjectNotDeletedException("No se puede reciclar la entidad.");
         }
         objeto.setEliminada(null);
         objeto.setEliminador(null);
@@ -128,15 +129,14 @@ public class BarrioServiceImpl implements BarrioService {
     }
 
     @Override
-    public Boolean destruir(Long id) {
+    public void destruir(Long id) {
         log.info("Destruyendo la entidad Barrio con id: {}.", id);
         BarrioModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Barrio con id: " + id + ", no se encuentra eliminada, por lo tanto no puede ser destruida.");
-            return false;
+            throw new CustomObjectNotDeletedException("No se puede destruir la entidad.");
         }
         barrioDAO.delete(objeto);
         log.info("La entidad fue destruida.");
-        return true;
     }
 }

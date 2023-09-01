@@ -34,8 +34,8 @@ public class AreaMapper {
             }
             areaModel.setArea(areaCreation.getArea());
 
-            Set<TipoReclamoModel> tiposReclamo = new HashSet<>();
             if (areaCreation.getTiposReclamos_id() != null) {
+                Set<TipoReclamoModel> tiposReclamo = new HashSet<>();
                 for (String tipoReclamoId:areaCreation.getTiposReclamos_id()) {
                     if (Helper.getLong(tipoReclamoId) != null) {
                         Optional<TipoReclamoModel> tipoReclamo = tipoReclamoDAO.findByIdAndEliminadaIsNull(Helper.getLong(tipoReclamoId));
@@ -44,8 +44,8 @@ public class AreaMapper {
                         }
                     }
                 }
+                areaModel.setTiposReclamos(tiposReclamo);
             }
-            areaModel.setTiposReclamos(tiposReclamo);
 
             if (Helper.getLong(areaCreation.getCreador_id()) != null) {
                 Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(areaCreation.getCreador_id()));

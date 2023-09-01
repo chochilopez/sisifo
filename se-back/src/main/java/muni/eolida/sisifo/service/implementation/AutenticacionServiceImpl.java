@@ -17,6 +17,7 @@ import muni.eolida.sisifo.mapper.creation.UsuarioCreation;
 import muni.eolida.sisifo.model.UsuarioModel;
 import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
 import muni.eolida.sisifo.util.exception.CustomTokenMismatchException;
+import muni.eolida.sisifo.util.exception.CustomUserAlreadyCreatedException;
 import org.apache.tomcat.util.codec.binary.Base64;
 import muni.eolida.sisifo.service.AutenticacionService;
 import org.springframework.beans.factory.annotation.Value;
@@ -85,7 +86,8 @@ public class AutenticacionServiceImpl implements AutenticacionService {
 
     @Override
     public UsuarioModel registrar(UsuarioCreation usuarioCreation) {
-        usuarioService.existeUsuarioPorNombreDeUsuario(usuarioCreation.getUsername());
+        if (usuarioService.existeUsuarioPorNombreDeUsuario(usuarioCreation.getUsername()))
+            throw new CustomUserAlreadyCreatedException("Ya existe un usuario con ese nombre de usuario.");
         UsuarioModel usuario = usuarioService.guardar(usuarioCreation);
         usuario.setHabilitada(false);
         String token = Base64.encodeBase64URLSafeString(DEFAULT_TOKEN_GENERATOR.generateKey());

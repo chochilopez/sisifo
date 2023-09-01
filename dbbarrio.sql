@@ -8,8 +8,7 @@ INSERT INTO eolida.barrio (id,barrio) VALUES
 	 (7,'AZUL'),
 	 (8,'DEL LAGO'),
 	 (9,'NORTE'),
-	 (10,'JARDIN');
-INSERT INTO eolida.barrio (id,barrio) VALUES
+	 (10,'JARDIN'),
 	 (11,'LA PAZ'),
 	 (12,'SALTO'),
 	 (13,'SAN LORENZO'),

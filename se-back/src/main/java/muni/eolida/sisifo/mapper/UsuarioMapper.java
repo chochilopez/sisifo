@@ -26,77 +26,73 @@ public class UsuarioMapper {
     private final RolDAO rolDAO;
 
     public UsuarioModel toEntity(UsuarioCreation usuarioCreation) {
-        try {
-            UsuarioModel usuarioModel = new UsuarioModel();
+        UsuarioModel usuarioModel = new UsuarioModel();
 
-            if (Helper.getLong(usuarioCreation.getId()) != null)
-                usuarioModel = usuarioDAO.findByIdAndEliminadaIsNull(Helper.getLong(usuarioCreation.getId())).get();
-            usuarioModel.setNombre(usuarioCreation.getNombre());
-            usuarioModel.setDni(usuarioCreation.getDni());
-            usuarioModel.setDireccion(usuarioCreation.getDireccion());
-            usuarioModel.setTelefono(usuarioCreation.getTelefono());
-            if (Helper.getBoolean(usuarioCreation.getHabilitada()) != null)
-                usuarioModel.setHabilitada(Helper.getBoolean(usuarioCreation.getHabilitada()));
-            else
-                usuarioModel.setHabilitada(false);
-            usuarioModel.setUsername(usuarioCreation.getUsername());
-            usuarioModel.setPassword(bcryptEncoder.encode(usuarioCreation.getPassword()));
-            if (usuarioCreation.getToken() != null)
-                usuarioModel.setToken(usuarioCreation.getToken());
+        if (Helper.getLong(usuarioCreation.getId()) != null)
+            usuarioModel = usuarioDAO.findByIdAndEliminadaIsNull(Helper.getLong(usuarioCreation.getId())).get();
+        usuarioModel.setNombre(usuarioCreation.getNombre());
+        usuarioModel.setDni(usuarioCreation.getDni());
+        usuarioModel.setDireccion(usuarioCreation.getDireccion());
+        usuarioModel.setTelefono(usuarioCreation.getTelefono());
+        if (Helper.getBoolean(usuarioCreation.getHabilitada()) != null)
+            usuarioModel.setHabilitada(Helper.getBoolean(usuarioCreation.getHabilitada()));
+        else
+            usuarioModel.setHabilitada(false);
+        usuarioModel.setUsername(usuarioCreation.getUsername());
+        usuarioModel.setPassword(bcryptEncoder.encode(usuarioCreation.getPassword()));
+        if (usuarioCreation.getToken() != null)
+            usuarioModel.setToken(usuarioCreation.getToken());
 
+
+        if (usuarioCreation.getTokens_id() != null) {
             List<TokenModel> tokens = new ArrayList<>();
-            if (usuarioCreation.getTokens_id() != null) {
-                for (String tokenId:usuarioCreation.getTokens_id()) {
-                    if (Helper.getLong(tokenId) != null) {
-                        Optional<TokenModel> token = tokenDAO.findById(Helper.getLong(tokenId));
-                        if (token.isPresent()) {
-                            tokens.add(token.get());
-                        }
+            for (String tokenId:usuarioCreation.getTokens_id()) {
+                if (Helper.getLong(tokenId) != null) {
+                    Optional<TokenModel> token = tokenDAO.findById(Helper.getLong(tokenId));
+                    if (token.isPresent()) {
+                        tokens.add(token.get());
                     }
                 }
             }
             usuarioModel.setTokens(tokens);
+        }
 
+        if (usuarioCreation.getRoles_id() != null) {
             Set<RolModel> roles = new HashSet<>();
-            if (!usuarioCreation.getRoles_id().isEmpty()) {
-                for (String rolId:usuarioCreation.getRoles_id()) {
-                    if (Helper.getLong(rolId) != null) {
-                        Optional<RolModel> rol = rolDAO.findByIdAndEliminadaIsNull(Helper.getLong(rolId));
-                        if (rol.isPresent()) {
-                            roles.add(rol.get());
-                        }
+            for (String rolId:usuarioCreation.getRoles_id()) {
+                if (Helper.getLong(rolId) != null) {
+                    Optional<RolModel> rol = rolDAO.findByIdAndEliminadaIsNull(Helper.getLong(rolId));
+                    if (rol.isPresent()) {
+                        roles.add(rol.get());
                     }
                 }
             }
             usuarioModel.setRoles(roles);
-
-            if (Helper.getLong(usuarioCreation.getCreador_id()) != null) {
-                Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(usuarioCreation.getCreador_id()));
-                if (user.isPresent())
-                    usuarioModel.setCreador(user.get());
-            }
-            if (!Helper.isEmptyString(usuarioCreation.getCreada()))
-                usuarioModel.setCreada(Helper.stringToLocalDateTime(usuarioCreation.getCreada(), ""));
-            if (Helper.getLong(usuarioCreation.getModificador_id()) != null) {
-                Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(usuarioCreation.getModificador_id()));
-                if (user.isPresent())
-                    usuarioModel.setModificador(user.get());
-            }
-            if (!Helper.isEmptyString(usuarioCreation.getModificada()))
-                usuarioModel.setModificada(Helper.stringToLocalDateTime(usuarioCreation.getModificada(), ""));
-            if (Helper.getLong(usuarioCreation.getEliminador_id()) != null) {
-                Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(usuarioCreation.getEliminador_id()));
-                if (user.isPresent())
-                    usuarioModel.setEliminador(user.get());
-            }
-            if (!Helper.isEmptyString(usuarioCreation.getEliminada()))
-                usuarioModel.setEliminada(Helper.stringToLocalDateTime(usuarioCreation.getEliminada(), ""));
-
-            return usuarioModel;
-        } catch (Exception e) {
-            log.info("Usuario creation to entity error. Exception: " + e);
-            return null;
         }
+
+        if (Helper.getLong(usuarioCreation.getCreador_id()) != null) {
+            Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(usuarioCreation.getCreador_id()));
+            if (user.isPresent())
+                usuarioModel.setCreador(user.get());
+        }
+        if (!Helper.isEmptyString(usuarioCreation.getCreada()))
+            usuarioModel.setCreada(Helper.stringToLocalDateTime(usuarioCreation.getCreada(), ""));
+        if (Helper.getLong(usuarioCreation.getModificador_id()) != null) {
+            Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(usuarioCreation.getModificador_id()));
+            if (user.isPresent())
+                usuarioModel.setModificador(user.get());
+        }
+        if (!Helper.isEmptyString(usuarioCreation.getModificada()))
+            usuarioModel.setModificada(Helper.stringToLocalDateTime(usuarioCreation.getModificada(), ""));
+        if (Helper.getLong(usuarioCreation.getEliminador_id()) != null) {
+            Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(usuarioCreation.getEliminador_id()));
+            if (user.isPresent())
+                usuarioModel.setEliminador(user.get());
+        }
+        if (!Helper.isEmptyString(usuarioCreation.getEliminada()))
+            usuarioModel.setEliminada(Helper.stringToLocalDateTime(usuarioCreation.getEliminada(), ""));
+
+        return usuarioModel;
     }
 
     public UsuarioDTO toDto(UsuarioModel usuarioModel) {

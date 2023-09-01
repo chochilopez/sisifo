@@ -22,7 +22,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> repository.findByUsernameContainingIgnoreCaseAndEliminadaIsNull(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("No existe el usuario."));
     }
 
     @Bean

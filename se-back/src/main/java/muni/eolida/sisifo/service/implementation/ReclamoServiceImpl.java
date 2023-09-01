@@ -10,6 +10,7 @@ import muni.eolida.sisifo.model.UsuarioModel;
 import muni.eolida.sisifo.repository.ReclamoDAO;
 import muni.eolida.sisifo.service.ReclamoService;
 import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
+import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -224,7 +225,7 @@ public class ReclamoServiceImpl implements ReclamoService {
         ReclamoModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Reclamo con id: {}, no se encuentra eliminada, por lo tanto no es necesario reciclarla.", id);
-            return null;
+            throw new CustomObjectNotDeletedException("No se puede reciclar la entidad.");
         }
         objeto.setEliminada(null);
         objeto.setEliminador(null);
@@ -233,15 +234,14 @@ public class ReclamoServiceImpl implements ReclamoService {
     }
 
     @Override
-    public Boolean destruir(Long id) {
+    public void destruir(Long id) {
         log.info("Destruyendo la entidad Reclamo con id: {}.", id);
         ReclamoModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Reclamo con id: {}, no se encuentra eliminada, por lo tanto no puede ser destruida.", id);
-            return false;
+            throw new CustomObjectNotDeletedException("No se puede destruir la entidad.");
         }
         reclamoDAO.delete(objeto);
         log.info("La entidad fue destruida.");
-        return true;
     }
 }

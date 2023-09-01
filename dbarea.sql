@@ -8,8 +8,7 @@ INSERT INTO eolida.area (id,area) VALUES
 	 (7,'Contaduria'),
 	 (8,'Suministros'),
 	 (9,'Direccion de Desarrollo Humano'),
-	 (10,'OySP');
-INSERT INTO eolida.area (id,area) VALUES
+	 (10,'OySP'),
 	 (11,'Infracciones'),
 	 (12,'Area Legal y Técnica'),
 	 (13,'Expedicion de Licencia de Conducir'),
@@ -19,8 +18,7 @@ INSERT INTO eolida.area (id,area) VALUES
 	 (17,'Prevencion y Promocion de la Salud'),
 	 (18,'Area de Inclusión de Personas con Discapacidad'),
 	 (19,'Area de la Juventud'),
-	 (20,'Subdireccion de Deportes');
-INSERT INTO eolida.area (id,area) VALUES
+	 (20,'Subdireccion de Deportes'),
 	 (21,'Deporte Social y Recreativo'),
 	 (22,'Deporte Federado'),
 	 (23,'Direccion de Prevención y Seguridad Urbana'),
@@ -30,8 +28,7 @@ INSERT INTO eolida.area (id,area) VALUES
 	 (27,'Bromatologia'),
 	 (28,'Subdireccion de Recursos Humanos'),
 	 (29,'Subdireccion de Catastro'),
-	 (30,'Almacenes');
-INSERT INTO eolida.area (id,area) VALUES
+	 (30,'Almacenes'),
 	 (31,'Inventario y Archivo'),
 	 (32,'Informatica y Redes'),
 	 (33,'Comunicaciones'),
@@ -41,8 +38,7 @@ INSERT INTO eolida.area (id,area) VALUES
 	 (37,'Sala Eva Peron'),
 	 (38,'Salon Municipal'),
 	 (39,'Museo Municipal'),
-	 (40,'Centro de Apoyo Tecnologico');
-INSERT INTO eolida.area (id,area) VALUES
+	 (40,'Centro de Apoyo Tecnologico'),
 	 (41,'Relaciones con la Comunidad'),
 	 (42,'Informacion de Gestion Publica y Protocolo'),
 	 (43,'Area Industrial'),
@@ -52,8 +48,7 @@ INSERT INTO eolida.area (id,area) VALUES
 	 (47,'Departamento de Desarrllo Urbano y Formulacion de Proyectos'),
 	 (48,'Equipo de Proyectos'),
 	 (49,'Unidad de Gestion e Inspeccion de Obras'),
-	 (50,'Inspectores');
-INSERT INTO eolida.area (id,area) VALUES
+	 (50,'Inspectores'),
 	 (51,'Directores de Obras'),
 	 (52,'Departamento de Construccion y Mantenimiento de Dependencias Municipales'),
 	 (53,'Unidad de Albañileria y Pintura'),
@@ -63,8 +58,7 @@ INSERT INTO eolida.area (id,area) VALUES
 	 (57,'Servicios Generales'),
 	 (58,'Unidad de Abastecimiento'),
 	 (59,'Direccion de Infraestructura y Equipamiento Urbano'),
-	 (60,'Unidad de Maquinistas');
-INSERT INTO eolida.area (id,area) VALUES
+	 (60,'Unidad de Maquinistas'),
 	 (61,'Unidad de Albañileria Urbana'),
 	 (62,'Unidad de Pintura Urbana'),
 	 (63,'Alumbrado Publico'),
@@ -74,8 +68,7 @@ INSERT INTO eolida.area (id,area) VALUES
 	 (67,'Secretaria de Desarrollo Urbano y Ambiente'),
 	 (68,'Servicios de Higiene Urbana'),
 	 (69,'Atencion Ciudadana'),
-	 (70,'Taller de Mantenimiento');
-INSERT INTO eolida.area (id,area) VALUES
+	 (70,'Taller de Mantenimiento'),
 	 (71,'Servicios Administrativos'),
 	 (72,'Medio Ambiente'),
 	 (73,'Administración Fiscal y Tributaria'),
@@ -85,8 +78,7 @@ INSERT INTO eolida.area (id,area) VALUES
 	 (78,'Obrador San Jose'),
 	 (79,'Taller de Herreria'),
 	 (80,'Planta de Reciclado'),
-	 (81,'Habilitaciones');
-INSERT INTO eolida.area (id,area) VALUES
+	 (81,'Habilitaciones'),
 	 (82,'Servicio de Cobranza Administrativa y Judiciales'),
 	 (83,'Externa'),
 	 (84,'Centro de Ayuda al Niño'),
@@ -96,8 +88,7 @@ INSERT INTO eolida.area (id,area) VALUES
 	 (88,'Correo Interno'),
 	 (89,'Seguros'),
 	 (90,'Secretaría del Ejecutivo Municipal'),
-	 (91,'Escuela de Musica');
-INSERT INTO eolida.area (id,area) VALUES
+	 (91,'Escuela de Musica'),
 	 (92,'Area Niñez, Adolescencia y Familia (NAF)'),
 	 (93,'Limpieza'),
 	 (94,'Hogar Nuevo Amanecer'),
@@ -107,8 +98,7 @@ INSERT INTO eolida.area (id,area) VALUES
 	 (98,'Direccion de Planeamiento y Obras Privadas'),
 	 (99,'Area de Salud'),
 	 (100,'Area de Salud Animal'),
-	 (101,'Observatorio de Violencia');
-INSERT INTO eolida.area (id,area) VALUES
+	 (101,'Observatorio de Violencia'),
 	 (102,'Area de Programacion Artistica y Comunitaria'),
 	 (103,'Comunicaciones'),
 	 (104,'Dirección de Hacienda y Presupuesto'),
@@ -118,8 +108,7 @@ INSERT INTO eolida.area (id,area) VALUES
 	 (108,'Agencia de Desarrollo Local'),
 	 (109,'Protocolo y Ceremonial'),
 	 (110,'Servicio de Mantenimiento'),
-	 (111,'Academia de Corte y Confeccion');
-INSERT INTO eolida.area (id,area) VALUES
+	 (111,'Academia de Corte y Confeccion'),
 	 (112,'Centro Cultural La Estacion'),
 	 (113,'Coro Municipal del Centenario'),
 	 (114,'Coro de Adultos Mayores Sueño del Alma '),
@@ -129,7 +118,6 @@ INSERT INTO eolida.area (id,area) VALUES
 	 (118,'Area de Educacion y Capacitacion Laboral'),
 	 (119,'Sub Direccion de Empleo y Emprendurismo'),
 	 (120,'Area Articulacion Campo-Ciudad'),
-	 (121,'Defensa Civil');
-INSERT INTO eolida.area (id,area) VALUES
+	 (121,'Defensa Civil'),
 	 (122,'Jardin Barrilete de Sueños (Barrio San Miguel)'),
 	 (123,'Ambiente');

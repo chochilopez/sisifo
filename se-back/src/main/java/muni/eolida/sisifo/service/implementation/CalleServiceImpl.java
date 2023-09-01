@@ -9,6 +9,7 @@ import muni.eolida.sisifo.mapper.CalleMapper;
 import muni.eolida.sisifo.repository.CalleDAO;
 import muni.eolida.sisifo.service.CalleService;
 import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
+import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -95,11 +96,11 @@ public class CalleServiceImpl implements CalleService {
         if (creation.getId() != null) {
             calleModel.setCreada(Helper.getNow(""));
             calleModel.setCreador(usuarioService.obtenerUsuario());
-            log.info("Se persistion correctamente la nueva entidad.");
+            log.info("Se persistio correctamente la nueva entidad.");
         } else {
             calleModel.setModificada(Helper.getNow(""));
             calleModel.setModificador(usuarioService.obtenerUsuario());
-            log.info("Se persistion correctamente la entidad.");
+            log.info("Se persistio correctamente la entidad.");
         }
         return calleDAO.save(calleModel);
     }
@@ -120,7 +121,7 @@ public class CalleServiceImpl implements CalleService {
         CalleModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Calle con id: " + id + ", no se encuentra eliminada, por lo tanto no es necesario reciclarla.");
-            return null;
+            throw new CustomObjectNotDeletedException("No se puede reciclar la entidad.");
         }
         objeto.setEliminada(null);
         objeto.setEliminador(null);
@@ -129,15 +130,14 @@ public class CalleServiceImpl implements CalleService {
     }
 
     @Override
-    public Boolean destruir(Long id) {
+    public void destruir(Long id) {
         log.info("Destruyendo la entidad Calle con id: {}.", id);
         CalleModel objeto = this.buscarPorIdConEliminadas(id);
         if (objeto.getEliminada() == null) {
             log.warn("La entidad Calle con id: " + id + ", no se encuentra eliminada, por lo tanto no puede ser destruida.");
-            return false;
+            throw new CustomObjectNotDeletedException("No se puede destruir la entidad.");
         }
         calleDAO.delete(objeto);
         log.info("La entidad fue destruida.");
-        return true;
     }
 }

@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.util.Helper;
@@ -28,6 +27,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,57 +41,6 @@ import java.util.List;
 public class AreaController extends BaseController {
     private final AreaServiceImpl areaService;
     private final AreaMapper areaMapper;
-
-    @Operation(
-            summary = "Agregar TipoReclamo a Area.",
-            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se agrega el TipoReclamo al Area.</strong>"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Recurso consumido correctamente, se devuelve objeto JSON modificado.",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = AreaDTO.class))},
-                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Los datos ingresados no poseen el formato correcto.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "No se encontro el recurso buscado.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "409",
-                    description = "Error en la conversion de parametros ingresados.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "Debe autenticarse para acceder al recurso."
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee las autoridades necesarias para acceder al recurso."
-            )
-    })
-    @Parameters({
-            @Parameter(name = "idArea", in = ParameterIn.PATH, description = "Numerico."),
-            @Parameter(name = "idTipoReclamo", in = ParameterIn.PATH, description = "Numerico.")
-    })
-    @GetMapping(value = "/agregar-tipo-reclamo-a-area/{idArea}/{idTipoReclamo}")
-    @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<AreaDTO> agregarTipoReclamoAArea(@PathVariable("idArea") @Positive Long idArea, @PathVariable(name = "idTipoReclamo") Long idTipoReclamo) {
-        AreaModel objeto = areaService.agregarTipoReclamoAArea(idArea, idTipoReclamo);
-        return new ResponseEntity<>(areaMapper.toDto(objeto), Helper.httpHeaders("Se agrego correctamente el TipoReclamo con id: " + idTipoReclamo + ", al Area con id: " + idArea + "."), HttpStatus.OK);
-    }
 
     @Operation(
             summary = "Buscar entidades por nombre.",
@@ -638,10 +587,9 @@ public class AreaController extends BaseController {
     @Operation(hidden = true)
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<Boolean> destruir(@PathVariable(name = "id") Long id) {
-        Boolean eliminada = areaService.destruir(id);
-        return new ResponseEntity<>(eliminada, Helper.httpHeaders(
-                eliminada ? "Se destruyo correctamente la entidad con id: " + id + "." : "No se pudo destruir la entidad con id: " + id + "."
-        ), HttpStatus.OK);
+    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) throws IOException {
+        areaService.destruir(id);
+        String mensaje = "Se destruyo correctamente la entidad con id: " + id + ".";
+        return new ResponseEntity<>(mensaje, Helper.httpHeaders(mensaje), HttpStatus.OK);
     }
 }

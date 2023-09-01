@@ -14,5 +14,5 @@ public interface GenericService<M, C> {
     M guardar(C c);
     M reciclar(Long id);
     M eliminar(Long id);
-    Boolean destruir(Long id) throws IOException;
+    void destruir(Long id) throws IOException;
 }

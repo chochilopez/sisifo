@@ -25,6 +25,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -1218,10 +1219,9 @@ public class ReclamoController extends BaseController {
     @Operation(hidden = true)
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<Boolean> destruir(@PathVariable(name = "id") Long id) {
-        Boolean eliminada = reclamoService.destruir(id);
-        return new ResponseEntity<>(eliminada, Helper.httpHeaders(
-                eliminada ? "Se destruyo correctamente la entidad con id: " + id + "." : "No se pudo destruir la entidad con id: " + id + "."
-        ), HttpStatus.OK);
+    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) throws IOException {
+        reclamoService.destruir(id);
+        String mensaje = "Se destruyo correctamente la entidad con id: " + id + ".";
+        return new ResponseEntity<>(mensaje, Helper.httpHeaders(mensaje), HttpStatus.OK);
     }
 }

@@ -19,12 +19,14 @@ import muni.eolida.sisifo.mapper.creation.ArchivoCreation;
 import muni.eolida.sisifo.mapper.dto.ArchivoDTO;
 import muni.eolida.sisifo.model.ArchivoModel;
 import muni.eolida.sisifo.service.implementation.ArchivoServiceImpl;
+import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import muni.eolida.sisifo.util.exception.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
@@ -43,7 +45,7 @@ public class ArchivoController extends BaseController {
     private final ArchivoMapper archivoMapper;
 
     @ExceptionHandler(IOException.class)
-    public ResponseEntity<ErrorDTO> handleIOException(Exception e) {
+    public ResponseEntity<ErrorDTO> handleIOException(IOException e) {
         HttpStatus status = HttpStatus.BAD_REQUEST; // 400
         String mensaje = "Ocurrio un error al guardar el archivo. " + e.getMessage();
 
@@ -96,11 +98,15 @@ public class ArchivoController extends BaseController {
                     description = "Mutltipart File."
             )
     })
-    @PutMapping(value = "/guardar",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "/guardar")
     @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
-    public ResponseEntity<ArchivoDTO> saveLocalFile(@Validated MultipartFile multipartFile) throws IOException {
-        ArchivoModel objeto = archivoService.guardarArchivo(multipartFile.getBytes());
-        return new ResponseEntity<>(archivoMapper.toDto(objeto), Helper.httpHeaders("Imagen creada correctamente."), HttpStatus.OK);
+    public ResponseEntity<ArchivoDTO> saveLocalFile(@RequestParam(name = "file") MultipartFile multipartFile) throws IOException {
+        if (multipartFile.getContentType().startsWith("image/")) {
+            ArchivoModel objeto = archivoService.guardarArchivo(multipartFile.getBytes());
+            return new ResponseEntity<>(archivoMapper.toDto(objeto), Helper.httpHeaders("Imagen creada correctamente."), HttpStatus.OK);
+        } else {
+            throw new IOException("Formato de archivo no soportado.");
+        }
     }
 
     @Operation(
@@ -489,10 +495,9 @@ public class ArchivoController extends BaseController {
     @Operation(hidden = true)
     @DeleteMapping(value = "/destruir/{id}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<Boolean> destruir(@PathVariable(name = "id") Long id) throws IOException {
-        Boolean eliminada = archivoService.destruir(id);
-        return new ResponseEntity<>(eliminada, Helper.httpHeaders(
-                eliminada ? "Se destruyo correctamente la entidad con id: " + id + "." : "No se pudo destruir la entidad con id: " + id + "."
-        ), HttpStatus.OK);
+    public ResponseEntity<String> destruir(@PathVariable(name = "id") Long id) throws IOException {
+        archivoService.destruir(id);
+        String mensaje = "Se destruyo correctamente la entidad con id: " + id + ".";
+        return new ResponseEntity<>(mensaje, Helper.httpHeaders(mensaje), HttpStatus.OK);
     }
 }

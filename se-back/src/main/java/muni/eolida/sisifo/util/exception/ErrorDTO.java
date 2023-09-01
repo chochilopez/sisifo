@@ -3,32 +3,31 @@ package muni.eolida.sisifo.util.exception;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import muni.eolida.sisifo.util.Helper;
 import org.springframework.http.HttpStatus;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class ErrorDTO {
-    // customizing timestamp serialization format
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-    private Date timestamp;
+    private LocalDateTime fecha;
 
-    private int code;
+    private int codigo;
 
-    private String status;
+    private String estado;
 
-    private String message;
+    private String error;
 
     public ErrorDTO() {
-        timestamp = new Date();
+        fecha = Helper.getNow("");
     }
 
     public ErrorDTO(HttpStatus httpStatus, String message) {
         this();
-
-        this.code = httpStatus.value();
-        this.status = httpStatus.name();
-        this.message = message;
+        this.codigo = httpStatus.value();
+        this.estado = httpStatus.name();
+        this.error = message;
     }
 }
