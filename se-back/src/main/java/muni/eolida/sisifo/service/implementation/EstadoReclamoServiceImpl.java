@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.creation.EstadoReclamoCreation;
 import muni.eolida.sisifo.model.EstadoReclamoModel;
-import muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum;
+import muni.eolida.sisifo.model.enums.EstadoReclamoEnum;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.EstadoReclamoMapper;
 import muni.eolida.sisifo.repository.EstadoReclamoDAO;
@@ -24,9 +24,27 @@ public class EstadoReclamoServiceImpl implements EstadoReclamoService {
     private final UsuarioServiceImpl usuarioService;
 
     @Override
+    public List<EstadoReclamoModel> buscarTodasPorDescripcion(String descripcion) {
+        log.info("Buscando todas las entidades EstadoReclamo con descripcion: {}.", descripcion);
+        List<EstadoReclamoModel> listado = estadoReclamoDAO.findAllByDescripcionContainingIgnoreCaseAndEliminadaIsNull(descripcion);
+        if (listado.isEmpty())
+            throw new CustomDataNotFoundException("No se encontraron entidades EstadoReclamo con descripcion: " + descripcion + ".");
+        return listado;
+    }
+
+    @Override
+    public List<EstadoReclamoModel> buscarTodasPorDescripcionConEliminadas(String descripcion) {
+        log.info("Buscando todas las entidades EstadoReclamo con descripcion: {}, incluidas las eliminadas.", descripcion);
+        List<EstadoReclamoModel> listado = estadoReclamoDAO.findAllByDescripcionContainingIgnoreCase(descripcion);
+        if (listado.isEmpty())
+            throw new CustomDataNotFoundException("No se encontraron entidades EstadoReclamo con descripcion: " + descripcion + ", incluidas las eliminadas.");
+        return listado;
+    }
+
+    @Override
     public EstadoReclamoModel buscarPorEstadoReclamo(String estadoReclamo) {
         log.info("Buscando la entidad EstadoReclamo con nombre: {}.", estadoReclamo);
-        EstadoReclamoModel estadoReclamoModel = estadoReclamoDAO.findByEstadoAndEliminadaIsNull(TipoEstadoReclamoEnum.valueOf(estadoReclamo)).orElseThrow(()-> new CustomDataNotFoundException("No se encontro la entidad EstadoReclamo con nombre: " + estadoReclamo + "."));
+        EstadoReclamoModel estadoReclamoModel = estadoReclamoDAO.findByEstadoAndEliminadaIsNull(EstadoReclamoEnum.valueOf(estadoReclamo)).orElseThrow(()-> new CustomDataNotFoundException("No se encontro la entidad EstadoReclamo con nombre: " + estadoReclamo + "."));
         log.info("Se encontro una entidad EstadoReclamo con nombre: " + estadoReclamo + ".");
         return estadoReclamoModel;
     }
@@ -34,7 +52,7 @@ public class EstadoReclamoServiceImpl implements EstadoReclamoService {
     @Override
     public EstadoReclamoModel buscarPorEstadoReclamoConEliminadas(String estadoReclamo) {
         log.info("Buscando la entidad EstadoReclamo con nombre: {}, incluidas las eliminadas.", estadoReclamo);
-        EstadoReclamoModel estadoReclamoModel = estadoReclamoDAO.findByEstado(TipoEstadoReclamoEnum.valueOf(estadoReclamo)).orElseThrow(()-> new CustomDataNotFoundException("No se encontro la entidad EstadoReclamo con nombre: " + estadoReclamo + ", incluidas las eliminadas."));
+        EstadoReclamoModel estadoReclamoModel = estadoReclamoDAO.findByEstado(EstadoReclamoEnum.valueOf(estadoReclamo)).orElseThrow(()-> new CustomDataNotFoundException("No se encontro la entidad EstadoReclamo con nombre: " + estadoReclamo + ", incluidas las eliminadas."));
         log.info("Se encontro una entidad EstadoReclamo con nombre: " + estadoReclamo + ", incluidas las eliminadas.");
         return estadoReclamoModel;
     }
@@ -92,7 +110,7 @@ public class EstadoReclamoServiceImpl implements EstadoReclamoService {
     public EstadoReclamoModel guardar(EstadoReclamoCreation creation) {
         log.info("Insertando la entidad EstadoReclamo: {}.",  creation);
         EstadoReclamoModel estadoReclamoModel = estadoReclamoDAO.save(estadoReclamoMapper.toEntity(creation));
-        if (creation.getId() != null) {
+        if (creation.getId() == null) {
             estadoReclamoModel.setCreada(Helper.getNow(""));
             estadoReclamoModel.setCreador(usuarioService.obtenerUsuario());
             log.info("Se persistio correctamente la nueva entidad.");

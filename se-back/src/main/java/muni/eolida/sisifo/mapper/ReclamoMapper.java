@@ -2,14 +2,19 @@ package muni.eolida.sisifo.mapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import muni.eolida.sisifo.mapper.creation.SeguimientoCreation;
+import muni.eolida.sisifo.model.enums.EstadoReclamoEnum;
 import muni.eolida.sisifo.repository.*;
 import muni.eolida.sisifo.mapper.creation.ReclamoCreation;
 import muni.eolida.sisifo.mapper.dto.*;
 import muni.eolida.sisifo.model.*;
+import muni.eolida.sisifo.service.implementation.UsuarioServiceImpl;
 import muni.eolida.sisifo.util.Helper;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -27,6 +32,8 @@ public class ReclamoMapper {
     private final SeguimientoMapper seguimientoMapper;
     private final ReclamoDAO reclamoDAO;
     private final ArchivoDAO archivoDAO;
+    private final SeguimientoDAO seguimientoDAO;
+    private final UsuarioServiceImpl usuarioService;
 
     public ReclamoModel toEntity(ReclamoCreation reclamoCreation) {
         try {
@@ -86,6 +93,22 @@ public class ReclamoMapper {
                 if (usuario.isPresent()) {
                     reclamoModel.setPersona(usuario.get());
                 }
+            }
+            if (Helper.getLong(reclamoCreation.getSeguimiento_id()) != null) {
+                Optional<SeguimientoModel> seguimiento = seguimientoDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getSeguimiento_id()));
+                if (seguimiento.isPresent()) {
+                    reclamoModel.setSeguimiento(seguimiento.get());
+                }
+            } else {
+                SeguimientoModel seguimiento = new SeguimientoModel();
+                EstadoReclamoModel estadoReclamo = new EstadoReclamoModel(EstadoReclamoEnum.INICIADO, "Reclamo iniciado");
+                Set<EstadoReclamoModel> estadosReclamo= new HashSet<>();
+                estadosReclamo.add(estadoReclamo);
+                seguimiento.setEstados(estadosReclamo);
+                seguimiento.setCreada(Helper.getNow(""));
+                seguimiento.setCreador(usuarioService.obtenerUsuario());
+                seguimientoDAO.save(seguimiento);
+                reclamoModel.setSeguimiento(seguimiento);
             }
             reclamoModel.setPersona(usuarioDAO.findByIdAndEliminadaIsNull(Helper.getLong(reclamoCreation.getPersona_id())).get());
 

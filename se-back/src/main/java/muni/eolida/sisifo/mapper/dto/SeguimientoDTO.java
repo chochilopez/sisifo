@@ -3,6 +3,7 @@ package muni.eolida.sisifo.mapper.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,8 +13,5 @@ import java.util.List;
 public class SeguimientoDTO implements Serializable {
     @Schema(description = "Identificador unico de la entidad.")
     private String id;
-    @Schema(description = "Descripcion del seguimiento, notas de los empleados.")
-    private String descripcion;
-    @Schema(type="Array", description = "Estados posibles de seguimiento de reclamo. INICIADO - EN_CURSO - RESUELTO - PASE_SECTOR - RECHAZADO.", example = "[]")
     private List<EstadoReclamoDTO> estados;
 }

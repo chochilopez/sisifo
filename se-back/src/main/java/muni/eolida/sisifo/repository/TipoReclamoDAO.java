@@ -7,8 +7,6 @@ import java.util.List;
 
 @Repository
 public interface TipoReclamoDAO extends GenericDTO<TipoReclamoModel> {
-    List<TipoReclamoModel> findAllByAreaId(Long id);
-    List<TipoReclamoModel> findAllByAreaIdAndEliminadaIsNull(Long id);
     List<TipoReclamoModel> findAllByTipoIgnoreCaseContaining(String tipo);
     List<TipoReclamoModel> findAllByTipoIgnoreCaseContainingAndEliminadaIsNull(String tipo);
 }

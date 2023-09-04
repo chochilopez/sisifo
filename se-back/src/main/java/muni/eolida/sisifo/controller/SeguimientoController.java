@@ -40,120 +40,6 @@ public class SeguimientoController extends BaseController {
     private final SeguimientoMapper seguimientoMapper;
 
     @Operation(
-            summary = "Buscar entidades por descripcion.",
-            description = "Rol/Autoridad requerida: EMPLEADO<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
-                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SeguimientoDTO.class)))},
-                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Los datos ingresados no poseen el formato correcto.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "No se encontro el recurso buscado.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "409",
-                    description = "Error en la conversion de parametros ingresados.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "Debe autenticarse para acceder al recurso."
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee las autoridades necesarias para acceder al recurso."
-            )
-    })
-    @Parameters({
-            @Parameter(
-                    in = ParameterIn.PATH,
-                    description = "String."
-            )
-    })
-    @GetMapping(value = "/buscar-todas-por-descripcion/{descripcion}")
-    @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<List<SeguimientoDTO>> buscarTodasPorDescripcion(@PathVariable(name = "descripcion")  String descripcion) {
-        List<SeguimientoModel> listado = seguimientoService.buscarTodasPorDescripcion(descripcion);
-        ArrayList<SeguimientoDTO> seguimientoDTOS = new ArrayList<>();
-        for (SeguimientoModel seguimientoModel : listado) {
-            seguimientoDTOS.add(seguimientoMapper.toDto(seguimientoModel));
-        }
-        return new ResponseEntity<>(seguimientoDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades."), HttpStatus.OK);
-    }
-
-    @Operation(
-            summary = "Buscar entidades por descripcion, incluidas las eliminadas.",
-            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
-                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SeguimientoDTO.class)))},
-                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Los datos ingresados no poseen el formato correcto.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "No se encontro el recurso buscado.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "409",
-                    description = "Error en la conversion de parametros ingresados.",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "Debe autenticarse para acceder al recurso."
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    content = { @Content(mediaType = "", schema = @Schema())},
-                    description = "No se posee las autoridades necesarias para acceder al recurso."
-            )
-    })
-    @Parameters({
-            @Parameter(
-                    in = ParameterIn.PATH,
-                    description = "String."
-            )
-    })
-    @GetMapping(value = "/buscar-todas-por-descripcion-con-eliminadas/{descripcion}")
-    @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<SeguimientoDTO>> buscarTodasPorDescripcionConEliminadas(@PathVariable(name = "descripcion")  String descripcion) {
-        List<SeguimientoModel> listado = seguimientoService.buscarTodasPorDescripcionConEliminadas(descripcion);
-        ArrayList<SeguimientoDTO> seguimientoDTOS = new ArrayList<>();
-        for (SeguimientoModel seguimientoModel : listado) {
-            seguimientoDTOS.add(seguimientoMapper.toDto(seguimientoModel));
-        }
-        return new ResponseEntity<>(seguimientoDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades, incluidas las eliminadas."), HttpStatus.OK);
-    }
-
-    @Operation(
             summary = "Buscar entidades entre periodo de fechas.",
             description = "Rol/Autoridad requerida: EMPLEADO<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
     )
@@ -194,8 +80,8 @@ public class SeguimientoController extends BaseController {
             )
     })
     @Parameters({
-            @Parameter(name = "inicio", in = ParameterIn.PATH, description = "LocalDateTime.", example = "2017-01-13T17:09:42.411"),
-            @Parameter(name = "fin", in = ParameterIn.PATH, description = "LocalDateTime.", example = "2023-12-22T17:09:42.411"),
+            @Parameter(name = "inicio", in = ParameterIn.PATH, description = "LocalDateTime.", example = "00:00:00 01-01-2000"),
+            @Parameter(name = "fin", in = ParameterIn.PATH, description = "LocalDateTime.", example = "23:12:00 01-08-2024"),
     })
     @GetMapping(value = "/buscar-todas-por-creada-entre-fechas/{inicio}/{fin}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
@@ -251,8 +137,8 @@ public class SeguimientoController extends BaseController {
             )
     })
     @Parameters({
-            @Parameter(name = "inicio", in = ParameterIn.PATH, description = "LocalDateTime.", example = "2017-01-13T17:09:42.411"),
-            @Parameter(name = "fin", in = ParameterIn.PATH, description = "LocalDateTime.", example = "2023-12-22T17:09:42.411"),
+            @Parameter(name = "inicio", in = ParameterIn.PATH, description = "LocalDateTime.", example = "00:00:00 01-01-2000"),
+            @Parameter(name = "fin", in = ParameterIn.PATH, description = "LocalDateTime.", example = "23:12:00 01-08-2024"),
     })
     @GetMapping(value = "/buscar-todas-por-creada-entre-fechas-con-eliminadas/{inicio}/{fin}")
     @PreAuthorize("hasAuthority('CAPATAZ')")

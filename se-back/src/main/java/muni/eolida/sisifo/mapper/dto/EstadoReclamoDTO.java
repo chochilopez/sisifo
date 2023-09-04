@@ -13,4 +13,6 @@ public class EstadoReclamoDTO implements Serializable {
     private String id;
     @Schema(description = "Posibles estados que puede poseer un seguimiento de un reclamo. INICIADO - EN_CURSO - RESUELTO - PASE_SECTOR - RECHAZADO.")
     private String estado;
+    @Schema(description = "Descripcion del seguimiento, notas de los empleados.")
+    private String descripcion;
 }

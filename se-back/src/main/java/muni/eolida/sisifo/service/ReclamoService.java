@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface ReclamoService extends GenericService<ReclamoModel, ReclamoCreation> {
     List<ReclamoModel> buscarMisReclamos();
-    List<ReclamoModel> buscarTodasPorCreadorId(Long id);
-    List<ReclamoModel> buscarTodasPorCreadorIdConEliminadas(Long id);
+    List<ReclamoModel> buscarTodasPorPersonaId(Long id);
+    List<ReclamoModel> buscarTodasPorPersonaIdConEliminadas(Long id);
     List<ReclamoModel> buscarTodasPorTipoReclamoId(Long id);
     List<ReclamoModel> buscarTodasPorTipoReclamoIdConEliminadas(Long id);
     List<ReclamoModel> buscarTodasPorBarrioId(Long id);

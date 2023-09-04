@@ -6,8 +6,10 @@ import muni.eolida.sisifo.mapper.creation.AreaCreation;
 import muni.eolida.sisifo.mapper.dto.AreaDTO;
 import muni.eolida.sisifo.mapper.dto.TipoReclamoDTO;
 import muni.eolida.sisifo.model.AreaModel;
+import muni.eolida.sisifo.model.EstadoReclamoModel;
 import muni.eolida.sisifo.model.TipoReclamoModel;
 import muni.eolida.sisifo.model.UsuarioModel;
+import muni.eolida.sisifo.model.enums.EstadoReclamoEnum;
 import muni.eolida.sisifo.repository.AreaDAO;
 import muni.eolida.sisifo.repository.TipoReclamoDAO;
 import muni.eolida.sisifo.repository.UsuarioDAO;
@@ -36,15 +38,14 @@ public class AreaMapper {
 
             if (areaCreation.getTiposReclamos_id() != null) {
                 Set<TipoReclamoModel> tiposReclamo = new HashSet<>();
-                for (String tipoReclamoId:areaCreation.getTiposReclamos_id()) {
-                    if (Helper.getLong(tipoReclamoId) != null) {
-                        Optional<TipoReclamoModel> tipoReclamo = tipoReclamoDAO.findByIdAndEliminadaIsNull(Helper.getLong(tipoReclamoId));
-                        if (tipoReclamo.isPresent()) {
-                            tiposReclamo.add(tipoReclamo.get());
-                        }
+                for (String tipoId:areaCreation.getTiposReclamos_id()) {
+                    if (Helper.getLong(tipoId) != null) {
+                        Optional<TipoReclamoModel> tipoReclamoModel = tipoReclamoDAO.findByIdAndEliminadaIsNull(Helper.getLong(tipoId));
+                        if (tipoReclamoModel.isPresent())
+                            tiposReclamo.add(tipoReclamoModel.get());
                     }
                 }
-                areaModel.setTiposReclamos(tiposReclamo);
+                areaModel.setTipos(tiposReclamo);
             }
 
             if (Helper.getLong(areaCreation.getCreador_id()) != null) {
@@ -83,10 +84,12 @@ public class AreaMapper {
             dto.setId(areaModel.getId().toString());
             dto.setArea(areaModel.getArea());
             List<TipoReclamoDTO> listado = new ArrayList<>();
-            for (TipoReclamoModel tipoReclamo:areaModel.getTiposReclamos()) {
-                listado.add(tipoReclamoMapper.toDto(tipoReclamo));
+            if (areaModel.getTipos() != null) {
+                for (TipoReclamoModel tipoReclamo:areaModel.getTipos()) {
+                    listado.add(tipoReclamoMapper.toDto(tipoReclamo));
+                }
+                dto.setTiposReclamos(listado);
             }
-            dto.setTiposReclamos(listado);
 
             return dto;
         } catch (Exception e) {

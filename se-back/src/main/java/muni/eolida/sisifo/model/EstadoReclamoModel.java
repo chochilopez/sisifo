@@ -3,7 +3,7 @@ package muni.eolida.sisifo.model;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.*;
-import muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum;
+import muni.eolida.sisifo.model.enums.EstadoReclamoEnum;
 
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
@@ -18,10 +18,12 @@ public class EstadoReclamoModel extends AbstractAuditoriaModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private TipoEstadoReclamoEnum estado;
+	private EstadoReclamoEnum estado;
+	@Column(columnDefinition = "TEXT")
+	private String descripcion;
 
-	// Bidereccional secundaria
-	@ManyToOne()
-	@JoinColumn(name = "seguimiento_id")
-	private SeguimientoModel seguimiento;
+	public EstadoReclamoModel(EstadoReclamoEnum estado, String descripcion) {
+		this.estado = estado;
+		this.descripcion = descripcion;
+	}
 }

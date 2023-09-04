@@ -2,6 +2,7 @@ package muni.eolida.sisifo.service.implementation;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import muni.eolida.sisifo.mapper.creation.EstadoReclamoCreation;
 import muni.eolida.sisifo.mapper.creation.SeguimientoCreation;
 import muni.eolida.sisifo.model.ReclamoModel;
 import muni.eolida.sisifo.model.SeguimientoModel;
@@ -23,29 +24,28 @@ public class SeguimientoServiceImpl implements SeguimientoService {
     private final UsuarioServiceImpl usuarioService;
 
     @Override
-    public List<SeguimientoModel> buscarTodasPorDescripcion(String descripcion) {
-        log.info("Buscando todas las entidades Seguimiento con descripcion: {}.", descripcion);
-        List<SeguimientoModel> listado = seguimientoDAO.findAllByDescripcionContainingIgnoreCaseAndEliminadaIsNull(descripcion);
-        if (listado.isEmpty())
-            throw new CustomDataNotFoundException("No se encontraron entidades Seguimiento con descripcion: " + descripcion + ".");
-        return listado;
-    }
-
-    @Override
-    public List<SeguimientoModel> buscarTodasPorDescripcionConEliminadas(String descripcion) {
-        log.info("Buscando todas las entidades Seguimiento con descripcion: {}, incluidas las eliminadas.", descripcion);
-        List<SeguimientoModel> listado = seguimientoDAO.findAllByDescripcionContainingIgnoreCase(descripcion);
-        if (listado.isEmpty())
-            throw new CustomDataNotFoundException("No se encontraron entidades Seguimiento con descripcion: " + descripcion + ", incluidas las eliminadas.");
-        return listado;
+    public SeguimientoModel agregarEstadoReclamo(EstadoReclamoCreation estadoReclamoCreation) {
+//        log.info("Insertando nuevo estado de reclamo: {}, a Seguimiento.",  estadoReclamoCreation);
+//        SeguimientoModel seguimientoModel = seguimientoDAO.save(seguimientoMapper.toEntity(creation));
+//        if (creation.getId() == null) {
+//            seguimientoModel.setCreada(Helper.getNow(""));
+//            seguimientoModel.setCreador(usuarioService.obtenerUsuario());
+//            log.info("Se persistio correctamente la nueva entidad.");
+//        } else {
+//            seguimientoModel.setModificada(Helper.getNow(""));
+//            seguimientoModel.setModificador(usuarioService.obtenerUsuario());
+//            log.info("Se persistio correctamente la entidad.");
+//        }
+//        return seguimientoDAO.save(seguimientoModel);
+        return null;
     }
 
     @Override
     public List<SeguimientoModel> buscarTodasPorCreadaEntreFechas(String inicio, String fin) {
         log.info("Buscando todas la entidades Seguimiento con fecha de creacion entre {} y {}.", inicio, fin);
         List<SeguimientoModel> listado = seguimientoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(
-                Helper.stringToLocalDateTime(inicio, null),
-                Helper.stringToLocalDateTime(fin, null)
+                Helper.stringToLocalDateTime(inicio, ""),
+                Helper.stringToLocalDateTime(fin, "")
         );
         if (listado.isEmpty())
             throw new CustomDataNotFoundException("No se encontraron entidades Seguimiento con fecha de creacion entre " + inicio + " y " + fin + ".");
@@ -56,8 +56,8 @@ public class SeguimientoServiceImpl implements SeguimientoService {
     public List<SeguimientoModel> buscarTodasPorCreadaEntreFechasConEliminadas(String inicio, String fin) {
         log.info("Buscando todas la entidades Seguimiento con fecha de creacion entre {} y {}, incluidas las eliminadas.", inicio, fin);
         List<SeguimientoModel> listado = seguimientoDAO.findAllByCreadaBetweenInicioAndFin(
-                Helper.stringToLocalDateTime(inicio, null),
-                Helper.stringToLocalDateTime(fin, null)
+                Helper.stringToLocalDateTime(inicio, ""),
+                Helper.stringToLocalDateTime(fin, "")
         );
         if (listado.isEmpty())
             throw new CustomDataNotFoundException("No se encontraron entidades Seguimiento con fecha de creacion entre " + inicio + " y " + fin + ", incluidas las eliminadas.");
@@ -116,7 +116,7 @@ public class SeguimientoServiceImpl implements SeguimientoService {
     public SeguimientoModel guardar(SeguimientoCreation creation) {
         log.info("Insertando la entidad Seguimiento: {}.",  creation);
         SeguimientoModel seguimientoModel = seguimientoDAO.save(seguimientoMapper.toEntity(creation));
-        if (creation.getId() != null) {
+        if (creation.getId() == null) {
             seguimientoModel.setCreada(Helper.getNow(""));
             seguimientoModel.setCreador(usuarioService.obtenerUsuario());
             log.info("Se persistio correctamente la nueva entidad.");

@@ -93,7 +93,7 @@ public class CalleServiceImpl implements CalleService {
     public CalleModel guardar(CalleCreation creation) {
         log.info("Insertando la entidad Calle: {}.",  creation);
         CalleModel calleModel = calleDAO.save(calleMapper.toEntity(creation));
-        if (creation.getId() != null) {
+        if (creation.getId() == null) {
             calleModel.setCreada(Helper.getNow(""));
             calleModel.setCreador(usuarioService.obtenerUsuario());
             log.info("Se persistio correctamente la nueva entidad.");

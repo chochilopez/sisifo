@@ -94,7 +94,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioModel buscarPorIdConEliminadas(Long id) {
         log.info("Buscando la entidad Usuario con id: {}, incluidas las eliminadas.", id);
-        UsuarioModel usuarioModel = usuarioDAO.findByIdAndEliminadaIsNull(id).orElseThrow(()-> new CustomDataNotFoundException("No se encontro la entidad con id: " + id +", incluidas las eliminadas."));
+        UsuarioModel usuarioModel = usuarioDAO.findById(id).orElseThrow(()-> new CustomDataNotFoundException("No se encontro la entidad con id: " + id +", incluidas las eliminadas."));
         log.info("Se encontro una entidad Usuario con id: " + id + ".");
         return usuarioModel;
     }
@@ -111,7 +111,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public List<UsuarioModel> buscarTodasConEliminadas() {
         log.info("Buscando todas las entidades Usuario, incluidas las eliminadas.");
-        List<UsuarioModel> listado = usuarioDAO.findAllByEliminadaIsNull();
+        List<UsuarioModel> listado = usuarioDAO.findAll();
         if (listado.isEmpty())
             throw new CustomDataNotFoundException("No se encontraron entidades Usuario, incluidas las eliminadas.");
         return listado;
@@ -135,7 +135,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioModel guardar(UsuarioCreation creation) {
         log.info("Insertando la entidad Usuario: {}.",  creation);
         UsuarioModel usuarioModel = usuarioDAO.save(usuarioMapper.toEntity(creation));
-        if (creation.getId() != null) {
+        if (creation.getId() == null) {
             usuarioModel.setCreada(Helper.getNow(""));
             usuarioModel.setCreador(this.obtenerUsuario());
             log.info("Se persistio correctamente la nueva entidad.");

@@ -23,41 +23,6 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
     private final TipoReclamoDAO tipoReclamoDAO;
     private final TipoReclamoMapper tipoReclamoMapper;
     private final UsuarioServiceImpl usuarioService;
-    private final AreaDAO areaDAO;
-
-    @Override
-    public TipoReclamoModel agregarTipoReclamoAArea(Long idTipoReclamo, Long idArea) {
-        log.info("Agregando el TipoReclamo con id: {}, al Area con id: {}.", idTipoReclamo, idArea);
-        TipoReclamoModel tipoReclamo = tipoReclamoDAO.findByIdAndEliminadaIsNull(idTipoReclamo).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad TipoReclamo con id: " + idTipoReclamo + "."));
-        AreaModel area = areaDAO.findByIdAndEliminadaIsNull(idArea).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad Area con id: " + idArea + "."));
-        if (tipoReclamo.getArea() != null) {
-            if (tipoReclamo.getArea().equals(area)) {
-                log.warn("El Area ya posee el TipoReclamo.");
-                throw new CustomAlreadyExistantAreaException("El Area " + area.getArea() + " ya atiende reclamos de " + tipoReclamo.getTipo() + ".");
-            }
-        }
-        tipoReclamo.setArea(area);
-        log.info("Se agrego correctamente el TipoReclamo: {} al Area: {}.", tipoReclamo.getTipo(), area.getArea());
-        return tipoReclamoDAO.save(tipoReclamo);
-    }
-
-    @Override
-    public List<TipoReclamoModel> buscarTodasPorAreaId(Long id) {
-        log.info("Buscando todas las entidades TipoReclamo con id de Area: {}.", id);
-        List<TipoReclamoModel> listado = tipoReclamoDAO.findAllByAreaIdAndEliminadaIsNull(id);
-        if (listado.isEmpty())
-            throw new CustomDataNotFoundException("No se encontraron entidades TipoReclamo con id de Area: " + id + ".");
-        return listado;
-    }
-
-    @Override
-    public List<TipoReclamoModel> buscarTodasPorAreaIdConEliminadas(Long id) {
-        log.info("Buscando todas las entidades TipoReclamo con id de Area: {}, incluidas las eliminadas.", id);
-        List<TipoReclamoModel> listado = tipoReclamoDAO.findAllByAreaId(id);
-        if (listado.isEmpty())
-            throw new CustomDataNotFoundException("No se encontraron entidades TipoReclamo con id de Area: " + id + ", incluidas las eliminadas.");
-        return listado;
-    }
 
     @Override
     public List<TipoReclamoModel> buscarTodasPorTipo(String tipo) {
@@ -129,7 +94,7 @@ public class TipoReclamoServiceImpl implements TipoReclamoService {
     public TipoReclamoModel guardar(TipoReclamoCreation creation) {
         log.info("Insertando la entidad TipoReclamo: {}.",  creation);
         TipoReclamoModel tipoReclamoModel = tipoReclamoDAO.save(tipoReclamoMapper.toEntity(creation));
-        if (creation.getId() != null) {
+        if (creation.getId() == null) {
             tipoReclamoModel.setCreada(Helper.getNow(""));
             tipoReclamoModel.setCreador(usuarioService.obtenerUsuario());
             log.info("Se persistio correctamente la nueva entidad.");

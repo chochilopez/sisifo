@@ -1,6 +1,6 @@
 package muni.eolida.sisifo.model.enums;
 
-public enum TipoEstadoReclamoEnum {
+public enum EstadoReclamoEnum {
     INICIADO,
     EN_CURSO,
     RESUELTO,

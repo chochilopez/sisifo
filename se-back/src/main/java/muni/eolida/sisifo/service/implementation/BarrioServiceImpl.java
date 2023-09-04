@@ -92,7 +92,7 @@ public class BarrioServiceImpl implements BarrioService {
     public BarrioModel guardar(BarrioCreation creation) {
         log.info("Insertando la entidad Barrio: {}.",  creation);
         BarrioModel barrioModel = barrioDAO.save(barrioMapper.toEntity(creation));
-        if (creation.getId() != null) {
+        if (creation.getId() == null) {
             barrioModel.setCreada(Helper.getNow(""));
             barrioModel.setCreador(usuarioService.obtenerUsuario());
             log.info("Se persistio correctamente la nueva entidad.");

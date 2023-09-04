@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 public class AreaCreation extends AbsAuditoriaCreation {
     private String id;
-    @NotNull
+    @NotNull(message = "El campo area no puede estar vacio.")
     @Size(min=4, max=40, message = "El campo area debe tener entre 4 y 40 caracteres.")
     private String area;
     private List<String> tiposReclamos_id;

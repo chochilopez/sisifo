@@ -91,7 +91,7 @@ public class ReclamoController extends BaseController {
     }
 
     @Operation(
-            summary = "Buscar entidades por id de creador.",
+            summary = "Buscar entidades por id de persona.",
             description = "Rol/Autoridad requerida: EMPLEADO<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
     )
     @ApiResponses({
@@ -136,10 +136,10 @@ public class ReclamoController extends BaseController {
                     description = "Numerico."
             )
     })
-    @GetMapping(value = "/buscar-todas-por-creador-id/{id}")
+    @GetMapping(value = "/buscar-todas-por-persona-id/{id}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
-    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorCreadorId(@PathVariable(name = "id") Long id) {
-        List<ReclamoModel> listado = reclamoService.buscarTodasPorCreadorId(id);
+    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorPersonaId(@PathVariable(name = "id") Long id) {
+        List<ReclamoModel> listado = reclamoService.buscarTodasPorPersonaId(id);
         ArrayList<ReclamoDTO> reclamoDTOS = new ArrayList<>();
         for (ReclamoModel reclamoModel : listado) {
             reclamoDTOS.add(reclamoMapper.toDto(reclamoModel));
@@ -193,10 +193,10 @@ public class ReclamoController extends BaseController {
                     description = "Numerico."
             )
     })
-    @GetMapping(value = "/buscar-todas-por-creador-id-con-eliminadas/{id}")
+    @GetMapping(value = "/buscar-todas-por-persona-id-con-eliminadas/{id}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
-    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorCreadorIdConEliminadas(@PathVariable(name = "id") Long id) {
-        List<ReclamoModel> listado = reclamoService.buscarTodasPorCreadorIdConEliminadas(id);
+    public ResponseEntity<List<ReclamoDTO>> buscarTodasPorPersonaIdConEliminadas(@PathVariable(name = "id") Long id) {
+        List<ReclamoModel> listado = reclamoService.buscarTodasPorPersonaIdConEliminadas(id);
         ArrayList<ReclamoDTO> reclamoDTOS = new ArrayList<>();
         for (ReclamoModel reclamoModel : listado) {
             reclamoDTOS.add(reclamoMapper.toDto(reclamoModel));
@@ -701,8 +701,8 @@ public class ReclamoController extends BaseController {
             )
     })
     @Parameters({
-            @Parameter(name = "inicio", in = ParameterIn.PATH, description = "LocalDateTime.", example = "2017-01-13T17:09:42.411"),
-            @Parameter(name = "fin", in = ParameterIn.PATH, description = "LocalDateTime.", example = "2023-12-22T17:09:42.411"),
+            @Parameter(name = "inicio", in = ParameterIn.PATH, description = "LocalDateTime.", example = "00:00:00 01-01-2000"),
+            @Parameter(name = "fin", in = ParameterIn.PATH, description = "LocalDateTime.", example = "23:12:00 01-08-2024"),
     })
     @GetMapping(value = "/buscar-todas-por-creada-entre-fechas/{inicio}/{fin}")
     @PreAuthorize("hasAuthority('EMPLEADO')")
@@ -758,8 +758,8 @@ public class ReclamoController extends BaseController {
             )
     })
     @Parameters({
-            @Parameter(name = "inicio", in = ParameterIn.PATH, description = "LocalDateTime.", example = "2017-01-13T17:09:42.411"),
-            @Parameter(name = "fin", in = ParameterIn.PATH, description = "LocalDateTime.", example = "2023-12-22T17:09:42.411"),
+            @Parameter(name = "inicio", in = ParameterIn.PATH, description = "LocalDateTime.", example = "00:00:00 01-01-2000"),
+            @Parameter(name = "fin", in = ParameterIn.PATH, description = "LocalDateTime.", example = "23:12:00 01-08-2024"),
     })
     @GetMapping(value = "/buscar-todas-por-creada-entre-fechas-con-eliminadas/{inicio}/{fin}")
     @PreAuthorize("hasAuthority('CAPATAZ')")

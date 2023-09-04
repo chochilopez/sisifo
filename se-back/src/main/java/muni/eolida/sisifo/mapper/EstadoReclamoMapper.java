@@ -5,9 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.creation.EstadoReclamoCreation;
 import muni.eolida.sisifo.mapper.dto.EstadoReclamoDTO;
 import muni.eolida.sisifo.model.EstadoReclamoModel;
-import muni.eolida.sisifo.model.SeguimientoModel;
 import muni.eolida.sisifo.model.UsuarioModel;
-import muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum;
+import muni.eolida.sisifo.model.enums.EstadoReclamoEnum;
 import muni.eolida.sisifo.repository.EstadoReclamoDAO;
 import muni.eolida.sisifo.repository.SeguimientoDAO;
 import muni.eolida.sisifo.repository.UsuarioDAO;
@@ -20,7 +19,6 @@ import java.util.Optional;
 @Slf4j
 public class EstadoReclamoMapper {
     private final EstadoReclamoDAO estadoReclamoDAO;
-    private final SeguimientoDAO seguimientoDAO;
     private final UsuarioDAO usuarioDAO;
 
     public EstadoReclamoModel toEntity(EstadoReclamoCreation estadoReclamoCreation) {
@@ -30,13 +28,7 @@ public class EstadoReclamoMapper {
             if (Helper.getLong(estadoReclamoCreation.getId()) != null) {
                 estadoReclamoModel = estadoReclamoDAO.findByIdAndEliminadaIsNull(Helper.getLong(estadoReclamoCreation.getId())).get();
             }
-            estadoReclamoModel.setEstado(TipoEstadoReclamoEnum.valueOf(estadoReclamoCreation.getEstado()));
-            if (Helper.getLong(estadoReclamoCreation.getSeguimiento_id()) != null) {
-                Optional<SeguimientoModel> seguimiento = seguimientoDAO.findByIdAndEliminadaIsNull(Helper.getLong(estadoReclamoCreation.getSeguimiento_id()));
-                if (seguimiento.isPresent()) {
-                    estadoReclamoModel.setSeguimiento(seguimiento.get());
-                }
-            }
+            estadoReclamoModel.setEstado(EstadoReclamoEnum.valueOf(estadoReclamoCreation.getEstado()));
 
             if (Helper.getLong(estadoReclamoCreation.getCreador_id()) != null) {
                 Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(estadoReclamoCreation.getCreador_id()));

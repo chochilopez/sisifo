@@ -138,9 +138,9 @@ public class RolController extends BaseController {
                     description = "String."
             )
     })
-    @GetMapping(value = "/buscar-todas-por-rol-con-eliminadas/{rol}")
+    @GetMapping(value = "/buscar-por-rol-con-eliminadas/{rol}")
     @PreAuthorize("hasAuthority('JEFE')")
-    public ResponseEntity<RolDTO> buscarTodasPorRolConEliminadas(@PathVariable(name = "rol")  String rol) {
+    public ResponseEntity<RolDTO> buscarPorRolConEliminadas(@PathVariable(name = "rol")  String rol) {
         RolModel objeto = rolService.buscarPorRolConEliminadas(rol);
         return new ResponseEntity<>(rolMapper.toDto(objeto), Helper.httpHeaders("Se encontro una entidad con rol :" + rol + ", incluidas las eliminadas."), HttpStatus.OK);
     }

@@ -8,7 +8,7 @@ import muni.eolida.sisifo.mapper.dto.SeguimientoDTO;
 import muni.eolida.sisifo.model.EstadoReclamoModel;
 import muni.eolida.sisifo.model.SeguimientoModel;
 import muni.eolida.sisifo.model.UsuarioModel;
-import muni.eolida.sisifo.model.enums.TipoEstadoReclamoEnum;
+import muni.eolida.sisifo.model.enums.EstadoReclamoEnum;
 import muni.eolida.sisifo.repository.EstadoReclamoDAO;
 import muni.eolida.sisifo.repository.SeguimientoDAO;
 import muni.eolida.sisifo.repository.UsuarioDAO;
@@ -21,10 +21,10 @@ import java.util.*;
 @RequiredArgsConstructor
 @Slf4j
 public class SeguimientoMapper {
-    private final EstadoReclamoMapper estadoReclamoMapper;
-    private final EstadoReclamoDAO estadoReclamoDAO;
     private final SeguimientoDAO seguimientoDAO;
     private final UsuarioDAO usuarioDAO;
+    private final EstadoReclamoDAO estadoReclamoDAO;
+    private final EstadoReclamoMapper estadoReclamoMapper;
 
     public SeguimientoModel toEntity(SeguimientoCreation seguimientoCreation) {
         try {
@@ -33,19 +33,19 @@ public class SeguimientoMapper {
             if (Helper.getLong(seguimientoCreation.getId()) != null) {
                 seguimientoModel = seguimientoDAO.findByIdAndEliminadaIsNull(Helper.getLong(seguimientoCreation.getId())).get();
             }
-            seguimientoModel.setDescripcion(seguimientoCreation.getDescripcion());
 
-            List<EstadoReclamoModel> estadoReclamos = new ArrayList<>();
+            Set<EstadoReclamoModel> estadoReclamos = new HashSet<>();
             if (seguimientoCreation.getEstados_id() != null) {
                 for (String estadoReclamoId:seguimientoCreation.getEstados_id()) {
                     if (Helper.getLong(estadoReclamoId) != null) {
-                        Optional<EstadoReclamoModel> estadoReclamo = estadoReclamoDAO.findByIdAndEliminadaIsNull(Helper.getLong(estadoReclamoId));
-						estadoReclamo.ifPresent(estadoReclamos::add);
+                        Optional<EstadoReclamoModel> estadoReclamoModel = estadoReclamoDAO.findByIdAndEliminadaIsNull(Helper.getLong(estadoReclamoId));
+                        if (estadoReclamoModel.isPresent())
+                            estadoReclamos.add(estadoReclamoModel.get());
                     }
                 }
                 seguimientoModel.setEstados(estadoReclamos);
             } else {
-                estadoReclamos.add(estadoReclamoDAO.findByEstadoAndEliminadaIsNull(TipoEstadoReclamoEnum.INICIADO).get());
+                estadoReclamos.add(new EstadoReclamoModel(EstadoReclamoEnum.INICIADO, "Reclamo iniciado."));
             }
             seguimientoModel.setEstados(estadoReclamos);
 
@@ -83,7 +83,6 @@ public class SeguimientoMapper {
             SeguimientoDTO dto = new SeguimientoDTO();
 
             dto.setId(seguimientoModel.getId().toString());
-            dto.setDescripcion(seguimientoModel.getDescripcion());
             List<EstadoReclamoDTO> estados = new ArrayList<>();
             for (EstadoReclamoModel estado:seguimientoModel.getEstados()) {
                 estados.add(estadoReclamoMapper.toDto(estado));

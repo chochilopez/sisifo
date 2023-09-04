@@ -101,7 +101,7 @@ public class ArchivoServiceImpl implements ArchivoService {
     public ArchivoModel guardar(ArchivoCreation creation) {
         log.info("Insertando la entidad Archivo: {}.",  creation);
         ArchivoModel archivoModel = archivoDAO.save(archivoMapper.toEntity(creation));
-        if (creation.getId() != null) {
+        if (creation.getId() == null) {
             archivoModel.setCreada(Helper.getNow(""));
             archivoModel.setCreador(usuarioService.obtenerUsuario());
             log.info("Se persisitio correctamente la nueva entidad.");

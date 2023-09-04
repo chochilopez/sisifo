@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.creation.ReclamoCreation;
 import muni.eolida.sisifo.model.ReclamoModel;
+import muni.eolida.sisifo.model.SeguimientoModel;
+import muni.eolida.sisifo.model.enums.EstadoReclamoEnum;
+import muni.eolida.sisifo.repository.SeguimientoDAO;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.ReclamoMapper;
 import muni.eolida.sisifo.model.UsuarioModel;
@@ -14,6 +17,7 @@ import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -22,28 +26,29 @@ public class ReclamoServiceImpl implements ReclamoService {
     private final ReclamoDAO reclamoDAO;
     private final ReclamoMapper reclamoMapper;
     private final UsuarioServiceImpl usuarioService;
+    private final SeguimientoDAO seguimientoDAO;
 
 
     @Override
     public List<ReclamoModel> buscarMisReclamos() {
         UsuarioModel usuario = usuarioService.obtenerUsuario();
         log.info("Obteniendo los reclamos del usuario: {}.", usuario.getUsername());
-        return this.buscarTodasPorCreadorId(usuario.getId());
+        return this.buscarTodasPorPersonaId(usuario.getId());
     }
 
     @Override
-    public List<ReclamoModel> buscarTodasPorCreadorId(Long id) {
+    public List<ReclamoModel> buscarTodasPorPersonaId(Long id) {
         log.info("Buscando todas las entidades Reclamo con id de Creador: {}.", id);
-        List<ReclamoModel> listado = reclamoDAO.findAllByCreadorIdAndEliminadaIsNull(id);
+        List<ReclamoModel> listado = reclamoDAO.findAllByPersonaIdAndEliminadaIsNull(id);
         if (listado.isEmpty())
             throw new CustomDataNotFoundException("No se encontraron Reclamo con id de Creador: " + id + ".");
         return listado;
     }
 
     @Override
-    public List<ReclamoModel> buscarTodasPorCreadorIdConEliminadas(Long id) {
+    public List<ReclamoModel> buscarTodasPorPersonaIdConEliminadas(Long id) {
         log.info("Buscando todas las entidades Reclamo con id de Creador: {}, incluidas las eliminadas.", id);
-        List<ReclamoModel> listado = reclamoDAO.findAllByCreadorId(id);
+        List<ReclamoModel> listado = reclamoDAO.findAllByPersonaId(id);
         if (listado.isEmpty())
             throw new CustomDataNotFoundException("No se encontraron Reclamo con id de Creador: " + id + ", incluidas las eliminadas.");
         return listado;
@@ -125,8 +130,8 @@ public class ReclamoServiceImpl implements ReclamoService {
     public List<ReclamoModel> buscarTodasPorCreadaEntreFechas(String inicio, String fin) {
         log.info("Buscando todas la entidades Reclamo con fecha de creacion entre {} y {}.", inicio, fin);
         List<ReclamoModel> listado = reclamoDAO.findAllByCreadaBetweenInicioAndFinAndEliminadaIsNull(
-                Helper.stringToLocalDateTime(inicio, null),
-                Helper.stringToLocalDateTime(fin, null)
+                Helper.stringToLocalDateTime(inicio, ""),
+                Helper.stringToLocalDateTime(fin, "")
         );
         if (listado.isEmpty())
             throw new CustomDataNotFoundException("No se encontraron entidades Reclamo con fecha de creacion entre " + inicio + " y " + fin + ".");
@@ -137,8 +142,8 @@ public class ReclamoServiceImpl implements ReclamoService {
     public List<ReclamoModel> buscarTodasPorCreadaEntreFechasConEliminadas(String inicio, String fin) {
         log.info("Buscando todas la entidades Reclamo con fecha de creacion entre {} y {}, incluidas las eliminadas.", inicio, fin);
         List<ReclamoModel> listado = reclamoDAO.findAllByCreadaBetweenInicioAndFin(
-                Helper.stringToLocalDateTime(inicio, null),
-                Helper.stringToLocalDateTime(fin, null)
+                Helper.stringToLocalDateTime(inicio, ""),
+                Helper.stringToLocalDateTime(fin, "")
         );
         if (listado.isEmpty())
             throw new CustomDataNotFoundException("No se encontraron entidades Reclamo con fecha de creacion entre " + inicio + " y " + fin + ", incluidas las eliminadas.");
@@ -197,7 +202,7 @@ public class ReclamoServiceImpl implements ReclamoService {
     public ReclamoModel guardar(ReclamoCreation creation) {
         log.info("Insertando la entidad Reclamo: {}.",  creation);
         ReclamoModel reclamoModel = reclamoDAO.save(reclamoMapper.toEntity(creation));
-        if (creation.getId() != null) {
+        if (creation.getId() == null) {
             reclamoModel.setCreada(Helper.getNow(""));
             reclamoModel.setCreador(usuarioService.obtenerUsuario());
             log.info("Se persistio correctamente la nueva entidad.");

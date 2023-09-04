@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.creation.AreaCreation;
 import muni.eolida.sisifo.model.AreaModel;
+import muni.eolida.sisifo.model.TipoReclamoModel;
+import muni.eolida.sisifo.repository.TipoReclamoDAO;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.AreaMapper;
 import muni.eolida.sisifo.repository.AreaDAO;
 import muni.eolida.sisifo.service.AreaService;
+import muni.eolida.sisifo.util.exception.CustomAlreadyExistantAreaException;
 import muni.eolida.sisifo.util.exception.CustomDataNotFoundException;
 import muni.eolida.sisifo.util.exception.CustomObjectNotDeletedException;
 import org.springframework.stereotype.Service;
@@ -19,7 +22,24 @@ import java.util.List;
 public class AreaServiceImpl implements AreaService {
     private final AreaDAO areaDAO;
     private final AreaMapper areaMapper;
+    private final TipoReclamoDAO tipoReclamoDAO;
     private final UsuarioServiceImpl usuarioService;
+
+    @Override
+    public AreaModel agregarTipoReclamoAArea(Long idTipoReclamo, Long idArea) {
+        log.info("Agregando el TipoReclamo con id: {}, al Area con id: {}.", idTipoReclamo, idArea);
+        TipoReclamoModel tipoReclamo = tipoReclamoDAO.findByIdAndEliminadaIsNull(idTipoReclamo).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad TipoReclamo con id: " + idTipoReclamo + "."));
+        AreaModel area = areaDAO.findByIdAndEliminadaIsNull(idArea).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad Area con id: " + idArea + "."));
+        if (area.getTipos() != null) {
+            if (area.getTipos().equals(tipoReclamo)) {
+                log.warn("El Area ya posee el TipoReclamo.");
+                throw new CustomAlreadyExistantAreaException("El Area " + area.getArea() + " ya atiende reclamos de " + tipoReclamo.getTipo() + ".");
+            }
+        }
+        area.getTipos().add(tipoReclamo);
+        log.info("Se agrego correctamente el TipoReclamo: {} al Area: {}.", tipoReclamo.getTipo(), area.getArea());
+        return areaDAO.save(area);
+    }
 
     @Override
     public List<AreaModel> buscarTodasPorArea(String area) {
@@ -91,7 +111,7 @@ public class AreaServiceImpl implements AreaService {
     public AreaModel guardar(AreaCreation creation) {
         log.info("Insertando la entidad Area: {}.",  creation);
         AreaModel areaModel = areaDAO.save(areaMapper.toEntity(creation));
-        if (creation.getId() != null) {
+        if (creation.getId() == null) {
             areaModel.setCreada(Helper.getNow(""));
             areaModel.setCreador(usuarioService.obtenerUsuario());
             log.info("Se persistio correctamente la nueva entidad.");

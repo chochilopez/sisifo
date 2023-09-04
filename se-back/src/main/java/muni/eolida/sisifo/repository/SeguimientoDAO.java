@@ -10,8 +10,6 @@ import java.util.List;
 
 @Repository
 public interface SeguimientoDAO extends GenericDTO<SeguimientoModel> {
-    List<SeguimientoModel> findAllByDescripcionContainingIgnoreCase(String descripcion);
-    List<SeguimientoModel> findAllByDescripcionContainingIgnoreCaseAndEliminadaIsNull(String descripcion);
 
     @Query(value = "select * from seguimiento s where creada BETWEEN :inicio AND :fin", nativeQuery = true)
     List<SeguimientoModel> findAllByCreadaBetweenInicioAndFin(@Param("inicio") LocalDateTime inicio, @Param("fin") LocalDateTime fin);

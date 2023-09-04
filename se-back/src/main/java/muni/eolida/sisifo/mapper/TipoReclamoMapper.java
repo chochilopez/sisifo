@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import muni.eolida.sisifo.mapper.creation.TipoReclamoCreation;
 import muni.eolida.sisifo.mapper.dto.TipoReclamoDTO;
-import muni.eolida.sisifo.model.AreaModel;
 import muni.eolida.sisifo.model.TipoReclamoModel;
 import muni.eolida.sisifo.model.UsuarioModel;
 import muni.eolida.sisifo.repository.AreaDAO;
@@ -31,13 +30,6 @@ public class TipoReclamoMapper {
                 tipoReclamoModel = tipoReclamoDAO.findByIdAndEliminadaIsNull(Helper.getLong(tipoReclamoCreation.getId())).get();
             }
             tipoReclamoModel.setTipo(tipoReclamoCreation.getTipo());
-
-            if (Helper.getLong(tipoReclamoCreation.getArea_id()) != null) {
-                Optional<AreaModel> area = areaDAO.findByIdAndEliminadaIsNull(Helper.getLong(tipoReclamoCreation.getArea_id()));
-                if (area.isPresent()) {
-                    tipoReclamoModel.setArea(area.get());
-                }
-            }
 
             if (Helper.getLong(tipoReclamoCreation.getCreador_id()) != null) {
                 Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(tipoReclamoCreation.getCreador_id()));

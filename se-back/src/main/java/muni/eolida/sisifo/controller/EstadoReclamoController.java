@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/estadoReclamo")
+@RequestMapping(value = "/api/estado-reclamo")
 @RequiredArgsConstructor
 @RestController
 @Slf4j
@@ -38,6 +38,122 @@ import java.util.List;
 public class EstadoReclamoController extends BaseController {
     private final EstadoReclamoServiceImpl estadoReclamoService;
     private final EstadoReclamoMapper estadoReclamoMapper;
+
+    @Operation(
+            summary = "Buscar entidades por descripcion.",
+            description = "Rol/Autoridad requerida: EMPLEADO<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = EstadoReclamoDTO.class)))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "String."
+            )
+    })
+    @GetMapping(value = "/buscar-todas-por-descripcion/{descripcion}")
+    @PreAuthorize("hasAuthority('EMPLEADO')")
+    public ResponseEntity<List<EstadoReclamoDTO>> buscarTodasPorDescripcion(@PathVariable(name = "descripcion")  String descripcion) {
+        List<EstadoReclamoModel> listado = estadoReclamoService.buscarTodasPorDescripcion(descripcion);
+        ArrayList<EstadoReclamoDTO> seguimientoDTOS = new ArrayList<>();
+        for (EstadoReclamoModel seguimientoModel : listado) {
+            seguimientoDTOS.add(estadoReclamoMapper.toDto(seguimientoModel));
+        }
+        return new ResponseEntity<>(seguimientoDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades."), HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Buscar entidades por descripcion, incluidas las eliminadas.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve Array de objetos JSON.",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = EstadoReclamoDTO.class)))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
+            )
+    })
+    @Parameters({
+            @Parameter(
+                    in = ParameterIn.PATH,
+                    description = "String."
+            )
+    })
+    @GetMapping(value = "/buscar-todas-por-descripcion-con-eliminadas/{descripcion}")
+    @PreAuthorize("hasAuthority('CAPATAZ')")
+    public ResponseEntity<List<EstadoReclamoDTO>> buscarTodasPorDescripcionConEliminadas(@PathVariable(name = "descripcion")  String descripcion) {
+        List<EstadoReclamoModel> listado = estadoReclamoService.buscarTodasPorDescripcionConEliminadas(descripcion);
+        ArrayList<EstadoReclamoDTO> seguimientoDTOS = new ArrayList<>();
+        for (EstadoReclamoModel seguimientoModel : listado) {
+            seguimientoDTOS.add(estadoReclamoMapper.toDto(seguimientoModel));
+        }
+        return new ResponseEntity<>(seguimientoDTOS, Helper.httpHeaders("Se encontraron " + listado.size() + " entidades, incluidas las eliminadas."), HttpStatus.OK);
+    }
+
+
 
     @Operation(
             summary = "Buscar entidades por estado de reclamo.",
@@ -141,7 +257,7 @@ public class EstadoReclamoController extends BaseController {
     @GetMapping(value = "/buscar-por-estado-reclamo-con-eliminadas/{estadoReclamo}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<EstadoReclamoDTO> buscarPorEstadoReclamoConEliminadas(@PathVariable(name = "estadoReclamo")  String estadoReclamo) {
-        EstadoReclamoModel objeto = estadoReclamoService.buscarPorEstadoReclamo(estadoReclamo);
+        EstadoReclamoModel objeto = estadoReclamoService.buscarPorEstadoReclamoConEliminadas(estadoReclamo);
         return new ResponseEntity<>(estadoReclamoMapper.toDto(objeto), Helper.httpHeaders("Se encontro una entidad con estado de reclamo :" + estadoReclamo + ", incluidas las eliminadas."), HttpStatus.OK);
     }
 

@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public interface ReclamoDAO extends GenericDTO<ReclamoModel> {
-    List<ReclamoModel> findAllByCreadorId(Long id);
-    List<ReclamoModel> findAllByCreadorIdAndEliminadaIsNull(Long id);
+    List<ReclamoModel> findAllByPersonaId(Long id);
+    List<ReclamoModel> findAllByPersonaIdAndEliminadaIsNull(Long id);
     List<ReclamoModel> findAllByBarrioId(Long id);
     List<ReclamoModel> findAllByBarrioIdAndEliminadaIsNull(Long id);
     List<ReclamoModel> findAllByCalleId(Long id);

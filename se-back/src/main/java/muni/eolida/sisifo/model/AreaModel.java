@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -21,6 +22,7 @@ public class AreaModel extends AbstractAuditoriaModel {
     private Long id;
     private String area;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    private Set<TipoReclamoModel> tiposReclamos;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "area_id")
+    private Set<TipoReclamoModel> tipos = new HashSet<>();
 }

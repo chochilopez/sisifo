@@ -34,7 +34,7 @@ public class RolServiceImpl implements RolService {
     @Override
     public RolModel buscarPorRolConEliminadas(String nombre) {
         log.info("Buscando todas las entidades Rol con nombre: {}, incluidas las eliminadas.", nombre);
-        RolModel rol = rolDAO.findByRolAndEliminadaIsNull(RolEnum.valueOf(nombre)).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad Rol con nombre: " + nombre + ", incluidas las eliminadas."));
+        RolModel rol = rolDAO.findByRol(RolEnum.valueOf(nombre)).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad Rol con nombre: " + nombre + ", incluidas las eliminadas."));
         String mensaje = "Se encontro una entidad Rol con nombre: " + nombre + ", incluidas las eliminadas.";
         log.info(mensaje);
         return rol;
@@ -52,7 +52,7 @@ public class RolServiceImpl implements RolService {
     @Override
     public RolModel buscarPorIdConEliminadas(Long id) {
         log.info("Buscando la entidad Rol con id: {}, incluidas las eliminadas.", id);
-        RolModel rolModel = rolDAO.findByIdAndEliminadaIsNull(id).orElseThrow(()-> new CustomDataNotFoundException("No se encontro la entidad con id: " + id +", incluidas las eliminadas."));
+        RolModel rolModel = rolDAO.findById(id).orElseThrow(()-> new CustomDataNotFoundException("No se encontro la entidad con id: " + id +", incluidas las eliminadas."));
         log.info("Se encontro una entidad Rol con id: " + id + ".");
         return rolModel;
     }
@@ -69,7 +69,7 @@ public class RolServiceImpl implements RolService {
     @Override
     public List<RolModel> buscarTodasConEliminadas() {
         log.info("Buscando todas las entidades Rol, incluidas las eliminadas.");
-        List<RolModel> listado = rolDAO.findAllByEliminadaIsNull();
+        List<RolModel> listado = rolDAO.findAll();
         if (listado.isEmpty())
             throw new CustomDataNotFoundException("No se encontraron entidades Rol, incluidas las eliminadas.");
         return listado;
@@ -93,7 +93,7 @@ public class RolServiceImpl implements RolService {
     public RolModel guardar(RolCreation creation) {
         log.info("Insertando la entidad Rol: {}.",  creation);
         RolModel rolModel = rolDAO.save(rolMapper.toEntity(creation));
-        if (creation.getId() != null) {
+        if (creation.getId() == null) {
             rolModel.setCreada(Helper.getNow(""));
             log.info("Se persistio correctamente la nueva entidad.");
         } else {
