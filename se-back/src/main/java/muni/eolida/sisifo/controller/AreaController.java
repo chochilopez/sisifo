@@ -99,10 +99,10 @@ public class AreaController extends BaseController {
             @Parameter(name = "idArea", in = ParameterIn.PATH, description = "Numerico."),
             @Parameter(name = "idTipoReclamo", in = ParameterIn.PATH, description = "Numerico.")
     })
-    @GetMapping(value = "/agregar-tipo-reclamo-a-area/{idTipoReclamo}/{idArea}")
+    @PostMapping(value = "/agregar-tipo-reclamo/{idArea}/{idTipoReclamo}")
     @PreAuthorize("hasAuthority('CAPATAZ')")
     public ResponseEntity<AreaDTO> agregarTipoReclamoAArea(@PathVariable("idArea") @Positive Long idArea, @PathVariable(name = "idTipoReclamo")@Positive Long idTipoReclamo) {
-        AreaModel objeto = areaService.agregarTipoReclamoAArea(idTipoReclamo, idArea);
+        AreaModel objeto = areaService.agregarTipoReclamo(idArea, idTipoReclamo);
         return new ResponseEntity<>(areaMapper.toDto(objeto), Helper.httpHeaders("Se agrego correctamente el TipoReclamo con id: " + idTipoReclamo + ", al Area con id: " + idArea + "."), HttpStatus.OK);
     }
 

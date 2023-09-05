@@ -34,12 +34,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/tipoReclamo")
+@RequestMapping(value = "/api/tipo-reclamo")
 @RequiredArgsConstructor
 @RestController
 @Slf4j
 @Tag(name = "Endpoints TIPO RECLAMO", description = "Recursos referidos a la consulta y persistencia de Tipos de Reclamos.")
-public class TipoReclamoController {
+public class TipoReclamoController extends BaseController {
     private final TipoReclamoServiceImpl tipoReclamoService;
     private final TipoReclamoMapper tipoReclamoMapper;
 

@@ -138,7 +138,7 @@ public class UsuarioController extends BaseController {
                     description = "String."
             )
     })
-    @GetMapping(value = "/buscar-todas-por-nombre-usuario-con-eliminadas/{nombreUsuario}")
+    @GetMapping(value = "/buscar-por-nombre-usuario-con-eliminadas/{nombreUsuario}")
     @PreAuthorize("hasAuthority('JEFE')")
     public ResponseEntity<UsuarioDTO> buscarPorNombreDeUsuarioConEliminadas(@PathVariable(name = "nombreUsuario")  String nombreUsuario) {
         UsuarioModel objeto = usuarioService.buscarPorNombreDeUsuarioConEliminadas(nombreUsuario);

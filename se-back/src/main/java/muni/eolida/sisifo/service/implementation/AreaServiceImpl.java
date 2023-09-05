@@ -26,7 +26,7 @@ public class AreaServiceImpl implements AreaService {
     private final UsuarioServiceImpl usuarioService;
 
     @Override
-    public AreaModel agregarTipoReclamoAArea(Long idTipoReclamo, Long idArea) {
+    public AreaModel agregarTipoReclamo(Long idArea, Long idTipoReclamo) {
         log.info("Agregando el TipoReclamo con id: {}, al Area con id: {}.", idTipoReclamo, idArea);
         TipoReclamoModel tipoReclamo = tipoReclamoDAO.findByIdAndEliminadaIsNull(idTipoReclamo).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad TipoReclamo con id: " + idTipoReclamo + "."));
         AreaModel area = areaDAO.findByIdAndEliminadaIsNull(idArea).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad Area con id: " + idArea + "."));

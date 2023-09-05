@@ -66,6 +66,7 @@ public class EstadoReclamoMapper {
 
             dto.setId(estadoReclamoModel.getId().toString());
             dto.setEstado(estadoReclamoModel.getEstado().toString());
+            dto.setDescripcion(estadoReclamoModel.getDescripcion());
 
             return dto;
         } catch (Exception e) {

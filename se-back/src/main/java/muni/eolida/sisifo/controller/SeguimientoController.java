@@ -11,14 +11,19 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import muni.eolida.sisifo.mapper.creation.EstadoReclamoCreation;
+import muni.eolida.sisifo.model.enums.EstadoReclamoEnum;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.SeguimientoMapper;
 import muni.eolida.sisifo.mapper.creation.SeguimientoCreation;
 import muni.eolida.sisifo.mapper.dto.SeguimientoDTO;
 import muni.eolida.sisifo.model.SeguimientoModel;
 import muni.eolida.sisifo.service.implementation.SeguimientoServiceImpl;
+import muni.eolida.sisifo.util.exception.CustomAlreadyExistantAreaException;
+import muni.eolida.sisifo.util.exception.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,6 +43,77 @@ import java.util.List;
 public class SeguimientoController extends BaseController {
     private final SeguimientoServiceImpl seguimientoService;
     private final SeguimientoMapper seguimientoMapper;
+
+    @ExceptionHandler(CustomAlreadyExistantAreaException.class)
+    public ResponseEntity<ErrorDTO> handleCustomAlreadyExistantAreaException(CustomAlreadyExistantAreaException e) {
+        HttpStatus status = HttpStatus.CONFLICT; // 409
+        String mensaje = "El estado de reclamo ya esta conectado al seguimiento. " + e.getMessage();
+
+        return new ResponseEntity<>(new ErrorDTO(status, mensaje), status);
+    }
+
+    @Operation(
+            summary = "Agregar EstadoReclamo a Seguimiento.",
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se agrega el EstadoReclamo al Seguimiento.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve objeto JSON modificado.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = SeguimientoDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
+            )
+    })
+    @Parameters({
+            @Parameter(name = "idSeguimiento", in = ParameterIn.PATH, description = "Numerico."),
+            @Parameter(
+                    in = ParameterIn.QUERY,
+                    description = "Objeto JSON conteniendo el EstadoReclamo.",
+                    example = "<br>{<br>" +
+                            "&nbsp;&nbsp;&nbsp;&nbsp;\"estado\": \"RESUELTO.\",<br>" +
+                            "&nbsp;&nbsp;&nbsp;&nbsp;\"descripcion\": \"Luminaria reemplazada.\",<br>" +
+                            "<br>}"
+            )
+    })
+    @PostMapping(value = "/agregar-estado-reclamo/{idSeguimiento}")
+    @PreAuthorize("hasAuthority('CAPATAZ')")
+    public ResponseEntity<SeguimientoDTO> agregarEstadoReclamo(
+            @PathVariable("idSeguimiento") @Positive Long idSeguimiento,
+            @Valid @RequestBody EstadoReclamoCreation estadoReclamoCreation
+    ) {
+        SeguimientoModel objeto = seguimientoService.agregarEstadoReclamo(idSeguimiento, estadoReclamoCreation);
+        return new ResponseEntity<>(seguimientoMapper.toDto(objeto), Helper.httpHeaders(
+                "Se agrego correctamente el estadoReclamo con: " + estadoReclamoCreation.getEstado() + ", y la descripcion: " + estadoReclamoCreation.getDescripcion() + ", al seguimiento " + idSeguimiento + "."
+        ), HttpStatus.OK);
+    }
 
     @Operation(
             summary = "Buscar entidades entre periodo de fechas.",

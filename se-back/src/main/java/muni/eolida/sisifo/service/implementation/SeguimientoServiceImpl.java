@@ -2,9 +2,9 @@ package muni.eolida.sisifo.service.implementation;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import muni.eolida.sisifo.mapper.EstadoReclamoMapper;
 import muni.eolida.sisifo.mapper.creation.EstadoReclamoCreation;
 import muni.eolida.sisifo.mapper.creation.SeguimientoCreation;
-import muni.eolida.sisifo.model.ReclamoModel;
 import muni.eolida.sisifo.model.SeguimientoModel;
 import muni.eolida.sisifo.util.Helper;
 import muni.eolida.sisifo.mapper.SeguimientoMapper;
@@ -22,22 +22,15 @@ public class SeguimientoServiceImpl implements SeguimientoService {
     private final SeguimientoDAO seguimientoDAO;
     private final SeguimientoMapper seguimientoMapper;
     private final UsuarioServiceImpl usuarioService;
+    private final EstadoReclamoMapper estadoReclamoMapper;
 
     @Override
-    public SeguimientoModel agregarEstadoReclamo(EstadoReclamoCreation estadoReclamoCreation) {
-//        log.info("Insertando nuevo estado de reclamo: {}, a Seguimiento.",  estadoReclamoCreation);
-//        SeguimientoModel seguimientoModel = seguimientoDAO.save(seguimientoMapper.toEntity(creation));
-//        if (creation.getId() == null) {
-//            seguimientoModel.setCreada(Helper.getNow(""));
-//            seguimientoModel.setCreador(usuarioService.obtenerUsuario());
-//            log.info("Se persistio correctamente la nueva entidad.");
-//        } else {
-//            seguimientoModel.setModificada(Helper.getNow(""));
-//            seguimientoModel.setModificador(usuarioService.obtenerUsuario());
-//            log.info("Se persistio correctamente la entidad.");
-//        }
-//        return seguimientoDAO.save(seguimientoModel);
-        return null;
+    public SeguimientoModel agregarEstadoReclamo(Long idSeguimiento, EstadoReclamoCreation estadoReclamoCreation) {
+        log.info("Agregando al Seguimiento con id: {}, el estado {}, y la descripcion.", idSeguimiento, estadoReclamoCreation.getEstado(), estadoReclamoCreation.getDescripcion());
+        SeguimientoModel seguimiento = seguimientoDAO.findByIdAndEliminadaIsNull(idSeguimiento).orElseThrow(() -> new CustomDataNotFoundException("No se encontro la entidad Seguimiento con id: " + idSeguimiento + "."));
+        seguimiento.getEstados().add(estadoReclamoMapper.toEntity(estadoReclamoCreation));
+        log.info("Se agrego correctamente al Seguimiento con id: {}, el estado {}, y la descripcion", idSeguimiento, estadoReclamoCreation.getEstado(), estadoReclamoCreation.getDescripcion());
+        return seguimientoDAO.save(seguimiento);
     }
 
     @Override
