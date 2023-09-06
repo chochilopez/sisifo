@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EmailCreation {
+    private String id;
     private String subject;
     private String sender;
     private String reciever;

@@ -1,16 +1,9 @@
 package muni.eolida.sisifo.util.email.service;
 
+import muni.eolida.sisifo.service.GenericService;
 import muni.eolida.sisifo.util.email.EmailModel;
 import muni.eolida.sisifo.util.email.mapper.EmailCreation;
 
-import java.util.List;
-
-public interface EmailService {
-    EmailModel buscarPorId(Long id);
-    List<EmailModel> buscarTodas();
-    Long contarTodas();
-    EmailModel guardar(EmailCreation e);
-    Boolean destruir(Long id);
-
+public interface EmailService extends GenericService<EmailModel, EmailCreation> {
     EmailModel enviarEmailSimple(EmailCreation emailCreation);
 }

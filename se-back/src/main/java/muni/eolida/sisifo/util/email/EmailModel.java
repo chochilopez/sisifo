@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Setter
 @Table(name = "email")
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 public class EmailModel extends AbstractAuditoriaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
