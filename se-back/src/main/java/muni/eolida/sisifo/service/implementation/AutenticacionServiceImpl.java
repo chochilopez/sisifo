@@ -44,12 +44,12 @@ public class AutenticacionServiceImpl implements AutenticacionService {
     private final AuthenticationManager authenticationManager;
     private final TokenDAO tokenDAO;
     private final JwtService jwtService;
-//    private final EmailServiceImpl emailService;
+    private final EmailServiceImpl emailService;
     private final UsuarioDAO usuarioDAO;
     private final TokenServiceImpl tokenService;
 
-//    @Value("${sisifo.app.mail.username}")
-//    private String sender;
+    @Value("${sisifo.app.mail.username}")
+    private String sender;
     @Value("${sisifo.app.mail.path}")
     private String path;
     private static final BytesKeyGenerator DEFAULT_TOKEN_GENERATOR = KeyGenerators.secureRandom(15);
@@ -92,13 +92,14 @@ public class AutenticacionServiceImpl implements AutenticacionService {
         usuario.setHabilitada(false);
         String token = Base64.encodeBase64URLSafeString(DEFAULT_TOKEN_GENERATOR.generateKey());
         usuario.setToken(token);
-//        String body = path + usuario.getId() + "/" + token;
-//        EmailModel emailModel = emailService.enviarEmailSimple(new EmailCreation(
-//                "Confirmá tu dirección de email para continuar con tu reclamo.",
-//                this.sender,
-//                usuarioCreation.getUsername(),
-//                body
-//        ));
+        String body = path + usuario.getId() + "/" + token;
+        EmailModel emailModel = emailService.enviarEmailSimple(new EmailCreation(
+                null,
+                "Confirmá tu dirección de email para continuar con tu reclamo.",
+                this.sender,
+                usuarioCreation.getUsername(),
+                body
+        ));
         return usuarioService.darRol(usuario, "CONTRIBUYENTE");
     }
 

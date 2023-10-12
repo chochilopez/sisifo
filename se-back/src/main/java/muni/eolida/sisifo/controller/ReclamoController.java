@@ -548,7 +548,7 @@ public class ReclamoController extends BaseController {
 
     @Operation(
             summary = "Buscar entidades por descripcion.",
-            description = "Rol/Autoridad requerida: CONTRIBUYENTE<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+            description = "Rol/Autoridad requerida: EMPLEADO<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -882,7 +882,7 @@ public class ReclamoController extends BaseController {
 
     @Operation(
             summary = "Buscar todas las entidades.",
-            description = "Rol/Autoridad requerida: CONTRIBUYENTE<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+            description = "Rol/Autoridad requerida: EMPLEADO<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
     )
     @ApiResponses({
             @ApiResponse(

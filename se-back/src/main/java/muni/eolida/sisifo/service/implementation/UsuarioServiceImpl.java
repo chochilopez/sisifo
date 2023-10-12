@@ -26,6 +26,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final RolServiceImpl rolService;
 
     @Override
+    public UsuarioModel buscarMisDatos() {
+        UsuarioModel usuario = this.obtenerUsuario();
+        log.info("Obteniendo los datos del usuario: {}.", usuario.getUsername());
+        return usuarioDAO.findByIdAndEliminadaIsNull(this.obtenerUsuario().getId()).orElseThrow(() -> new CustomDataNotFoundException("No se encontraon datos del usuario."));
+    }
+
+    @Override
     public UsuarioModel buscarPorNombreDeUsuarioHabilitado(String nombreUsuario) {
         log.info("Buscando la entidad Usuario con nombre de usuario: {}, y habilitada.", nombreUsuario);
         UsuarioModel usuarioModel = usuarioDAO.findByUsernameContainingIgnoreCaseAndHabilitadaIsTrueAndEliminadaIsNull(nombreUsuario).orElseThrow(()-> new CustomDataNotFoundException("No se encontro la entidad con Usuario con nombre de usuario: " + nombreUsuario + ", y habilitada."));

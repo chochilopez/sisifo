@@ -1,0 +1,4 @@
+export const querySourceEnum = {
+  QUERY_SOURCE_WEB: 'QUERY_SOURCE_WEB',
+  QUERY_SOURCE_WHATSAPP: 'QUERY_SOURCE_WHATSAPP'
+}

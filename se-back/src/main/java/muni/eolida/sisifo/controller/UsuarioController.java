@@ -40,8 +40,55 @@ public class UsuarioController extends BaseController {
     private final UsuarioMapper usuarioMapper;
 
     @Operation(
+            summary = "Buscar datos del usuario.",
+            description = "Rol/Autoridad requerida: CONTRIBUYENTE<br><strong>De consumirse correctamente se devuelve la entidad correspondiente.</strong>"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Recurso consumido correctamente, se devuelve objeto JSON.",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioDTO.class))},
+                    headers = {@Header(name = "mensaje", description = "Estado de la consulta devuelta por el servidor.")}
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Los datos ingresados no poseen el formato correcto.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontro el recurso buscado.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Error en la conversion de parametros ingresados.",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    headers = {@Header(name = "mensaje", description = "Mensaje con informacion extra sobre el error.")}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "Debe autenticarse para acceder al recurso."
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    content = { @Content(mediaType = "", schema = @Schema())},
+                    description = "No se posee las autoridades necesarias para acceder al recurso."
+            )
+    })
+    @GetMapping(value = "/mis-datos")
+    @PreAuthorize("hasAuthority('CONTRIBUYENTE')")
+    public ResponseEntity<UsuarioDTO> buscarMisDatos() {
+        UsuarioModel objeto = usuarioService.buscarMisDatos();
+        return new ResponseEntity<>(usuarioMapper.toDto(objeto), Helper.httpHeaders("Datos de usuario devueltos."), HttpStatus.OK);
+    }
+
+    @Operation(
             summary = "Buscar entidades por nombre de usuario.",
-            description = "Rol/Autoridad requerida: EMPLEADO<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -94,7 +141,7 @@ public class UsuarioController extends BaseController {
 
     @Operation(
             summary = "Buscar entidades por nombre de usuario, incluidas las eliminadas.",
-            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve la entidad.</strong>"
+            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se devuelve la entidad.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -147,7 +194,7 @@ public class UsuarioController extends BaseController {
 
     @Operation(
             summary = "Buscar entidad por ID.",
-            description = "Rol/Autoridad requerida: EMPLEADO<br><strong>De consumirse correctamente se devuelve la entidad correspondiente al id.</strong>"
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve la entidad correspondiente al id.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -200,7 +247,7 @@ public class UsuarioController extends BaseController {
 
     @Operation(
             summary = "Buscar entidad por ID, incluidas las eliminadas.",
-            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve la entidad.</strong>"
+            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se devuelve la entidad.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -253,7 +300,7 @@ public class UsuarioController extends BaseController {
 
     @Operation(
             summary = "Buscar todas las entidades.",
-            description = "Rol/Autoridad requerida: CONTRIBUYENTE<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -304,7 +351,7 @@ public class UsuarioController extends BaseController {
 
     @Operation(
             summary = "Buscar todas las entidades, incluidas las eliminadas.",
-            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -371,7 +418,7 @@ public class UsuarioController extends BaseController {
 
     @Operation(
             summary = "Persisitir una entidad.",
-            description = "Rol/Autoridad requerida: CONTRIBUYENTE<br><strong>De consumirse correctamente se persiste la entidad.</strong>"
+            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se persiste la entidad.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -432,7 +479,7 @@ public class UsuarioController extends BaseController {
 
     @Operation(
             summary = "Eliminar una entidad.",
-            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se marca la entidad como eliminada.</strong>"
+            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se marca la entidad como eliminada.</strong>"
     )
     @ApiResponses({
             @ApiResponse(

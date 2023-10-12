@@ -396,7 +396,7 @@ public class ArchivoController extends BaseController {
 
     @Operation(
             summary = "Restaura una entidad marcada como eliminada.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>La entidad en orden de ser reciclada primero debe estar eliminada. De consumirse correctamente se devuelve la entidad reciclada.</strong>"
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>La entidad en orden de ser reciclada primero debe estar eliminada. De consumirse correctamente se devuelve la entidad reciclada.</strong>"
     )
     @ApiResponses({
             @ApiResponse(

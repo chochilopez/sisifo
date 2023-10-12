@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequiredArgsConstructor
 @Tag(name = "Endpoints AUTENTICACION", description = "Recursos referidos al registro y acceso de usuarios.")
-public class AutenticacionController extends BaseController {
+public class AutenticacionController  extends BaseController{
 	private final AutenticacionServiceImpl autenticacionService;
 	private final UsuarioMapper usuarioMapper;
 	@Value("${sisifo.app.mail.path}")

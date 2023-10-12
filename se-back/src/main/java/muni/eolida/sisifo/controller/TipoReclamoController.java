@@ -212,7 +212,7 @@ public class TipoReclamoController extends BaseController {
 
     @Operation(
             summary = "Buscar entidad por ID, incluidas las eliminadas.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se devuelve la entidad.</strong>"
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve la entidad.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -265,7 +265,7 @@ public class TipoReclamoController extends BaseController {
 
     @Operation(
             summary = "Buscar todas las entidades.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+            description = "Rol/Autoridad requerida: CONTRIBUYENTE<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -316,7 +316,7 @@ public class TipoReclamoController extends BaseController {
 
     @Operation(
             summary = "Buscar todas las entidades, incluidas las eliminadas.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se devuelve un Array con todos las entidades en formato JSON.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -383,7 +383,7 @@ public class TipoReclamoController extends BaseController {
 
     @Operation(
             summary = "Persisitir una entidad.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se persiste la entidad.</strong>"
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se persiste la entidad.</strong>"
     )
     @ApiResponses({
             @ApiResponse(
@@ -437,7 +437,7 @@ public class TipoReclamoController extends BaseController {
 
     @Operation(
             summary = "Eliminar una entidad.",
-            description = "Rol/Autoridad requerida: JEFE<br><strong>De consumirse correctamente se marca la entidad como eliminada.</strong>"
+            description = "Rol/Autoridad requerida: CAPATAZ<br><strong>De consumirse correctamente se marca la entidad como eliminada.</strong>"
     )
     @ApiResponses({
             @ApiResponse(

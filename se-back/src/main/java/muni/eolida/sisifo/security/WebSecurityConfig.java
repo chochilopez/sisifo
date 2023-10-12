@@ -17,6 +17,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableMethodSecurity
 @RequiredArgsConstructor
@@ -39,8 +41,6 @@ public class WebSecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/api/autenticacion/**").permitAll()
 						.requestMatchers("/api/ayuda/**").permitAll()
-						.requestMatchers("/v3/api-docs/**").permitAll()
-						.requestMatchers("/swagger-ui/**").permitAll()
 						.anyRequest().authenticated()
 				)
 				.authenticationProvider(authenticationProvider)
@@ -55,7 +55,7 @@ public class WebSecurityConfig {
 
 		configuration.addAllowedOriginPattern("*");
 
-		configuration.setAllowedMethods(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
 		configuration.setAllowedHeaders(Arrays.asList("*"));
 		configuration.setExposedHeaders(Arrays.asList("*"));
 
