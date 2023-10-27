@@ -29,6 +29,7 @@ public class EstadoReclamoMapper {
                 estadoReclamoModel = estadoReclamoDAO.findByIdAndEliminadaIsNull(Helper.getLong(estadoReclamoCreation.getId())).get();
             }
             estadoReclamoModel.setEstado(EstadoReclamoEnum.valueOf(estadoReclamoCreation.getEstado()));
+            estadoReclamoModel.setDescripcion(estadoReclamoCreation.getDescripcion());
 
             if (Helper.getLong(estadoReclamoCreation.getCreador_id()) != null) {
                 Optional<UsuarioModel> user = usuarioDAO.findById(Helper.getLong(estadoReclamoCreation.getCreador_id()));
