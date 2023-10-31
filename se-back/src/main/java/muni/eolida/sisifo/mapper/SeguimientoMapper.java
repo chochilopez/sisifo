@@ -89,6 +89,11 @@ public class SeguimientoMapper {
             }
             dto.setEstados(estados);
 
+            if (seguimientoModel.getCreada() != null)
+                dto.setCreada(seguimientoModel.getCreada().toString());
+            if (seguimientoModel.getModificada() != null)
+                dto.setModificada(seguimientoModel.getModificada().toString());
+
             return dto;
         } catch (Exception e) {
             log.info("Seguimiento entity to dto error. Exception: " + e);

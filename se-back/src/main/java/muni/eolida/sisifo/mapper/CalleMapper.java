@@ -58,12 +58,17 @@ public class CalleMapper {
         }
     }
 
-    public CalleDTO toDto(CalleModel calleModel) {
+    public CalleDTO toDto(CalleModel modelo) {
         try {
             CalleDTO dto = new CalleDTO();
 
-            dto.setId(calleModel.getId().toString());
-            dto.setCalle(calleModel.getCalle());
+            dto.setId(modelo.getId().toString());
+            dto.setCalle(modelo.getCalle());
+
+            if (modelo.getCreada() != null)
+                dto.setCreada(modelo.getCreada().toString());
+            if (modelo.getModificada() != null)
+                dto.setModificada(modelo.getModificada().toString());
 
             return dto;
         } catch (Exception e) {

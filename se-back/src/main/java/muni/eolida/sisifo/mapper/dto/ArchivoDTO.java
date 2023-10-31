@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Getter
 @Schema(name = "Archivo", description = "Modelo de entidad que alamcena una imagen en el servidor.")
 @Setter
-public class ArchivoDTO implements Serializable {
+public class ArchivoDTO extends AbsAuditoriaDTO implements Serializable {
     @Schema(description = "Identificador unico de la entidad.")
     private String id;
     @Schema(description = "Direccion absoluta del recurso imagen.")

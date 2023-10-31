@@ -61,13 +61,18 @@ public class EstadoReclamoMapper {
         }
     }
 
-    public EstadoReclamoDTO toDto(EstadoReclamoModel estadoReclamoModel) {
+    public EstadoReclamoDTO toDto(EstadoReclamoModel modelo) {
         try {
             EstadoReclamoDTO dto = new EstadoReclamoDTO();
 
-            dto.setId(estadoReclamoModel.getId().toString());
-            dto.setEstado(estadoReclamoModel.getEstado().toString());
-            dto.setDescripcion(estadoReclamoModel.getDescripcion());
+            dto.setId(modelo.getId().toString());
+            dto.setEstado(modelo.getEstado().toString());
+            dto.setDescripcion(modelo.getDescripcion());
+
+            if (modelo.getCreada() != null)
+                dto.setCreada(modelo.getCreada().toString());
+            if (modelo.getModificada() != null)
+                dto.setModificada(modelo.getModificada().toString());
 
             return dto;
         } catch (Exception e) {

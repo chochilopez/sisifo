@@ -60,13 +60,18 @@ public class ArchivoMapper {
         }
     }
 
-    public ArchivoDTO toDto(ArchivoModel archivoModel) {
+    public ArchivoDTO toDto(ArchivoModel modelo) {
         try {
             ArchivoDTO dto = new ArchivoDTO();
 
-            dto.setId(archivoModel.getId().toString());
-            dto.setPath(archivoModel.getPath());
-            dto.setNombre(archivoModel.getNombre());
+            dto.setId(modelo.getId().toString());
+            dto.setPath(modelo.getPath());
+            dto.setNombre(modelo.getNombre());
+
+            if (modelo.getCreada() != null)
+                dto.setCreada(modelo.getCreada().toString());
+            if (modelo.getModificada() != null)
+                dto.setModificada(modelo.getModificada().toString());
 
             return dto;
         } catch (Exception e) {

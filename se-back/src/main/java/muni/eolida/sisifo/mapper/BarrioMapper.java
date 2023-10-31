@@ -58,12 +58,17 @@ public class BarrioMapper {
         }
     }
 
-    public BarrioDTO toDto(BarrioModel barrioModel) {
+    public BarrioDTO toDto(BarrioModel modelo) {
         try {
             BarrioDTO dto = new BarrioDTO();
 
-            dto.setId(barrioModel.getId().toString());
-            dto.setBarrio(barrioModel.getBarrio());
+            dto.setId(modelo.getId().toString());
+            dto.setBarrio(modelo.getBarrio());
+
+            if (modelo.getCreada() != null)
+                dto.setCreada(modelo.getCreada().toString());
+            if (modelo.getModificada() != null)
+                dto.setModificada(modelo.getModificada().toString());
 
             return dto;
         } catch (Exception e) {

@@ -28,11 +28,13 @@ public class ArchivoServiceImpl implements ArchivoService {
     private final UsuarioServiceImpl usuarioService;
     @Value("${sisifo.app.resourcePath}")
     private String resourcePath;
+    @Value("${sisifo.app.url}")
+    private String url;
 
     @Override
     public ArchivoModel guardarArchivo(byte[] bytes) throws IOException {
         String usuario = usuarioService.obtenerUsuario().getNombre().trim();
-        String uuid = java.util.UUID.randomUUID().toString() + ".jpg";
+        String uuid = java.util.UUID.randomUUID().toString().substring(0, 6) + ".jpg";
         log.info("Gurdando el archivo {}/{}.", usuario, uuid);
         Path path = Paths.get(resourcePath + "/" + usuario);
         if (!Files.exists(path)) {
@@ -43,7 +45,7 @@ public class ArchivoServiceImpl implements ArchivoService {
         }
         Files.write(Paths.get(resourcePath + "/" + usuario + "/" + uuid), bytes);
         ArchivoCreation archivoCreation = new ArchivoCreation();
-        archivoCreation.setPath(resourcePath + "/" + usuario);
+        archivoCreation.setPath(url + "/" + usuario + "/");
         archivoCreation.setNombre(uuid);
         log.info("El archivo fue guardado correctamente");
         return this.guardar(archivoCreation);

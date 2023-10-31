@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Getter
 @Schema(name = "Reclamo", description = "Modelo de entidad de un reclamo realizado por un contribuyente.")
 @Setter
-public class ReclamoDTO implements Serializable {
+public class ReclamoDTO extends AbsAuditoriaDTO implements Serializable {
     @Schema(description = "Identificador unico de la entidad.")
     private String id;
     @Schema(description = "Coordenadas Norte-Sur, latitud, del lugar donde se encuentra el problema que origina reclamo. Modelo de Grados Decimales(DD) de Google Maps.")

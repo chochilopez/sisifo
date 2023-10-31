@@ -170,6 +170,11 @@ public class ReclamoMapper {
             if (reclamoModel.getTipoReclamo() != null)
                 dto.setTipoReclamo(tipoReclamoMapper.toDto(reclamoModel.getTipoReclamo()));
 
+            if (reclamoModel.getCreada() != null)
+                dto.setCreada(reclamoModel.getCreada().toString());
+            if (reclamoModel.getModificada() != null)
+                dto.setModificada(reclamoModel.getModificada().toString());
+
             return dto;
         } catch (Exception e) {
             log.info("Reclamo entity to dto error. Exception: " + e);

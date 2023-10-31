@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Schema(name = "Archivo", description = "Modelo de entidad que alamcena una imagen en el servidor.")
 @Setter
-public class AreaDTO implements Serializable {
+public class AreaDTO extends AbsAuditoriaDTO implements Serializable {
     @Schema(description = "Identificador unico de la entidad.")
     private String id;
     @Schema(description = "Nombre del area que atiende el reclamo.")

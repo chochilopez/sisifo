@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Schema(name = "Usuario", description = "Modelo de entidad de usuario para registro y datos personales.")
 @Setter
-public class UsuarioDTO implements Serializable {
+public class UsuarioDTO extends AbsAuditoriaDTO implements Serializable {
     @Schema(description = "Identificador unico de la entidad.")
     private String id;
     @Schema(description = "Apellido y nombre de la persona.")

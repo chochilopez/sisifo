@@ -33,13 +33,18 @@ public class RolMapper {
         }
     }
 
-    public RolDTO toDto(RolModel rolModel) {
+    public RolDTO toDto(RolModel modelo) {
         try {
             log.info("Rol entity to dto.");
             RolDTO dto = new RolDTO();
 
-            dto.setId(rolModel.getId().toString());
-            dto.setRol(rolModel.getRol().toString());
+            dto.setId(modelo.getId().toString());
+            dto.setRol(modelo.getRol().toString());
+
+            if (modelo.getCreada() != null)
+                dto.setCreada(modelo.getCreada().toString());
+            if (modelo.getModificada() != null)
+                dto.setModificada(modelo.getModificada().toString());
 
             return dto;
         } catch (Exception e) {
